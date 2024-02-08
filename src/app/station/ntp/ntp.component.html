@@ -1,0 +1,36 @@
+
+    <!--<app-page-header [heading]="'Equipement Configuration '" [icon]="'fa-edit'"></app-page-header>-->
+    <div class="heading text-center">
+      <h3>NTP Service</h3>
+    </div>
+    <div class="alarm-dtable">
+  
+      <table class="table table-striped table-bordered table-responsive table-sm row-border hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" >
+          <thead>
+              <tr>
+                  <th  style="width:220px">Token</th>
+                  <th  style="width:340px">Device Id</th>
+                
+                  <th  style="width:330px">Device Date Time</th>
+                  <th  style="width:330px">Server Date Time</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of ntp">
+  
+                  <td>{{item.token}}</td>
+                  <td>{{item.deviceId}}</td>
+                 
+                  <td>{{item.deviceDateTime}}</td>
+                  <td>{{item.serverDateTime}}</td>
+              </tr>
+              
+            
+          </tbody>
+         
+      </table>
+
+  
+  
+  
+  </div>

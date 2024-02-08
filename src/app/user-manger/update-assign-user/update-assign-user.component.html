@@ -1,0 +1,172 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div class="card card-outline-secondary shadow-lg p-3 mb-5 bg-white rounded">
+    <div
+        class="card-header"
+        style="
+            background-image: linear-gradient(45deg, #6c8ec7, transparent);
+            color: whitesmoke;
+        "
+    >
+        <h3 class="mb-0">Update Assigned User to Station</h3>
+    </div>
+    <form [formGroup]="updateAssignUser" (ngSubmit)="onSubmit()">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-6 pb-3">
+                    <label for="startDate">Employee ID</label>
+
+                    <select
+                        type="text"
+                        formControlName="user"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option
+                            *ngFor="let user of userList"
+                            [ngValue]="user.id"
+                        >
+                            {{ user.employeeId }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateAssignUser.controls.user.errors &&
+                                updateAssignUser.controls.user.errors.required
+                            "
+                        >
+                            {{
+                                updateAssignUser.controls.user.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 pb-3">
+                    <label>Role</label>
+                    <select
+                        readonly
+                        formControlName="roles"
+                        class="form-control not-allowed"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option
+                            *ngFor="let role of userList"
+                            [ngValue]="role.roles[0]"
+                        >
+                            {{ role.roles[0].name }}
+                        </option>
+                    </select>
+
+                    <!-- <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateupdateAssignUser.controls.role.errors &&
+                                updateupdateAssignUser.controls.role.errors.required
+                            "
+                        >
+                            {{
+                                updateupdateAssignUser.controls.role.errors.required.message
+                            }}
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-sm-6 pb-3">
+                    <label for="productManu">Line</label>
+
+                    <select
+                        type="email"
+                        formControlName="line"
+                        placeholder="Select line"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option *ngFor="let line of lines" [ngValue]="line.id">
+                            {{ line.lineName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateAssignUser.controls.line.errors &&
+                                updateAssignUser.controls.line.errors.required
+                            "
+                        >
+                            {{
+                                updateAssignUser.controls.line.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 pb-3">
+                    <label>Station</label>
+                    <select
+                        type="text"
+                        class="form-control"
+                        formControlName="station"
+                        placeholder="Select station"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option
+                            *ngFor="let station of stationList"
+                            [ngValue]="station.id"
+                        >
+                            {{ station.stationName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateAssignUser.controls.station.errors &&
+                                updateAssignUser.controls.station.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateAssignUser.controls.station.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 pb-3">
+                    <input hidden
+                        type="text"
+                        class="form-control"
+                        formControlName="id"
+                    />
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3 pb-3">
+                    <button class="btn btn-outline-primary mt-1">
+                        <i class="fa fa-paper-plane"></i>
+                        Update
+                    </button>
+                </div>
+                <!-- <div class="col-3 pb-3">
+                    <button type="reset" class="btn btn-outline-danger mt-1">
+                        <i class="fas fa-redo"></i>
+                        Reset
+                    </button>
+                </div> -->
+            </div>
+        </div>
+    </form>
+</div>

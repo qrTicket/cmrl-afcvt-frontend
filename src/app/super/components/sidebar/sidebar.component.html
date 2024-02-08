@@ -1,0 +1,113 @@
+<nav
+    class="sidebar"
+    [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
+>
+    <div class="list-group">
+        <a
+            [routerLink]="['/super-admin/dashboard']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ "Dashboard" }}</span>
+        </a>
+        <a
+            [routerLink]="['/super-admin/ptonum']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa fa-clock-o"></i>&nbsp;
+            <span>{{ "Pending list of PTOs" }}</span>
+        </a>
+        <a
+            [routerLink]="['/super-admin/user/list']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa fa-check"></i>&nbsp;
+            <span>{{ "Verified PTOs" }}</span>
+        </a>
+        <a
+            [routerLink]="['/super-admin/rejected/users']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa fa-close"></i>&nbsp;
+            <span>{{ "Rejected PTOs" }}</span>
+        </a>
+        <a
+            [routerLink]="['/super-admin/blacklist/users']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa fa-ban"></i>&nbsp;
+            <span>{{ "Blacklist PTOs" }}</span>
+        </a>
+        <a
+            [routerLink]="['/super-admin/profile/edit']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa-user"></i>&nbsp;
+            <span>{{ "Edit profile" }}</span>
+        </a>
+        <!-- <a
+            [routerLink]="['/super-admin/privacy']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa-lock"></i>&nbsp;
+            <span>{{ "Privacy" }}</span>
+        </a> -->
+    </div>
+
+    <div class="header-fields">
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('profile')">
+                <span
+                    ><i class="fa fa-user mr-10"></i>&nbsp; &nbsp; &nbsp;
+                    {{ username | titlecase }}
+                </span>
+                <b class="caret ml-10"></b>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'profile'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <span
+                                ><i class="fa fa-fw fa-user"></i>
+                                {{ "Profile" | translate }}</span
+                            >
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a href="javascript:void(0)">
+                            <span
+                                ><i class="fa fa-fw fa-envelope"></i>
+                                {{ "Privacy" | translate }}</span
+                            >
+                        </a>
+                    </li> -->
+                    <li>
+                        <a [routerLink]="['/login']" (click)="onLoggedout()">
+                            <span
+                                ><i class="fa fa-fw fa-power-off"></i>
+                                {{ "Log Out" | translate }}</span
+                            >
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+    </div>
+    <div
+        class="toggle-button"
+        [ngClass]="{ collapsed: collapsed }"
+        (click)="toggleCollapsed()"
+    >
+        <i
+            class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"
+        ></i
+        >&nbsp;
+    </div>
+</nav>

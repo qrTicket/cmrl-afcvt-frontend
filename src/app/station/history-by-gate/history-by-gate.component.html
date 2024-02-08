@@ -1,0 +1,67 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#ffffff" type="timer" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="heading text-center">
+    <h3>History By Gate Name</h3>
+</div>
+
+<br>
+
+<label>Gate Name:</label> &nbsp;
+
+<select class="form-control" (change)="onSelect()" [(ngModel)]="selectedGateName">
+    <option>Select Gate</option>
+    <option *ngFor="
+    let item of this.gateSelectedStatus"> {{ item.gateName }}
+    </option>
+</select>
+
+<br>
+<div class="equip-dtable">
+    <table id="dataTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" dt-columns="dtColumns"
+        class="table table-striped table-bordered table-responsive table-sm row-border hover display nowrap">
+        <thead>
+            <tr>
+                <th style="width:200px">Gate Name</th>
+                <th style="width:180px">Updated Date</th>
+                <th style="width:200px">Direction Indicator</th>
+                <th style="width:200px">Direction Name</th>
+                <th style="width:200px">Mode Name</th>
+                <th style="width:200px">Emergency Mode Name</th>
+                <th style="width:200px">Aisle Mode</th>
+                <th style="width:200px">Que Length</th>
+                <th style="width:200px">Flap Safety Time</th>
+                <th style="width:200px">Gate Reset Time</th>
+                <th style="width:200px">Buzzer Volume</th>
+                <th style="width:200px">Light Intensity</th>
+                <th style="width:200px">Sensor InAct Time</th>
+                <th style="width:200px;">Version</th>
+                <th>Activation Time</th>
+                <th>Deactivation Time</th>
+                <th style="width:200px;">Action Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of this.selected" (change)="onSelect()">
+                <td>{{ list.gateName }}</td>
+                <td>{{ list.updatedDate | date:'medium'}}</td>
+                <td>{{ list.directionIndicatorName }}</td>
+                <td>{{ list.directionName }}</td>
+                <td>{{ list.modeName }}</td>
+                <td>{{ list.emergencyModeName }}</td>
+                <td>{{ list.aisleModeName }}</td>
+                <td>{{ list.queLength }}</td>
+                <td>{{ list.flapTime }}</td>
+                <td>{{ list.gateResetTime }}</td>
+                <td>{{ list.buzzerVolume }}</td>
+                <td>{{ list.lightIntensity }}</td>
+                <td>{{ list.sit }}</td>
+                <td>{{ list.version }}</td>
+                <td>{{ list.activationTime | date:'medium'}}</td>
+                <td>{{ list.deactivationTime | date:'medium'}}</td>
+                <td>{{ list.actionType}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

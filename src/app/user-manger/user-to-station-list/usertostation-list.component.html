@@ -1,0 +1,70 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#ffffff" type="timer" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<h2 class="text-center hdr-set">User to Station List</h2>
+<hr>
+
+<div class="table-responsive">
+    <table id="dataTable" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="display nowrap"
+        cellspacing="0" width="100%" *ngIf="this.temp">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Employee ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Station</th>
+                <th>Line</th>
+                <th>Status</th>
+                <th>Update</th>
+                <th>Delete</th>
+                <th>Test</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of AssignUserList">
+                <td>{{ user.id }}</td>
+                <td>{{ user.user.name }}</td>
+                <td>{{ user.user.employeeId }}</td>
+                <td>{{ user.user.username }}</td>
+                <td>{{ user.user.email }}</td>
+                <td>{{ user.user.roles[0].name }}</td>
+                <td>{{ user.station.stationName }}</td>
+                <td>{{ user.line.lineName }}</td>
+                <td>
+                    <button type="button" [ngClass]="{
+                            'btn btn-danger': user.status === value,
+                            'btn btn-success': user.status !== value
+                        }" (click)="changestatus(user.id)">
+                        {{ user.status === value ? "Deactive" : "Active" }}
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-warning" (click)="update(user.id)">
+                        <i class="fa fa-pencil-square-o" style="font-size: 20px"></i>
+                    </button>
+                </td>
+                <td>
+                    <i class="fa fa-trash" (click)="openModal(template)" style="font-size: 20px; cursor: pointer"></i>
+                    <ng-template #template>
+                        <div class="modal-body text-center">
+                            <p>Do you really want to delete this?</p>
+                            <button type="button" class="btn btn-default" (click)="confirm(user.id)">
+                                Confirm
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="decline()">
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td>
+                <td>
+                    {{ user.status }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

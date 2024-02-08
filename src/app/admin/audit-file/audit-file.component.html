@@ -1,0 +1,34 @@
+<div class="container">
+    <h1 class="heading">Audit File</h1>
+    <hr />
+    <div class="form-wrapper">
+        <form
+            [formGroup]="auditForm"
+            class="form-content"
+            (ngSubmit)="onSubmit()"
+        >
+            <div class="mb-1">
+                <label>Audit File Name</label>
+                <input
+                    type="text"
+                    formControlName="fileName"
+                    class="form-control"
+                />
+            </div>
+            <div class="mb-3">
+                <label>File Send Time Interval</label>
+                <input
+                    type="text"
+                    formControlName="timeInterval"
+                    class="form-control"
+                />
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn">
+                    Submit
+                    <i class="fa fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

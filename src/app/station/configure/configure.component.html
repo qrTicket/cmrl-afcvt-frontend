@@ -1,0 +1,697 @@
+<!-- <div class="heading">
+  Configuration form
+</div> -->
+<div class="heading text-center">
+  <h3>Terminal Configuration Form</h3>
+</div>
+<div class="row">
+
+  <div class="col-md-12">
+    <form [formGroup]="configForm" (ngSubmit)="onFormSubmit()">
+      <div class="addgateform">
+
+        <div class="col-md-12">
+          <div class="form-row">
+            <!-- <div class="form-group col-md-3">
+          <label for="terminalId">Terminal Id</label>
+          <input type="text" class="form-control" formControlName="terminalId" [ngClass]="{
+        'is-invalid': submitted && fval.terminalId.errors
+    }" />
+          <div *ngIf="submitted && fval.terminalId.errors" class="invalid-feedback">
+            <div *ngIf="fval.terminalId.errors.required">
+              Terminal Id is required !
+            </div>
+          </div>
+        </div> -->
+            <!-- <input type="hidden" formControlName="gateTriggerId"> -->
+            <!--  -->
+
+            <div class="form-group col-md-3">
+              <label for="gateName">Gate Name</label>
+              <input type="text" class="form-control" formControlName="gateName" [ngClass]="{
+             'is-invalid': submitted && fval.gateName.errors
+              }">
+              <div *ngIf="submitted && fval.gateName.errors" class="invalid-feedback">
+                <div *ngIf="fval.gateName.errors.required">
+                  Gate Name is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="line">Line Id</label>
+              <select name="line" class="form-control" formControlName="line" [ngClass]="{
+            'is-invalid': submitted && fval.line.errors}">
+                <option>Select Line Id</option>
+                <option *ngFor="let product of gateList" [ngValue]="product.line.id">
+                  {{product.line.id}}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.line.errors" class="invalid-feedback">
+                <div *ngIf="fval.line.errors.required">
+                  Line Id is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="station">Station Id</label>
+              <select name="station" class="form-control" formControlName="station" [ngClass]="{
+            'is-invalid': submitted && fval.station.errors}">
+                <option>Select Station Id</option>
+                <option *ngFor="let product of gateList" [ngValue]="product.station.id">
+                  {{product.station.id}}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.station.errors" class="invalid-feedback">
+                <div *ngIf="fval.station.errors.required">
+                  Station Id is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="productId">Equipment Id</label>
+              <select name="productId" class="form-control" formControlName="productId" [ngClass]="{
+            'is-invalid': submitted && fval.productId.errors}">
+                <option>Select Terminal Id</option>
+                <option *ngFor="let product of gateList" [ngValue]="product.productId.id">
+                  {{product.productId.id}}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.productId.errors" class="invalid-feedback">
+                <div *ngIf="fval.productId.errors.required">
+                  Product Id is required !
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>        
+
+        <hr>        
+
+        <h4>Terminal - A</h4>
+
+        <div class="col-md-12">
+          <div class="form-row">
+
+            <div class="form-group col-md-3">
+              <label for="termID1">Terminal 1</label>
+              <select name="termID1" class="form-control" formControlName="termID1" [ngClass]="{
+              'is-invalid': submitted && fval.termID1.errors}">
+                <option>Select Terminal Id</option>
+                <option *ngFor="let product of gateList" [ngValue]="product.termID1.id">
+                  {{product.termID1.id}}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.termID1.errors" class="invalid-feedback">
+                <div *ngIf="fval.termID1.errors.required">
+                  Terminal Id is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="direction1">Direction 1</label>
+              <select id="direction1" class="form-control" formControlName="direction1" [ngClass]="{
+              'is-invalid': submitted && fval.direction1.errors
+                }">
+                <option>Select direction</option>
+                <option *ngFor="let dir of gateList" [ngValue]="dir.direction1.id">
+                  {{ dir.direction1.id }}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.direction1.errors" class="invalid-feedback">
+                <div *ngIf="fval.direction1.errors.required">
+                  Direction 1 is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="terminalIpAddress1">Equipment IpAddress 1</label>
+              <input type="text" class="form-control" formControlName="terminalIpAddress1" [ngClass]="{
+              'is-invalid': submitted && fval.terminalIpAddress1.errors
+              }" />
+              <div *ngIf="submitted && fval.terminalIpAddress1.errors" class="invalid-feedback">
+                <div *ngIf="fval.terminalIpAddress1.errors.required">
+                  Terminal IpAddress is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="activationTime1">Activation Time 1</label>
+              <input type="text" class="form-control" formControlName="activationTime1" [ngClass]="{
+             'is-invalid': submitted && fval.activationTime1.errors
+              }">
+              <div *ngIf="submitted && fval.activationTime1.errors" class="invalid-feedback">
+                <div *ngIf="fval.activationTime1.errors.required">
+                  Activation Time is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="deactivationTime1">Deactivation Time 1</label>
+              <input type="text" class="form-control" formControlName="deactivationTime1" [ngClass]="{
+              'is-invalid': submitted && fval.deactivationTime1.errors
+              }">
+              <div *ngIf="submitted && fval.deactivationTime1.errors" class="invalid-feedback">
+                <div *ngIf="fval.deactivationTime1.errors.required">
+                  Deactivation Time is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="editable1">Editable 1</label>
+              <select id="editable1" class="form-control" formControlName="editable1" [ngClass]="{
+              'is-invalid': submitted && fval.editable1.errors
+              }">
+                <option selected>True</option>
+                <option>False</option>
+              </select>
+              <div *ngIf="submitted && fval.editable1.errors" class="invalid-feedback">
+                <div *ngIf="fval.editable1.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="entryExitOverride1">ENTRY_EXIT_OVERRIDE 1</label>
+              <select id="entryExitOverride1" class="form-control" formControlName="entryExitOverride1" [ngClass]="{
+              'is-invalid': submitted && fval.entryExitOverride1.errors
+              }">
+                <option selected>Enable </option>
+                <option>Disable </option>
+              </select>
+              <div *ngIf="submitted && fval.entryExitOverride1.errors" class="invalid-feedback">
+                <div *ngIf="fval.entryExitOverride1.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="timeModeOverride1">TIME_MODE_OVERRIDE 1</label>
+              <select id="timeModeOverride1" class="form-control" formControlName="timeModeOverride1" [ngClass]="{
+              'is-invalid': submitted && fval.timeModeOverride1.errors
+              }">
+                <option>Enable </option>
+                <option>Disable </option>
+              </select>
+              <div *ngIf="submitted && fval.timeModeOverride1.errors" class="invalid-feedback">
+                <div *ngIf="fval.timeModeOverride1.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="highSecurityMode1">HIGH_SECURITY_MODE 1</label>
+              <select id="highSecurityMode1" class="form-control" formControlName="highSecurityMode1" [ngClass]="{
+              'is-invalid': submitted && fval.highSecurityMode1.errors
+              }">
+                <option>Enable </option>
+                <option>Disable </option>
+              </select>
+              <div *ngIf="submitted && fval.highSecurityMode1.errors" class="invalid-feedback">
+                <div *ngIf="fval.highSecurityMode1.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        
+        <h4>Terminal - B</h4>
+
+        <div class="col-md-12">
+          <div class="form-row">
+
+            <div class="form-group col-md-3">
+              <label for="termID2">Terminal 2</label>
+              <select name="termID2" class="form-control" formControlName="termID2" [ngClass]="{
+              'is-invalid': submitted && fval.termID2.errors}">
+                <option>Select Terminal Id</option>
+                <option *ngFor="let product of gateList" [ngValue]="product.termID2.id">
+                  {{product.termID2.id}}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.termID2.errors" class="invalid-feedback">
+                <div *ngIf="fval.termID2.errors.required">
+                  Product Id is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="direction2">Direction 2</label>
+              <select id="direction2" class="form-control" formControlName="direction2" [ngClass]="{
+              'is-invalid': submitted && fval.direction2.errors
+                }">
+                <option>Select direction</option>
+                <option *ngFor="let dir of gateList" [ngValue]="dir.direction2.id">
+                  {{ dir.direction2.id }}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.direction2.errors" class="invalid-feedback">
+                <div *ngIf="fval.direction2.errors.required">
+                  Direction 1 is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="terminalIpAddress2">Equipment IpAddress 2</label>
+              <input type="text" class="form-control" formControlName="terminalIpAddress2" [ngClass]="{
+              'is-invalid': submitted && fval.terminalIpAddress2.errors
+                }" />
+              <div *ngIf="submitted && fval.terminalIpAddress2.errors" class="invalid-feedback">
+                <div *ngIf="fval.terminalIpAddress2.errors.required">
+                  Terminal IpAddress is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="activationTime2">Activation Time 2</label>
+              <input type="text" class="form-control" formControlName="activationTime2" [ngClass]="{
+             'is-invalid': submitted && fval.activationTime2.errors
+              }">
+              <div *ngIf="submitted && fval.activationTime2.errors" class="invalid-feedback">
+                <div *ngIf="fval.activationTime2.errors.required">
+                  Activation Time is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="deactivationTime2">Deactivation Time 2</label>
+              <input type="text" class="form-control" formControlName="deactivationTime2" [ngClass]="{
+              'is-invalid': submitted && fval.deactivationTime2.errors
+              }">
+              <div *ngIf="submitted && fval.deactivationTime2.errors" class="invalid-feedback">
+                <div *ngIf="fval.deactivationTime2.errors.required">
+                  Deactivation Time is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="editable2">Editable 2</label>
+              <select id="editable2" class="form-control" formControlName="editable2" [ngClass]="{
+              'is-invalid': submitted && fval.editable2.errors
+              }">
+                <option selected>True</option>
+                <option>False</option>
+              </select>
+              <div *ngIf="submitted && fval.editable2.errors" class="invalid-feedback">
+                <div *ngIf="fval.editable2.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="entryExitOverride2">ENTRY_EXIT_OVERRIDE 2</label>
+              <select id="entryExitOverride2" class="form-control" formControlName="entryExitOverride2" [ngClass]="{
+              'is-invalid': submitted && fval.entryExitOverride2.errors
+              }">
+                <option>Enable </option>
+                <option>Disable </option>
+              </select>
+              <div *ngIf="submitted && fval.entryExitOverride2.errors" class="invalid-feedback">
+                <div *ngIf="fval.entryExitOverride2.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="timeModeOverride2">TIME_MODE_OVERRIDE 2</label>
+              <select id="timeModeOverride2" class="form-control" formControlName="timeModeOverride2" [ngClass]="{
+              'is-invalid': submitted && fval.timeModeOverride2.errors
+              }">
+                <option>Enable </option>
+                <option>Disable</option>
+              </select>
+              <div *ngIf="submitted && fval.timeModeOverride2.errors" class="invalid-feedback">
+                <div *ngIf="fval.timeModeOverride2.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="highSecurityMode2">HIGH_SECURITY_MODE 2</label>
+              <select id="highSecurityMode2" class="form-control" formControlName="highSecurityMode2" [ngClass]="{
+              'is-invalid': submitted && fval.highSecurityMode2.errors
+              }">
+                <option>Enable </option>
+                <option>Disable </option>
+              </select>
+              <div *ngIf="submitted && fval.highSecurityMode2.errors" class="invalid-feedback">
+                <div *ngIf="fval.highSecurityMode2.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="col-md-12">
+          <div class="form-row">
+
+            <div class="form-group col-md-3">
+              <label for="direction">DIRECTION</label>
+              <select id="direction" class="form-control" formControlName="direction" [ngClass]="{
+              'is-invalid': submitted && fval.direction.errors
+              }">
+                <option selected>AB</option>
+                <option>BA </option>
+                <option>ABA </option>
+              </select>
+              <div *ngIf="submitted && fval.direction.errors" class="invalid-feedback">
+                <div *ngIf="fval.direction.errors.required">
+                  Direction is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="aisleMode">AISLE_MODE</label>
+              <select id="aisleMode" class="form-control" formControlName="aisleMode" [ngClass]="{
+              'is-invalid': submitted && fval.aisleMode.errors
+              }">
+                <option selected>Enable</option>
+                <option>Disable </option>
+              </select>
+              <div *ngIf="submitted && fval.aisleMode.errors" class="invalid-feedback">
+                <div *ngIf="fval.aisleMode.errors.required">
+                  Aisle Mode is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="emergencyMode">EMERGENCY_MODE</label>
+              <select id="emergencyMode" class="form-control" formControlName="emergencyMode" [ngClass]="{
+              'is-invalid': submitted && fval.emergencyMode.errors
+              }">
+                <option selected>Active</option>
+                <option>Inactive </option>
+              </select>
+              <div *ngIf="submitted && fval.emergencyMode.errors" class="invalid-feedback">
+                <div *ngIf="fval.emergencyMode.errors.required">
+                  Emergency Mode is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="buzzerVolume">Buzzer Volume</label>
+              <select id="buzzerVolume" class="form-control" formControlName="buzzerVolume" [ngClass]="{
+              'is-invalid': submitted && fval.buzzerVolume.errors
+              }">
+                <option>1</option>
+                <option>3</option>
+                <option>5</option>
+                <option>7</option>
+                <option>10</option>
+              </select>
+              <div *ngIf="submitted && fval.buzzerVolume.errors" class="invalid-feedback">
+                <div *ngIf="fval.buzzerVolume.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="flapSafetyTime">Flap Safety Time</label>
+              <select id="flapSafetyTime" class="form-control" formControlName="flapSafetyTime" [ngClass]="{
+              'is-invalid': submitted && fval.flapSafetyTime.errors
+              }">
+                <option>5</option>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>30</option>
+              </select>
+              <div *ngIf="submitted && fval.flapSafetyTime.errors" class="invalid-feedback">
+                <div *ngIf="fval.flapSafetyTime.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="gateResetTime">Gate Reset Time</label>
+              <select id="gateResetTime" class="form-control" formControlName="gateResetTime" [ngClass]="{
+              'is-invalid': submitted && fval.gateResetTime.errors
+              }">
+                <option>2</option>
+                <option>14</option>
+                <option>6</option>
+                <option>8</option>
+                <option>10</option>
+              </select>
+              <div *ngIf="submitted && fval.gateResetTime.errors" class="invalid-feedback">
+                <div *ngIf="fval.gateResetTime.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="sensorInactTime">Sensor Inact Time</label>
+              <select id="sensorInactTime" class="form-control" formControlName="sensorInactTime" [ngClass]="{
+              'is-invalid': submitted && fval.sensorInactTime.errors
+              }">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>5</option>
+                <option>10</option>
+              </select>
+              <div *ngIf="submitted && fval.sensorInactTime.errors" class="invalid-feedback">
+                <div *ngIf="fval.sensorInactTime.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="lightIntensity">Light Intensity</label>
+              <select id="lightIntensity" class="form-control" formControlName="lightIntensity" [ngClass]="{
+              'is-invalid': submitted && fval.lightIntensity.errors
+              }">
+                <option>2</option>
+                <option>4</option>
+                <option>6</option>
+                <option>8</option>
+                <option>10</option>
+              </select>
+              <div *ngIf="submitted && fval.lightIntensity.errors" class="invalid-feedback">
+                <div *ngIf="fval.lightIntensity.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="queLength">Que Lenght</label>
+              <select id="queLength" class="form-control" formControlName="queLength" [ngClass]="{
+              'is-invalid': submitted && fval.queLength.errors
+              }">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <div *ngIf="submitted && fval.queLength.errors" class="invalid-feedback">
+                <div *ngIf="fval.queLength.errors.required">
+                  This Field is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="actionType">Action Type</label>
+              <select id="actionType" class="form-control" formControlName="actionType" [ngClass]="{
+              'is-invalid': submitted && fval.actionType.errors
+              }">
+                <option selected>Del Old</option>
+                <option>False</option>
+              </select>
+              <div *ngIf="submitted && fval.actionType.errors" class="invalid-feedback">
+                <div *ngIf="fval.actionType.errors.required">
+                  Action Type is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="version">Version</label>
+              <input type="text" class="form-control" formControlName="version" [ngClass]="{
+              'is-invalid': submitted && fval.version.errors
+              }">
+              <div *ngIf="submitted && fval.version.errors" class="invalid-feedback">
+                <div *ngIf="fval.version.errors.required">
+                  Version is required !
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="gateDirection">Direction Name</label>
+              <select name="gateDirection" class="form-control" formControlName="gateDirection" [ngClass]="{
+              'is-invalid': submitted && fval.gateDirection.errors}">
+                <option>Select Direction Name</option>
+                <option *ngFor="let product of gateList" [ngValue]="product.gateDirection.id">
+                  {{product.gateDirection.id}}
+                </option>
+              </select>
+              <div *ngIf="submitted && fval.gateDirection.errors" class="invalid-feedback">
+                <div *ngIf="fval.gateDirection.errors.required">
+                  Direction Name is required !
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- <div class="form-group col-md-3">
+            <label for="activationTime">Activation Time</label>
+            <input type="text" class="form-control" formControlName="activationTime" [ngClass]="{
+             'is-invalid': submitted && fval.activationTime.errors
+              }">
+            <div *ngIf="submitted && fval.activationTime.errors" class="invalid-feedback">
+              <div *ngIf="fval.activationTime.errors.required">
+                Activation Time is required !
+              </div>
+            </div>
+            </div> -->
+
+        <!-- <div class="form-group col-md-3">
+            <label for="deactivationTime">Deactivation Time</label>
+            <input type="text" class="form-control" formControlName="deactivationTime" [ngClass]="{
+              'is-invalid': submitted && fval.deactivationTime.errors
+              }">
+            <div *ngIf="submitted && fval.deactivationTime.errors" class="invalid-feedback">
+              <div *ngIf="fval.deactivationTime.errors.required">
+                Deactivation Time is required !
+              </div>
+            </div>
+          </div> -->
+
+        <!-- <div class="form-group col-md-3">
+            <label for="mode">MODE</label>
+            <select id="mode" class="form-control" formControlName="mode" [ngClass]="{
+            'is-invalid': submitted && fval.mode.errors
+        }">
+              <option selected>NORMAL MODE</option>
+              <option>INCIDENT MODE</option>
+              <option>MAINTENANCE</option>
+              <option>EMERGENCY</option>
+              <option>OUT OF SERVICE </option>
+              <option>STATION CLOSE </option>
+              <option>OUT OF ORDER </option>
+            </select>
+            <div *ngIf="submitted && fval.mode.errors" class="invalid-feedback">
+              <div *ngIf="fval.mode.errors.required">
+                Mode is required !
+              </div>
+            </div>
+          </div> -->
+
+        <!-- <div class="form-group col-md-3">
+            <label for="subMode">Sub MODE</label>
+            <select id="subMode" class="form-control" formControlName="subMode" [ngClass]="{
+            'is-invalid': submitted && fval.subMode.errors
+            }">
+              <option selected>OPEN</option>
+              <option>CLOSE </option>
+            </select>
+            <div *ngIf="submitted && fval.subMode.errors" class="invalid-feedback">
+              <div *ngIf="fval.subMode.errors.required">
+                Emergency Mode is required !
+              </div>
+            </div>
+          </div> -->
+
+        <!--<div class="form-group col-md-3">
+          <label for="editable">Direction Applicable</label>
+          <select id="editable" class="form-control">
+          <option selected>Incident Mode</option>
+          <option>Normal Mode</option>
+          </select>
+          </div>-->
+
+        <!-- <div class="form-group col-md-3">
+            <label for="direction">DIRECTION</label>
+            <select id="direction" class="form-control" formControlName="direction" [ngClass]="{
+              'is-invalid': submitted && fval.direction.errors
+              }">
+              <option selected>AB</option>
+              <option>BA </option>
+              <option>ABA </option>
+            </select>
+            <div *ngIf="submitted && fval.direction.errors" class="invalid-feedback">
+              <div *ngIf="fval.direction.errors.required">
+                Direction is required !
+              </div>
+            </div>
+          </div> -->
+
+        <!-- <div class="form-group col-md-3">
+            <label for="direction2">Direction 2</label>
+            <select class="form-control" formControlName="direction2">
+              <option>Select direction</option>
+              <option
+                  *ngFor="let dir of directionList"
+                  [ngValue]="dir.directionName"
+              >
+                  {{ dir.directionName }}
+              </option>
+          </select>
+            <div *ngIf="submitted && fval.direction2.errors" class="invalid-feedback">
+              <div *ngIf="fval.direction2.errors.required">
+                Direction 2 is required !
+              </div>
+            </div>
+          </div>  -->
+
+        <!-- <div class="form-group col-md-3">
+            <label for="moduleId">Module Id</label>
+            <input type="text" class="form-control" formControlName="moduleId" [ngClass]="{
+            'is-invalid': submitted && fval.moduleId.errors
+            }" />
+            <div *ngIf="submitted && fval.moduleId.errors" class="invalid-feedback">
+              <div *ngIf="fval.moduleId.errors.required">
+                Module Id is required !
+              </div>
+            </div>
+          </div> -->
+
+
+        <div class="form-group col-md-3">
+          <div class="addbtn">
+            <button type="submit">Update</button>
+          </div>
+        </div>
+
+        <!-- </div> -->
+
+      </div>
+    </form>
+  </div>
+
+</div>

@@ -1,0 +1,395 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form_wrapper">
+            <div class="form_container">
+                <div class="title_container">
+                    <h2>Registration PTO</h2>
+                </div>
+
+                <form [formGroup]="regform" (ngSubmit)="onFormSubmit()">
+                    <div class="row clearfix">
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-user"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    formControlName="vendorName"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted && fval.vendorName.errors
+                                    }"
+                                    placeholder="Enter Vendor Name"
+                                    required
+                                />
+                                <div
+                                *ngIf="
+                                    submitted && fval.vendorName.errors
+                                "
+                                class="invalid-feedback"
+                            >
+                                <div
+                                    *ngIf="
+                                        regform.controls.vendorName
+                                            .errors?.required
+                                    "
+                                >
+                                    Contact Person Name is required
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-user"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    formControlName="contactPerson"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted &&
+                                            fval.contactPerson.errors
+                                    }"
+                                    placeholder="Enter Contact Person  Name"
+                                    required
+                                />
+                                <div
+                                    *ngIf="
+                                        submitted && fval.contactPerson.errors
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            regform.controls.contactPerson
+                                                .errors?.required
+                                        "
+                                    >
+                                        Contact Person Name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-user"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    formControlName="mobileNumber"
+                                    data-validation="number"
+                                    data-validation-allowing="negative,number"
+                                    input
+                                    name="color"
+                                    data-validation="number"
+                                    datavalidation-ignore="$"
+                                    required="required"
+                                    class="form-control"
+                                    placeholder="Phone Number"
+                                    maxlength="10"
+                                    pattern="\d*"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted &&
+                                            fval.mobileNumber.errors
+                                    }"
+                                    placeholder="Enter Mobile Name here"
+                                    required
+                                    minlength="10"
+                                />
+                                <div
+                                    *ngIf="
+                                        submitted && fval.mobileNumber.errors
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            regform.controls.mobileNumber.errors
+                                                ?.required
+                                        "
+                                    >
+                                        Mobile number is required
+                                    </div>
+                                    <!-- <div *ngIf="ptoform.controls.mobileNumber.errors?.minlength"> must be 10 digit</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-user"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    formControlName="gstNumber"
+                                    placeholder="GST  Name"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted && fval.gstNumber.errors
+                                    }"
+                                    placeholder="Enter GST Number"
+                                    required
+                                />
+                                <div
+                                    *ngIf="submitted && fval.gstNumber.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            regform.controls.gstNumber.errors
+                                                ?.required
+                                        "
+                                    >
+                                        GST Number is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-lock"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="password"
+                                    formControlName="password"
+                                    placeholder="Password"
+                                    required
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted && fval.password.errors
+                                    }"
+                                    placeholder="Enter Password "
+                                    required
+                                />
+                                <div
+                                    *ngIf="submitted && fval.password.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="fval.password.errors.required">
+                                        Password is required
+                                    </div>
+                                    <!-- <div *ngIf="fval.password.errors.minlength">Password must be at least 6 characters</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-lock"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="password"
+                                    formControlName="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    required
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted &&
+                                            fval.confirmPassword.errors
+                                    }"
+                                    placeholder="Enter Confirm Password "
+                                    required
+                                />
+                                <div
+                                    *ngIf="
+                                        submitted && fval.confirmPassword.errors
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            fval.confirmPassword.errors.required
+                                        "
+                                    >
+                                        Password is required
+                                    </div>
+                                    <!-- <div *ngIf="fval.confirmPassword.errors.minlength">Password must be at least 6 characters</div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-envelope"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="email"
+                                    formControlName="email"
+                                    placeholder="Email"
+                                    required
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted && fval.email.errors
+                                    }"
+                                    placeholder="Enter email "
+                                    required
+                                />
+                                <div
+                                    *ngIf="submitted && fval.email.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            regform.controls.email.errors
+                                                ?.required
+                                        "
+                                    >
+                                        Email is required!
+                                    </div>
+                                    <div
+                                        *ngIf="
+                                            regform.controls.email.errors?.email
+                                        "
+                                    >
+                                        Email is not valid
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-user"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    formControlName="userName"
+                                    placeholder="Username"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted && fval.userName.errors
+                                    }"
+                                    placeholder="Enter username"
+                                    required
+                                />
+
+                                <div
+                                    *ngIf="submitted && fval.userName.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            regform.controls.userName.errors
+                                                ?.required
+                                        "
+                                    >
+                                        Username is required!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-user"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    formControlName="panNumber"
+                                    placeholder="PAN Number"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted && fval.panNumber.errors
+                                    }"
+                                    placeholder="Enter Pan Name "
+                                    required
+                                />
+                                <div
+                                    *ngIf="submitted && fval.panNumber.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            regform.controls.panNumber.errors
+                                                ?.required
+                                        "
+                                    >
+                                        Pan number is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col_half">
+                            <div class="input_field">
+                                <span
+                                    ><i
+                                        aria-hidden="true"
+                                        class="fa fa-user"
+                                    ></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    formControlName="address"
+                                    placeholder="Address"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted && fval.address.errors
+                                    }"
+                                    placeholder="Enter Address "
+                                    required
+                                />
+
+                                <div
+                                    *ngIf="submitted && fval.address.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            regform.controls.address.errors
+                                                ?.required
+                                        "
+                                    >
+                                        Address is required!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="button" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

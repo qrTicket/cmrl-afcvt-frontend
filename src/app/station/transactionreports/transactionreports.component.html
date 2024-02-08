@@ -1,0 +1,30 @@
+<div class="heading text-center">
+    <h3>Transaction Service</h3>
+</div>
+<div class="alarm-dtable">
+    <table class="table table-striped table-bordered table-responsive table-sm row-border hover" datatable
+        [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+            <tr>
+                <th width="160">Terminal ID</th>
+                <th width="200">Transaction Type</th>
+                <th width="200">File Name</th>
+                <th width="190">PAN</th>
+                <th width="130">Card Balance</th>
+                <th width="180">Transaction Amount</th>
+                <th width="190">Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of transaction">
+                <td>{{item.terminalId}}</td>
+                <td>{{item.txnType}}</td>
+                <td>{{item.fileName}}</td>
+                <td>{{item.pan}}</td>
+                <td>{{item.cardBalance}}</td>
+                <td>{{item.txnAmnt}}</td>
+                <td>{{item.dateTime | date:'medium'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

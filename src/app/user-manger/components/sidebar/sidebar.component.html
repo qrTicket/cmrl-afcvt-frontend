@@ -1,0 +1,164 @@
+<nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
+
+    <div class="list-group">
+        
+        <a [routerLink]="['/user-manager/dashboard']" [routerLinkActive]="['isActive']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ "Dashboard" }}</span>
+        </a>
+
+        <!-- --------------------------- create roles code ---------------------------------- -->
+
+        <!-- <a [routerLink]="['/user-manager/user/roles']" [routerLinkActive]="['isActive']" class="list-group-item">
+            <i class="fas fa-user-tag"></i>&nbsp;
+            <span>{{ "Create Roles" }}</span>
+        </a> -->
+
+        <!-- --------------------------------------------------------------------------------- -->
+
+        <!-- <a
+            [routerLink]="['/user-manager/shifts']"
+            [routerLinkActive]="['isActive']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ "Create Shifts" }}</span>
+        </a> -->
+
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="showInv('pages')">
+                <i class="fas fa-users"></i>&nbsp;
+                <span>{{ "Users" }}
+                    &nbsp;
+                </span>
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/user-manager/adduser']"  [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-user-plus"></i>&nbsp;
+                            <span>{{ "Add User" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/user-manager/users/all/list']"  [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span>{{ "Users List" }}</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a [routerLink]="['/user-manager/assign/user']"  [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-subway"></i>&nbsp;
+                            <span>{{ "Assign Station" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/user-manager/users/station/list']"  [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span>{{ "Assigned Users" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/user-manager/users/all/blacklist']"  [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-ban"></i>&nbsp;
+                            <span>{{ "Blacklisted Users" }}</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="showShifts('shifts')">
+                <i class="fas fa-users"></i>&nbsp;
+                <span>{{ "Shifts" }}
+                    &nbsp;
+                </span>
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'shifts'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/user-manager/shifts']" [routerLinkActive]="['isActive']"
+                            class="list-group-item">
+                            <i class="fa fa-user-plus"></i>&nbsp;
+                            <span>{{ "Create Shifts" }}</span>
+                        </a>
+                        <!-- <ng-template
+                        *ngIf="
+                            this.router.url.includes(
+                                '/user-manager/shifts/update'
+                            )
+                        "
+                    >
+                        <a
+                            [routerLink]="['/user-manager/shifts/update']"
+                            [routerLinkActive]="['isActive']"
+                            class="list-group-item"
+                        >
+                            <i class="fas fa-user-edit"></i>&nbsp;
+                            <span>{{ "Update Shifts" }}</span>
+                        </a>
+                    </ng-template> -->
+                        <a [routerLink]="['/user-manager/shifts/list']" [routerLinkActive]="['isActive']"
+                            class="list-group-item">
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span>{{ " Shift List" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+                <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+                <span>{{ 'Collapse Sidebar' }}</span>
+            </div>
+    </div>
+    <!-- <div class="header-fields">
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('profile')">
+                <span
+                    ><i class="fa fa-user mr-10"></i>{{ username | titlecase }}
+                </span>
+                <b class="caret ml-10"></b>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'profile'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <span
+                                ><i class="fa fa-fw fa-user"></i>
+                                {{ "Profile" }}</span
+                            >
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <span
+                                ><i class="fa fa-fw fa-envelope"></i>
+                                {{ "Privacy" }}</span
+                            >
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/login']" (click)="onLoggedout()">
+                            <span
+                                ><i class="fa fa-fw fa-power-off"></i>
+                                {{ "Log Out" }}</span
+                            >
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+    </div> -->
+
+   
+</nav>

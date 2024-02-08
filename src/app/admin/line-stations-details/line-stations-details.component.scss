@@ -1,0 +1,84 @@
+hr {
+    border: 0;
+    height: 5px;
+    background: linear-gradient(
+        to right,
+        #00004d,
+        #00004d,
+        // rgb(185 171 171 / 0%)
+    );
+}
+ 
+ /*code by Badal*/
+
+.bdcrm {
+    margin: 25px 0 0 0;
+}
+
+.fr_stations {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.fr_stations li {
+    list-style: none;
+     background: #50da95 url("/assets/images/fair_ar.png");
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: right 17px;
+    border: 1px solid #f9b7b7;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding: 11px 25px 11px 15px;
+    color: #585858;
+    font-size: 15px;
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.fr_stations .de-activated {
+    background : #d31717 url("/assets/images/fair_ar.png");
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: right 17px;
+    border: 1px solid #f9b7b7;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding: 11px 25px 11px 15px;
+    color: #fff6f6;
+    font-size: 15px;
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+.fr_stations .st-closed {
+    background : #f0ba08 url("/assets/images/fair_ar.png");
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: right 17px;
+    border: 1px solid #f9b7b7;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding: 11px 25px 11px 15px;
+    color: #131212;
+    font-size: 15px;
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.fr_stations ul {
+    margin: 0px;
+    padding: auto;
+}

@@ -1,0 +1,43 @@
+.addbtn
+{
+    margin-top:32PX;
+}
+.addgateform
+   {
+    padding: 30px;
+    font-size: 14px!important;
+   }
+.addgateform .form-control
+{
+    font-size: 14px!important;
+    padding:3px;
+}
+.addgateform .form-control
+{
+    height:30px!important;
+}
+
+@media only screen and (max-width: 767px)
+ {
+    .addgateform
+    {
+        width:100%;
+        height:770px;
+    }
+}
+.gate
+{
+    text-align: center;
+    margin-top:60px;
+}
+.heading
+{
+    text-align: center;
+    padding-top: 60px;
+   
+}
+.addgateform button
+{
+    margin-left: 7px!important;
+    margin-top: 29px!important;
+}

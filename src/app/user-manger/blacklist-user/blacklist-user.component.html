@@ -1,0 +1,53 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<!-- <div class="m-1 p-1">
+    <h1 class="d-flex justify-content-center align-item-middle lead">
+        <b>Blacklisted Users </b>
+    </h1>
+</div> -->
+
+
+<h2 class="text-center hdr-set">Blacklisted Users List</h2>
+ <hr>
+
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Contact</th>
+                <th>Addresss</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of blacklist">
+                <td>{{ list.id }}</td>
+                <td>{{ list.employeeId }}</td>
+                <td>{{ list.name }}</td>
+                <td>{{ list.email }}</td>
+                <td>{{ list.username }}</td>
+                <td>{{ list.contact }}</td>
+                <td>{{ list.address }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

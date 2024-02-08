@@ -1,0 +1,87 @@
+<h2 class="text-center py-4">Audit File Transfer</h2>
+
+<div class="tab-set">
+  <tabset class="member-tabset" type="pills">
+    <tab heading="Single/Multiple Transfer" class="border-left-0  border border-primary rounded my-2 p-2">
+      <form [formGroup]="singleForm" (ngSubmit)="onSingleSubmit()">
+        <div class="row">
+
+          <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+            <i class="fa fa-pencil"></i>&nbsp;
+            <label>Audit File Name</label>
+            <input type="text" class="form-control" formControlName="auditFileName" placeholder="Enter file name.json"
+              [ngClass]="{
+                          'is-invalid': submitted && fval.auditFileName.errors
+                      }" />
+            <div *ngIf="submitted" class="invalid-feedback">
+              <div *ngIf="
+              singleForm.controls.auditFileName.errors &&
+              singleForm.controls.auditFileName.errors
+                                  .required
+                          ">
+                {{
+                  singleForm.controls.auditFileName.errors
+                                  .required.message
+                          }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+            <i class="fa fa-pencil"></i>&nbsp;
+            <label>File Send Time Interval</label>
+            <input type="text" class="form-control" formControlName="fileTimeInterval" onlyNumber
+              placeholder="Enter file time interval" [ngClass]="{
+                          'is-invalid': submitted && fval.fileTimeInterval.errors
+                      }" />
+            <div *ngIf="submitted" class="invalid-feedback">
+              <div *ngIf="
+                              singleForm.controls.fileTimeInterval.errors &&
+                              singleForm.controls.fileTimeInterval.errors
+                                  .required
+                          ">
+                {{
+                  singleForm.controls.fileTimeInterval.errors
+                                  .required.message
+                          }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+            <i class="fa fa-pencil"></i>&nbsp;
+            <label>Select Station</label>
+
+            <br />
+
+            <ng-container *ngFor="let item of stationList">
+              <input type="checkbox" formControlName="stationId" [(ngModel)]="stationData.stationName">&nbsp; &nbsp;
+              {{item.stationName}}
+              <br />
+            </ng-container>
+
+            <div *ngIf="submitted" class="invalid-feedback">
+              <div *ngIf="
+                            singleForm.controls.stationId.errors &&
+                            singleForm.controls.stationId.errors.required
+                        ">
+                {{
+                            singleForm.controls.stationId.errors.required
+                                .message
+                        }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix col-md-12 text-center">
+          <button type="submit" class="btn-clr btn">
+            Send
+            <span class="fa-class fa fa-paper-plane"></span>
+          </button>
+        </div>
+      </form>
+    </tab>
+  
+  </tabset>
+</div>

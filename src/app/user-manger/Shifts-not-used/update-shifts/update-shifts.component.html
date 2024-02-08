@@ -1,0 +1,284 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+>
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<nav aria-label="breadcrumb" class="bdcrm" >
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/user-manager/dashboard']" >Dashboard</a></li>
+        <li class="breadcrumb-item" aria-current="page">Update Shift</li>
+    </ol>
+</nav>
+
+
+<div class="card card-outline-secondary shadow-lg p-3 mb-5 bg-white rounded">
+    <!-- <div class="card-header hdr-set">
+        <h3 class="mb-0">Update Shifts</h3>
+    </div> -->
+    <form [formGroup]="updateShift">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-4 pb-3">
+                    <label for="startDate">Start Date</label>
+                    <input
+                        type="text"
+                        formControlName="startDate"
+                        placeholder="Select start date"
+                        class="form-control"
+                        bsDatepicker
+                        [outsideClick]="true"
+                        (bsValueChange)="onCalender($event)"
+                        [bsConfig]="datePickerConfigUpdateStart"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.startDate.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.startDate.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateShift.controls.startDate.errors &&
+                                updateShift.controls.startDate.errors.required
+                            "
+                        >
+                            {{
+                                updateShift.controls.startDate.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>End Date</label>
+
+                    <input
+                        type="text"
+                        formControlName="endDate"
+                        placeholder="Select end date"
+                        class="form-control"
+                        bsDatepicker
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigUpdateEnd"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.endDate.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.endDate.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateShift.controls.endDate.errors &&
+                                updateShift.controls.endDate.errors.required
+                            "
+                        >
+                            {{
+                                updateShift.controls.endDate.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Start Time</label>
+                    <timepicker
+                        formControlName="startTime"
+                        [showSpinners]="showSpinners"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.startTime.errors
+                        }"
+                        [showMeridian]="isMeridian"
+                        [hoursPlaceholder]="hoursPlaceholder"
+                        [minutesPlaceholder]="minutesPlaceholder"
+                        [secondsPlaceholder]="secondsPlaceholder"
+                        showSeconds="true"
+                    ></timepicker>
+                    <div
+                        *ngIf="submitted && fval.startTime.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateShift.controls.startTime.errors &&
+                                updateShift.controls.startTime.errors.required
+                            "
+                        >
+                            {{
+                                updateShift.controls.startTime.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>End Time</label>
+                    <timepicker
+                        formControlName="endTime"
+                        [showSpinners]="showSpinners"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.endTime.errors
+                        }"
+                        [showMeridian]="isMeridian"
+                        [hoursPlaceholder]="hoursPlaceholder"
+                        [minutesPlaceholder]="minutesPlaceholder"
+                        [secondsPlaceholder]="secondsPlaceholder"
+                        showSeconds="false"
+                    ></timepicker>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateShift.controls.endTime.errors &&
+                                updateShift.controls.endTime.errors.required
+                            "
+                        >
+                            {{
+                                updateShift.controls.endTime.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label>Shift Name</label>
+                    <select
+                        type="text"
+                        placeholder="Enter shift"
+                        class="form-control"
+                        formControlName="shiftName"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.shiftName.errors
+                        }"
+                    >
+                        <option value="">Select shift</option>
+                        <option>Morning Shift</option>
+                        <option>Afternoon Shift</option>
+                        <option>Evening Shift</option>
+                        <option>Night Shift</option>
+                    </select>
+                    <div
+                        *ngIf="submitted && fval.shiftName.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateShift.controls.shiftName.errors &&
+                                updateShift.controls.shiftName.errors.required
+                            "
+                        >
+                            {{
+                                updateShift.controls.shiftName.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Assign user</label>
+                    <select
+                        class="form-control"
+                        formControlName="assignUser"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.assignUser.errors
+                        }"
+                    >
+                        <option value="">Select User</option>
+                        <option
+                            *ngFor="let item of userList"
+                            [ngValue]="item.username"
+                        >
+                            {{ item.assignUser }}
+                        </option>
+                    </select>
+                    <div
+                        *ngIf="submitted && fval.assignUser.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateShift.controls.assignUser.errors &&
+                                updateShift.controls.assignUser.errors.required
+                            "
+                        >
+                            {{
+                                updateShift.controls.assignUser.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Station Name</label>
+                    <select
+                        class="form-control"
+                        formControlName="stationCode"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.stationCode.errors
+                        }"
+                    >
+                        <option value="">Select station code</option>
+                        <option
+                            *ngFor="let item of stationList"
+                            [ngValue]="item.stationCode"
+                        >
+                            {{ item.stationName }}
+                        </option>
+                    </select>
+                    <div
+                        *ngIf="submitted && fval.stationCode.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateShift.controls.stationCode.errors &&
+                                updateShift.controls.stationCode.errors.required
+                            "
+                        >
+                            {{
+                                updateShift.controls.stationCode.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3 pb-3">
+                    <button
+                        class="btn btn-outline-primary mt-1"
+                        (click)="openModal(updateShiftTemp)"
+                    >
+                        <i class="fa fa-paper-plane"></i>
+                        Update
+                    </button>
+                </div>
+                <div class="col-3 pb-3">
+                    <button type="reset" class="btn btn-outline-danger mt-1">
+                        <i class="fas fa-redo"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ng-template #updateShiftTemp>
+    <div class="modal-body text-center">
+        <p>Do you want to update?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">
+            Update
+        </button>
+        <button type="button" class="btn btn-primary" (click)="decline()">
+            Cancel
+        </button>
+    </div>
+</ng-template>

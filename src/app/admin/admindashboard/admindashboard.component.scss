@@ -1,0 +1,284 @@
+a {
+    text-decoration: none;
+    color: #000;
+}
+.text-muted {
+    margin: 26px 22px 0px;
+}  
+
+
+.count-set {
+    padding: 12px;
+}
+
+.count-size {
+    font-size: 18px;
+}
+.shadow{
+    box-shadow: 0px 1px 1px 1px #003cff40;
+}
+.scale:hover {
+    transform:scale(0.8);
+    transition: 0.7s ease-in-out;
+}
+
+@media only screen and (max-width: 575px) {
+    .pb-28 {
+        padding: 0 0 28px;
+    }
+  }
+
+//   code by badal
+.card-box {
+    position: relative;
+    color: #fff;
+    padding: 20px 10px 40px;
+    margin: 20px 0px;
+}
+.card-box:hover {
+    text-decoration: none;
+    color: #f1f1f1;
+}
+.card-box:hover .icon i {
+    font-size: 100px;
+    transition: 1s;
+    -webkit-transition: 1s;
+}
+.card-box .inner {
+    padding: 5px 10px 0 10px;
+}
+.card-box h3 {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    white-space: nowrap;
+    padding: 0;
+    text-align: left;
+}
+.card-box p {
+    font-size: 15px;
+}
+.card-box .icon {
+    position: absolute;
+    top: auto;
+    bottom: 5px;
+    right: 5px;
+    z-index: 0;
+    font-size: 72px;
+    color: rgba(0, 0, 0, 0.15);
+}
+.card-box .card-box-footer {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+    padding: 3px 0;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-decoration: none;
+}
+.card-box:hover .card-box-footer {
+    background: rgba(0, 0, 0, 0.3);
+}
+.bg-blue {
+    background-color: #00c0ef !important;
+}
+.bg-green {
+    background-color: #00a65a !important;
+}
+.bg-orange {
+    background-color: #f39c12 !important;
+}
+.bg-red {
+    background-color: #d9534f !important;
+}
+//end
+
+.opr-mode-box{
+    min-width: 0px;
+    word-wrap: break-word;
+    background-color: #caead2;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 10px;
+    width: 100%;
+    min-height: 380px;
+  }  
+
+  .station-details{
+    min-width: 0px;
+    word-wrap: break-word;
+    background-color: #dddddd;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 10px;
+    width: 100%; 
+  }
+
+  //for station list
+  .fr_stations {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.fr_stations li {
+    list-style: none;
+     background: #50da95 url("/assets/images/fair_ar.png");
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: right 17px;
+    border: 1px solid #f9b7b7;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding: 11px 25px 11px 15px;
+    color: #585858;
+    font-size: 15px;
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.fr_stations .de-activated {
+    background : #d31717 url("/assets/images/fair_ar.png");
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: right 17px;
+    border: 1px solid #f9b7b7;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding: 11px 25px 11px 15px;
+    color: #fff6f6;
+    font-size: 15px;
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.fr_stations .st-closed {
+    background : #f0ba08 url("/assets/images/fair_ar.png");
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: right 17px;
+    border: 1px solid #f9b7b7;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding: 11px 25px 11px 15px;
+    color: #131212;
+    font-size: 15px;
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.fr_stations ul {
+    margin: 0px;
+    padding: auto;
+}
+
+::ng-deep .tooltip-inner {
+  width: 180px !important;
+  height: auto;
+  background-color: #ffffff !important;
+  color: #000 !important;
+  text-align: left !important;
+  padding: 10px;
+  margin-left: 60px;
+  box-shadow: 0 0 3px #00000040;
+  z-index: 1;
+}
+
+
+
+.checkbox {
+    padding-left: 20px; }
+    .checkbox label {
+      display: inline-block;
+      position: relative;
+      padding-left: 5px; }
+      .checkbox label::before {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        left: 0;
+        margin-left: -20px;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        background-color: #fff;
+        -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+        -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+        transition: border 0.15s ease-in-out, color 0.15s ease-in-out; }
+      .checkbox label::after {
+        display: inline-block;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 0;
+        top: 0;
+        margin-left: -20px;
+        padding-left: 3px;
+        padding-top: 1px;
+        font-size: 11px;
+        color: #555555; }
+    .checkbox input[type="checkbox"] {
+      opacity: 0; }
+      .checkbox input[type="checkbox"]:focus + label::before {
+        outline: thin dotted;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px; }
+      .checkbox input[type="checkbox"]:checked + label::after {
+        font-family: 'FontAwesome';
+        content: "\f00c"; }
+      .checkbox input[type="checkbox"]:disabled + label {
+        opacity: 0.65; }
+        .checkbox input[type="checkbox"]:disabled + label::before {
+          background-color: #eeeeee;
+          cursor: not-allowed; }
+    .checkbox.checkbox-circle label::before {
+      border-radius: 50%; }
+    .checkbox.checkbox-inline {
+      margin-top: 0; }
+  
+  .checkbox-primary input[type="checkbox"]:checked + label::before {
+    background-color: #428bca;
+    border-color: #428bca; }
+  .checkbox-primary input[type="checkbox"]:checked + label::after {
+    color: #fff; }
+  
+  .checkbox-danger input[type="checkbox"]:checked + label::before {
+    background-color: #d9534f;
+    border-color: #d9534f; }
+  .checkbox-danger input[type="checkbox"]:checked + label::after {
+    color: #fff; }
+  
+  .checkbox-info input[type="checkbox"]:checked + label::before {
+    background-color: #5bc0de;
+    border-color: #5bc0de; }
+  .checkbox-info input[type="checkbox"]:checked + label::after {
+    color: #fff; }
+  
+  .checkbox-warning input[type="checkbox"]:checked + label::before {
+    background-color: #f0ad4e;
+    border-color: #f0ad4e; }
+  .checkbox-warning input[type="checkbox"]:checked + label::after {
+    color: #fff; }
+  
+  .checkbox-success input[type="checkbox"]:checked + label::before {
+    background-color: #5cb85c;
+    border-color: #5cb85c; }
+  .checkbox-success input[type="checkbox"]:checked + label::after {
+    color: #fff; }

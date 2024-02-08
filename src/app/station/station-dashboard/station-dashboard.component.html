@@ -1,0 +1,741 @@
+<div>
+    <div class="row r2">
+        <div class="col-md-6 col-lg-6 col-xl-6 south">
+            <div class="direction">
+                <h2>South</h2>
+            </div>
+            <div class="gate-img row">
+                <div class="gate col-sm-6 col-md-3" *ngFor="let item of configuredList" [ngClass]="{
+                        hide: item.directionIndicatorName === 'NORTH'
+                    }">
+                    <div class="terminal" *ngIf="
+                            item.directionName == 'AB' &&
+                                item.directionIndicatorName == 'SOUTH';
+                            then template1
+                        "></div>
+                    <div class="terminal" *ngIf="
+                            item.directionName == 'BA' &&
+                                item.directionIndicatorName == 'SOUTH';
+                            then template2
+                        "></div>
+                    <div class="terminal" *ngIf="
+                            item.directionName == 'ABA' &&
+                                item.directionIndicatorName == 'SOUTH';
+                            then template3
+                        "></div>
+
+                    <ng-template #template1>
+                        <ng-template #tipContent>
+                            Gate Name: {{ item.gateName }}
+                            <br />
+                            Direction: {{ item.directionName }}
+                            <br />
+                            Location: {{ item.directionIndicatorName }}
+                            <br />
+                            Mode: {{ item.modeName }}
+                            <br />
+                            Aisle Mode: {{ item.aisleModeName }}
+                            <br />
+                            <span *ngFor="let obj of item.terminal">
+                                Terminal ID: {{ obj.terminalId }}
+                                <br />
+                                Terminal IP: {{ obj.terminalIp }}
+                                <br />
+                                Terminal Mode: {{ obj.modeType }}
+                                <br />
+                            </span>
+                        </ng-template>
+
+                        <!-- terminal modes -->
+                        <!-- <ng-container *ngIf="configuredList"> -->
+                            <span *ngFor="let obj of item.terminal">
+                                <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
+                                    class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
+                                <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                                    class="incident" title="Incident Mode" alt="incident mode" />
+                                <img *ngIf="obj.modeType == 'TIME_OVERRIDE_MODE'"
+                                    src="../../../assets/images/timemodeoverride.png" class="incident"
+                                    title="Time Override Mode" alt="time override mode" />
+                                <img *ngIf="
+                                        obj.modeType == 'ENTRYEXIT_OVERRIDE_MODE'
+                                    " src="../../../assets/images/entryexit.png" class="incident"
+                                    title="EntryExit Override Mode" alt="entryexit override mode" />
+                                <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
+                                    src="../../../assets/images/highsecurity.png" class="highsecurity"
+                                    title="High Security Mode" alt="high security override mode" />
+                            </span>
+                        <!-- </ng-container> -->
+                        
+
+                        <!-- normal mode -->
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'ENABLE'
+                            " src="../../../assets/images/normal-aisle-enable-ab.png"
+                            alt="NORMAL_MODE & Aisle - ENABLE" title="Aisle Mode - ENABLE"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'DISABLE'
+                            " src="../../../assets/images/normal-aisle-disable-ab.png"
+                            alt="NORMAL_MODE & Aisle - DISABLE" title="Aisle Mode - DISABLE"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+
+                        <!-- normal mode text -->
+                        <img *ngIf="item.modeName == 'NORMAL_MODE'" src="../../../assets/images/normal-mode.png"
+                            class="normal-mode my-2" title="Normal Mode" alt="normal mode" />
+
+                        <!-- emergency -->
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'OPEN'
+                            " src="../../../assets/images/emer-ab-open.png" alt="Emergency Mode - OPEN"
+                            title="Emergency - OPEN" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'CLOSE'
+                            " src="../../../assets/images/emer-ab-close.png" alt="Emergency Mode - CLOSE"
+                            title="Emergency - CLOSE" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'EMERGENCY'" src="../../../assets/images/emergency.png"
+                            class="emergency" title="Emergency" alt="emergency" />
+
+                        <!-- station close -->
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'"
+                            src="../../../assets/images/station-close-mode.png" alt="STATION_CLOSE"
+                            title="STATION_CLOSE" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'" src="../../../assets/images/station-close.png"
+                            class="station-close" title="Station Close" alt="station close" />
+
+                        <!-- out of order -->
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order-mode.png"
+                            alt="Out of Order" title="Out of Order" tooltipClass="custom-tooltip-class"
+                            placement="bottom" [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order.png"
+                            class="out-of-order my-2" title="Out of Order" alt="Out of Order" />
+
+                        <!-- out of service -->
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'"
+                            src="../../../assets/images/out-of-service-mode.png" alt="Out of Service"
+                            title="Out of Service" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
+                            class="out-of-service" title="Out of Service" alt="Out of Service" />
+
+                        <!-- gate name and direction text -->
+                        <span>
+                            {{ item.gateName }}
+                            <br />
+                            {{ item.directionName }}
+                        </span>
+                    </ng-template>
+
+                    <ng-template #template2>
+                        <ng-template #tipContent>
+                            Gate Name: {{ item.gateName }}
+                            <br />
+                            Direction: {{ item.directionName }}
+                            <br />
+                            Location: {{ item.directionIndicatorName }}
+                            <br />
+                            Mode: {{ item.modeName }}
+                            <br />
+                            Aisle Mode: {{ item.aisleModeName }}
+                            <br />
+                            <span *ngFor="let obj of item.terminal">
+                                Terminal ID: {{ obj.terminalId }}
+                                <br />
+                                Terminal IP: {{ obj.terminalIp }}
+                                <br />
+                                Terminal Mode: {{ obj.modeType }}
+                                <br />
+                            </span>
+                        </ng-template>
+
+                        <!-- terminal modes -->
+                        <span *ngFor="let obj of item.terminal">
+                            <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
+                                class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
+                            <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                                class="incident" title="Incident Mode" alt="incident mode" />
+                            <img *ngIf="obj.modeType == 'TIME_OVERRIDE_MODE'"
+                                src="../../../assets/images/timemodeoverride.png" class="incident"
+                                title="Time Override Mode" alt="time override mode" />
+                            <img *ngIf="
+                                    obj.modeType == 'ENTRYEXIT_OVERRIDE_MODE'
+                                " src="../../../assets/images/entryexit.png" class="incident"
+                                title="EntryExit Override Mode" alt="entryexit override mode" />
+                            <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
+                                src="../../../assets/images/highsecurity.png" class="highsecurity"
+                                title="High Security Mode" alt="high security override mode" />
+                        </span>
+
+                        <!-- normal mode -->
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'ENABLE'
+                            " src="../../../assets/images/normal-aisle-enable-ba.png" alt="normal mode"
+                            title="Aisle Mode - Enable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'DISABLE'
+                            " src="../../../assets/images/normal-aisle-disable-ba.png" alt="normal mode"
+                            title="Aisle Mode - Disable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+
+                        <!-- normal mode text -->
+                        <img *ngIf="item.modeName == 'NORMAL_MODE'" src="../../../assets/images/normal-mode.png"
+                            class="normal-mode my-2" title="Normal Mode" alt="normal mode" />
+
+                        <!-- emergency -->
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'OPEN'
+                            " src="../../../assets/images/emer-ba-open.png" alt="emergency mode" title="Emergency Open"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'CLOSE'
+                            " src="../../../assets/images/emer-ba-close.png" alt="emergency mode"
+                            title="Emergency Close" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'EMERGENCY'" src="../../../assets/images/emergency.png"
+                            class="emergency" title="Emergency" alt="emergency" />
+
+                        <!-- station close -->
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'"
+                            src="../../../assets/images/station-close-mode.png" alt="station" title="Station Close"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'" src="../../../assets/images/station-close.png"
+                            class="station-close" title="Station Close" alt="station close" />
+
+                        <!-- out of order -->
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order-mode.png"
+                            alt="Out of Order" title="Out of Order" tooltipClass="custom-tooltip-class"
+                            placement="bottom" [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order.png"
+                            class="out-of-order my-2" title="Out of Order" alt="Out of Order" />
+
+                        <!-- out of service -->
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'"
+                            src="../../../assets/images/out-of-service-mode.png" alt="Out of Service"
+                            title="Out of Service" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
+                            class="out-of-service" title="Out of Service" alt="Out of Service" />
+
+                        <!-- gate name and direction text -->
+                        <span>
+                            {{ item.gateName }}
+                            <br />
+                            {{ item.directionName }}
+                        </span>
+                    </ng-template>
+
+                    <ng-template #template3>
+                        <ng-template #tipContent>
+                            Gate Name: {{ item.gateName }}
+                            <br />
+                            Direction: {{ item.directionName }}
+                            <br />
+                            Location: {{ item.directionIndicatorName }}
+                            <br />
+                            Mode: {{ item.modeName }}
+                            <br />
+                            Aisle Mode: {{ item.aisleModeName }}
+                            <br />
+                            <span *ngFor="let obj of item.terminal">
+                                Terminal ID: {{ obj.terminalId }}
+                                <br />
+                                Terminal IP: {{ obj.terminalIp }}
+                                <br />
+                                Terminal Mode: {{ obj.modeType }}
+                                <br />
+                            </span>
+                        </ng-template>
+
+                        <!-- terminal modes -->
+                        <span *ngFor="let obj of item.terminal">
+                            <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
+                                class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
+                            <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                                class="incident" title="Incident Mode" alt="incident mode" />
+                            <img *ngIf="obj.modeType == 'TIME_OVERRIDE_MODE'"
+                                src="../../../assets/images/timemodeoverride.png" class="incident"
+                                title="Time Override Mode" alt="time override mode" />
+                            <img *ngIf="
+                                    obj.modeType == 'ENTRYEXIT_OVERRIDE_MODE'
+                                " src="../../../assets/images/entryexit.png" class="incident"
+                                title="EntryExit Override Mode" alt="entryexit override mode" />
+                            <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
+                                src="../../../assets/images/highsecurity.png" class="highsecurity"
+                                title="High Security Mode" alt="high security override mode" />
+                        </span>
+
+                        <!-- normal mode image -->
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'ENABLE'
+                            " src="../../../assets/images/normal-aisle-enable-aba.png" alt="normal mode"
+                            title="Aisle Mode - Enable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'DISABLE'
+                            " src="../../../assets/images/normal-aisle-disable-aba.png" alt="normal mode"
+                            title="Aisle Mode - Disable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+
+                        <!-- normal mode text -->
+                        <img *ngIf="item.modeName == 'NORMAL_MODE'" src="../../../assets/images/normal-mode.png"
+                            class="normal-mode my-2" title="Normal Mode" alt="normal mode" />
+
+                        <!-- emergency -->
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'OPEN'
+                            " src="../../../assets/images/emer-aba-open.png" alt="emergency mode"
+                            title="Emergency Open" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'CLOSE'
+                            " src="../../../assets/images/emer-aba-close.png" alt="emergency mode"
+                            title="Emergency Close" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'EMERGENCY'" src="../../../assets/images/emergency.png"
+                            class="emergency" title="Emergency" alt="emergency" />
+
+                        <!-- station close -->
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'"
+                            src="../../../assets/images/station-close-mode.png" alt="station" title="Station Close"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'" src="../../../assets/images/station-close.png"
+                            class="station-close" title="Station Close" alt="station close" />
+
+                        <!-- out of order -->
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order-mode.png"
+                            alt="Out of Order" title="Out of Order" tooltipClass="custom-tooltip-class"
+                            placement="bottom" [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order.png"
+                            class="out-of-order my-2" title="Out of Order" alt="Out of Order" />
+
+                        <!-- out of service -->
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'"
+                            src="../../../assets/images/out-of-service-mode.png" alt="Out of Service"
+                            title="Out of Service" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
+                            class="out-of-service" title="Out of Service" alt="Out of Service" />
+
+                        <!-- gate name and direction text -->
+                        <span>
+                            {{ item.gateName }}
+                            <br />
+                            {{ item.directionName }}
+                        </span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6 col-xl-6 north">
+            <div class="direction">
+                <h2>North</h2>
+            </div>
+
+            <div class="gate-img row">
+                <div class="gate col-sm-6 col-md-3" *ngFor="let item of configuredList" [ngClass]="{
+                        hide: item.directionIndicatorName === 'SOUTH'
+                    }">
+                    <div class="terminal" *ngIf="
+                            item.directionName == 'AB' &&
+                                item.directionIndicatorName == 'NORTH';
+                            then template1
+                        "></div>
+                    <div class="terminal" *ngIf="
+                            item.directionName == 'BA' &&
+                                item.directionIndicatorName == 'NORTH';
+                            then template2
+                        "></div>
+                    <div class="terminal" *ngIf="
+                            item.directionName == 'ABA' &&
+                                item.directionIndicatorName == 'NORTH';
+                            then template3
+                        "></div>
+
+                    <ng-template #template1>
+                        <ng-template #tipContent>
+                            Gate Name: {{ item.gateName }}
+                            <br />
+                            Direction: {{ item.directionName }}
+                            <br />
+                            Location: {{ item.directionIndicatorName }}
+                            <br />
+                            Mode: {{ item.modeName }}
+                            <br />
+                            Aisle Mode: {{ item.aisleModeName }}
+                            <br />
+                            <span *ngFor="let obj of item.terminal">
+                                Terminal ID: {{ obj.terminalId }}
+                                <br />
+                                Terminal IP: {{ obj.terminalIp }}
+                                <br />
+                                Terminal Mode: {{ obj.modeType }}
+                                <br />
+                            </span>
+                        </ng-template>
+
+                        <!-- terminal modes -->
+                        <span *ngFor="let obj of item.terminal">
+                            <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
+                                class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
+                            <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                                class="incident" title="Incident Mode" alt="incident mode" />
+                            <img *ngIf="obj.modeType == 'TIME_OVERRIDE_MODE'"
+                                src="../../../assets/images/timemodeoverride.png" class="incident"
+                                title="Time Override Mode" alt="time override mode" />
+                            <img *ngIf="
+                                    obj.modeType == 'ENTRYEXIT_OVERRIDE_MODE'
+                                " src="../../../assets/images/entryexit.png" class="incident"
+                                title="EntryExit Override Mode" alt="entryexit override mode" />
+                            <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
+                                src="../../../assets/images/highsecurity.png" class="highsecurity"
+                                title="High Security Mode" alt="high security override mode" />
+                        </span>
+
+                        <!-- normal mode image -->
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'ENABLE'
+                            " src="../../../assets/images/normal-aisle-enable-ab.png" alt="normal mode"
+                            title="Aisle Mode - Enable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'DISABLE'
+                            " src="../../../assets/images/normal-aisle-disable-ab.png" alt="normal mode"
+                            title="Aisle Mode - Disable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+
+                        <!-- normal mode text -->
+                        <img *ngIf="item.modeName == 'NORMAL_MODE'" src="../../../assets/images/normal-mode.png"
+                            class="normal-mode my-2" title="Normal Mode" alt="normal mode" />
+
+                        <!-- emergency -->
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'OPEN'
+                            " src="../../../assets/images/emer-ab-open.png" alt="emergency mode" title="Emergency Open"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'CLOSE'
+                            " src="../../../assets/images/emer-ab-close.png" alt="emergency mode"
+                            title="Emergency Close" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'EMERGENCY'" src="../../../assets/images/emergency.png"
+                            class="emergency" title="Emergency" alt="emergency" />
+
+                        <!-- station close -->
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'"
+                            src="../../../assets/images/station-close-mode.png" alt="station" title="Station Close"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'" src="../../../assets/images/station-close.png"
+                            class="station-close" title="Station Close" alt="station close" />
+
+                        <!-- out of order -->
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order-mode.png"
+                            alt="Out of Order" title="Out of Order" tooltipClass="custom-tooltip-class"
+                            placement="bottom" [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order.png"
+                            class="out-of-order my-2" title="Out of Order" alt="Out of Order" />
+
+                        <!-- out of service -->
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'"
+                            src="../../../assets/images/out-of-service-mode.png" alt="Out of Service"
+                            title="Out of Service" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
+                            class="out-of-service" title="Out of Service" alt="Out of Service" />
+
+                        <!-- gate name and direction text -->
+                        <span>
+                            {{ item.gateName }}
+                            <br />
+                            {{ item.directionName }}
+                        </span>
+                    </ng-template>
+
+                    <ng-template #template2>
+                        <ng-template #tipContent>
+                            Gate Name: {{ item.gateName }}
+                            <br />
+                            Direction: {{ item.directionName }}
+                            <br />
+                            Location: {{ item.directionIndicatorName }}
+                            <br />
+                            Mode: {{ item.modeName }}
+                            <br />
+                            Aisle Mode: {{ item.aisleModeName }}
+                            <br />
+                            <span *ngFor="let obj of item.terminal">
+                                Terminal ID: {{ obj.terminalId }}
+                                <br />
+                                Terminal IP: {{ obj.terminalIp }}
+                                <br />
+                                Terminal Mode: {{ obj.modeType }}
+                                <br />
+                            </span>
+                        </ng-template>
+
+                        <!-- terminal modes -->
+                        <span *ngFor="let obj of item.terminal">
+                            <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
+                                class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
+                            <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                                class="incident" title="Incident Mode" alt="incident mode" />
+                            <img *ngIf="obj.modeType == 'TIME_OVERRIDE_MODE'"
+                                src="../../../assets/images/timemodeoverride.png" class="incident"
+                                title="Time Override Mode" alt="time override mode" />
+                            <img *ngIf="
+                                    obj.modeType == 'ENTRYEXIT_OVERRIDE_MODE'
+                                " src="../../../assets/images/entryexit.png" class="incident"
+                                title="EntryExit Override Mode" alt="entryexit override mode" />
+                            <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
+                                src="../../../assets/images/highsecurity.png" class="highsecurity"
+                                title="High Security Mode" alt="high security override mode" />
+                        </span>
+
+                        <!-- normal mode image -->
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'ENABLE'
+                            " src="../../../assets/images/normal-aisle-enable-ba.png" alt="normal mode"
+                            title="Aisle Mode - Enable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'DISABLE'
+                            " src="../../../assets/images/normal-aisle-disable-ba.png" alt="normal mode"
+                            title="Aisle Mode - Disable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+
+                        <!-- normal mode text -->
+                        <img *ngIf="item.modeName == 'NORMAL_MODE'" src="../../../assets/images/normal-mode.png"
+                            class="normal-mode my-2" title="Normal Mode" alt="normal mode" />
+
+                        <!-- emergency -->
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'OPEN'
+                            " src="../../../assets/images/emer-ba-open.png" alt="emergency mode" title="Emergency Open"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'CLOSE'
+                            " src="../../../assets/images/emer-ba-close.png" alt="emergency mode"
+                            title="Emergency Close" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'EMERGENCY'" src="../../../assets/images/emergency.png"
+                            class="emergency" title="Emergency" alt="emergency" />
+
+                        <!-- station close -->
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'"
+                            src="../../../assets/images/station-close-mode.png" alt="station" title="Station Close"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'" src="../../../assets/images/station-close.png"
+                            class="station-close" title="Station Close" alt="station close" />
+
+                        <!-- out of order -->
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order-mode.png"
+                            alt="Out of Order" title="Out of Order" tooltipClass="custom-tooltip-class"
+                            placement="bottom" [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order.png"
+                            class="out-of-order my-2" title="Out of Order" alt="Out of Order" />
+
+                        <!-- out of service -->
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'"
+                            src="../../../assets/images/out-of-service-mode.png" alt="Out of Service"
+                            title="Out of Service" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
+                            class="out-of-service" title="Out of Service" alt="Out of Service" />
+
+                        <!-- gate name and direction text -->
+                        <span>
+                            {{ item.gateName }}
+                            <br />
+                            {{ item.directionName }}
+                        </span>
+                    </ng-template>
+
+                    <ng-template #template3>
+                        <ng-template #tipContent>
+                            Gate Name: {{ item.gateName }}
+                            <br />
+                            Direction: {{ item.directionName }}
+                            <br />
+                            Location: {{ item.directionIndicatorName }}
+                            <br />
+                            Mode: {{ item.modeName }}
+                            <br />
+                            Aisle Mode: {{ item.aisleModeName }}
+                            <br />
+                            <span *ngFor="let obj of item.terminal">
+                                Terminal ID: {{ obj.terminalId }}
+                                <br />
+                                Terminal IP: {{ obj.terminalIp }}
+                                <br />
+                                Terminal Mode: {{ obj.modeType }}
+                                <br />
+                            </span>
+                        </ng-template>
+
+                        <!-- terminal modes -->
+                        <span *ngFor="let obj of item.terminal">
+                            <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
+                                class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
+                            <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                                class="incident" title="Incident Mode" alt="incident mode" />
+                            <img *ngIf="obj.modeType == 'TIME_OVERRIDE_MODE'"
+                                src="../../../assets/images/timemodeoverride.png" class="incident"
+                                title="Time Override Mode" alt="time override mode" />
+                            <img *ngIf="
+                                    obj.modeType == 'ENTRYEXIT_OVERRIDE_MODE'
+                                " src="../../../assets/images/entryexit.png" class="incident"
+                                title="EntryExit Override Mode" alt="entryexit override mode" />
+                            <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
+                                src="../../../assets/images/highsecurity.png" class="highsecurity"
+                                title="High Security Mode" alt="high security override mode" />
+                        </span>
+                        
+
+                        <!-- normal mode image -->
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'ENABLE'
+                            " src="../../../assets/images/normal-aisle-enable-aba.png" alt="normal mode"
+                            title="Aisle Mode - Enable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'NORMAL_MODE' &&
+                                item.aisleModeName == 'DISABLE'
+                            " src="../../../assets/images/normal-aisle-disable-aba.png" alt="normal mode"
+                            title="Aisle Mode - Disable" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+
+                        <!-- normal mode text -->
+                        <img *ngIf="item.modeName == 'NORMAL_MODE'" src="../../../assets/images/normal-mode.png"
+                            class="normal-mode my-2" title="Normal Mode" alt="normal mode" />
+
+                        <!-- emergency -->
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'OPEN'
+                            " src="../../../assets/images/emer-aba-open.png" alt="emergency mode"
+                            title="Emergency Open" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="
+                                item.modeName == 'EMERGENCY' &&
+                                item.emergencyModeName == 'CLOSE'
+                            " src="../../../assets/images/emer-aba-close.png" alt="emergency mode"
+                            title="Emergency Close" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'EMERGENCY'" src="../../../assets/images/emergency.png"
+                            class="emergency" title="Emergency" alt="emergency" />
+
+                        <!-- station close -->
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'"
+                            src="../../../assets/images/station-close-mode.png" alt="station" title="Station Close"
+                            tooltipClass="custom-tooltip-class" placement="bottom" [ngbTooltip]="tipContent" delay="500"
+                            (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'STATION_CLOSE'" src="../../../assets/images/station-close.png"
+                            class="station-close" title="Station Close" alt="station close" />
+
+                        <!-- out of order -->
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order-mode.png"
+                            alt="Out of Order" title="Out of Order" tooltipClass="custom-tooltip-class"
+                            placement="bottom" [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_ORDER'" src="../../../assets/images/out-of-order.png"
+                            class="out-of-order my-2" title="Out of Order" alt="Out of Order" />
+
+                        <!-- out of service -->
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'"
+                            src="../../../assets/images/out-of-service-mode.png" alt="Out of Service"
+                            title="Out of Service" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
+                            class="out-of-service" title="Out of Service" alt="Out of Service" />
+
+                        <!-- gate name and direction text -->
+                        <span>
+                            {{ item.gateName }}
+                            <br />
+                            {{ item.directionName }}
+                        </span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- alarms code -->
+<div class="alarm-set">
+    <div class="col-12">
+        <h5>Alarm Logs</h5>
+        <table id="dataTable" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="
+                table table-striped table-bordered table-responsive table-sm
+                row-border
+                hover
+                display
+                nowrap
+            " cellspacing="0" width="100%" *ngIf="this.temp">
+            <thead>
+                <tr>
+                    <th>Station ID</th>
+                    <th>Device ID</th>
+                    <th>Equipment Type</th>
+                    <th>Error Code</th>
+                    <th>SubError Code</th>
+                    <th>Alarm Description</th>
+                    <th>Token</th>
+                    <th>Msg Generation Date Time</th>
+                    <th>Request SubError Code</th>
+                    <th>Response Code</th>
+                    <th>Resp_Generation_Date_Time</th>
+                    <th>Alarm_Response_Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of alarmsList">
+                    <td>{{ item.stationId }}</td>
+                    <td>{{ item.deviceId }}</td>
+                    <td>{{ item.eqpType }}</td>
+                    <td>{{ item.errorCode }}</td>
+                    <td>{{ item.subErrorCode }}</td>
+                    <td>{{ item.alarmDescription }}</td>
+                    <td>{{ item.token }}</td>
+                    <td>{{ item.msgGenerationDateTime }}</td>
+                    <td>{{ item.requestSubErrorCode }}</td>
+                    <td>{{ item.responseCode }}</td>
+                    <td>{{ item.respGenerationDateTime }}</td>
+                    <td>{{ item.alarmResponseDescription }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

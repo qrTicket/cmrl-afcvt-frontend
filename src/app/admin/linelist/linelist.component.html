@@ -1,0 +1,97 @@
+<div class="heading">
+    <h2>Line List</h2>
+    <hr />
+</div>
+
+<div class="table-responsive table-set">
+    <!-- datatable
+    [dtOptions]="dtOptions"
+    [dtTrigger]="dtTrigger" -->
+    <table
+        class="table-res row-border hover table-head"
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap table"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr class="text-center">
+                <th id="hide-id">Line ID</th>
+                <th>Line Name</th>
+                <th>Line Short Name</th>
+                <!-- <th>Terminus A</th>
+                <th>Terminus B</th> -->
+                <th>Created Date</th>
+                <th>Edit</th>
+                <th>Stations</th>
+                <th>Status</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor='let item of line'>
+                <td id="hide-id">
+                    <b>{{ item.id }}</b>
+                </td>
+                <td>{{ item.lineName | titlecase }}</td>
+                <td>{{ item.lineCode }}</td>
+                <!-- <td>{{ item.source }}</td>
+                <td>{{ item.destination }}</td> -->
+                <td>{{ item.createdDate | date }}</td>
+                <td>
+                    <a
+                        href="javascript:;"
+                        [routerLink]="['/admin/edit-line/', item.id]"
+                    >
+                        <i
+                            class="fa fa-edit"
+                            style="font-size: 34px; color: #00efd1"
+                        ></i>
+                    </a>
+                </td>
+                <td>
+                    <a
+                    href="javascript:;"
+                    [routerLink]="['/admin/line-stations-detail/', item.id]"
+                    >
+                        <i
+                            class="fa fa-eye"
+                            style="font-size: 34px; color: #2806a5"
+                        ></i>
+                    </a>
+                </td>
+                <td>
+                    <input type="checkbox" [value]="item.status" id="handleCheckBox"  [checked]="(item.status === 0) ?'':'checked'" (change)="openModal(templateDeactivate, templateActive, $event)" >
+
+                    <ng-template #templateDeactivate>
+                        <div class="modal-body text-center">
+                            <p>Are you sure you want to DEACTIVATE this line?</p>
+                            <button type="button" class="btn btn-info" (click)="confirm(item.lineCode, item.status)">
+                                Deactivate
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger" (click)="decline()">
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #templateActive>
+                        <div class="modal-body text-center">
+                            <p>Are you sure you want to ACTIVATE this line?</p>
+                            <button type="button" class="btn btn-info" (click)="confirm(item.lineCode, item.status)">
+                                Activate
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger" (click)="decline()">
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,147 @@
+// shared css for the login and signup page
+// @import "../login/login.component.scss";
+body
+{
+    height: 100%!important;
+}
+.login-form
+{
+    background-image: url("../../assets/images/login-image1.jpg");
+    background-size: cover;
+    height: 100vh! important;
+}
+
+.right-side
+{
+    background: #fff;
+    padding:30px;
+    margin:50px 0;
+    border-top-left-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+}
+.left-side
+{
+    padding: 50px;
+    margin: 50px 0;
+    left: 7%;
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    // box-shadow: 5px 10px #c1c1c1;
+    
+    text-align: center;
+}
+.form-title
+{
+  text-align: center;
+}
+.right-side span
+{
+  color:#aa0079;
+}
+.form-foot
+{
+    display: flex;
+}
+.login-btn
+{
+    margin:0 auto;
+    width:40%;
+}
+.login-btn button
+{
+    padding: 8px 70px;
+}
+.pass
+{
+    margin-bottom: 30px;
+}
+.forg-pass
+{
+    margin-top: 20px;
+}
+
+@media only screen and (min-width: 768px)
+{
+    .form-style
+    {
+        padding: 30px 40px!important;
+    }
+    
+}
+
+@media only screen and (max-width: 767px)
+{
+    .left-side
+    {
+        display: none;
+    }
+    .right-side {
+        margin: 50px 25px!important;
+    }
+    .form-style
+    {
+        padding: 40px 0px!important;
+    }
+}
+
+body {
+    padding: 0%;
+    margin: 0%;
+    background-color: #fff;
+  }
+  
+  svg {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  #box {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: animate 2s ease-in forwards 0.3s;
+  }
+  
+  @keyframes animate {
+    from{
+        stroke-dashoffset: 2000;
+    }
+      to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  #circles {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: animate 2s ease-in forwards 0.9s;
+  }
+  @keyframes animate {
+    to {
+      stroke-dashoffset: 0;
+    } 
+  }
+  
+  #bars {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: animate 2s ease-in forwards 1.5s;
+    /* animation: fill 1s ease-in forwards 1s; */
+  }
+  
+  @keyframes animate {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes fill{
+      from{
+          background-color: transparent;
+      }
+      to{
+          background-color: white;
+      }
+  }
+  
+

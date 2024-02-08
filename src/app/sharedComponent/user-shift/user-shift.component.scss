@@ -1,0 +1,45 @@
+
+.heading
+{
+    padding:40px 20px 20px 20px;
+    border-bottom: 2px solid #2a1c5a;
+}
+
+.alarm-dtable{
+
+    padding: 35px 20px!important;
+    font-size: 15px !important;
+    background: #ece6ff!important;
+}
+
+.alarm-dtable thead {
+    background: #31235e;
+    color: #FFF;
+    font-size: 14px;
+}
+
+.table-bordered th, .table-bordered td 
+{
+    border: 0px solid #dee2e6; 
+}
+
+table tr 
+{
+ text-align: center;
+}
+
+.table th, .table td {
+    padding:7px 25px !important;
+    vertical-align: middle!important;
+    border-top: 1px solid #dee2e6;
+    font-size: 14PX!important;
+    
+}
+table.dataTable thead .sorting_asc
+{
+    background: none!important;
+}
+table.dataTable thead .sorting
+{
+    background: none!important;
+}

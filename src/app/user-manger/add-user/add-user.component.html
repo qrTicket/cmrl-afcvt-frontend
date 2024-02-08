@@ -1,0 +1,361 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+>
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+
+<nav aria-label="breadcrumb" class="bdcrm" >
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/user-manager/dashboard']" >Dashboard</a></li>
+        <li class="breadcrumb-item" aria-current="page">Add User</li>
+    </ol>
+</nav>
+
+<div class="card card-outline-secondary shadow-lg p-3 mb-5 bg-white rounded">
+    <!-- <div class="card-header hdr-set">
+        <h3 class="mb-0">Add User</h3>
+    </div> -->
+    <form [formGroup]="addUser" (ngSubmit)="onSubmit()">
+        <div class="card-body">
+            <div class="row mt-4 formPadding">
+
+                <div class="col-sm-4 pb-3">
+                    <label id="bottomLine"><strong>Employee Id</strong><span class="mandatory">*</span></label>
+                                <!--maam commented <div class="cont"><i class="fa fa-eye my-eye justify-content-end"></i></div> -->
+                    <input
+                        type="text"
+                        formControlName="empId"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.empId.errors
+                        }" 
+                        
+                    />
+                    <div *ngIf="submitted && fval.empId.errors" class="invalid-feedback" >
+                        <div *ngIf="addUser.controls.empId.errors && addUser.controls.empId.errors.required">
+                            {{ addUser.controls.empId.errors.required.message }}
+                        </div>
+                        <div *ngIf="addUser.controls.empId.errors && addUser.controls.empId.errors.numeric">
+                            {{ addUser.controls.empId.errors.numeric.message }}
+                        </div>
+                        <div *ngIf="addUser.controls.empId.errors && addUser.controls.empId.errors.minLength">
+                            {{ addUser.controls.empId.errors.minLength.message }}
+                        </div>
+                        <div *ngIf="addUser.controls.empId.errors && addUser.controls.empId.errors.maxLength">
+                            {{ addUser.controls.empId.errors.maxLength.message }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-4 pb-3">
+                    <label><strong>Name</strong><span class="mandatory">*</span></label>
+                    <!-- <div class="cont"><i class="fa fa-eye my-eye justify-content-end"></i></div> -->
+                    <input
+                        type="text"
+                        formControlName="name"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.name.errors
+                        }"
+                        maxlength="20"
+                    />
+
+                    <div
+                        *ngIf="submitted && fval.name.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addUser.controls.name.errors &&
+                                addUser.controls.name.errors.required
+                            "
+                        >
+                            {{ addUser.controls.name.errors.required.message }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addUser.controls.name.errors &&
+                                addUser.controls.name.errors.alpha
+                            "
+                        >
+                            {{ addUser.controls.name.errors.alpha.message }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addUser.controls.name.errors &&
+                                addUser.controls.name.errors.minLength
+                            "
+                        >
+                            {{ addUser.controls.name.errors.minLength.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="productManu" id="bottomLine"><strong>Email ID</strong><span class="mandatory">*</span></label>
+
+                    <input
+                        type="email"
+                        formControlName="email"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.email.errors
+                        }"
+                        maxlength="25"
+                    />
+                    <div
+                        *ngIf="submitted && fval.email.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addUser.controls.email.errors &&
+                                addUser.controls.email.errors.required
+                            "
+                        >
+                            {{ addUser.controls.email.errors.required.message }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addUser.controls.email.errors &&
+                                addUser.controls.email.errors.email
+                            "
+                        >
+                            {{ addUser.controls.email.errors.email.message }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label id="bottomLine"><strong>Username</strong><span class="mandatory">*</span></label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="username"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.username.errors
+                        }"
+                        
+                    />
+                    <div
+                        *ngIf="submitted && fval.username.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addUser.controls.username.errors &&
+                                addUser.controls.username.errors.required
+                            "
+                        >
+                            {{
+                                addUser.controls.username.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div *ngIf=" addUser.controls.username.errors && addUser.controls.username.errors.maxLength" >
+                            {{ addUser.controls.username.errors.maxLength.message }}
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label id="bottomLine"><strong>Password</strong><span class="mandatory">*</span></label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        formControlName="password"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.password.errors
+                        }"
+                        maxlength="15"
+                    />
+
+                    <div
+                        *ngIf="submitted && fval.password.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addUser.controls.password.errors &&
+                                addUser.controls.password.errors.required
+                            "
+                        >
+                            {{
+                                addUser.controls.password.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addUser.controls.password.errors &&
+                                addUser.controls.password.errors.compare
+                            "
+                        >
+                            {{
+                                addUser.controls.password.errors.compare.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addUser.controls.password.errors &&
+                                addUser.controls.password.errors.pass
+                            "
+                        >
+                            {{ addUser.controls.password.errors.pass.message }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label id="bottomLine"><strong>Confirm Password</strong><span class="mandatory">*</span></label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        formControlName="confirmPassword"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.confirmPassword.errors
+                        }"
+                        maxlength="15"
+                    />
+
+                    <div
+                        *ngIf="submitted && fval.confirmPassword.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addUser.controls.confirmPassword.errors &&
+                                addUser.controls.confirmPassword.errors.required
+                            "
+                        >
+                            {{
+                                addUser.controls.confirmPassword.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addUser.controls.confirmPassword.errors &&
+                                addUser.controls.confirmPassword.errors.compare
+                            "
+                        >
+                            {{
+                                addUser.controls.confirmPassword.errors.compare
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label id="bottomLine"><strong>Mobile Number</strong><span class="mandatory">*</span></label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="mobileNumber"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.mobileNumber.errors
+                        }"
+                        maxlength="10"
+                    />
+                    <div
+                        *ngIf="submitted && fval.mobileNumber.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addUser.controls.mobileNumber.errors &&
+                                addUser.controls.mobileNumber.errors.required
+                            "
+                        >
+                            {{
+                                addUser.controls.mobileNumber.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addUser.controls.mobileNumber.errors &&
+                                addUser.controls.mobileNumber.errors.onlyDigit
+                            "
+                        >
+                            {{
+                                addUser.controls.mobileNumber.errors.onlyDigit
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3"></div>
+                <div class="col-sm-4 pb-3"></div>
+                <div class="col-sm-12 pb-3" id="line"></div>
+
+                <div class="col-sm-4 pb-3">
+                    <label><strong>Role</strong><span class="mandatory">*</span></label>
+                         <div *ngFor="let roles of roleList; let i = index" > 
+                            <input type="checkbox" [value]="roles.roleCode" class="checkmark"  (change)="onChange($event)" /> 
+                            <span class="roleText">{{ roles.roleName }}</span>
+                        </div>
+                        <div *ngIf="roleError" class="text-danger errFont">
+                            Select Atleast One Role!
+                        </div>
+                    
+                    <!-- <div *ngIf="submitted && fval.role.errors"  class="invalid-feedback" >
+                        <div *ngIf="addUser.controls.role.errors && addUser.controls.role.errors.required" >
+                            {{
+                                addUser.controls.role.errors.required.message
+                            }}
+                        </div>
+                    </div> -->
+                </div> 
+
+
+
+                <div *ngIf="showStationList" class="col-sm-4 pb-3">
+                    <label id="bottomLine"><strong>Station Name</strong><span class="mandatory">*</span></label>
+                    <select class="form-control" formControlName="stationCode"  [ngClass]="{ 'is-invalid': submitted && fval.stationCode.errors }" >
+                        <option *ngFor="let station of stationList; let i = index" [ngValue]="station.stationCode"  >
+                            {{ station.stationName }}
+                        </option>
+                    </select>
+                    <div  *ngIf="submitted && fval.stationCode.errors" class="invalid-feedback" >
+                        <div  *ngIf=" addUser.controls.stationCode.errors && addUser.controls.stationCode.errors.required "  >
+                            {{ addUser.controls.stationCode.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 pb-3">
+                    <button class="btn btn-outline-primary mt-1 mr-3">
+                        <i class="fa fa-paper-plane"></i>
+                        Add
+                    </button>
+                    <button class="btn btn-outline-danger mt-1" (click)="cancel()">
+                        <i class="fas fa-close"></i>
+                        Cancel
+                    </button>
+                </div>
+                <!-- <div class="col-3 pb-3">
+                    <button type="reset" class="btn btn-outline-danger mt-1">
+                        <i class="fas fa-redo"></i>
+                        Reset
+                    </button>
+                </div> -->
+                <!-- <div class="col-3 pb-3">
+                   
+                </div> -->
+            </div>
+        </div>
+    </form>
+</div>

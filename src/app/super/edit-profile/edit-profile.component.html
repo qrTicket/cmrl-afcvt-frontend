@@ -1,0 +1,124 @@
+<div class="card m-3 p-3 shadow-lg p-3 mb-5 bg-white rounded">
+    <h1
+        class="card-header d-flex justify-content-center align-item-middle lead font-weight-bold shadow p-3 mb-5 bg-white rounded"
+        style="
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        "
+    >
+        Edit Profile
+    </h1>
+    <form [formGroup]="editProfileForm" (ngSubmit)="onFormSubmit()">
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="">Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="name"
+                        placeholder="Enter Name"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editProfileForm.controls.name.errors &&
+                                editProfileForm.controls.name.errors.required
+                            "
+                        >
+                            {{
+                                editProfileForm.controls.name.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">Username</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="username"
+                        placeholder="Enter Username"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                </div>
+                <!-- <div class="form-group col-md-6">
+                    <label for="">Role</label>
+                    <select
+                        type="text"
+                        class="form-control"
+                        formControlName="roles"
+                        placeholder="Enter Role"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option *ngIf="data" [ngValue]="data">
+                            {{ data[0].name }}
+                        </option>
+                    </select>
+                </div> -->
+                <div class="form-group col-md-6">
+                    <label for="">Email</label>
+                    <input
+                        readonly
+                        type="email"
+                        class="form-control"
+                        formControlName="email"
+                        placeholder="Enter Email"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">Contact No</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="contact"
+                        placeholder="Enter Contact no"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">Address</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="address"
+                        placeholder="Enter address"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                </div>
+                <div class="form-group col-md-6" style="visibility: hidden">
+                    <label for="">ID</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="id"
+                        placeholder="Enter address"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                </div>
+                <div class="col-md-6 mt-4 pt-1">
+                    <button class="btn btn-outline-success shadow">
+                        <i class="fa fa-floppy-o"></i> &nbsp; Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

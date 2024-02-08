@@ -1,0 +1,108 @@
+<div class="shadow" style="background-color: #dee2e6">
+    <h1
+        class="lead text-muted d-flex justify-content-center align-item-middle m-2 p-2"
+    >
+        Verified list of PTO's
+    </h1>
+</div>
+<br /><br />
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Blacklist</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of UserList">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name | titlecase }}</td>
+                <td>{{ user.username | titlecase }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <button
+                        class="btn btn-dark"
+                        (click)="openRejectModel(blacklistTemplate)"
+                    >
+                        <i class="fa fa-ban"></i>
+                    </button>
+                    <ng-template #blacklistTemplate>
+                        <div class="modal-body model-lg">
+                            <div class="modal-header">
+                                <h4 class="modal-title pull-middle mb-1">
+                                    Blacklist User Form
+                                </h4>
+                            </div>
+                            <div class="p-2 m-2">
+                                <form [formGroup]="blacklistForm">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label>Blacklist Reason</label>
+                                            <textarea
+                                                type="textarea"
+                                                class="form-control"
+                                                formControlName="remarks"
+                                                [ngClass]="{
+                                                    'is-invalid': submitted
+                                                }"
+                                                style="width: 400px"
+                                            ></textarea>
+                                            <div
+                                                *ngIf="
+                                                    submitted &&
+                                                    fval.remarks.errors
+                                                "
+                                                class="invalid-feedback"
+                                            >
+                                                <div
+                                                    *ngIf="
+                                                        fval.remarks.errors
+                                                            .required
+                                                    "
+                                                >
+                                                    This field is required !
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mt-2">
+                                                <button
+                                                    class="btn btn-primary"
+                                                    (click)="
+                                                        blacklistUser(user.id)
+                                                    "
+                                                    style="
+                                                        position: relative;
+                                                        top: 10px;
+                                                        right: 15px;
+                                                    "
+                                                >
+                                                    Blacklist
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </ng-template>
+                </td>
+                <td>
+                    {{ user.createdDate | date }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

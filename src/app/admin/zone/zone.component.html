@@ -1,0 +1,41 @@
+<div class="container-fluid wrapper">
+    <h2>Create Zone</h2>
+    <hr>
+    <div class="row form-border">
+        <form [formGroup]="zoneForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+
+                <div class="col-md-12 form-group">
+                    <label for="name"><i class="fa fa-delicious"></i>&nbsp;&nbsp;Zone Name</label>
+
+                    <input type="text" class="form-control" name="name" id="name" formControlName="name"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="zoneForm.controls.name
+                        .errors &&
+                        zoneForm.controls.name.errors
+                        .required">
+                            {{
+                                zoneForm.controls.name.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clearfix col-md-12">
+                <button type="submit">Send
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                <button type="reset">Reset
+                    <span class="fa-class fa fa-undo"></span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

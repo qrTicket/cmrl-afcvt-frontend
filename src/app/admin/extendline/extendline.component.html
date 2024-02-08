@@ -1,0 +1,80 @@
+
+
+<div class="container-fluid wrapper">
+    <h2>Extend Line</h2>
+    <hr>
+    <div class="row form-border">
+        <form [formGroup]="extendlineForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <div class="col-md-4 form-group">
+                    <label for="lineName">
+                        <i class="fa fa-pencil fa-fw"></i>&nbsp;
+                        <b>Line Name</b>
+                    </label>
+                    <select class="form-control" formControlName="line" [ngClass]="{
+                                    'is-invalid': submitted && fval.line.errors
+                                }">
+                        <!-- <option value="">Select Line</option> -->
+                        <option *ngFor="let item of line" [ngValue]="item">
+                            {{ item.lineName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && fval.line?.errors" class="invalid-feedback">
+                        <div *ngIf="fval.line?.errors.required">
+                            Required !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="stationName">
+                        <i class="fa fa-train"></i>&nbsp;
+                        <b>Source</b>
+                    </label>
+                    <select class="form-control" formControlName="source" [ngClass]="{
+                                        'is-invalid': submitted && fval.source.errors
+                                    }">
+                        <!-- <option value="">Select Source</option> -->
+                        <option *ngFor="let item of line" [ngValue]="item">
+                            {{ item.source.stationName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && fval.source?.errors" class="invalid-feedback">
+                        <div *ngIf="fval.source?.errors.required">
+                            Required !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="stationName">
+                        <i class="fa fa-subway"></i>&nbsp;
+                        <b>Destination</b>
+                    </label>
+                    <select class="form-control" formControlName="destination" [ngClass]="{
+                                            'is-invalid': submitted && fval.destination.errors
+                                        }">
+                        <!-- <option value="">Select Destination</option> -->
+                        <option *ngFor="let item of station" [ngValue]="item">
+                            {{ item.stationName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && fval.destination?.errors" class="invalid-feedback">
+                        <div *ngIf="fval.destination?.errors.required">
+                            Required !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix col-md-12 btn-set">
+                    <button type="submit">Extend
+                        <span class="fa-class fa fa-paper-plane"></span>
+                    </button>
+                    <button type="reset">Reset
+                        <span class="fa-class fa fa-undo"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

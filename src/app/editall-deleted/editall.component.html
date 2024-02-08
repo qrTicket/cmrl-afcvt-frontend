@@ -1,0 +1,83 @@
+<div class="container-fluid wrapper">
+    <h2>View Profile</h2>
+    <hr>
+    <div class="row">
+        <form [formGroup]="editProfileForm" (ngSubmit)="onFormSubmit()" class="form-border">
+            <div class="row ">
+                <div class="col-md-6 form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" formControlName="name" placeholder="Enter Name" [ngClass]="{'is-invalid': submitted && fval.name.errors }"  />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="editProfileForm.controls.name.errors && editProfileForm.controls.name.errors.required ">
+                            {{ editProfileForm.controls.name.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-6 form-group">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control" formControlName="username" placeholder="Enter Username" [ngClass]="{'is-invalid': submitted   }" readonly />
+                </div> -->
+
+            </div>
+            <div class="row row-p10">
+
+                <div class="col-md-12 form-group">
+                    <label for="">Contact No</label>
+                    <input type="text" class="form-control" formControlName="mobileNumber"  placeholder="Enter Contact no" [ngClass]="{'is-invalid': submitted }"  />
+                </div>
+           
+                <div class="col-md-12 form-group">
+
+                    <label for="">Email</label>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Enter Email" [ngClass]="{ 'is-invalid': submitted }"  />
+                </div>
+
+            </div>
+
+            <div *ngIf="showEditBtn">
+                <div class="row justify-content-center">
+                    <div class="col-0 pb-3">
+                        <button type="submit" (click)="showEditForm()" >
+                            <i class="fa fa-paper-plane"></i>
+                            Edit Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngIf="showUpdateBtn">
+                    <div class="row justify-content-center">
+                        <div >
+                            <!-- class="btn btn-outline-primary mt-1 pull-left" -->
+                            <button type="submit">
+                                <i class="fa fa-paper-plane"></i>
+                                Update
+                            </button>
+                        </div>
+                        <!-- class="col-1 pb-3 mr-4" -->
+                        <div >
+                            <!-- class="btn btn-outline-danger mt-1 pull-left" -->
+                            <button type="submit" (click)="cancel()">
+                                <i class="fas fa-close"></i>
+                                Cancel
+                            </button>
+                        </div>
+    
+                        <div >
+                            <!-- class="btn btn-outline-info mt-1 pull-left" -->
+                            <button type="reset" >
+                                <i class="fas fa-redo"></i>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            
+
+
+
+
+        </form>
+    </div>
+</div>

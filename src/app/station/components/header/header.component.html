@@ -1,0 +1,117 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+
+    <!-- --------- AFCVT Logo ----------- -->
+    <a class="navbar-brand" [routerLink]="[ '/stationdashboard' ]" routerLinkActive="active">
+        <img src="./assets/images/admin-logo.png" class="mr-10 img-st" alt="logo" />
+        Sweekar
+    </a>
+
+    <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+        <i class="fa fa-bars text-muted" aria-hidden="true"></i>
+    </button>
+
+    <div class="collapse navbar-collapse">
+
+        <!-- ------------ Dashboard Name ---------------- -->
+        <ul class="navbar-nav ml-auto">
+            <h3> Station - {{ stationName }}</h3>
+            <div>
+
+                <app-alarms></app-alarms>
+            </div>
+            <!-- ------------------------ Services --------------------------- -->
+            <!-- <div class="services d-flex text-center">
+                <div class="srvc"><span>ALM</span><br><span class="dot"></span></div>
+                <div class="srvc"><span>NTP</span><br><span class="dot"></span></div>
+                <div class="srvc"><span>EVN</span><br><span class="dot"></span></div>
+                <div class="srvc"><span>DB</span><br><span class="dot"></span></div>
+                <div class="srvc"><span>TXN</span><br><span class="dot"></span></div>
+                <div class="srvc"><span>GM</span><br><span class="dot"></span></div>
+            </div> -->
+
+            <!-- <li class="nav-item dropdown" ngbDropdown>
+                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+                    <i class="fa fa-sitemap"></i>&nbsp;<span>Services</span>
+                </a>
+                <div class=" service-set dropdown-menu-right" ngbDropdownMenu>
+                    <div class="services d-flex text-center">
+                        <div class="srvc"><span>ALM</span><br><span class="dot"></span></div>
+                        <div class="srvc"><span>NTP</span><br><span class="dot"></span></div>
+                        <div class="srvc"><span>EVN</span><br><span class="dot"></span></div>
+                        <div class="srvc"><span>DB</span><br><span class="dot"></span></div>
+                        <div class="srvc"><span>TXN</span><br><span class="dot"></span></div>
+                        <div class="srvc"><span>GM</span><br><span class="dot"></span></div>
+                    </div>
+                </div>
+            </li> -->
+
+
+            <!-- ------------------- Notifications --------------------- -->
+            <!-- <li class="nav-item dropdown" ngbDropdown>
+                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+                    <i class="fa fa-bell"></i>&nbsp;<span>Notifications</span>
+                </a> -->
+            <!-- <div class="dropdown-menu-right" ngbDropdownMenu>
+                    <a href="javascript:void(0)" class="dropdown-item">
+                        {{ 'Pending Complaints' | translate }}
+                        <span class="badge badge-info">6</span>
+                    </a>
+                    <a href="javascript:void(0)" class="dropdown-item">
+                        {{ 'Approved Complaint' | translate }}
+
+                        <span class="badge badge-info"> 13</span>
+                    </a>
+                    <a href="javascript:void(0)" class="dropdown-item">
+                        {{ 'Sent Complaints' | translate }}
+                        <span class="badge badge-info"> 45</span>
+                    </a>
+                    <li class="dropdown-divider"></li>
+                        <a routerLink="/sentcomplaints" class="dropdown-item">
+                            <h6>View All &nbsp; &nbsp;
+                                <span class="badge badge-info count-size">{{ complaintcount }}</span>
+                            </h6>
+                        </a>
+                 </div> -->
+            <!-- </li> -->
+
+            <!-- ------------------- username, view profile, user shift, change password, logout --------------------- -->
+            <li class="nav-item dropdown" ngbDropdown>
+                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+                    <i class="fa fa-user"></i> {{username}} <b class="caret"></b>
+                </a>
+                <div class="dropdown-menu-right m-18" ngbDropdownMenu>
+                    <a [routerLink]="['/edit-profile']" class="dropdown-item">
+                        <i class="fa fa-fw fa-user fa-clr" style="margin-left: -5px;"></i> {{ 'User Details' }}
+                    </a>
+
+                    <!-- <a [routerLink]="['/user-shift']" class="dropdown-item">
+                        <i class="fa fa-fw fa-user fa-clr"></i> {{ 'User Shift' | translate }}
+                    </a> -->
+
+                    <a [routerLink]="['/reset-password']" class="dropdown-item">
+                        <i class="fa fa-lock fa-clr" style="margin-right: 4px;"></i> {{ 'Change Password'}}
+                    </a>
+
+            <!-- <li class="dropdown-divider"></li>
+
+            <i>
+                <a [routerLink]="['/modePdf']" class="dropdown-item">
+                    <i class="fa fa-quote-left fa-clr"></i> {{ 'Know more...'}}
+                </a>
+            </i> -->
+
+            <li class="dropdown-divider"></li>
+
+            <!-- <a [routerLink]="['/privacy']" class="dropdown-item">
+                        <i class="fa fa-lock"></i> {{ "Privacy" | translate }}
+                    </a> -->
+
+            <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">
+                <i class="fa fa-fw fa-power-off fa-clr" style="margin-left: -4px;"></i> {{ 'Log Out' }}
+            </a>
+    </div>
+    </li>
+
+    </ul>
+    </div>
+</nav>

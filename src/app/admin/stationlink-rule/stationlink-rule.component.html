@@ -1,0 +1,38 @@
+<div class="container-fluid content-wrapper">
+    <!-- <div class="heading">
+        <h2>Station List</h2>
+
+        <hr />
+    </div> -->
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a [routerLink]="['/admin/stationlist']" >Station</a> </li>
+            <li class="breadcrumb-item active" aria-current="page">Station Link Creation Rule</li>
+        </ol>
+    </nav>
+    <hr>
+    <ol class="list-group" >
+        <li class="list-group-item">
+            <p>-  To create first station on newly created line previous and next station can be blank.
+                </p>
+        </li>
+        <li class="list-group-item">
+            <p>- Previous station can be blank if the station to be created is before first station.
+                In this case next station should be selected and should not be left blank.</p>
+        </li>
+        <li class="list-group-item">
+            <p>- Next station can be blank if the station to be created after last station 
+                In this case previous station should be selected and should not be left blank.</p>
+        </li>
+        <li class="list-group-item">
+            <p>- To add station in middle of station, previous and next station cannot be blank and same.
+                Previous and next station should be adjacent to each other or else error will occur.</p>
+        </li>
+        <li class="list-group-item">
+            <p>- To assign more than one line to a station, current station should be a junction.
+            </p>
+        </li>
+        
+    </ol>
+</div>
+

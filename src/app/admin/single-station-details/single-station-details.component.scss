@@ -1,0 +1,113 @@
+hr {
+    border: 0;
+    height: 5px;
+    //background: linear-gradient(to right, #00004d, #605cbdd6, rgb(185 171 171 / 0%));
+    background: #00004d;
+  }
+
+.bdcrm {
+  margin: 25px 0 0 0;
+}
+
+.gate {
+  position: relative;
+  padding: 18px;
+}
+
+.gate-img img {
+  width: 80px;
+  height: 100px;
+  cursor: pointer;
+  margin-left: 10px
+}
+
+
+::ng-deep .tooltip-inner {
+  width: 200px !important;
+  height: auto;
+  background-color: #f3eded !important;
+  color: #000 !important;
+  text-align: left !important;
+  padding: 28px;
+  margin-left: 60px;
+}
+.tom-img,
+.gate-img {
+  text-align: center;
+  font-style: italic;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.r2 {
+  margin-top: 15px;
+  // height: 780px;
+  height: 100vh;
+}
+
+.direction {
+  // margin: 12px;
+  margin: 12px 0px 28px;
+  text-align: center;
+  color: #2f205c;
+}
+.south {
+  border-right: 4px solid #433469;
+  // height: 500px;
+}
+.scroll-btm {
+  overflow-x: scroll !important;
+}
+.gate-txt {
+  left: 36%;
+  top: 88%;
+  position: absolute;
+}
+.normal-mode {
+  height: auto !important;   
+}
+
+.station-close {
+  margin: 11px 0;
+  height: 38px !important;
+}
+
+.emergency {
+  margin: 4px 0;
+  width: 76px !important;
+  height: 46px !important;
+}
+
+.out-of-order {
+  height: auto !important;
+  margin: 7px 0;
+}
+
+.out-of-service {
+  height: auto !important;
+  margin: 10px 0;
+}
+
+.incident {
+  width: 30px !important;
+  height: 28px !important;
+}
+
+.terminalNormal {
+  width: 30px !important;
+  height: 28px !important;
+  visibility: hidden;
+}
+.hide {
+  display: none;
+}
+
+.highsecurity {
+  width: 38px !important;
+  height: 30px !important;
+}
+
+.alarm-set {
+  background: #ece6ff;
+  margin: 10px 10px 60px;
+}

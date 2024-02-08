@@ -1,0 +1,58 @@
+<div class="shadow" style="background-color: #05abab">
+    <h1
+        class="lead d-flex justify-content-center align-item-middle font-weight-bold m-2 p-2"
+        style="color: whitesmoke"
+    >
+        Rejected list of PTO's
+    </h1>
+</div>
+<br /><br />
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of rejectedList">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name | titlecase }}</td>
+                <td>{{ user.username | titlecase }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {{ user.createdDate | date }}
+                </td>
+                <!-- <td>
+                    <button class="btn btn-info" (click)="getList(list.id, i)">
+                        <i
+                            class="fa fa-check-circle"
+                            style="font-size: x-large;"
+                        ></i>
+                    </button>
+                </td> -->
+                <!-- <td>
+                    <button class="btn btn-danger">
+                        <i
+                            class="fa fa-times-circle"
+                            style="font-size: x-large;"
+                        ></i>
+                    </button>
+                </td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>

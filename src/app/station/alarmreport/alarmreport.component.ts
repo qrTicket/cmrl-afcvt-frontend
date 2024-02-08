@@ -1,0 +1,68 @@
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { AlarmService } from '../_services/alarm.service';
+import { timer, Observable, Subject, of } from 'rxjs';
+import { switchMap, takeUntil, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { DataTableDirective } from 'angular-datatables';
+
+@Component({
+  selector: 'app-alarmreport',
+  templateUrl: './alarmreport.component.html',
+  styleUrls: ['./alarmreport.component.scss'],
+  // animations: [routerTransition()]
+})
+export class AlarmreportComponent implements OnInit, OnDestroy {
+
+  @ViewChild(DataTableDirective)
+  datatableElement: DataTableDirective;
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  searchTerm: any;
+  alarms: any = [];
+  dataRefresher: any;
+
+  constructor(
+    private alarmgapi: AlarmService
+  ) { }
+
+  dtOptions: DataTables.Settings = {};
+  private killTrigger: Subject<void> = new Subject();
+  // private fetchData$: Observable<string> = this.alarmgapi.getAllalarm();
+
+
+  ngOnInit() {
+    this.alarmsList();
+  }
+
+  alarmsList() {
+    this.alarmgapi.getAllalarm().subscribe(res => {
+      this.alarms = res["data"];
+      // console.log(this.alarms, "Alarms");
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 5,
+        processing: true
+      };
+      this.dtTrigger.next(true); // to rerender the table when next function is called 
+
+    });
+  }
+
+  //console.log(statustext$);
+  ngOnDestroy() {
+    this.killTrigger.next();
+  }
+
+  // to reload the data from datable when sorting or filtering function is called 
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next(true);
+    });
+  }
+
+}

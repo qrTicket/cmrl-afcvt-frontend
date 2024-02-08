@@ -1,0 +1,183 @@
+<div class="container-fluid wrapper">
+    <h2>Add Line</h2>
+    <hr />
+    <div class="row form-border">
+        <form [formGroup]="lineForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <div class="col-md-6 form-group">
+                    <label for="lineName">&nbsp;Line Name</label>
+
+                    <input
+                        type="text"
+                        class="form-control txt-cap"
+                        name="lineName"
+                        id="lineName"
+                        formControlName="lineName"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.lineName.errors
+                        }"
+                        maxlength="25"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                lineForm.controls.lineName.errors &&
+                                lineForm.controls.lineName.errors.required
+                            "
+                        >
+                            {{
+                                lineForm.controls.lineName.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                lineForm.controls.lineName.errors &&
+                                lineForm.controls.lineName.errors.alpha
+                            "
+                        >
+                            {{
+                                lineForm.controls.lineName.errors.alpha.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="lineCode">&nbsp; Line Short Name</label>
+                    <input
+                        type="text"
+                        class="form-control txt-uppr"
+                        formControlName="lineCode"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.lineCode.errors
+                        }"
+                        maxlength="8"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                lineForm.controls.lineCode.errors &&
+                                lineForm.controls.lineCode.errors.required
+                            "
+                        >
+                            {{
+                                lineForm.controls.lineCode.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                lineForm.controls.lineCode.errors &&
+                                lineForm.controls.lineCode.errors.alpha
+                            "
+                        >
+                            {{
+                                lineForm.controls.lineCode.errors.alpha.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                lineForm.controls.lineCode.errors &&
+                                lineForm.controls.lineCode.errors.minLength
+                            "
+                        >
+                            {{
+                                lineForm.controls.lineCode.errors.minLength
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-6 form-group">
+                    <label>Terminus A</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="source"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.source.errors
+                        }"
+                        maxlength="30"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                lineForm.controls.source.errors &&
+                                lineForm.controls.source.errors.required
+                            "
+                        >
+                            {{
+                                lineForm.controls.source.errors.required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                lineForm.controls.source.errors &&
+                                lineForm.controls.source.errors.alpha
+                            "
+                        >
+                            {{ lineForm.controls.source.errors.alpha.message }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Terminus B</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="destination"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.destination.errors
+                        }"
+                        maxlength="30"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                lineForm.controls.destination.errors &&
+                                lineForm.controls.destination.errors.required
+                            "
+                        >
+                            {{
+                                lineForm.controls.destination.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                lineForm.controls.destination.errors &&
+                                lineForm.controls.destination.errors.alpha
+                            "
+                        >
+                            {{
+                                lineForm.controls.destination.errors.alpha
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="col-md-6 form-group">
+                    <label>Activation Status</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                    />
+                </div> -->
+            </div>
+
+            <div class="clearfix col-md-12 btn-set">
+                <button type="submit">
+                    Add
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                <button type="reset">
+                    Reset
+                    <span class="fa-class fa fa-undo"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

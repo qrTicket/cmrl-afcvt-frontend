@@ -1,0 +1,64 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#ffffff" type="timer" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- <div class="heading text-center">
+    <h3>Track Complaint Status</h3>
+</div> -->
+
+<div class="container">
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item active" aria-current="page">Track Complaint Status </li>
+        </ol>
+    </nav>
+    <hr>
+
+    <div class="equip-dtable">
+        <table id="dataTable" datatable="" dt-options="dtOptions" dt-columns="dtColumns"
+            class="table table-striped table-bordered table-responsive table-sm row-border hover display nowrap"
+            *ngIf="this.temp">
+            <thead>
+                <tr>
+                    <th style="width:200px">Device ID</th>
+                    <th style="width:200px">Token</th>
+                    <th style="width:320px">Problem Description</th>
+                    <th style="width:200px">Complaint Status</th>
+                    <th style="width:232px">Station Code</th>
+                    <th style="width:200px">Created By (User)</th>
+                    <th style="width:200px">Created Date & Time</th>
+                    <th style="width:200px">View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let list of trackComplaintList">
+                    <td>
+                        <a
+                        href="javascript:;"
+                        [routerLink]="['/equipments/device-details/', list.deviceId]"
+                        >{{ list.deviceId }}
+                        </a>
+                    </td>
+                    <td>{{ list.token }}</td>
+                    <td>{{ list.problemDescription }}</td>
+                    <td><strong>{{ list.complaintStatus }}</strong></td>
+                    <td>{{ list.stationCode }}</td>
+                    <td>{{ list.createBy }}</td>
+                    <td>{{ list.createdDate | date:'medium'}}</td>
+                    <td>
+                        <a
+                        href="javascript:;"
+                        [routerLink]="['/complaintdetails/', list.token]"
+                        >
+                            <i
+                                class="fa fa-eye"
+                                style="font-size: 34px; color: #2806a5"
+                            ></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

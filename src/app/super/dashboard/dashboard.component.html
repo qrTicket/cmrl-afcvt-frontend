@@ -1,0 +1,47 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<div>
+    <div class="page-header">
+        <h1>Super Admin</h1>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Verified PTO's</div>
+                <div class="card-body">
+                    <h1 class="card-title">
+                        {{ verifiedCount > 0 ? verifiedCount : "0" }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-sm-3 -->
+        <div class="col-sm-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Rejected PTOs</div>
+                <div class="card-body">
+                    <h1 class="card-title">
+                        {{ rejectCount> 0 ? rejectCount: '0' }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-sm-3 -->
+        <div class="col-sm-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Black Listed PTO's</div>
+                <div class="card-body">
+                    <h1 class="card-title">{{ count > 0 ? count: '0' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

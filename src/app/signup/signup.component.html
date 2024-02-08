@@ -1,0 +1,189 @@
+
+<div class="login-form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 left-side">
+          <svg
+      width="200"
+      height="250"
+      viewBox="0 0 200 250"
+      fill="none"
+    >
+      <!-- <rect width="852" height="744" fill="#fff" /> -->
+      <g id="undraw_sign_in_v6c6 1">
+        <path
+          id="box"
+          d="M131.296 372.5H700.296V704.5H131.296V372.5Z"
+          stroke="black"
+        />
+        <g id="circles">
+          
+          <path
+            id="Vector_2"
+            d="M241.064 417.592V417.593C241.057 430.712 237.972 443.656 232.047 455.423C226.122 467.19 217.515 477.466 206.89 485.458C196.264 493.45 183.905 498.942 170.767 501.511C157.755 504.056 144.324 503.665 131.492 500.37V372.637H228.05C236.582 386.139 241.091 401.71 241.064 417.592Z"
+            stroke="#6C63FF"
+          />
+          <path
+            id="Vector_3"
+            d="M449.057 658.142C458.386 664.519 465.539 673.49 469.597 683.885H363.52C367.579 673.49 374.732 664.519 384.061 658.142C393.592 651.628 404.935 648.134 416.559 648.134C428.183 648.134 439.526 651.628 449.057 658.142Z"
+            stroke="#6C63FF"
+          />
+          <path
+            id="Vector_4"
+            d="M700.133 644.368C685.256 644.239 671.019 638.395 660.493 628.083C649.85 617.656 643.872 603.517 643.872 588.776C643.872 574.035 649.85 559.895 660.493 549.469C671.019 539.157 685.256 533.312 700.133 533.184V644.368Z"
+            stroke="#6C63FF"
+          />
+        </g>
+        <g id="bars">
+          <path
+            id="Vector_5"
+            d="M234.832 494.029H594.189C602.925 494.029 609.972 500.962 609.972 509.471C609.972 517.979 602.925 524.912 594.189 524.912H234.832C226.095 524.912 219.048 517.979 219.048 509.471V509.471C219.048 500.962 226.095 494.029 234.832 494.029Z"
+            stroke="black"
+            stroke-width="2"
+          />
+          <path
+            id="Vector_6"
+            d="M234.832 558.827H594.189C602.925 558.827 609.972 565.76 609.972 574.269C609.972 582.777 602.925 589.71 594.189 589.71H234.832C226.095 589.71 219.048 582.778 219.048 574.269C219.048 565.76 226.095 558.827 234.832 558.827Z"
+            stroke="black"
+            stroke-width="2"
+          />
+          <path
+            id="Vector_7"
+            d="M511.26 623.626H594.189C602.925 623.626 609.972 630.558 609.972 639.067V639.067C609.972 647.576 602.925 654.508 594.189 654.508H511.26C502.524 654.508 495.477 647.576 495.477 639.067V639.067C495.477 630.558 502.524 623.626 511.26 623.626Z"
+            stroke="black"
+            stroke-width="2"
+          />
+        </g>
+      </g>
+    </svg>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7 right-side">
+          <div class="form-title">
+            <h3>Account <span>Registeration</span></h3>
+  
+          </div>
+          <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()" class="form-style">
+            <div class="row">
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="firstName">Name</label>
+              <input type="text" formControlName="name" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.name.errors }" placeholder="Enter Name here" />
+              <div *ngIf="submitted && fval.name.errors" class="invalid-feedback">
+                <div *ngIf="fval.name.errors.required"> Name is required</div>
+              </div>
+            </div>
+  
+  
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="lastName">Username</label>
+              <input type="text" 
+              formControlName="username" 
+              class="form-control" 
+              [ngClass]="{ 'is-invalid': submitted && fval.username.errors }" 
+              placeholder="Enter username here" 
+              />
+              
+              <div *ngIf="submitted && fval.username.errors" class="invalid-feedback">
+                <div *ngIf="fval.username.errors.required">Username is required</div>
+                
+              </div>
+            </div>
+            
+            <!-- <div class="form-group">
+            <label for="email">Phone</label>
+            <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.phone.errors }" placeholder="Enter Phone here"/>
+            <div *ngIf="submitted && fval.phone.errors" class="invalid-feedback">
+                <div *ngIf="fval.phone.errors.required">Phone is required</div>
+            </div>
+          </div> -->
+  
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="password">Password</label>
+              <input type="password" formControlName="password" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter Password here" />
+              <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
+                <div *ngIf="fval.password.errors.required">Password is required</div>
+                <div *ngIf="fval.password.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+  
+            </div>
+            <!-- <div class="form-group col-lg-6 col-md-6">
+              <label for="email">Company Pan no.</label>
+              <input type="password" formControlName="password" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter Password here" />
+              <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
+                <div *ngIf="fval.password.errors.required">Password is required</div>
+                <div *ngIf="fval.password.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+  
+            </div> -->
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="email">Email Id</label>
+              <input type="email" formControlName="email" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" placeholder="Enter email here" />
+              <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+                <div *ngIf="fval.email.errors.required">Email is required</div>
+                
+              </div>
+  
+            </div>
+            <!-- <div class="form-group col-lg-6 col-md-6">
+              <label for="role">Role</label>
+              <input type="text" formControlName="role" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.role.errors }" placeholder="Enter Role here" />
+              <div *ngIf="submitted && fval.role.errors" class="invalid-feedback">
+                <div *ngIf="fval.role.errors.required">Role is required</div>
+              </div>
+  
+            </div> -->
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="role">Role</label>
+               <select class="form-control" formControlName="role"  (change)="selectChangeHandler($event)" 
+               [ngClass]="{ 'is-invalid': submitted && fval.role.errors }">
+                 <!-- <option>Enter Role here</option> -->
+                <!-- <option *ngFor="let item of data" [ngValue]="item[data]
+                "></option>  -->
+                <option value="station">Station</option>
+                <option value="equipment">Equipment</option>    
+                <option value="maintenance">Maintenance</option>            
+              <!-- <tag-input formControlName="role" [ngClass]="{ 'is-invalid': submitted && fval.role.errors }" >
+                <tag-input-dropdown
+                  [autocompleteItems]="items"
+                  [showDropdownIfEmpty]="true"
+                  
+                >
+                </tag-input-dropdown>
+              </tag-input> -->
+            </select>
+              
+              <div *ngIf="submitted && fval.role.errors" class="invalid-feedback">
+                <div *ngIf="fval.role.errors.required">Role is required</div>
+              </div>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="Transportation">Transportation Type</label>
+              <select class="form-control">
+                <!-- <option value="volvo">Transportation Type</option> -->
+                <option value="saab">Metro</option>
+                <option value="mercedes">Bus</option>
+                <option value="audi">E-Rickshaw</option>
+              </select>
+            </div>
+       <div class="form-group col-lg-6 col-md-6">
+              
+            </div> 
+  
+            <div class="form-group">
+              <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Register
+              </button>
+              <a routerLink="/login" class="btn btn-link">Login to continue</a>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

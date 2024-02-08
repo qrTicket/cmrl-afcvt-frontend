@@ -1,0 +1,80 @@
+<!-- <div class="heading">
+  Configuration form
+</div> -->
+<div class="heading text-center">
+  <h3>Add Maintenance Staff </h3>
+</div>
+<div class="row">
+
+<div class="col-md-12">
+  <form [formGroup]="addstaffForm" (ngSubmit)="onFormSubmit()">
+    <div class="addform">
+
+      <div class="form-row">
+       
+        <div class="form-group col-md-3">
+          <label for="userId">User Id</label>
+           <select name="userId" class="form-control" formControlName="userId" [ngClass]="{
+            'is-invalid': submitted && fval.userId.errors}"  (input)="passStrength(myInput.value,lblName.id,userName.id,emailName.id)" #myInput>
+                <option>Select userId</option>
+                <option *ngFor="let item of activeuserList" [ngValue]="item">
+                  {{item.id}}
+                </option>
+           </select>
+          <div *ngIf="submitted && fval.userId.errors" class="invalid-feedback">
+            <div *ngIf="fval.userId.errors.required">
+              User Id is required !
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" formControlName="name" [ngClass]="{
+        'is-invalid': submitted && fval.name.errors
+    }"  #lblName id="lblName" />
+          <div *ngIf="submitted && fval.name.errors" class="invalid-feedback">
+            <div *ngIf="fval.name.errors.required">
+               Name  is required !
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="username">UserName</label>
+          <input type="text" class="form-control" formControlName="username" [ngClass]="{
+        'is-invalid': submitted && fval.username.errors
+    }" #userName id="userName" />
+          <div *ngIf="submitted && fval.username.errors" class="invalid-feedback">
+            <div *ngIf="fval.username.errors.required">
+              User name  is required !
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" formControlName="email" [ngClass]="{
+        'is-invalid': submitted && fval.email.errors
+    }" #emailName id="emailName" />
+          <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+            <div *ngIf="fval.email.errors.required">
+              Email  is required !
+            </div>
+          </div>
+        </div>
+      
+      
+    
+
+          <div class="addbt pull-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+
+      </div>
+    
+    </div>
+  </form>
+</div>
+
+</div>

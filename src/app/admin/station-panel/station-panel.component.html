@@ -1,0 +1,20 @@
+<div class="heading">
+    <h2>Station Panel</h2>
+    <hr>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div *ngFor="let item of station">
+            <div class="col-md-12">
+                <img src="../../../assets/images/m3.png">
+                <br>
+                <span id="stn-name-set"><b>{{item.stationName}}</b></span>
+            </div>
+            <div class="uploadbutton">
+                <input type="file" style="margin-bottom: 10px;"><br>
+                <button type="submit" class="btn btn-primary">Broadcast</button>
+            </div>
+        </div>
+    </div>
+</div>

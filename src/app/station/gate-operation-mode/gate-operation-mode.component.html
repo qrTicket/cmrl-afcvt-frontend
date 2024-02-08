@@ -1,0 +1,52 @@
+<div class="container">
+    <!-- <div class="heading">
+        <h2>Station List</h2>
+
+        <hr />
+    </div> -->
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item" aria-current="page">Manage Gate Operation Mode</li>
+            <li class="breadcrumb-item active" aria-current="page">Change All Gate Operation Mode</li>
+        </ol>
+    </nav>
+    <hr>
+
+    <section class="line-details">
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="oprModeForm" (ngSubmit)="onFormSubmit()">
+                    <div class="opr-mode-box ">
+                        <legend>
+                            Choose Gate Operation Mode:
+                        </legend>
+                        <p></p>
+                        <div class="radio radio-info radio-inline" *ngFor="let list of modeList;  let i = index;">
+                            <input type="radio" id="inlineRadio{{i+1}}"  formControlName="modeName" [value]="list.modeName">
+                            <label for="inlineRadio{{i+1}}">{{list.modeCode}} </label>
+                        </div>
+                       
+                        <div
+                            *ngIf="oprModeForm.controls.modeName.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="oprModeForm.controls.modeName.errors">
+                                {{ oprModeForm.controls.modeName.errors.required.message }}
+                            </div>
+                        </div>
+                        <p></p>
+                        <div>
+                            <button type="submit" class="btn btn-info">SEND TO ALL GATE</button>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </section>
+
+    
+
+
+
+</div>
+

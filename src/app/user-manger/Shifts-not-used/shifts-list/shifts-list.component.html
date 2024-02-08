@@ -1,0 +1,94 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+>
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- <h2 class="text-center hdr-set">Shifts List</h2>
+<hr /> -->
+
+<nav aria-label="breadcrumb" class="bdcrm" >
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/user-manager/dashboard']" >Dashboard</a></li>
+        <li class="breadcrumb-item" aria-current="page">Shift List</li>
+    </ol>
+</nav>
+
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>Created By</th>
+                <th>Created Date</th>
+                <th>Station Name</th>
+                <th>Assign User</th>
+                <th>Shift Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let shift of shiftList; let i = index">
+                <td>{{ shift?.createdBy | uppercase }}</td>
+                <td>{{ shift?.createdDate | date: "medium" }}</td>
+                <td>{{ shift?.stationCode }}</td>
+                <td>{{ shift?.assignUser }}</td>
+                <td>{{ shift?.shiftName }}</td>
+                <td>{{ shift?.startDate }}</td>
+                <td>{{ shift?.endDate }}</td>
+                <td>{{ shift?.startTime | date: "shortTime" }}</td>
+                <td>{{ shift?.endTime | date: "shortTime" }}</td>
+                <td>{{ shift?.duration }}</td>
+                <td>
+                    <i
+                        class="fa fa-pencil-square-o edit"
+                        (click)="update(shift.id)"
+                    ></i>
+                </td>
+                <td>
+                    <i
+                        class="fa fa-trash text-center delete"
+                        (click)="openModal(template)"
+                    ></i>
+                    <ng-template #template>
+                        <div class="modal-body text-center">
+                            <p>Do you really want to delete this?</p>
+                            <button
+                                type="button"
+                                class="btn btn-default"
+                                (click)="confirm(shift.id, i)"
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="decline()"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

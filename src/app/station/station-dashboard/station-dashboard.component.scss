@@ -1,0 +1,343 @@
+.gate {
+    position: relative;
+    padding: 18px;
+}
+
+.gate-img img {
+    width: 80px;
+    height: 100px;
+    cursor: pointer;
+    margin-left: 10px
+}
+
+
+::ng-deep .tooltip-inner {
+    width: 200px !important;
+    height: 390px;
+    background-color: #f3eded !important;
+    color: #000 !important;
+    text-align: left !important;
+    padding: 28px;
+    margin-left: 60px;
+}
+.tom-img,
+.gate-img {
+    text-align: center;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.r2 {
+    margin-top: 15px;
+    // height: 780px;
+    height: 100vh;
+}
+
+.direction {
+    // margin: 12px;
+    margin: 12px 0px 28px;
+    text-align: center;
+    color: #2f205c;
+}
+.south {
+    border-right: 4px solid #433469;
+    // height: 500px;
+}
+.scroll-btm {
+    overflow-x: scroll !important;
+}
+.gate-txt {
+    left: 36%;
+    top: 88%;
+    position: absolute;
+}
+.normal-mode {
+    height: auto !important;   
+}
+
+.station-close {
+    margin: 11px 0;
+    height: 38px !important;
+}
+
+.emergency {
+    margin: 4px 0;
+    width: 76px !important;
+    height: 46px !important;
+}
+
+.out-of-order {
+    height: auto !important;
+    margin: 7px 0;
+}
+
+.out-of-service {
+    height: auto !important;
+    margin: 10px 0;
+}
+
+.incident {
+    width: 30px !important;
+    height: 28px !important;
+}
+
+.terminalNormal {
+    width: 30px !important;
+    height: 28px !important;
+    visibility: hidden;
+}
+.hide {
+    display: none;
+}
+
+.highsecurity {
+    width: 38px !important;
+    height: 30px !important;
+}
+
+.alarm-set {
+    background: #ece6ff;
+    margin: 10px 10px 60px;
+}
+
+table tr {
+    text-align: center;
+}
+
+table th,
+table td {
+    padding: 7px 5px !important;
+    vertical-align: middle !important;
+    border-top: 1px solid #dee2e6;
+    font-size: 12px !important;
+    width: 400px;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+thead {
+    background: #31235e;
+    color: #fff;
+}
+
+table.dataTable thead .sorting_asc {
+    background: none !important;
+}
+
+table.dataTable thead .sorting {
+    background: none !important;
+}
+
+@media screen and (max-width: 992px) {
+    .north .south .gate-img img {
+        width: 40px;
+        height: 50px;
+    }
+}
+
+// -----------------------------------------------------------------------------------
+
+// .ngbTooltip {
+//     background-color: #ccc !important;
+// }
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+// .tom ,.gate
+// {
+//     padding: 0 15px;
+// }
+
+// .page-title
+// {
+//     background: linear-gradient(#2a1c5a, #4b3a6e);
+//     padding: 10px 50px 1px 50px;
+//     color: #fff;
+//     text-align: center;
+//     border-radius: 32px;
+//     margin:0 auto;
+// }
+
+// .page-title h3{
+//     font-size: 16px!important;
+// }
+
+//  .alarm-dtable{
+//     padding-right: 0;
+//     font-size: 15px !important;
+// }
+
+// #bg-color {
+//     padding: 5px 0 5px 20px!important;
+//     background: #ece6ff!important;
+// }
+
+// .alarm-dtable .btn
+// {
+//    font-size:12px;
+//    padding:5px!important;
+//    background-color: #2a1c5a!important;
+//    border-color: #2a1c5a!important;
+// }
+
+// .alarm-dtable .dataTables_length
+// {
+//     display: none!important;
+// }
+
+// .alarm-dtable thead {
+//     BACKGROUND: #31235e;
+//     COLOR: #FFF;
+//     font-size: 14px;
+// }
+
+// table.dataTable thead .sorting_asc
+// {
+//     background: none!important;
+// }
+
+// table.dataTable thead .sorting
+// {
+//     background: none!important;
+// }
+
+// .alarm-dtable th, td {
+//     padding: 8px;
+// }
+
+// .entry {
+//     font-size: 15px;
+//     color: green;
+//     position: absolute;
+//     left: 85%;
+//     top: 85%;
+// }
+
+// .entry1 {
+//     font-size: 15px;
+//     color: green;
+//     position: absolute;
+//     left: 85%;
+//     top: 85%;
+// }
+
+// .entry2 {
+//     font-size: 15px;
+//     color: green;
+//     left: 85%;
+//     bottom: 95%;
+//     position: absolute;
+// }
+
+// .noentry {
+//     font-size: 15px;
+//     color: red;
+//     left: 85%;
+//     bottom: 100%;
+//     position: absolute;
+// }
+
+// .entry3 {
+//     font-size: 15px;
+//     color: green;
+//     left: 85%;
+//     bottom: 95%;
+//     position: absolute;
+// }
+
+// .noentry2 {
+//     font-size: 15px;
+//     color: red;
+//     left: 85%;
+//     top: 85%;
+//     position: absolute;
+// }
+
+// .col-xl-2 .col-lg-2 {
+//     padding: 0px !important;
+// }
+
+// .mode {
+//     position: fixed;
+//     margin-left: -18px;
+//     background: none;
+//     border: none;
+//     background: #31235e;
+//     color: #fff;
+//     font-size: 18px;
+//     font-weight: bold;
+//     border-radius: 4%;
+//     padding: 4px 10px;
+// }
+
+// .mode-set {
+//     width: 188px;
+//     padding: 42px 10px !important;
+//     background: #ece6ff !important;
+// }
+
+// .log
+// {
+//     position: fixed;
+//     right: 1px;
+//     background: none;
+//     border: none;
+//     background: #31235e;
+//     color: #fff;
+//     font-size: 18px;
+//     font-weight: bold;
+//     border-radius: 4%;
+//     padding: 4px 10px;
+// }
+
+// button:focus {
+//     outline: 0px dotted;
+//     outline: 0px auto -webkit-focus-ring-color;
+// }
+
+// .btn-mode, .btn-fare {
+//     padding: 4px 10px;
+//     border: none;
+//     background: #2a1c59;
+//     color: #fff;
+//     font-size: 14px;
+//     font-weight: bold;
+//     border-radius: 6%;
+//     margin: 0 auto;
+// }
+
+// .high-warning-set {
+//     position: absolute;
+//     top: -10%;
+//     left: 66%;
+//     width: 30px !important;
+//     height: 24px;
+// }
+
+// .low-warning-set {
+//     position: absolute;
+//     top: -10%;
+//     left: 66%;
+//     width: 30px !important;
+//     height: 24px;
+// }
+
+// .tail-gating-set {
+//     position: absolute;
+//     top: -22%;
+//     left: 34%;
+//     width: 30px !important;
+//     height: 30px;
+// }
+
+// .ntp-set {
+//     position: absolute;
+//     top: -26%;
+//     left: 35%;
+//     width: 30px !important;
+//     height: 24px;
+// }

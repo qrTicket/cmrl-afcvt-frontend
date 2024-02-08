@@ -1,0 +1,51 @@
+<div class="container">
+    <!-- <div class="heading">
+        <h2>Station List</h2>
+
+        <hr />
+    </div> -->
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a [routerLink]="['/admin/linelist']" >Line</a> </li>
+            <li class="breadcrumb-item active" aria-current="page">Station Details</li>
+        </ol>
+    </nav>
+    <hr>
+
+    <section class="line-details">
+        <div class="row">
+            <div class="col-md-4">
+                <label><strong>Line name</strong>  :&nbsp;&nbsp;&nbsp; {{line.lineName}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Line Short Name</strong> :&nbsp;&nbsp;&nbsp; {{line.lineCode}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>No of Stations</strong> :&nbsp;&nbsp;&nbsp; {{stationCount}}</label>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="station-details my-5">
+        <div class="row">
+            <div class="col-md-12">
+                <label><strong>Station List</strong> : </label>
+            </div>
+            <div class="col-md-12">
+                <div class="fr_stations">
+                    <ul *ngFor="let item of stationList">
+                        <!-- <li [ngClass]="{'de-activated': item.status==0}">{{item.stationName}}</li> -->
+                        <li [ngClass]="[item.status==0 ? 'de-activated' : '',  item.status==2 ? 'st-closed' : '']" [title]="[item.status==0 ? 'Station Deactive' : '' || item.status==1 ? 'Station Active' : '' || item.status==2 ? 'Station Closed' : '']">{{item.stationName}}</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+
+    </section>
+
+
+
+</div>
+

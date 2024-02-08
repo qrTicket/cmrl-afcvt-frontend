@@ -1,0 +1,60 @@
+<!-- <app-page-header
+    [heading]="'Number of PTOs'"
+    [icon]="'fa-table'"
+></app-page-header> -->
+<div class="shadow" style="background-color: #dee2e6">
+    <h1
+        class="lead text-muted d-flex justify-content-center align-item-middle m-2 p-2"
+    >
+        Pending list of PTO's
+    </h1>
+</div>
+<br /><br />
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>Vendor ID</th>
+                <th>Vendor Name</th>
+                <th>GST Number</th>
+                <th>PAN Number</th>
+                <th>Vendor Email</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Date</th>
+                <th>Pending</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of ptoList; let i = index">
+                <td>{{ list.vendorGeneratedId }}</td>
+                <td>{{ list.vendorName | titlecase }}</td>
+                <td>{{ list.gstNumber | uppercase }}</td>
+                <td>{{ list.panNumber | uppercase }}</td>
+                <td>{{ list.email }}</td>
+                <td>{{ list.contact }}</td>
+                <td>{{ list.address }}</td>
+                <td>
+                    {{ list.createdDate | date: "medium" }}
+                </td>
+                <td>
+                    <button
+                        class="btn btn-warning"
+                        (click)="open(list.id, list)"
+                    >
+                        <i class="fa fa-clock-o" style="font-size: x-large"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

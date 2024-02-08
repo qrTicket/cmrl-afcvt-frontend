@@ -1,0 +1,139 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<!-- <div class="alert alert-danger" role="alert">{{message}}</div> -->
+<h4 class="card-title d-flex justify-content-center m-2 p-2">Verify Vendor</h4>
+<div class="card shadow">
+    <div class="card-body">
+        <form [formGroup]="verifyform">
+            <div class="row">
+                <div class="col-4">
+                    <label>Vendor Name</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="vendorName"
+                        />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label>Contact Person</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="name"
+                        />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label>Mobile Number</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="mobileNumber"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label>GST Number</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="gstNumber"
+                        />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label>PAN Number</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="panNumber"
+                        />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label>Username</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="username"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label>Email Id</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="email"
+                        />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label>Address</label>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="address"
+                        />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <input
+                        type="hidden"
+                        formControlName="id"
+                        class="form-control"
+                    />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-4">
+                    <button
+                        class="btn btn-success btn-block d-flex justify-content-center"
+                        (click)="verifyEve()"
+                    >
+                        Verify
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button
+                        type="button"
+                        class="btn btn-outline-danger btn-block d-flex justify-content-center"
+                        (click)="rejectEve()"
+                    >
+                        Reject
+                    </button>
+                </div>
+                <div class="col-4" style="visibility: hidden;">
+                    <label>Password</label>
+                    <div class="form-group">
+                        <input
+                            type="password"
+                            class="form-control"
+                            formControlName="password"
+                        />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

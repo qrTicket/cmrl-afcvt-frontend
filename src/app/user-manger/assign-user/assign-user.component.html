@@ -1,0 +1,112 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-fussion" [fullScreen]="true">
+    <p style="color: white;">Loading...</p>
+</ngx-spinner>
+<div class="card card-outline-secondary shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="card-header hdr-set">
+        <h3 class="mb-0">Assign User to Station</h3>
+    </div>
+    <form [formGroup]="assignUser" (ngSubmit)="onSubmit()">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-6 pb-3">
+                    <label for="startDate">Employee ID</label>
+
+                    <select type="text" formControlName="user" class="form-control" [ngClass]="{
+                            'is-invalid': submitted
+                        }">
+                        <option *ngFor="let user of userList" [ngValue]="user">{{ user.employeeId }}</option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="
+                                assignUser.controls.user.errors &&
+                                assignUser.controls.user.errors.required
+                            ">
+                            {{
+                                assignUser.controls.user.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 pb-3">
+                    <label>Role</label>
+                    <select readonly formControlName="role" class="form-control not-allowed" [ngClass]="{
+                            'is-invalid': submitted
+                        }">
+                        <option *ngIf="roleValue" [value]="roleValue">{{ roleValue }}</option>
+                    </select>
+
+                    <!-- <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                assignUser.controls.role.errors &&
+                                assignUser.controls.role.errors.required
+                            "
+                        >
+                            {{
+                                assignUser.controls.role.errors.required.message
+                            }}
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-sm-6 pb-3">
+                    <label for="productManu">Line</label>
+
+                    <select type="email" formControlName="line" placeholder="Select line" class="form-control"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }">
+                        <option *ngFor="let line of lines" [ngValue]="line">{{
+                            line.lineName
+                        }}</option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="
+                                assignUser.controls.line.errors &&
+                                assignUser.controls.line.errors.required
+                            ">
+                            {{
+                                assignUser.controls.line.errors.required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 pb-3">
+                    <label>Station</label>
+                    <select type="text" class="form-control" formControlName="station" placeholder="Select station"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }">
+                        <option *ngFor="let station of stationList" [ngValue]="station">{{ station.stationName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="
+                                assignUser.controls.station.errors &&
+                                assignUser.controls.station.errors.required
+                            ">
+                            {{
+                                assignUser.controls.station.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3 pb-3">
+                    <button class="btn btn-outline-primary mt-1">
+                        <i class="fa fa-paper-plane"></i>
+                        Add
+                    </button>
+                </div>
+                <div class="col-3 pb-3">
+                    <button type="reset" class="btn btn-outline-danger mt-1">
+                        <i class="fas fa-redo"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,131 @@
+<div class="container-fluid"><!--container-fluid wrapper -->
+    <!-- <h2>Change Password</h2> -->
+
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a [routerLink]="['/admin/admindashboard']" >Dashboard</a> </li>
+            <li class="breadcrumb-item active" aria-current="page">Change Password</li>
+        </ol>
+    </nav>
+    <hr />
+    <div class="row form-border float-center">
+        <form [formGroup]="updatepwdForm" (ngSubmit)="onSubmit()">
+            <div class="row row-p10">
+                <div class="col-md-12 form-group">
+                    <label>
+                        <i class="fa fa-lock"></i>&nbsp; Old Password
+                    </label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        formControlName="oldPassword"
+                        placeholder="Enter old Password"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.oldPassword.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updatepwdForm.controls.oldPassword.errors &&
+                                updatepwdForm.controls.oldPassword.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updatepwdForm.controls.oldPassword.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <i class="fa fa-lock"></i>&nbsp;
+                    <label for="">New Password</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        formControlName="newPassword"
+                        placeholder="Enter new Password"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.newPassword.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updatepwdForm.controls.newPassword.errors &&
+                                updatepwdForm.controls.newPassword.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updatepwdForm.controls.newPassword.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updatepwdForm.controls.newPassword.errors &&
+                                updatepwdForm.controls.newPassword.errors.pass
+                            "
+                        >
+                            {{
+                                updatepwdForm.controls.newPassword.errors.pass
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <i class="fa fa-lock"></i>&nbsp;
+                    <label for="">Confirm Password</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        formControlName="confirmPassword"
+                        placeholder="Enter Confirm password"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.confirmPassword.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updatepwdForm.controls.confirmPassword.errors &&
+                                updatepwdForm.controls.confirmPassword.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updatepwdForm.controls.confirmPassword.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updatepwdForm.controls.confirmPassword.errors &&
+                                updatepwdForm.controls.confirmPassword.errors
+                                    .compare
+                            "
+                        >
+                            {{
+                                updatepwdForm.controls.confirmPassword.errors
+                                    .compare.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix">
+                <button type="submit" class="w-25">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

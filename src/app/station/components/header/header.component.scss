@@ -1,0 +1,112 @@
+$topnav-background-color: #2a1c59;
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        color: #fff;
+        //box-shadow: 0 0.5rem 1rem 0 #1a1f33;
+        height: 4.75rem;
+        padding: 1.25rem;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: #999;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+    h3 {
+        font-size: 26px;
+        text-align: center;
+        color: #ece9e9;
+        letter-spacing: 2px;
+        margin: 0 auto;
+        // text-transform: uppercase;
+        font-family: none;
+        position: fixed;
+        left: 46%;
+        // top: 3%;
+      }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+}
+.badge-info
+{
+    background-color: #2a1c59!important;
+}
+.services #alm .dot
+{
+    height: 10px;
+    width: 10px;
+    background-color:#00ff00;
+    border-radius: 50%;
+    display: inline-block;
+}
+.services .dot
+{
+    height: 10px;
+  width: 10px;
+  background-color:red;
+  border-radius: 50%;
+  display: inline-block;
+}
+.services
+{
+    margin:0 40px;
+}
+.services .srvc
+{
+    padding:0 5px;
+    font-size: 14px;
+}
+.img-st {
+    width: 48px;
+}
+.service-set {
+    width: 290px;
+    height: 60px;
+    left: 10% !important;
+    top: 134%;
+    position: absolute;
+    border: 1px solid #101010;
+    background: #d7d7f773;
+    border-radius: 0;
+}
+
+.m-18 {
+    margin-top: 18px;
+}
+
+.fa-clr {
+    color: #7a53e0;
+}
+
+@media only screen and (max-width: 1261x)
+ {
+    h3
+    {
+        display: none;
+    }
+}

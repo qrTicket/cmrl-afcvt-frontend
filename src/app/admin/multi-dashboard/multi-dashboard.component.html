@@ -1,0 +1,41 @@
+<div class="container-fluid wrapper">
+    <h2>Create Dashboard</h2>
+    <hr>
+    <div class="row form-border">
+        <form [formGroup]="dashboardForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+
+                <div class="col-md-12 form-group">
+                    <label for="name"><i class="fas fa-desktop"></i>&nbsp;&nbsp;Dashboard Name</label>
+
+                    <input type="text" class="form-control" name="name" id="name" formControlName="name"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="dashboardForm.controls.name
+                        .errors &&
+                        dashboardForm.controls.name.errors
+                        .required">
+                            {{
+                                dashboardForm.controls.name.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clearfix col-md-12">
+                <button type="submit">Send
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                <button type="reset">Reset
+                    <span class="fa-class fa fa-undo"></span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

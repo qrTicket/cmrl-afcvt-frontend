@@ -1,0 +1,46 @@
+  .head-set {
+    margin: 100px 50px;
+  }
+
+  hr {
+    border: 0;
+    height: 5px;
+    background: linear-gradient(
+        to right,
+        #00004d,
+        #605cbdd6,
+        rgb(185 171 171 / 0%)
+    );
+  }
+  
+  .row-set {
+    padding: 20px 28px;
+    border: 1px solid #ddd;
+    margin: 0px 52px;
+  }
+  
+  .row {
+    justify-content: center !important;
+  }
+  
+  .upload {
+      padding: 8px;
+      border: 0;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin: 48px 0px;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+    
+    .cancel {
+        padding: 8px;
+        border: 0;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-left: 12px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 5px;
+    }

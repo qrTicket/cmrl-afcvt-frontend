@@ -1,0 +1,24 @@
+<div class="heading">
+    <h2>Multi Dashboard List</h2>
+    <hr>
+</div>
+
+<div class="table-responsive table-set">
+    <table class="table-res row-border hover table-head" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+            <tr>
+                <th>Dashboard Id</th>
+                <th>Dashboard Name</th>
+                <th>Created Date & Time</th>              
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of multidashboard">
+                <td><b>{{item.id}}</b></td>
+                <td>{{item.name}}</td>
+                <td>{{item.createdDate | date: 'medium'}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

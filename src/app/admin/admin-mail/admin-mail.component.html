@@ -1,0 +1,58 @@
+<div class="container">
+	<div class="innerwrap">
+
+	
+
+		<section class="section2 clearfix">
+			<h2>Drop Us a Mail</h2>
+			<hr>
+			<div class="sec2contactform">
+				<form [formGroup]="emailForm" (ngSubmit)="onFormSubmit()">
+					<div class="col-md-12">
+							<label>To</label>
+						<input class="first col-md-12" type="text" formControlName="to" [ngClass]="{
+									'is-invalid': submitted && fval.to.errors
+								}" placeholder="" />
+						<div *ngIf="submitted && fval.to.errors" class="invalid-feedback">
+							<div *ngIf="fval.to.errors.required">
+								Required !
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+							<label>Subject</label>
+						<input class="last col-md-12" type="text" formControlName="subject" [ngClass]="{
+								'is-invalid': submitted && fval.subject.errors
+							}" placeholder="" />
+						<div *ngIf="submitted && fval.subject.errors" class="invalid-feedback">
+							<div *ngIf="fval.subject.errors.required">
+								Required !
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix col-md-12">
+						<label>Message</label>
+						<textarea name="textarea" id="" cols="30" rows="7" type="text" formControlName="text" [ngClass]="{
+									'is-invalid': submitted && fval.text.errors
+								}" placeholder="Your message here..."></textarea>
+						<div *ngIf="submitted && fval.text.errors" class="invalid-feedback">
+							<div *ngIf="fval.text.errors.required">
+								Required !
+							</div>
+						</div>
+					</div>
+					<div class="clearfix col-md-12 btn-set">
+						<button type="submit">Send 
+							<span class="fa-class fa fa-paper-plane"></span>
+						</button>
+						<button type="reset">Reset
+								<span class="fa-class fa fa-undo"></span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+</div>

@@ -1,0 +1,152 @@
+<div class="container-fluid wrapper">
+    <h2>Add User Manager</h2>
+    <hr>
+    <div class="row form-border">
+        <form [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <div class="col-md-4 form-group">
+                    <label for="name"><i class="fa fa-user"></i>&nbsp;
+                        Name
+                    </label>
+                    <input type="text" formControlName="name" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="userForm.controls.name.errors &&
+                            userForm.controls.name.errors.required">
+                            {{
+                                userForm.controls.name.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="designation"><i class="fa fa-address-card"></i>&nbsp;
+                        Designation
+                    </label>
+                    <input type="text" formControlName="designation" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="userForm.controls.designation.errors &&
+                                    userForm.controls.designation.errors.required">
+                            {{
+                                        userForm.controls.designation.errors
+                                            .required.message
+                                    }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="empId"><i class="fa fa-id-card-o"></i>&nbsp;
+                        Employee ID
+                    </label>
+                    <input type="text" formControlName="empId" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="userForm.controls.empId.errors &&
+                                    userForm.controls.empId.errors.required">
+                            {{
+                                        userForm.controls.empId.errors
+                                            .required.message
+                                    }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-p10">
+                <div class="col-md-6 form-group">
+                    <label for="username"><i class="fa fa-user"></i>&nbsp;
+                        Username
+                    </label>
+                    <input type="text" formControlName="username" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="userForm.controls.username.errors &&
+                                    userForm.controls.username.errors.required">
+                            {{
+                                        userForm.controls.username.errors
+                                            .required.message
+                                    }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="contactNumber"><i class="fa fa-phone"></i>&nbsp;
+                        Contact No.
+                    </label>
+                    <input type="text" formControlName="contactNumber" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="userForm.controls.contactNumber.errors &&
+                                    userForm.controls.contactNumber.errors.required">
+                            {{
+                                        userForm.controls.contactNumber.errors
+                                            .required.message
+                                    }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row row-p10">
+
+                <div class="col-md-12 form-group">
+                    <label for="email"><i class="fa fa-envelope"></i>&nbsp;
+                        Email Id
+                    </label>
+                    <input type="email" formControlName="email" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="userForm.controls.email.errors &&
+                                    userForm.controls.email.errors.required">
+                            {{
+                                        userForm.controls.email.errors
+                                            .required.message
+                                    }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-p10">
+                <div class="col-md-12 form-group">
+                    <label for="address">
+                        <i class="fa fa-home"></i>&nbsp;
+                        Address
+                    </label>
+                    <textarea rows="2" class="form-control" formControlName="address" [ngClass]="{
+                                    'is-invalid': submitted
+                                }">
+                            </textarea>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="userForm.controls.address.errors &&
+                                        userForm.controls.address.errors.required">
+                            {{
+                                            userForm.controls.address.errors
+                                                .required.message
+                                        }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix col-md-12 btn-set">
+                <button type="submit">Add
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                <button type="reset">Reset
+                    <span class="fa-class fa fa-undo"></span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>

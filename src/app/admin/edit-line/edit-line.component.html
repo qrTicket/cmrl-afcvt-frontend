@@ -1,0 +1,189 @@
+<div class="container-fluid wrapper">
+    <h2>Update Line Details</h2>
+    <hr />
+    <div class="row form-border">
+        <form [formGroup]="editlineForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <div class="col-md-6 form-group">
+                    <label>
+                        <i class="fa fa-pencil fa-fw"></i>&nbsp; Line Name
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="lineName"
+                        formControlName="lineName"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.lineName.errors
+                        }"
+                        maxlength="25"
+                    />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editlineForm.controls.lineName.errors &&
+                                editlineForm.controls.lineName.errors.required
+                            "
+                        >
+                            {{
+                                editlineForm.controls.lineName.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                        *ngIf="
+                            editlineForm.controls.lineName.errors &&
+                            editlineForm.controls.lineName.errors.alpha
+                        "
+                    >
+                        {{
+                            editlineForm.controls.lineName.errors.alpha
+                                .message
+                        }}
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="lineCode">
+                        <i class="fa fa-google-wallet"></i>&nbsp; Line Short Name
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="lineCode"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.lineCode.errors
+                        }"
+                        maxlength="8"
+                        readonly
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editlineForm.controls.lineCode.errors &&
+                                editlineForm.controls.lineCode.errors.required
+                            "
+                        >
+                            {{
+                                editlineForm.controls.lineCode.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editlineForm.controls.lineCode.errors &&
+                                editlineForm.controls.lineCode.errors.alpha
+                            "
+                        >
+                            {{
+                                editlineForm.controls.lineCode.errors.alpha
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editlineForm.controls.lineCode.errors &&
+                                editlineForm.controls.lineCode.errors.minLength
+                            "
+                        >
+                            {{
+                                editlineForm.controls.lineCode.errors.minLength
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6 form-group">
+                    <label> Terminus A </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="source"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.source.errors
+                        }"
+                        maxlength="50"
+                    />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editlineForm.controls.source.errors &&
+                                editlineForm.controls.source.errors.required
+                            "
+                        >
+                            {{
+                                editlineForm.controls.source.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editlineForm.controls.source.errors &&
+                                editlineForm.controls.source.errors.alpha
+                            "
+                        >
+                            {{
+                                editlineForm.controls.source.errors.alpha
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label> Terminus B </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="destination"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.destination.errors
+                        }"
+                        maxlength="50"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editlineForm.controls.destination.errors &&
+                                editlineForm.controls.destination.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                editlineForm.controls.destination.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editlineForm.controls.destination.errors &&
+                                editlineForm.controls.destination.errors.alpha
+                            "
+                        >
+                            {{
+                                editlineForm.controls.destination.errors.alpha
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="row row-p10">
+                <div class="clearfix col-md-12 btn-set">
+                    <button type="submit">
+                        Update
+                        <span class="fa-class fa fa-paper-plane"></span>
+                    </button>
+                    <button type="button" id="cancelbtn" [routerLink]="['/admin/linelist']">
+                        Cancel
+                        <span class="fa-class fa fa-close"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

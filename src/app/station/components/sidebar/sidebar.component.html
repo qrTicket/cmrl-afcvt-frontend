@@ -1,0 +1,346 @@
+<nav
+    class="sidebar"
+    [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
+>
+    <div class="list-group">
+        <a
+            routerLink="/stationdashboard"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span>{{ "Dashboard" }}</span>
+        </a>
+
+        <a
+            routerLink="/assigned/equipments"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-houzz"></i>
+            <span>{{ "Assigned Gate List" }}</span>
+        </a>
+
+        <a
+            routerLink="/assigned/terminal-list"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-hdd-o"></i>
+            <span>{{ "Assigned Terminal List" }}</span>
+        </a>
+
+        <a
+            routerLink="/assigned/other-list"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-gear"></i>
+            <span>{{ "Other Equipment List" }}</span>
+        </a>
+
+        <!-- <a
+            routerLink="/gate-operation-mode"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-gear"></i>
+            <span>{{ "Manage Operation Mode" }}</span>
+        </a> -->
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list1')" [routerLinkActive]="['router-link-active']">
+                <i class="fa fa-tasks"></i>
+                <span>{{ "Manage Operation Mode" }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'list1'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/gate-operation-mode" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-tasks"></i>
+                            <span>{{ "Send To All Gate" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/multi-gate-operation-mode" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-list"></i>
+                            <span id="elp-txt">{{ "Send To Multiple Gate" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
+            <a
+                class="list-group-item"
+                (click)="addExpandClass('list2')"
+                [routerLinkActive]="['router-link-active']"
+            >
+                <i class="fa fa-file-text-o"></i>
+                <span>{{ "Gate" }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'list2'">
+                <ul class="submenu">
+                    <li>
+                        <a
+                            routerLink="/equipment/configured"
+                            [routerLinkActive]="['router-link-active']"
+                        >
+                            <i class="fa fa-fw fa-list"></i>&nbsp;
+                            <span>{{ "Configured Gate List" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            routerLink="/configured-terminal-list"
+                            [routerLinkActive]="['router-link-active']"
+                        >
+                            <i class="fa fa-fw fa-list"></i>&nbsp;
+                            <span id="elp-txt">{{
+                                "Configured Terminal List"
+                            }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            routerLink="/all-gate-history"
+                            [routerLinkActive]="['router-link-active']"
+                        >
+                            <i class="fa fa-history"></i>&nbsp;
+                            <span>{{ "All Gate History" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            routerLink="/history-by-gate"
+                            [routerLinkActive]="['router-link-active']"
+                        >
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "History By Gate" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <!-- --------------- Gate List --------------- -->
+
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list1')" [routerLinkActive]="['router-link-active']">
+                <i class="fa fa-gear"></i>&nbsp;
+                <span>{{ "Gate" }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'list1'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/equipementlist" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Gate List" | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+
+         <!-- --------------- Complaint --------------- -->
+         <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list4')" [routerLinkActive]="['router-link-active']">
+                <i class="fa fa-comments"></i>
+                <span>{{ "Complaint" }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'list4'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/raisecomplaint" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-commenting-o"></i>
+                            <span>{{ "Raise Complaint" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/trackcomplaintstatus" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
+                            <i class="fa fa-list"></i>
+                            <span id="elp-txt">{{ "Track Complaint Status" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+
+        <!-- track complaint list- working-->
+        <a routerLink="/trackcomplaintstatus" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-comments"></i>
+            <span id="elp-txt">{{ "Track Complaint Status" }}</span>
+        </a>
+
+        <!-- <span class="dropdown-divider"></span> -->
+
+        <i>
+            <a routerLink="/modePdf" class="list-group-item">
+                <i class="fa fa-quote-left fa-clr"></i> {{ "Know About Modes" }}
+            </a>
+        </i>
+
+        <!-- --------------- Services working --------------- -->
+
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list3')" [routerLinkActive]="['router-link-active']">
+                <i class="fa fa-file-text-o"></i>&nbsp;
+                <span>{{ "Services" }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'list3'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/alarmreport" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Alarm Generated" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/alarm-generated-description" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span id="elp-txt">{{ "Alarm Generated Description" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/events" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Event Service" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/transactionreports" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Transaction Service" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/generalmsg" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span id="elp-txt">{{
+                                "General Message Service"
+                            }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/database" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Database Service" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/ntp" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "NTP Service" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/equipementlist" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Configration Service" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list3')" [routerLinkActive]="['router-link-active']">
+                <i class="fa fa-comments"></i>&nbsp;
+                <span>{{ "Complaints" }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'list3'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/raisecomplaint" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-commenting-o"></i>&nbsp;
+                            <span>{{ "Raise Complaint" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/sentcomplaints" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span>{{ "Complaint List" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+
+        <!-- --------------- Mail --------------- -->
+
+        <!-- <a routerLink="/sendmail" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-envelope"></i>&nbsp;
+            <span>{{ "Send Mail" | translate }}</span>
+        </a> -->
+
+        <!-- --------------- Username, Profile, Logout --------------- -->
+        <div class="header-fields">
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span
+                        ><i class="fa fa-user"></i
+                        >{{ username | titlecase }}</span
+                    >
+                    <b class="caret ml-10"></b>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a
+                                [routerLink]="['/edit-profile']"
+                                class="dropdown-item"
+                            >
+                                <span
+                                    ><i class="fa fa-fw fa-user"></i>
+                                    {{ "View Profile" }}</span
+                                >
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                [routerLink]="['/reset-password']"
+                                class="dropdown-item"
+                            >
+                                <i class="fa fa-lock"></i>
+                                {{ "Change Password" }}
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a [routerLink]="['/privacy']" class="dropdown-item">
+                                <span><i class="fa fa-lock mr-10"></i> {{ 'Privacy' | translate }}</span>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a
+                                [routerLink]="['/login']"
+                                (click)="onLoggedout()"
+                            >
+                                <span
+                                    ><i class="fa fa-fw fa-power-off"></i>
+                                    {{ "Log Out" }}</span
+                                >
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="toggle-button"
+        [ngClass]="{ collapsed: collapsed }"
+        (click)="toggleCollapsed()"
+    >
+        <i
+            class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"
+        ></i
+        >&nbsp;
+        <span>{{ "Collapse" }}</span>
+    </div>
+</nav>

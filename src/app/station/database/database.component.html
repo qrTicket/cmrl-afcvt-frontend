@@ -1,0 +1,27 @@
+<div class="heading text-center">
+    <h3>Database Service</h3>
+</div>
+<div class="alarm-dtable">
+
+    <table class="table table-striped table-bordered table-responsive table-sm row-border hover" datatable
+        [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+            <tr>
+                <th style="width:400px">Token</th>
+                <th style="width:500px">Device ID </th>
+                <th style="width:700px">Connection Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of database">
+
+                <td>{{item.token}}</td>
+                <td>{{item.deviceId}}</td>
+                <td>{{item.connectionStatus}}</td>
+            </tr>
+
+
+        </tbody>
+
+    </table>
+</div>

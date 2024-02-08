@@ -1,0 +1,200 @@
+<nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
+    <div class="list-group">
+        <!-- admindashboard -->
+        <a [routerLink]="['admindashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-home"></i>
+            <span>{{ "Dashboard" }}</span>
+        </a>
+
+        <!-- Create user manager from admin -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list1')">
+                <i class="fa fa-users"></i>&nbsp;
+                <span>{{ "Manage Users" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list1'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['add-usermanager']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-user-plus"></i>&nbsp;
+                            <span>{{ "Add User" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['usermanager-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span>{{ "Users List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+
+        <!-- line -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list2')">
+                <i class="fa fa-random"></i>&nbsp;
+                <span>{{ "Line" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list2'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['addline']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-map-signs"></i>&nbsp;
+                            <span>{{ "Add Line" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['linelist']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Line List" }}</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a [routerLink]="['extendline']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-openid"></i>&nbsp;
+                            <span>{{ 'Extend Line' }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['extend-line-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ 'Extend Line List' }}</span>
+                        </a>
+                    </li> -->
+                    <!-- <li>
+                        <a [routerLink]="['edit-line']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-edit"></i>&nbsp;
+                            <span>{{ 'Edit Line' | translate }}</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+        </div>
+
+        <!-- station -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list3')">
+                <i class="fa fa-subway"></i>&nbsp;
+                <span>{{ "Station" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list3'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['addstation']">
+                            <i class="fa fa-train"></i>&nbsp;
+                            <span>{{ "Add Station" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['stationlist']">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "Station List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+
+
+        <!-- fare list -->
+        <div class="nested-menu">
+            <a [routerLink]="['fare-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-file-text-o"></i>&nbsp;
+                <span>{{ "Fare List" }}</span>
+            </a>
+
+            <!-- not in use -->
+            <!-- <a [routerLink]="['audit']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-file-text-o"></i>&nbsp;
+                <span>{{ "Audit File" }}</span>
+            </a> -->
+            
+            <a [routerLink]="['penality']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-upload"></i>&nbsp;
+                <span>{{ "Penality File Upload" }}</span>
+            </a>
+
+        </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list4')">
+                <i class="fa fa-clock"></i>&nbsp;
+                <span>{{ "Schedule File Upload" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list4'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['schedule-file-update']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-clock"></i>&nbsp;
+                            <span>{{ "Add" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['schedule-file-update-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-bars"></i>&nbsp;
+                            <span>{{ "List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+
+        
+
+        
+        <!-- siderbar username and settings -->
+
+        <div class="header-fields">
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user p-left"></i>{{ username | titlecase }}</span>
+                    <b class="caret ml-10"></b>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['edit-profile']" class="dropdown-item">
+                                <i class="fa fa-fw fa-user"></i>
+                                {{ "View Profile" }}
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['privacy']" class="dropdown-item">
+                                &nbsp;<i class="fa fa-lock"></i> &nbsp;{{
+                                "Forgot Password"
+                                }}
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i>
+                                    {{ "Log Out" }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+
+        <!-- toggle button -->
+
+        <div class="toggle-button" [ngClass]="{ collapsed: collapsed }" (click)="toggleCollapsed()">
+            <i class="fa fa-bars {collapsed?'right':'left'}}" style="padding-left: 10px"></i>&nbsp;
+            <span>{{ "Collapse" | translate }}</span>
+        </div>
+    </div>
+</nav>

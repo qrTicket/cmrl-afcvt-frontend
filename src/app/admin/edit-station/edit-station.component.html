@@ -1,0 +1,401 @@
+<div class="container"> <!--container-fluid wrapper-->
+    <!-- <h2>Update Station Details</h2>
+
+    <hr /> -->
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a [routerLink]="['/admin/stationlist']" >Station</a> </li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Station</li>
+        </ol>
+    </nav>
+    <hr>
+
+    <div class="">
+        <form [formGroup]="editstationForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+
+                <div class="col-md-6 form-group">
+                    <label for="stationCode">
+                        Station Code
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="stationCode"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.stationCode.errors
+                        }"
+                        readonly
+                    />
+
+                    <div
+                        *ngIf="submitted && fval.stationCode.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                editstationForm.controls.stationCode.errors &&
+                                editstationForm.controls.stationCode.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                editstationForm.controls.stationCode.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="stationName">
+                        Station Name
+                    </label>
+                    <input
+                        formControlName="stationName"
+                        class="form-control"
+                        type="text"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.stationName.errors
+                        }"
+                        maxlength="50"
+                    />
+
+                    <div
+                        *ngIf="submitted && fval.stationName.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                editstationForm.controls.stationName.errors &&
+                                editstationForm.controls.stationName.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                editstationForm.controls.stationName.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editstationForm.controls.stationName.errors &&
+                                editstationForm.controls.stationName.errors
+                                    .alpha
+                            "
+                        >
+                            {{
+                                editstationForm.controls.stationName.errors
+                                    .alpha.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                            editstationForm.controls.stationName.errors &&
+                            editstationForm.controls.stationName.errors.minLength
+                            "
+                        >
+                            {{
+                                editstationForm.controls.stationName.errors.minLength
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <!-- New Fields -->
+                <div class="col-md-6 form-group">
+                    <label for="latitude">
+                        <b>Latitude :</b>
+                    </label>
+                    <input
+                        formControlName="latitude"
+                        class="form-control"
+                        type="text"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.latitude.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editstationForm.controls.latitude.errors &&
+                                editstationForm.controls.latitude.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                editstationForm.controls.latitude.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editstationForm.controls.latitude.errors &&
+                                editstationForm.controls.latitude.errors
+                                    .latitude
+                            "
+                        >
+                            {{
+                                editstationForm.controls.latitude.errors
+                                    .latitude.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="stationCode">
+                        <b>Longitude :</b>
+                    </label>
+                    <input
+                        formControlName="longitude"
+                        class="form-control"
+                        type="text"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.longitude.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editstationForm.controls.longitude.errors &&
+                                editstationForm.controls.longitude.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                editstationForm.controls.longitude.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editstationForm.controls.longitude.errors &&
+                                editstationForm.controls.longitude.errors
+                                    .longitude
+                            "
+                        >
+                            {{
+                                editstationForm.controls.longitude.errors
+                                    .longitude.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="contactNum">
+                        <b>Contact Number :</b>
+                    </label>
+                    <input
+                        formControlName= "contactNum"
+                        class="form-control"
+                        type="text"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.contactNum.errors
+                        }"
+                        maxlength="10"
+                    />
+                    <div
+                        *ngIf="submitted && fval.contactNum.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                editstationForm.controls.contactNum.errors &&
+                                editstationForm.controls.contactNum.errors.required
+                            "
+                        >
+                            {{
+                                editstationForm.controls.contactNum.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editstationForm.controls.contactNum.errors &&
+                                editstationForm.controls.contactNum.errors.onlyDigit
+                            "
+                        >
+                            {{
+                                editstationForm.controls.contactNum.errors.onlyDigit
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="address">
+                        <b>Address :</b>
+                    </label>
+                    <input
+                        formControlName= "address"
+                        class="form-control"
+                        type="text"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.address.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.address.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                editstationForm.controls.address.errors &&
+                                editstationForm.controls.address.errors.required
+                            "
+                        >
+                            {{
+                                editstationForm.controls.address.errors.required
+                                    .message
+                            }}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="junction">
+                        <b>Junction :</b>
+                    </label>
+                    <select
+                        class="form-control"
+                        formControlName= 'junction'
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.junction.errors
+                        }"
+                        (change)="onJnStChange($event)"
+                    >
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editstationForm.controls.junction.errors &&
+                                editstationForm.controls.junction.errors.required
+                            "
+                        >
+                            {{
+                                editstationForm.controls.junction.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+            </div>
+
+            <br>
+            <br>
+            <!-- for station links -->
+            <legend>Station Links <small><a [routerLink]="['/admin/stationlink-rule']" ><i class="fa fa-info-circle " aria-hidden="true"></i>
+            </a></small></legend>
+            
+            <div class="row" *ngIf="isJunction">
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-success float-right" (click)="addStationLinks()">Assign More Line</button>
+                </div>
+            </div>
+            <div class="row row-p10">
+
+                <div class="col-md-12" formArrayName="stationLinks"
+                *ngFor="let stationLink of stationLinksForms.controls; let i = index;">
+                    <div class="row row-p10" [formGroupName]="i">
+                        <div class="col-md-3 form-group">
+                            <label for="lineCode">
+                                <b>Line Name :</b>
+                            </label>
+                            <select
+                                placeholder="Line Name"
+                                class="form-control"
+                                formControlName="lineCode"
+                                [ngClass]="{ 'is-invalid': submitted && stationLink.get('lineCode').errors }"
+                                (ngModelChange)="getStationList($event,i)"
+                            >
+                                <option value="">Select Line</option>
+                                <option
+                                    *ngFor="let item of lineList"
+                                     [value]="item.lineCode"
+                                >
+                                    {{ item.lineName }}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted" class="invalid-feedback">
+                                <div
+                                    *ngIf="
+                                    stationLink.get('lineCode').errors &&
+                                    stationLink.get('lineCode').errors.required
+                                    "
+                                >
+                                    {{
+                                        stationLink.get('lineCode').errors.required.message
+                                    }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="prevStationCode">
+                                <b>Previous Station :</b>
+                            </label>
+                            <ng-select
+                                class=""
+                                formControlName="prevStationCode"
+                            >
+                                <ng-option value="">Select Station</ng-option>
+                                <ng-option
+                                    *ngFor="let stlist of stationListArr[i]"
+                                    [value]="stlist.stationCode"
+                                >
+                                    {{ stlist.stationName }}
+                                </ng-option>
+                            </ng-select>
+
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="nextStationCode">
+                                <b>Next Station :</b>
+                            </label>
+                            <ng-select
+                                placeholder="Next Station"
+                                class=""
+                                formControlName="nextStationCode"
+                            >
+                                <ng-option value="">Select Station</ng-option>
+                                <ng-option
+                                    *ngFor="let stnlist of stationListArr[i]"
+                                    [value]="stnlist.stationCode"
+                                >
+                                    {{ stnlist.stationName }}
+                                </ng-option>
+                            </ng-select>
+
+                        </div>
+                        <div class="col-md-3" >
+                            <button type="button"  class="btn btn-danger remove-btn" (click)="removeStationLinks(i)" >Remove</button> <!--*ngIf="i>0"-->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- End -->
+
+
+
+            <div class="clearfix col-md-12 btn-set">
+                <button type="submit">
+                    Update
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+            </div>
+            <br><br>
+
+        </form>
+    </div>
+</div>

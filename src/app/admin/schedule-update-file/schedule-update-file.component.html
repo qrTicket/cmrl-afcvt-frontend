@@ -1,0 +1,79 @@
+<nav aria-label="breadcrumb" class="bdcrm">
+    <ol class="breadcrumb ">
+        <li class="breadcrumb-item"><a [routerLink]="['/admin/schedule-file-update-list']" >Schedule File Upload</a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Add</li>
+    </ol>
+</nav>
+<hr>
+
+<section class="schedule-file-update">
+        <div class="row">
+            
+            <div class="col-md-12">
+                <form [formGroup]="scheduleFileForm" (ngSubmit)="onSubmit()">
+                    <div class="schedule-file-update-box">
+                        <!-- <legend>
+                            Schedule File To Upload: 
+                        </legend>
+                        <hr> -->
+                        <div class="col-md-6 form-group">
+                            <label>Schedule Date :</label>
+                            <input type="date" class="form-control" formControlName="scheduledate" [ngClass]="{
+                                'is-invalid': submitted && fval.scheduledate.errors
+                            }">
+                        </div>
+                        
+                        <div *ngIf="submitted && fval.scheduledate.errors" class="invalid-feedback">
+                            <div *ngIf="scheduleFileForm.controls.scheduledate.errors && scheduleFileForm.controls.scheduledate.errors.required">
+                                {{ scheduleFileForm.controls.scheduledate.errors.required.message }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label>Schedule Time :</label>
+                            <input type="time" class="form-control" formControlName="scheduletime" [ngClass]="{
+                                'is-invalid': submitted && fval.scheduletime.errors
+                            }">
+                        </div>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div *ngIf="
+                            scheduleFileForm.controls.scheduletime.errors &&
+                            scheduleFileForm.controls.scheduletime.errors.required
+                                    ">
+                                {{
+                                    scheduleFileForm.controls.scheduletime.errors.required
+                                .message
+                                }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label>File :</label>
+                            <input type="file" class="form-control" name="file" (change)="uploadFile($event)" [ngClass]="{
+                                'is-invalid': submitted && fval.file.errors
+                            }">
+                        </div>
+
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div *ngIf="
+                            scheduleFileForm.controls.file.errors &&
+                            scheduleFileForm.controls.file.errors.required
+                                    ">
+                                {{
+                                    scheduleFileForm.controls.file.errors.required
+                                .message
+                                }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <button type="submit" class="btn btn-info text-center">Submit</button>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <br><br><br><br>

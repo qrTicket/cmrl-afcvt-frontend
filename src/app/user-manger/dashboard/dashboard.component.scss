@@ -1,0 +1,64 @@
+.shw {
+    text-shadow: 0 0 2px black;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+h5 {
+    margin-top: 10px;
+}
+
+.card {
+    cursor: pointer;
+    box-shadow: 0 0 3px cadetblue;
+    border: none;
+    // transition: 0.7s ease-in-out;
+    // border-radius: 2.25rem !important;
+    // width: 356px;
+    // margin-right: 20px;
+}
+.scale{
+    transition: 0.5s ease-in-out;
+}
+
+.scale:hover {
+    transform:scale(0.8);
+}
+
+// .card:hover, .card-title:hover {
+//     // background-image: linear-gradient(to right, #3a7bd5, #3a6073);
+//     // color: whitesmoke;
+//     // transform: scale(8deg);
+//     // box-shadow: 0 0 3px blueviolet;
+//     color: #000;
+//     transform:scale(0.8)
+// }
+
+.cls-1 {
+    fill:none;
+    stroke:#37a849 !important;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-width:2px;
+}
+
+.cls-2 {
+    fill:none;
+    stroke:#d13d61 !important;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-width:2px;
+}
+
+.count-size {
+    font-size: 18px;
+}
+
+

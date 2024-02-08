@@ -1,0 +1,136 @@
+<!-- <div [@routerTransition]> -->
+<!-- <app-page-header [heading]="'Number of PTOs'" [icon]="'fa-table'"></app-page-header> -->
+<div class="heading text-center">
+    <h3>Configured Gate item</h3>
+</div>
+
+<div class="equip-dtable">
+
+    <table class="table table-striped table-bordered table-responsive table-sm row-border hover" datatable
+        [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+            <tr>
+                <th>GateTrigger Id</th>
+                <!-- <th>Terminal Id </th> -->
+                <th>Equipment Id</th>
+                <th>Gate Name</th>
+                <th>Line Id</th>
+                <th>Station Id</th>
+
+                <th>Gate</th>
+                <th>Gate Direction</th>
+                <th>Modified Date/Time</th>
+
+                <th>Terminal ID 1</th>
+                <th>Direction 1</th>
+                <th>Terminal IpAddress 1</th>
+                <th>Activation Time 1</th>
+                <th>Deactivation Time 1</th>
+                <th>Editable 1</th>
+                <th>Entry Exit Override 1</th>
+                <th>Time Mode Override 1</th>
+                <th>High Security Mode 1</th>
+
+                <th>Terminal ID 2</th>
+                <th>Direction 2</th>
+                <th>Terminal IpAddress 2</th>
+                <th>Activation Time 2</th>
+                <th>Deactivation Time 2</th>
+                <th>Editable 2</th>
+                <th>Entry Exit Override 2</th>
+                <th>Time Mode Override 2</th>
+                <th>High Security Mode 2</th>
+
+                <th>Direction</th>
+                <th>Aisel Mode</th>
+                <th>Emergency Mode</th>
+                <th>Buzzer Volume</th>
+                <th>Flap Safety Time</th>
+                <th>Gate Reset Time</th>
+                <th>Sensor Inact Time</th>
+                <th>Light Intensity</th>
+                <th>Que Length</th>
+                <th>Action Type </th>
+                <th>Version</th>
+                <th>Action</th>
+
+
+
+                <!-- <th>Module Id</th> -->
+                <!-- <th>Mode</th> -->
+                <!-- <th>Sub Mode</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of equips">
+
+                <td>{{item.gateTriggerId}}</td>
+                <!-- <td>{{item.terminalId}}</td> -->
+                <td>{{ item.productId.id }}</td>
+                <td>{{ item.gateName }}</td>
+                <td>{{ item.line.lineName }}</td>
+                <td>{{ item.station.stationName }}</td>
+
+                <!-- <td>{{ item.productId.productType.productName }}</td> -->
+                <td>{{ item.gateDirection.direction }}</td>
+                <!-- <td>{{ item.modifiedDateTimeng | date: "medium" }}</td> -->
+
+                <!-- <td>{{ item.termID1.productType.productName }}</td> -->
+                <td>{{ item.direction1.directionName }}</td>
+                <td>{{ item.terminalIpAddress1 }}</td>
+                <td>{{ item.activationTime1 | date: "shortTime" }}</td>
+                <td>{{ item.deactivationTime1 | date: "shortTime" }}</td>
+                <td>{{ item.editable1 }}</td>
+                <td>{{ item.entryExitOverride1 }}</td>
+                <td>{{ item.timeModeOverride1 }}</td>
+                <td>{{ item.highSecurityMode1 }}</td>
+
+                <!-- <td>{{ item.termID2.productType.productName }}</td> -->
+                <td>{{ item.direction2.directionName }}</td>
+                <td>{{ item.terminalIpAddress2 }}</td>
+                <td>{{ item.activationTime2 | date: "shortTime" }}</td>
+                <td>{{ item.deactivationTime2 | date: "shortTime" }}</td>
+                <td>{{ item.editable2 }}</td>
+                <td>{{ item.entryExitOverride2 }}</td>
+                <td>{{ item.timeModeOverride2 }}</td>
+                <td>{{ item.highSecurityMode2 }}</td>
+
+                <td>{{ item.direction }}</td>
+                <td>{{ item.aisleMode }}</td>
+                <td>{{ item.emergencyMode }}</td>
+                <td>{{ item.buzzerVolume }}</td>
+                <td>{{ item.flapSafetyTime }}</td>
+                <td>{{ item.gateResetTime }}</td>
+                <td>{{ item.sensorInactTime }}</td>
+                <td>{{ item.lightIntensity }}</td>
+                <td>{{ item.queLength }}</td>
+                <td>{{item.actionType}}</td>
+                <td>{{item.version}}</td>
+
+                <!-- <td>{{item.terminalIpAddress}}</td>
+                    <td>{{item.moduleId}}</td>
+                    <td>{{item.editable}}</td>
+                    <td>{{item.activationTime}}</td>
+                    <td>{{item.deactivationTime}}</td>
+                    <td>{{item.mode}}</td>
+                    <td>{{item.subMode}}</td>
+                    <td>{{item.direction}}</td>
+                    <td>{{item.aisleMode}}</td>
+                    <td>{{item.entryExitOvride}}</td>
+                    <td>{{item.timeModeOvride}}</td>
+                    <td>{{item.highSecurityMode}}</td>
+                    <td>{{item.queLength}}</td>
+                    <td>{{item.flapSafetyTime}}</td>
+                    <td>{{item.gateResetTime}}</td>
+                    <td>{{item.buzzerVolume}}</td>
+                    <td>{{item.lightIntensity}}</td>
+                    <td>{{item.sensorInactTime}}</td> -->
+                <td><button type="button" class="btn btn-primary" (click)="configgate(item)">Update</button></td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>
+<!-- </div> -->

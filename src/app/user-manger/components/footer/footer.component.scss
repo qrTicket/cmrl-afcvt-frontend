@@ -1,0 +1,29 @@
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 62px;
+    line-height: 62px;
+    background-image: linear-gradient(45deg, #020d27, #35434e);    
+    // background-image:linear-gradient(45deg, #a5baf0, #475663bd);
+    // box-shadow: inset 0 0 30px #000000e0;
+    text-align: center;
+    margin: 0 auto;
+    z-index: 1;
+  }
+
+  .content-center {
+      color: #ca7308e8;
+      letter-spacing: 1px;
+      font-size: 16px;
+      //   font-style: italic;
+  }
+
+  a {
+      text-decoration: none;
+  }
+  img  {
+      width: 50px;
+      background: transparent;
+  }

@@ -1,0 +1,75 @@
+<div class="container-fluid wrapper">
+    <h2>Update Fare Details</h2>
+    <hr>
+    <div class="row form-border">
+        <form [formGroup]="editfaredetailsForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+
+                <div class="col-md-4 form-group">
+
+                    <label for="minimumBalance">
+                        <i class="fa fa-inr"></i>&nbsp;
+                        Minimum Balance
+                    </label>
+
+                    <input type="text" class="form-control" name="minimumBalance" formControlName="minimumBalance"
+                        [ngClass]="{'is-invalid': submitted }" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+
+                        <div *ngIf="editfaredetailsForm.controls.minimumBalance.errors && 
+                                    editfaredetailsForm.controls.minimumBalance.errors.required">
+                            {{editfaredetailsForm.controls.minimumBalance.errors.required.message}}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 form-group">
+
+                    <label for="timeLimit">
+                        <i class="fa fa-clock-o"></i>&nbsp;
+                        Time Limit
+                    </label>
+                    <input type="text" class="form-control" formControlName="timeLimit"
+                        [ngClass]="{'is-invalid': submitted && fval.timeLimit.errors }" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="editfaredetailsForm.controls.timeLimit.errors && editfaredetailsForm.controls.timeLimit.errors.required">
+                            {{editfaredetailsForm.controls.timeLimit.errors.required.message}}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4 form-group">
+
+                    <label for="penaltyDecision">
+                        <i class="fa fa-pencil fa-fw"></i>&nbsp;
+                        Penalty Decision
+                    </label>
+                    <input type="text" class="form-control" formControlName="penaltyDecision"
+                        [ngClass]="{'is-invalid': submitted && fval.penaltyDecision.errors }" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="editfaredetailsForm.controls.penaltyDecision.errors && editfaredetailsForm.controls.timeLimit.errors.required">
+                            {{editfaredetailsForm.controls.penaltyDecision.errors.required.message}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row row-p10">
+                <div class="clearfix col-md-12 btn-set">
+                    <button type="submit" [disabled]="editfaredetailsForm.invalid">Update
+                        <span class="fa-class fa fa-paper-plane"></span>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
