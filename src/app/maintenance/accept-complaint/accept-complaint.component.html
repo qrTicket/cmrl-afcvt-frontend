@@ -1,0 +1,99 @@
+<!-- <div class="alert alert-danger" role="alert">{{message}}</div> -->
+<h4 class="card-title d-flex justify-content-center m-2 p-2">Accept Complaint</h4>
+<div class="card shadow">
+    <div class="card-body">
+        <form [formGroup]="acceptcomplaintForm">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="stationName">
+                        <i class="fa fa-pencil fa-fw"></i>&nbsp;Station Name
+                    </label>
+
+                    <input type="text" class="form-control" name="stationName" formControlName="stationName" [ngClass]="{
+                                        'is-invalid': submitted
+                                    }" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="
+                            acceptcomplaintForm.controls.stationName.errors &&
+                            acceptcomplaintForm.controls.stationName.errors.required">
+                            {{acceptcomplaintForm.controls.stationName
+                                .errors.required.message}}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 form-group">
+                    <label for="name">
+                        <i class="fa fa-pencil fa-fw"></i>&nbsp;Zone Name
+                    </label>
+
+                    <input type="text" class="form-control" name="name" formControlName="name"
+                        [ngClass]="{'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="
+                            acceptcomplaintForm.controls.name.errors &&
+                            acceptcomplaintForm.controls.name.errors.required">
+                            {{acceptcomplaintForm.controls.name
+                                .errors.required.message}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 form-group">
+                    <label for="name">
+                        <i class="fa fa-pencil fa-fw"></i>&nbsp;Maintenance Staff Name
+                    </label>
+
+                    <input type="text" class="form-control" name="name" formControlName="name"
+                        [ngClass]="{'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="
+                                acceptcomplaintForm.controls.name.errors &&
+                                acceptcomplaintForm.controls.name.errors.required">
+                            {{acceptcomplaintForm.controls.name
+                                    .errors.required.message}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="issueDescription">
+                        <i class="fa fa-pencil fa-fw"></i>&nbsp;Issue Description
+                    </label>
+
+                    <input type="text" class="form-control" name="issueDescription" formControlName="issueDescription"
+                        [ngClass]="{'is-invalid': submitted}" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="
+                                    acceptcomplaintForm.controls.issueDescription.errors &&
+                                    acceptcomplaintForm.controls.issueDescription.errors.required">
+                            {{acceptcomplaintForm.controls.issueDescription
+                                        .errors.required.message}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row text-center">
+                <button class="btn btn-success btn-block d-flex justify-content-center" (click)="verifyEve()">
+                    Verify
+                </button>
+                <div class="col-6">
+                    <button type="button" 
+                    class="btn btn-outline-danger btn-block d-flex justify-content-center"
+                        (click)="rejectEve()">
+                        Reject
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

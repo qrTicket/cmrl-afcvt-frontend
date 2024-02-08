@@ -1,0 +1,134 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p>
+</ngx-spinner>
+<div
+    class="shadow m-2 p-2"
+    style="background-color: rgba(174, 190, 245, 0.198)"
+>
+    <h2 class="d-flex justify-content-center align-item-middle">
+        Station Equipment List
+    </h2>
+</div>
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>Equipment ID</th>
+                <th>Station Name</th>
+                <th>Equipment Type</th>
+                <th>Equipment Name</th>
+                <th>Equipment Number</th>
+                <th>Status</th>
+                <th>Direction</th>
+                <th>Line Name</th>
+                <th>IP Address</th>
+                <th>Operator Name</th>
+                <th>Installation Date</th>
+                <th>Modify Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Blacklist</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of equipmentList">
+                <td>{{ list.deployedEquipmentCode }}</td>
+                <td>{{ list.station.stationName }}</td>
+                <!-- <td>{{ list.product.productType.productName }}</td> -->
+                <td>{{ list.equipmentName }}</td>
+                <td>{{ list.equipmentNumber }}</td>
+                <td>{{ list.status }}</td>
+                <td>{{ list.direction.direction }}</td>
+                <td>{{ list.line.lineName }}</td>
+                <td>{{ list.equipmentIpAddress }}</td>
+                <td>{{ list.operatorName.name }}</td>
+                <td>{{ list.installationDateTime | date }}</td>
+                <td>{{ list.modifyDateTime | date }}</td>
+                <td>
+                    <button class="btn btn-warning">
+                        <i
+                            (click)="editEquipment(list.id)"
+                            class="fa fa-edit"
+                        ></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger">
+                        <i
+                            class="fa fa-trash"
+                            (click)="openModal(template)"
+                        ></i>
+                    </button>
+                   
+                    <ng-template #template>
+                        <div class="modal-body text-center">
+                            <p>Do you really want to <b> delete</b> this?</p>
+                            <button
+                                type="button"
+                                class="btn btn-default"
+                                (click)="confirm(list.id)"
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="decline()"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                    <!-- <i
+                        (click)="deleteEquipment(list.id)"
+                        class="fa fa-trash"
+                    ></i> -->
+                </td>
+                <td>
+                    <button
+                        class="btn btn-dark"
+                        (click)="openBlacklistModel(blacklist)"
+                    >
+                        <i class="fa fa-ban"></i>
+                    </button>
+                    <ng-template #blacklist>
+                        <div class="modal-body text-center">
+                            <p>
+                                Do you really want to <b>blacklist</b> this
+                                equipment?
+                            </p>
+                            <button
+                                type="button"
+                                class="btn btn-default"
+                                (click)="blacklist_confirm(list.id)"
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="blacklist_decline()"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

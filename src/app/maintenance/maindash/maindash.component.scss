@@ -1,0 +1,182 @@
+
+  .panel {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 5px 10px 18px #3E4551;
+    background-color: #fff;
+    margin-bottom: 30px; }
+  
+  .panel.panel-headline .panel-heading {
+    border-bottom: none; }
+  
+  .panel .panel-heading .panel-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 300; }
+  
+  .panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: black; }
+  
+  .panel .right {
+    position: absolute;
+    right: 20px;
+    top: 32%; }
+  
+  .panel .panel-heading button {
+    padding: 0;
+    margin-left: 5px;
+    background-color: transparent;
+    border: none;
+    outline: none; }
+  
+  .panel .panel-heading button i {
+    font-size: 14px; }
+  
+  .panel .panel-heading {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative; }
+  
+  .panel .panel-heading, .panel .panel-body, .panel .panel-footer {
+    padding-left: 25px;
+    padding-right: 25px; }
+  
+  .panel.panel-headline .panel-heading .panel-title {
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: normal;
+    color: black; }
+  
+  .panel.panel-headline .panel-heading .panel-subtitle {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: black; }
+  
+  .panel .panel-body {
+    padding-top: 10px;
+    padding-bottom: 15px; }
+
+  h3 {
+    display: block;
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+   }
+//  .card-header{
+//   text-align: center;
+//   font-size: 5px;
+//   background-color: red;
+//  }
+ h2{
+   font-size: 23px;
+ }
+ a {
+  text-decoration: none;
+  color: #000;
+}
+
+h4{
+  color: white;
+}
+
+.complaint{
+  margin: 45px 5px 15px 55px ;
+  text-align: center;
+  font-size: 5px;
+  height: 200px;
+  background-color: #17a2b8;
+  border-radius: 8px;
+}
+
+
+
+.arrange{
+  margin-top: 30px;
+}
+
+.arrange:hover{
+  transform: scale(1.11);
+}
+
+.arrange:hover .complaint{
+  box-shadow: 0 0 20px black;
+}
+ 
+
+/*
+Author: Badal
+**/
+
+//for dashboard
+.card-box {
+  position: relative;
+  color: #fff;
+  padding: 20px 10px 40px;
+  margin: 20px 0px;
+}
+.card-box:hover {
+  text-decoration: none;
+  color: #f1f1f1;
+}
+.card-box:hover .icon i {
+  font-size: 100px;
+  transition: 1s;
+  -webkit-transition: 1s;
+}
+.card-box .inner {
+  padding: 5px 10px 0 10px;
+}
+.card-box h3 {
+  font-size: 27px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  white-space: nowrap;
+  padding: 0;
+  text-align: left;
+}
+.card-box p {
+  font-size: 15px;
+}
+.card-box .icon {
+  position: absolute;
+  top: auto;
+  bottom: 5px;
+  right: 5px;
+  z-index: 0;
+  font-size: 72px;
+  color: rgba(0, 0, 0, 0.15);
+}
+.card-box .card-box-footer {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  text-align: center;
+  padding: 3px 0;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  text-decoration: none;
+}
+.card-box:hover .card-box-footer {
+  background: rgba(0, 0, 0, 0.3);
+}
+.bg-blue {
+  background-color: #00c0ef !important;
+}
+.bg-green {
+  background-color: #00a65a !important;
+}
+.bg-orange {
+  background-color: #f39c12 !important;
+}
+.bg-red {
+  background-color: #d9534f !important;
+}
+
+//end

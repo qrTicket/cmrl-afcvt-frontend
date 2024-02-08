@@ -1,0 +1,200 @@
+<nav
+    class="sidebar"
+    [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
+>
+    <div class="list-group text-wrap mt-1 mb-1">
+        <a
+            [routerLink]="['equipmentdash']"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+        >
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ "Dashboard" | translate }}</span>
+        </a>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass1('invType')">
+                <i class="fa fa-cubes"></i>&nbsp;
+                <span
+                    >{{ "Equipment Type" | translate }}
+                    &nbsp;
+                </span>
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'invType'">
+                <ul class="submenu">
+                    <li>
+                        <a
+                            [routerLink]="['inventoryTypeAdd']"
+                            [routerLinkActive]="['router-link-active']"
+                            class="list-group-item"
+                        >
+                            <i class="fa fa-plus-circle"></i>
+                            <span>{{ "Add Equipment Type" | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            [routerLink]="['inventoryTypeList']"
+                            [routerLinkActive]="['router-link-active']"
+                            class="list-group-item"
+                        >
+                            <i class="fa fa-bars"></i>
+                            <span>{{ "Equipment Type List" | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="showInv('pages')">
+                <i class="fa fa-industry"></i>&nbsp;
+                <span
+                    >{{ "Inventory" | translate }}
+                    &nbsp;
+                </span>
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a
+                            [routerLink]="['addInventory']"
+                            [routerLinkActive]="['router-link-active']"
+                            class="list-group-item"
+                        >
+                            <i class="fa fa-plus-circle"></i>
+                            <span>{{ "Add Equipment" | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            [routerLink]="['inventoryList']"
+                            [routerLinkActive]="['router-link-active']"
+                            class="list-group-item text-break"
+                        >
+                            <i class="fa fa-list pt-2" style="height:40px; float:left" ></i>&nbsp;
+                            <span class="text-justify">{{
+                                "Non-Assigned  Equipment List " | translate
+                            }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            [routerLink]="['assign/equipment/list']"
+                            [routerLinkActive]="['router-link-active']"
+                            class="list-group-item text-break"
+                        >
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span class="text-justify">{{
+                                "Assigned List " | translate
+                            }}</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a
+                            [routerLink]="['unassign/equipment/list']"
+                            [routerLinkActive]="['router-link-active']"
+                            class="list-group-item text-break"
+                        >
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span class="text-justify">{{
+                                "UnAssigned List " | translate
+                            }}</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+        </div>
+
+      
+
+        <!-- <div class="nested-menu">
+            
+
+            <li class="nested" [class.expand]="showMenu === 'showEquip'">
+                <ul class="submenu">
+                  
+                    <li>
+                        <a
+                            [routerLink]="['blacklist/equipment']"
+                            [routerLinkActive]="['router-link-active']"
+                            class="list-group-item"
+                        >
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span>{{
+                                "Blacklisted Equipment" | translate
+                            }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+
+        <div class="header-fields">
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span
+                        ><i class="fa fa-user mr-10"></i>{{ user | titlecase }}
+                    </span>
+                    <b class="caret ml-10"></b>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span
+                                    ><i class="fa fa-fw fa-user"></i>
+                                    {{ "Profile" | translate }}</span
+                                >
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span
+                                    ><i class="fa fa-fw fa-envelope"></i>
+                                    {{ "Inbox" | translate }}</span
+                                >
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span
+                                    ><i class="fa fa-fw fa-gear"></i>
+                                    {{ "Settings" | translate }}</span
+                                >
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                [routerLink]="['/login']"
+                                (click)="onLoggedout()"
+                            >
+                                <span
+                                    ><i class="fa fa-fw fa-power-off"></i>
+                                    {{ "Log Out" | translate }}</span
+                                >
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+        <div
+            class="toggle-button"
+            [ngClass]="{ collapsed: collapsed }"
+            (click)="toggleCollapsed()"
+        >
+            <i
+                class="fa fa-fw fa-angle-double-{{
+                    collapsed ? 'right' : 'left'
+                }}"
+            ></i
+            >&nbsp;
+            <span>{{ "Hide" | translate }}</span>
+        </div>
+    </div>
+</nav>

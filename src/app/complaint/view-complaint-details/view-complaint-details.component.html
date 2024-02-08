@@ -1,0 +1,75 @@
+<div class="container">
+    <!-- <div class="heading">
+        <h2>Station List</h2>
+
+        <hr />
+    </div> -->
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item active" aria-current="page">Complaint Details</li>
+        </ol>
+    </nav>
+    <hr>
+
+    <section class="line-details">
+        <div class="row">
+            <div class="col-md-4">
+                <label><strong>Device Id</strong>  :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.deviceId}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Token</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.token}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Raised By</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.createBy}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Station Code</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.stationCode}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Current Status</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.currentCompnaintStatus}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Raised At</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.createdDate | date:'medium'}}</label>
+            </div>
+            <div class="col-md-4">
+                <label><strong>Problem Description</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.problemDescription}}</label>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="station-details my-5">
+        <div class="row">
+            <div class="col-md-12">
+                <label><strong>Complaint Log</strong> : </label>
+            </div>
+            <div class="col-md-12"> 
+                <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Log By</th>
+                        <th scope="col">Status Updated At</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let list of complaintDetails.complaintLog">
+                        <th>{{list.logBy.name}}</th>
+                        <td>{{list.createdDate | date:'medium' }}</td>
+                        <td>{{list.status.complaintStatusResponse}}</td>
+                        <td>{{list.description}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+            
+        </div>
+
+    </section>
+
+
+
+</div>
+

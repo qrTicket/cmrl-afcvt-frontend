@@ -1,0 +1,493 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<div class="outer-body">
+
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/equipment/inventoryList']">Inventory</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Equipment</li>
+        </ol>
+    </nav>
+
+<div class="card card-outline-secondary">
+   
+    <!-- <div class="card-header">
+        <h3 class="mb-0">Add Equipment</h3>
+    </div> -->
+    <form [formGroup]="addInventoryStock" (ngSubmit)="onaddinvetFormSubmit()">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-4 pb-3">
+                    <label>Equipment Type</label><span id="mandatory">*</span>
+                    <select class="form-control" formControlName="equipmentTypeId" [ngClass]="{ 'is-invalid': submitted && fval.equipmentTypeId.errors }"  >
+                        <option value="">Select equipment Type</option>
+                        <option *ngFor="let equipment of equipmentTypeList"  [ngValue]="equipment.equipmentTypeId"   >
+                            {{ equipment.equipmentTypeName }}
+                        </option>
+                    </select>
+                    <div  *ngIf="submitted && fval.equipmentTypeId.errors" class="invalid-feedback"  >
+                        <div *ngIf="addInventoryStock.controls.equipmentTypeId.errors" >
+                            {{
+                                addInventoryStock.controls.equipmentTypeId.errors.required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="">Manufacture Name</label><span id="mandatory">*</span>
+                    <input type="text" class="form-control" formControlName="manufactureName" placeholder="Enter manufacture name"  [ngClass]="{ 'is-invalid': submitted && fval.manufactureName.errors }" maxlength="30" />
+                    <div *ngIf="submitted && fval.manufactureName.errors" class="invalid-feedback" >
+                        <div *ngIf="addInventoryStock.controls.manufactureName.errors && addInventoryStock.controls.manufactureName.errors.required" >
+                            {{ addInventoryStock.controls.manufactureName.errors.required.message  }}
+                        </div>
+                        <div *ngIf="addInventoryStock.controls.manufactureName.errors && addInventoryStock.controls.manufactureName.errors.alpha" >
+                            {{ addInventoryStock.controls.manufactureName.errors.alpha.message }}
+                        </div>
+                    </div> 
+                </div>
+
+
+
+
+                <div class="col-sm-4 pb-3">
+                    <label for="serialNo">Serial Number</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="serialNumber"
+                        placeholder="Enter serial number"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.serialNumber.errors
+                        }"
+                        maxlength="10"
+                        style="text-transform: uppercase"
+                    />
+                    <div
+                        *ngIf="submitted && fval.serialNumber.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.serialNumber
+                                    .errors &&
+                                addInventoryStock.controls.serialNumber.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.serialNumber.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.serialNumber
+                                    .errors &&
+                                addInventoryStock.controls.serialNumber.errors
+                                    .alphaNumeric
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.serialNumber.errors
+                                    .alphaNumeric.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="model">Equipment Code</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="equipmentCode"
+                        placeholder="Enter equipment code"
+                        maxlength="15"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.equipmentCode.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.equipmentCode.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.equipmentCode
+                                    .errors &&
+                                addInventoryStock.controls.equipmentCode.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.equipmentCode.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.equipmentCode
+                                    .errors &&
+                                addInventoryStock.controls.equipmentCode.errors
+                                    .alpha
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.equipmentCode.errors
+                                    .alpha.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-4 pb-3">
+                    <label for="productManu">Expiry Date</label>
+
+                    <input
+                        type="text"
+                        formControlName="expDate"
+                        placeholder="Select expiry date"
+                        class="form-control"
+                        bsDatepicker
+                        [minDate]="minDate"
+                        [outsideClick]="true"
+                        [bsConfig]="{
+                            adaptivePosition: true,
+                            dateInputFormat: 'YYYY-MM-DD',
+                            containerClass: 'theme-dark-blue'
+                        }"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.expDate.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.expDate.errors &&
+                                addInventoryStock.controls.expDate.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.expDate.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.expDate.errors &&
+                                addInventoryStock.controls.expDate.errors.date
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.expDate.errors.date
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-sm-4 pb-3">
+                    <label>Product version</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="version"
+                        placeholder="Enter product version"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.version.errors
+                        }"
+                        maxlength="5"
+                    />
+                    <div
+                        *ngIf="submitted && fval.version.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.version.errors &&
+                                addInventoryStock.controls.version.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.version.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.version.errors &&
+                                addInventoryStock.controls.version.errors
+                                    .numeric
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.version.errors
+                                    .numeric.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.version.errors &&
+                                addInventoryStock.controls.version.errors
+                                    .nonZero
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.version.errors
+                                    .nonZero.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.version.errors &&
+                                addInventoryStock.controls.version.errors.deci
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.version.errors.deci
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="model">Equipment Model Name</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="equipmentModelName"
+                        placeholder="Enter model name"
+                        maxlength="20"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.equipmentModelName.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.equipmentModelName.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors &&
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors &&
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors.alphaNumeric
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors.alphaNumeric.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors &&
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors.special
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.equipmentModelName
+                                    .errors.special.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productManu">Manufacturing Date</label><span id="mandatory">*</span>
+
+                    <input
+                        readonly
+                        formControlName="mfgDate"
+                        placeholder="Select Manufacturing date"
+                        class="form-control mfg-date"
+                        bsDatepicker
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigMfg"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.mfgDate.errors
+                        }"
+                        (bsValueChange)="onValueChange($event)"
+                        (onHidden)="handler('onHidden')"
+                    />
+                    <div
+                        *ngIf="submitted && fval.mfgDate.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.mfgDate.errors &&
+                                addInventoryStock.controls.mfgDate.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.mfgDate.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.mfgDate.errors &&
+                                addInventoryStock.controls.mfgDate.errors.date
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.mfgDate.errors.date
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="productVersion">Purchase Date</label><span id="mandatory">*</span>
+                    <input
+                        readonly
+                        type="text"
+                        [isDisabled]="isDisabled"
+                        bsDatepicker
+                        formControlName="purchaseDate"
+                        placeholder="Select purchase date"
+                        class="form-control"
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigPur"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.purchaseDate.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.purchaseDate.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.purchaseDate
+                                    .errors &&
+                                addInventoryStock.controls.purchaseDate.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.purchaseDate.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.purchaseDate
+                                    .errors &&
+                                addInventoryStock.controls.purchaseDate.errors
+                                    .date
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.purchaseDate.errors
+                                    .date.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.purchaseDate
+                                    .errors &&
+                                addInventoryStock.controls.purchaseDate.errors
+                                    .maxDate
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.purchaseDate.errors
+                                    .maxDate.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Warranty (in years)</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter warranty"
+                        formControlName="warranty"
+                        maxlength="2"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.warranty.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.warranty.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.warranty.errors &&
+                                addInventoryStock.controls.warranty.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.warranty.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.warranty.errors &&
+                                addInventoryStock.controls.warranty.errors
+                                    .notZero
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.warranty.errors
+                                    .notZero.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                addInventoryStock.controls.warranty.errors &&
+                                addInventoryStock.controls.warranty.errors.digit
+                            "
+                        >
+                            {{
+                                addInventoryStock.controls.warranty.errors.digit
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class=" mt-4 form-group">
+                <!-- (click)="onaddinvetFormSubmit()" -->
+                <button class="btn btn-primary mt-1 submitButton"   >
+                    <i class="fa fa-paper-plane"></i>
+                    Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>

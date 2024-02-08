@@ -1,0 +1,174 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<nav aria-label="breadcrumb" class="bdcrm" >
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/equipment/inventoryTypeList']">Equipment Type List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Update Equipment Type </li>
+    </ol>
+</nav>
+
+<div class="card  my-2">
+    <!-- <div class="card-header">
+        <h3 class="mb-0">Update Equipment Type</h3>
+    </div> -->
+    <form [formGroup]="updateInventoryType">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-4 pb-3">
+                    <label>Equipment Type Id</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="equipmentTypeId"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.equipmentTypeId.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryType.controls.equipmentTypeId
+                                    .errors &&
+                                updateInventoryType.controls.equipmentTypeId
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryType.controls.equipmentTypeId
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateInventoryType.controls.equipmentTypeId
+                                    .errors &&
+                                updateInventoryType.controls.equipmentTypeId
+                                    .errors.numeric
+                            "
+                        >
+                            {{
+                                updateInventoryType.controls.equipmentTypeId
+                                    .errors.numeric.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productName">Equipment Type</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control txt-cap"
+                        formControlName="equipmentTypeName"
+                        maxlength="50"
+                        [ngClass]="{
+                            'is-invalid': submitted  && fval.equipmentTypeName.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryType.controls.equipmentTypeName
+                                    .errors &&
+                                updateInventoryType.controls.equipmentTypeName
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryType.controls.equipmentTypeName
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <div
+                            class="form-text text-danger"
+                            *ngIf="
+                                updateInventoryType.controls.equipmentTypeName
+                                    .errors &&
+                                updateInventoryType.controls.equipmentTypeName
+                                    .errors.alpha
+                            "
+                        >
+                            {{
+                                updateInventoryType.controls.equipmentTypeName
+                                    .errors.alpha.message
+                            }}<br />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Short Name</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control txt-up"
+                        formControlName="equipmentTypeShortName"
+                        minlength="2"
+                        maxlength="8"
+                        [ngClass]="{
+                            'is-invalid': submitted  && fval.equipmentTypeShortName.errors
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryType.controls
+                                    .equipmentTypeShortName.errors &&
+                                updateInventoryType.controls
+                                    .equipmentTypeShortName.errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryType.controls
+                                    .equipmentTypeShortName.errors.required
+                                    .message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateInventoryType.controls
+                                    .equipmentTypeShortName.errors &&
+                                updateInventoryType.controls
+                                    .equipmentTypeShortName.errors.alpha
+                            "
+                        >
+                            {{
+                                updateInventoryType.controls
+                                    .equipmentTypeShortName.errors.alpha.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submitButton mt-4 form-group col-sm-3">
+                    <button class="btn btn-primary mt-2 mr-3 btncss"  (click)="openModal(updateTemplate)">
+                        <i class="fa fa-paper-plane"></i>
+                        Update
+                    </button>
+
+                    <button type="button" class="btn btn-danger mt-2 btncss" [routerLink]="['/equipment/inventoryTypeList']">
+                        <i class="fa fa-close"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<ng-template #updateTemplate>
+    <div class="modal-body text-center">
+        <p>Do you want to update?</p>
+        <button type="button" class="btn btn-primary pull-left" (click)="onaddinvetFormSubmit()">
+            <i class="fa fa-paper-plane"></i>
+            Update
+        </button>
+        <button type="button" class="btn btn-danger pull-right" (click)="decline()">
+            <i class="fa fa-close"></i>
+            Cancel
+        </button>
+    </div>
+</ng-template>

@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="innerwrap">
+        <section class="section1 clearfix">
+            <div class="textcenter">
+                <h1>Drop Us a Mail</h1>
+                <span class="seperator"></span>
+            </div>
+        </section>
+
+        <section class="section2 clearfix">
+            <div class="sec2contactform">
+                <form [formGroup]="mailForm" (ngSubmit)="onFormSubmit()">
+                    <div class="clearfix">
+                        <input
+                            class="col2 first"
+                            type="text"
+                            formControlName="to"
+                            [ngClass]="{
+                                'is-invalid': submitted && fval.to.errors
+                            }"
+                            placeholder="To"
+                        />
+                        <div
+                            *ngIf="submitted && fval.to.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="fval.to.errors.required">
+                                Email is required !
+                            </div>
+                        </div>
+                        <input
+                            class="col2 last"
+                            type="text"
+                            formControlName="subject"
+                            [ngClass]="{
+                                'is-invalid': submitted && fval.subject.errors
+                            }"
+                            placeholder="Subject"
+                        />
+                        <div
+                            *ngIf="submitted && fval.subject.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="fval.subject.errors.required">
+                                Subject is required !
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix">
+                        <textarea
+                            name="textarea"
+                            id=""
+                            cols="30"
+                            rows="7"
+                            type="text"
+                            formControlName="text"
+                            [ngClass]="{
+                                'is-invalid': submitted && fval.text.errors
+                            }"
+                            placeholder="Your message here..."
+                        ></textarea>
+                        <div
+                            *ngIf="submitted && fval.text.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="fval.text.errors.required">
+                                Message is required !
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <input type="submit" value="Send" />
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

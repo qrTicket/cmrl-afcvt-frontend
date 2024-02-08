@@ -1,0 +1,328 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div class="card card-outline-secondary mt-2">
+    <div class="card-header">
+        <h3 class="mb-0">Assign Equipment to Station</h3>
+    </div>
+    <form [formGroup]="addEquipmentForm" (ngSubmit)="onaddinvetFormSubmit()">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-4 pb-3">
+                    <label for="">Equipment Type</label>
+                    <select
+                        name="prodType"
+                        id=""
+                        class="form-control"
+                        formControlName="product"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Select equipment Type</option>
+                        <option
+                            *ngFor="let item of productList"
+                            [ngValue]="item"
+                        >
+                            {{ item.productType.productName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.product.errors &&
+                                addEquipmentForm.controls.product.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.product.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="">Operator Name</label>
+                    <select
+                        name="prodType"
+                        id=""
+                        class="form-control"
+                        formControlName="operatorName"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Select Operator Name</option>
+                        <option
+                            *ngFor="let vendor of vendorlist"
+                            [ngValue]="vendor"
+                        >
+                            {{ vendor.vendorName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.operatorName.errors &&
+                                addEquipmentForm.controls.operatorName.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.operatorName.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="">Station Name</label>
+                    <select
+                        name="stationName"
+                        id=""
+                        class="form-control"
+                        formControlName="station"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Select Station</option>
+                        <option
+                            *ngFor="let item of stationList"
+                            [ngValue]="item"
+                        >
+                            {{ item.stationName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.station.errors &&
+                                addEquipmentForm.controls.station.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.station.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="">Line Name</label>
+                    <select
+                        name="lineName"
+                        id=""
+                        class="form-control"
+                        formControlName="line"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Select Station</option>
+                        <option *ngFor="let line of listList" [ngValue]="line">
+                            {{ line.lineName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.line.errors &&
+                                addEquipmentForm.controls.line.errors.required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.line.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="equipName">Equipment Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter equipment name"
+                        formControlName="equipmentName"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.equipmentName
+                                    .errors &&
+                                addEquipmentForm.controls.equipmentName.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.equipmentName.errors
+                                    .required.message
+                            }}
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="equipIpaddress">IP Address</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter IP address"
+                        formControlName="equipmentIpAddress"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.equipmentIpAddress
+                                    .errors &&
+                                addEquipmentForm.controls.equipmentIpAddress
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.equipmentIpAddress
+                                    .errors.required.message
+                            }}<br />
+                        </div>
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.equipmentIpAddress
+                                    .errors &&
+                                addEquipmentForm.controls.equipmentIpAddress
+                                    .errors.ip
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.equipmentIpAddress
+                                    .errors.ip.message
+                            }}<br />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="status">Status</label>
+                    <select
+                        name="status"
+                        class="form-control"
+                        formControlName="status"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option>Select status</option>
+                        <option *ngFor="let item of statusList">
+                            {{ item.statusName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.status.errors &&
+                                addEquipmentForm.controls.status.errors.required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.status.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="equipNumber">Equipment Number</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter equipment number"
+                        formControlName="equipmentNumber"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.equipmentNumber
+                                    .errors &&
+                                addEquipmentForm.controls.equipmentNumber.errors
+                                    .digit
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.equipmentNumber.errors
+                                    .digit.message
+                            }}<br />
+                        </div>
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.equipmentNumber
+                                    .errors &&
+                                addEquipmentForm.controls.equipmentNumber.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.equipmentNumber.errors
+                                    .required.message
+                            }}<br />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="equipNumber">Direction</label>
+                    <select
+                        name="status"
+                        class="form-control"
+                        formControlName="direction"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Direction</option>
+                        <option *ngFor="let d of directionList" [ngValue]="d">
+                            {{ d.direction }}
+                        </option>
+                    </select>
+                    <!-- <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                addEquipmentForm.controls.direction.errors &&
+                                addEquipmentForm.controls.direction.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                addEquipmentForm.controls.direction.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div> -->
+                </div>
+                <div class="submitButton mt-4 form-group">
+                    <button class="btn btn-info mt-2">
+                        <i class="fa fa-paper-plane"></i> &nbsp; Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template #defaultText>Submit</ng-template>
+</div>

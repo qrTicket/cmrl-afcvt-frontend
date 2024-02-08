@@ -1,0 +1,187 @@
+<div class="heading">
+    <h2>Pending Complaint List</h2>
+</div>
+<hr>
+
+<div class="table-responsive table-set">
+    <div class="table-responsive">
+        <table class="table-res row-border hover table-head" 
+                datatable = ""
+                id="dataTable"
+                [dtOptions]="dtOptions" 
+                [dtTrigger]="dtTrigger" 
+                cellspacing="0"
+                width="100%"
+        >
+            <thead>
+                <tr>
+                    <th style="width:200px">Station Code</th>
+                    <th style="width:200px">Device ID</th>
+                    <th style="width:200px">Token</th>
+                    <th style="width:180px">Problem Description</th>
+                    <th style="width:200px">Complaint Status</th>
+                    <th style="width:200px">Created By</th>
+                    <th style="width:200px">Created Date & Time</th>
+                    <th style="width:200px;text-align: center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of complains">
+                    <td>{{ item.stationCode }}</td>
+                    <td>
+                        <a
+                        href="javascript:;"
+                        [routerLink]="['/complaint/device-details/', item.deviceId]"
+                        >{{ item.deviceId }}
+                        </a>
+                    </td>
+                    <td>{{ item.token }}</td>
+                    <td>{{ item.problemDescription }}</td>
+                    <td><b>{{ item.complaintStatus }}</b></td>
+                    <td>{{ item.createBy }}</td>
+                    <td>{{ item.createdDate | date:'medium'}}</td>
+                    <td>
+                        <button class="btn btn-info mx-3" (click)="openAssignModel(assignTemplate,item.token)" title="Assign Complaint">
+                            <i class="fa fa-paper-plane" style="font-size: 18px"></i>
+                        </button>
+                        <button class="btn btn-danger" (click)="openRejectModel(rejectTemplate,item.token)" title="Reject Complaint">
+                            <i class="fa fa-ban" style="font-size: 18px"></i>
+                        </button>
+                        <ng-template #assignTemplate>
+                            <div class="model-dialog model-lg">
+                                <div class="modal-header">
+                                    <h4 class="modal-title pull-left">
+                                        Assign Complaint
+                                    </h4>
+                                    <button type="button" class="close pull-right" aria-label="Close"
+                                        (click)="modalRef.hide()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form [formGroup]="assignForm" (ngSubmit)="onAccept()">
+                                        <div class="row">
+                                           
+                                            <div class="col-md-12">
+                                                <label for="deviceId">
+                                                    <b>Token</b> -
+                                                </label>
+                                                
+                                                <input type="text" [ngModel]="item.token" class="form-control" formControlName="token"
+                                                    [ngClass]="{
+                                                                  'is-invalid': submitted && fval.token.errors
+                                                              }" readonly />
+                                                <div *ngIf="submitted && fval.token.errors" class="invalid-feedback">
+                                                    <div *ngIf="fval.token.errors.required">
+                                                        This field is required !
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="maintenanceStaffId">
+                                                    <b>Maintenance Staff</b> -
+                                                </label>
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="maintenanceStaffId"
+                                                    [ngClass]="{
+                                                        'is-invalid': submitted && fval.maintenanceStaffId.errors
+                                                    }"
+                                                >
+                                                    <option value="">Select Maintenance Staff</option>
+                                                    <option
+                                                        *ngFor="let list of maintinanceUserList"
+                                                        [ngValue]="list.id"
+                                                    >
+                                                        {{ list.name }}
+                                                    </option>
+                                                </select>
+                                                <div *ngIf="submitted && fval.maintenanceStaffId.errors" class="invalid-feedback">
+                                                    <div *ngIf="fval.maintenanceStaffId.errors.required">
+                                                        This field is required !
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12">
+                                                <label for="description">
+                                                    <b>Comments</b> -
+                                                </label>
+                                                <textarea rows="3" class="form-control" formControlName="description"
+                                                    placeholder="Type..."
+                                                    [ngClass]="{'is-invalid': submitted && fval.description.errors}">
+                                                        </textarea>
+                                                <div *ngIf="submitted && fval.description.errors" class="invalid-feedback">
+                                                    <div *ngIf="fval.description.errors.required">
+                                                        This field is required !
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-info btn-set">
+                                                Assign
+                                            </button>
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template #rejectTemplate>
+                            <div class="model-dialog model-lg">
+                                <div class="modal-header">
+                                    <h4 class="modal-title pull-left">
+                                        Reject Complaint
+                                    </h4>
+                                    <button type="button" class="close pull-right" aria-label="Close"
+                                        (click)="modalRef.hide()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form [formGroup]="rejectForm" (ngSubmit)="onReject()">
+                                        <div class="row">
+                                           
+                                            <div class="col-md-12">
+                                                <label for="token">
+                                                    <b>Token</b> -
+                                                </label>
+                                                
+                                                <input type="text" [ngModel]="item.token" class="form-control" formControlName="token"
+                                                    [ngClass]="{
+                                                                  'is-invalid': submitted && fval1.token.errors
+                                                              }" readonly />
+                                                <div *ngIf="submitted && fval1.token.errors" class="invalid-feedback">
+                                                    <div *ngIf="fval1.token.errors.required">
+                                                        This field is required !
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12">
+                                                <label for="description">
+                                                    <b>Comments</b> -
+                                                </label>
+                                                <textarea rows="3" class="form-control" formControlName="description"
+                                                    placeholder="Type..."
+                                                    [ngClass]="{'is-invalid': submitted && fval1.description.errors}">
+                                                        </textarea>
+                                                <div *ngIf="submitted && fval1.description.errors" class="invalid-feedback">
+                                                    <div *ngIf="fval1.description.errors.required">
+                                                        This field is required !
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-danger btn-set">
+                                                Reject
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

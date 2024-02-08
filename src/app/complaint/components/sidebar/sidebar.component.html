@@ -1,0 +1,79 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed }">
+    <div class="list-group text-wrap">
+
+        <!-- complaint dashboard -->
+        <a [routerLink]="['complaintdash']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard algn-icon"></i>
+            <div class="algn-items">
+                <span>{{ 'Dashboard' }}</span>
+            </div>
+        </a>
+
+        <!-- pending complaint list -->
+        <a [routerLink]="['pendingList']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-list-alt algn-icon" aria-hidden="true"></i>&nbsp;
+            <div class="algn-items">
+                <span>{{ 'Pending Complaint List' }}</span>
+            </div>
+        </a>
+
+        <!-- progress complaint list -->
+        <a [routerLink]="['progressList']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-bars algn-icon"></i>&nbsp;
+            <div class="algn-items">
+                <span>{{ 'Progress Complaint List' }}</span>
+            </div>
+        </a>
+
+        <!-- rejected complaint list -->
+        <a [routerLink]="['rejectedList']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-bars algn-icon"></i>&nbsp;
+            <div class="algn-items">
+                <span>{{ 'Rejected Complaint List' }}</span>
+            </div>
+        </a>
+
+        <!-- resolved complaint list -->
+        <a [routerLink]="['completedComplaintList']" [routerLinkActive]="['router-link-active']"
+            class="list-group-item">
+            <i class="fa fa-bars algn-icon"></i>&nbsp;
+            <div class="algn-items">
+                <span>{{ 'Closed Complaint List' }}</span>
+            </div>
+        </a>
+
+        <!-- user profile, reset-password, logout -->
+        <div class="header-fields">
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user mr-10"></i>{{user }}
+                    </span>
+                    <b class="caret ml-10"></b>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['edit-profile']" class="dropdown-item">
+                                <i class="fa fa-fw fa-user mr-10"></i>
+                                {{ "Profile" }}
+                            </a>
+                        </li>
+                       
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <i class="fa fa-fw fa-power-off"></i>
+                                {{ 'Log Out' }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+
+        <div class="toggle-button" [ngClass]="{ collapsed: collapsed }" (click)="toggleCollapsed()">
+            <i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>&nbsp;
+            <span>{{ "Collapse" }}</span>
+        </div>
+    </div>
+
+</nav>

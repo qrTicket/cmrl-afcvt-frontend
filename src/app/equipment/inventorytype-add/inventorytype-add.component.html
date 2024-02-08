@@ -1,0 +1,138 @@
+ <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<div class="outer-body">
+
+    <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/equipment/inventoryTypeList']">Equipment Type</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
+        </ol>
+    </nav>
+
+    <div class="card card-outline-secondary">
+        <!-- <div class="card-header">
+            <h3 class="mb-0">Add Equipment Type</h3>
+        </div> -->
+
+        
+
+        <form [formGroup]="addInventoryType" (ngSubmit)="onaddinvetFormSubmit()">
+            <div class="card-body">
+                <div class="row mt-1">
+                    <div class="col-sm-4 pb-3">
+                        <label>Equipment Type Id</label><span id="mandatory">*</span>
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="equipmentTypeId"
+                            placeholder="Enter Equipment Type ID"
+                            maxlength="10"
+                            [ngClass]="{
+                                'is-invalid': submitted && fval.equipmentTypeId.errors
+                            }"  />
+
+                        <div *ngIf="submitted && fval.equipmentTypeId.errors" class="invalid-feedback" >
+                            <div *ngIf=" addInventoryType.controls.equipmentTypeId.errors && addInventoryType.controls.equipmentTypeId.errors.required" >
+                                {{  addInventoryType.controls.equipmentTypeId.errors.required.message   }}
+                            </div>
+                            <div  *ngIf="addInventoryType.controls.equipmentTypeId.errors && addInventoryType.controls.equipmentTypeId.errors.numeric" >
+                                {{ addInventoryType.controls.equipmentTypeId.errors.numeric.message  }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4 pb-3">
+                        <label for="productName">Equipment Type</label><span id="mandatory">*</span>
+                        <input
+                            type="text"
+                            class="form-control txt-cap"
+                            formControlName="equipmentTypeName"
+                            placeholder="Enter Equipment Name"
+                            maxlength="25"
+                            [ngClass]="{
+                                'is-invalid': submitted && fval.equipmentTypeName.errors
+                            }"
+                        />
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div *ngIf=" addInventoryType.controls.equipmentTypeName.errors && addInventoryType.controls.equipmentTypeName.errors.required" >
+                                {{  addInventoryType.controls.equipmentTypeName.errors.required.message }}
+                            </div>
+                            <div  class="form-text text-danger" *ngIf="addInventoryType.controls.equipmentTypeName.errors && addInventoryType.controls.equipmentTypeName.errors.alpha" >
+                                {{  addInventoryType.controls.equipmentTypeName.errors.alpha.message }}<br />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4 pb-3 ">
+                        <label>Short Name</label><span id="mandatory">*</span>
+                        <input
+                            type="text"
+                            class="form-control txt-up"
+                            formControlName="equipmentTypeShortName"
+                            placeholder="Enter Equipment Short Name"
+                            minlength="2"
+                            maxlength="8"
+                            [ngClass]="{
+                                'is-invalid': submitted && fval.equipmentTypeShortName.errors
+                            }"
+                    
+                        />
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    addInventoryType.controls.equipmentTypeShortName
+                                        .errors &&
+                                    addInventoryType.controls.equipmentTypeShortName
+                                        .errors.required
+                                "
+                            >
+                                {{
+                                    addInventoryType.controls.equipmentTypeShortName
+                                        .errors.required.message
+                                }}
+                            </div>
+                            <div
+                                *ngIf="
+                                    addInventoryType.controls.equipmentTypeShortName
+                                        .errors &&
+                                    addInventoryType.controls.equipmentTypeShortName
+                                        .errors.alpha
+                                "
+                            >
+                                {{
+                                    addInventoryType.controls.equipmentTypeShortName
+                                        .errors.alpha.message
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <!-- submitButton mt-1 form-group col-sm-3 -->
+                    <div class="form-group ">
+                        <!-- mt-2 btncss -->
+                        <button class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Add
+                        </button>
+    
+                        <button type="submit"  [routerLink]="['/equipment/equipmentdash']" class="btn btn-danger ml-2">
+                            <i class="fas fa-close"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>

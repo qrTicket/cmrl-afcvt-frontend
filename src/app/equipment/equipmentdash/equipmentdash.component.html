@@ -1,0 +1,121 @@
+
+<div class="row mt-4">
+    <ng-container *ngFor="let item of equipments | keyvalue">
+        <div class="col-sm-3" >
+            <div class="card  mb-3 invent text-center">
+                <div class="card-header bg-info">{{ item.key }}</div>
+                <div class="card-body">
+                    <h1 class="card-title">
+                        {{ item.value }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<!-- *ngIf="item.key!='Assigned Equipments' && item.key!='Not Assigned Equipments' && item.key!='Total Equipments' " -->
+
+<!--<div class="row mt-4">
+
+    <div class="col-sm-3" >
+        <div class="card  mb-3 invent text-center">
+            <div class="card-header bg-info">Total Equipments</div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    {{
+                        equipments?.totalEquipments > 0
+                            ? equipments?.totalEquipments
+                            : 0
+                    }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-3" [routerLink]="['/equipment/assign/equipment/list']">
+        <div class="card  mb-3 invent text-center">
+            <div class="card-header bg-info">Assigned Equipments</div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    {{
+                        equipments?.assignedEquipments > 0
+                            ? equipments.assignedEquipments
+                            : 0
+                    }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-3" [routerLink]="['/equipment/inventoryList']">
+        <div class="card  mb-3 invent text-center">
+            <div class="card-header bg-info">Non-Assigned Equipments</div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    {{
+                        equipments?.notAssignedEquipments > 0
+                            ? equipments.notAssignedEquipments
+                            : 0
+                    }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="card  mb-3 invent text-center">
+            <div class="card-header bg-info">Automatic Gate</div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    {{ specificEqp?.Gate || 0 }}
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+   
+
+
+    <div class="col-sm-3">
+        <div class="card  mb-3 invent text-center">
+            <div class="card-header bg-info">Terminal</div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    {{ specificEqp?.Terminal || 0 }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-3">
+        <div class="card  mb-3 invent text-center">
+            <div class="card-header bg-info">TVM</div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    {{ specificEqp?.TicketVendingMachine || 0 }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-3">
+        <div class="card  mb-3 invent text-center">
+            <div class="card-header bg-info">TOM</div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    {{ specificEqp?.TicketOperatingMachine || 0 }}
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+

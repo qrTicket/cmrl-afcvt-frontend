@@ -1,0 +1,70 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div
+    class="shadow m-2 p-2"
+    style="background-color: rgba(174, 190, 245, 0.198)"
+>
+    <h2 class="d-flex justify-content-center align-item-middle">
+        Equipment Type List
+    </h2>
+</div>
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>Terminal ID</th>
+                <th>Station Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of terminalList">
+                <td>{{ list.id | titlecase }}</td>
+                <td>{{ list.station.stationName | uppercase }}</td>
+                <!-- <td>{{list.createdDate | date}}</td> -->
+                <!-- <td>
+                    <button class="btn btn-danger">
+                        <i
+                            class="fa fa-trash"
+                            (click)="openModal(template)"
+                            style="font-size: 18px;"
+                        ></i>
+                    </button>
+                    <ng-template #template>
+                        <div class="modal-body text-center">
+                            <p>Do you really want to delete this?</p>
+                            <button
+                                type="button"
+                                class="btn btn-default"
+                                (click)="confirm(list.id)"
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="decline()"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>

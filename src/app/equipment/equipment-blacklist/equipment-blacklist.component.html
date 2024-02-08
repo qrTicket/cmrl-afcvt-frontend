@@ -1,0 +1,55 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div
+    class="shadow m-2 p-2"
+    style="background-color: rgba(174, 190, 245, 0.198)"
+>
+    <h2 class="d-flex justify-content-center align-item-middle">
+        Blacklisted Equipment List
+    </h2>
+</div>
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <!-- <th>Equipment Type</th> -->
+                <th>Equipment Name</th>
+                <th>Equipment Number</th>
+                <th>IP Address</th>
+                <th>Direction</th>
+                <th>Equipment Installation Date</th>
+                <th>Line Name</th>
+                <th>Station Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let equipment of blacklisted">
+                <td>{{ equipment.id }}</td>
+                <!-- <td>{{ equipment.product.productType.productName }}</td> -->
+                <td>{{ equipment.equipmentName }}</td>
+                <td>{{ equipment.equipmentNumber }}</td>
+                <td>{{ equipment.equipmentIpAddress }}</td>
+                <td>{{ equipment.direction.direction }}</td>
+                <td>{{ equipment.installationDateTime | date: "medium" }}</td>
+                <td>{{ equipment.line.lineName }}</td>
+                <td>{{ equipment.station.stationName }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

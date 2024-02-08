@@ -1,0 +1,109 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div
+    class="shadow m-2 p-2"
+    style="background-color: rgba(174, 190, 245, 0.198)"
+>
+    <h2 class="d-flex justify-content-center align-item-middle">
+        Assigned Gate List
+    </h2>
+</div>
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr>
+                <th>Line</th>
+                <th>Station</th>
+                <th>Gate</th>
+                <th>Gate Name</th>
+                <th>Gate Direction</th>
+                <th>Terminal A Name</th>
+                <th>Terminal A Direction</th>
+                <th>Terminal A Ip Addresss</th>
+                <th>Activation Time A</th>
+                <th>Deactivation Time A</th>
+                <th>Editable A</th>
+                <th>EntryExitOverride A</th>
+                <th>TimeModeOverride A</th>
+                <th>HighSecurityMode A</th>
+                <th>Terminal B Name</th>
+                <th>Terminal B Direction</th>
+                <th>Terminal B Ip Address</th>
+                <th>Activation Time B</th>
+                <th>Deactivation Time B</th>
+                <th>Editable B</th>
+                <th>EntryExitOverride B</th>
+                <th>TimeModeOverride B</th>
+                <th>HighSecurityMode B</th>
+                <th>Direction</th>
+                <th>Aisle Mode</th>
+                <th>Emergency Mode</th>
+                <th>Buzzer Volume</th>
+                <th>FlapSafety Time</th>
+                <th>GateReset Time</th>
+                <th>SensorInact Time</th>
+                <th>Light Intensity</th>
+                <th>Queue Length</th>
+                <th>Action Type</th>
+                <th>Version</th>
+
+                <!-- <th>Creation Date</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of gateList">
+                <td>{{ list.line.lineName }}</td>
+                <td>{{ list.station.stationName }}</td>
+                <td>{{ list.productId.productType.productName }}</td>
+                <td>{{ list.gateName }}</td>
+                <td>{{ list.gateDirection.direction }}</td>
+                <td>{{ list.termID1.productType.productName }}</td>
+                <td>{{ list.direction1.directionName }}</td>
+                <td>{{ list.terminalIpAddress1 }}</td>
+                <td>{{ list.activationTime1 | date: "shortTime" }}</td>
+                <td>{{ list.deactivationTime1 | date: "shortTime" }}</td>
+                <td>{{ list.editable1 }}</td>
+                <td>{{ list.entryExitOverride1 }}</td>
+                <td>{{ list.timeModeOverride1 }}</td>
+                <td>{{ list.highSecurityMode1 }}</td>
+                <td>{{ list.termID2.productType.productName }}</td>
+                <td>{{ list.direction2.directionName }}</td>
+                <td>{{ list.terminalIpAddress2 }}</td>
+                <td>{{ list.activationTime2 | date: "shortTime" }}</td>
+                <td>{{ list.deactivationTime2 | date: "shortTime" }}</td>
+                <td>{{ list.editable2 }}</td>
+                <td>{{ list.entryExitOverride2 }}</td>
+                <td>{{ list.timeModeOverride2 }}</td>
+                <td>{{ list.highSecurityMode2 }}</td>
+                <td>{{ list.direction }}</td>
+                <td>{{ list.aisleMode }}</td>
+                <td>{{ list.emergencyMode }}</td>
+                <td>{{ list.buzzerVolume }}</td>
+                <td>{{ list.flapSafetyTime }}</td>
+                <td>{{ list.gateResetTime }}</td>
+                <td>{{ list.sensorInactTime }}</td>
+                <td>{{ list.lightIntensity }}</td>
+                <td>{{ list.queLength }}</td>
+                <td>{{ list.actionType }}</td>
+                <td>{{ list.version }}</td>
+
+                <!-- <td>{{ list.creationDate | date }}</td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>

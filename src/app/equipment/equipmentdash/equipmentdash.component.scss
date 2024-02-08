@@ -1,0 +1,16 @@
+.invent{
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    //background-color: #212529;
+    background-color: whitesmoke;
+}
+
+.invent:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 20px black;
+}
+
+.card-header{
+    font-weight: bold;
+    color: white;
+}

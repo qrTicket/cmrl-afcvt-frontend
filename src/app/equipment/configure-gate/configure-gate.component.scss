@@ -1,0 +1,46 @@
+.addbtn
+{
+    margin-top:32PX;
+}
+.addgateform
+{
+
+    padding: 30px;
+    font-size: 14px!important;
+    margin-top:30px;
+
+}
+.addgateform .form-control
+{
+    font-size: 14px!important;
+    padding:3px;
+}
+.addgateform .form-control
+{
+    height:30px!important;
+}
+
+@media only screen and (max-width: 767px)
+ {
+    .addgateform
+    {
+        width:100%;
+        height:770px;
+    }
+}
+.gate
+{
+    text-align: center;
+    margin-top:60px;
+}
+.heading
+{
+    text-align: center;
+    background: #2a1c59;
+    color: #fff;
+    font-size: 30px;
+    border-radius: 30px;
+    width: 50%;
+    padding: 5px;
+    margin: 0 auto;
+}

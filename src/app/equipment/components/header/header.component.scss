@@ -1,0 +1,60 @@
+$topnav-background-color:#440404;
+:host {
+    .navbar {
+        background-color: #212529;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: white;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+    .hdr-logo-txt {
+        letter-spacing: 2px;
+    }
+    .img-st {
+        width: 48px;
+
+    }
+
+}
+
+.header{
+    text-shadow: 0 0 #fff 5px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 2px;
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-family: none;
+    position: fixed;
+    left: 44%;
+}
+
+

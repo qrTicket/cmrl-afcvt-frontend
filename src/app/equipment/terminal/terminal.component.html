@@ -1,0 +1,80 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div class="card card-outline-secondary mt-2">
+    <div class="card-header">
+        <h3 class="mb-0">Add Terminal</h3>
+    </div>
+    <form [formGroup]="addTerminalForm" (ngSubmit)="onFormSubmit()">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-4 pb-3">
+                    <label for="productId">Terminal </label>
+                    <select
+                        class="form-control"
+                        formControlName="productId"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Select terminal</option>
+                        <option
+                            *ngFor="let product of productList"
+                            [ngValue]="product"
+                        >
+                            <!-- {{ product.productType.productName }} -->
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productId">Station </label>
+                    <select
+                        class="form-control"
+                        formControlName="station"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Select Station</option>
+                        <option
+                            *ngFor="let station of stationList"
+                            [ngValue]="station"
+                        >
+                            {{ station.stationName }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productId">Equipment Type </label>
+                    <select
+                        class="form-control"
+                        formControlName="productTypeId"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option value="">Select equipment</option>
+                        <option
+                            *ngFor="let equipment of productTypeList"
+                            [ngValue]="equipment"
+                        >
+                            {{ equipment.productName }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div
+                class="submitButton mt-4 form-group d-flex justify-content-center align-item-middle"
+            >
+                <button class="btn btn-info mt-2 py-2 px-3">
+                    <i class="fa fa-paper-plane"></i> &nbsp; Add Terminal
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

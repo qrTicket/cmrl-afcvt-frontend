@@ -1,0 +1,95 @@
+<div class="heading">
+    <h2>Assign Complaint List</h2>
+</div>
+
+<div class="table-responsive table-set">
+    <div class="table-responsive">
+        <table class="table-res row-border hover table-head" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Station Name</th>
+                    <th>Zone Name</th>
+                    <th>Remarks</th>
+                    <th>Verify</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of complainassign">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.stationId.stationName }}</td>
+                    <td>{{ item.zone.name }}</td>
+                    <td>{{ item.ticketNumber.issueDescription }}</td>
+                    <td>
+                        <div class="grid">
+                            <button [disabled]="item.accepted === true" class="btn btn-primary p-1 mr-1"
+                                (click)="acceptComp(item.id, item)" [ngClass]="{
+                                    notClickable: item.accepted === true,
+                                    clickable: item.accepted === false
+                                }">
+                                <i class="fa fa-check">Accept</i>
+                            </button>
+                            
+                            <button [disabled]="item.accepted === true" class="btn btn-danger"
+                                (click)="openRejectModel(rejectTemplate)" [ngClass]="{
+                                    notClickable: item.accepted === true,
+                                    clickable: item.accepted === false
+                                }">
+                                <i class="fa fa-times">Reject</i>
+                            </button>
+                        
+                        </div>
+                        <ng-template #rejectTemplate>
+                            <div class="modal-body model-lg">
+                                <div class="modal-header">
+                                    <h4 class="modal-title pull-middle mb-1">
+                                        Rejection Form
+                                    </h4>
+                                </div>
+                                <div class="p-2 m-2">
+                                    <form [formGroup]="rejectForm">
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label>Rejection Reason</label>
+                                                <textarea type="textarea" class="form-control" formControlName="remarks"
+                                                    [ngClass]="{
+                                                        'is-invalid': submitted
+                                                    }" style="width: 400px"></textarea>
+                                                <div *ngIf="
+                                                        submitted &&
+                                                        fval.remarks.errors
+                                                    " class="invalid-feedback">
+                                                    <div *ngIf="
+                                                            fval.remarks.errors
+                                                                .required
+                                                        ">
+                                                        This field is required !
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <button class="btn btn-primary" (click)="
+                                                            modelEve(
+                                                                item.id,
+                                                                item
+                                                            )
+                                                        " style="
+                                                            position: relative;
+                                                            top: 10px;
+                                                            right: 15px;
+                                                        ">
+                                                        Reject
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

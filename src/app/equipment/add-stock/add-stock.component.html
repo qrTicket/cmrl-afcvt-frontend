@@ -1,0 +1,108 @@
+<div class="card card-outline-secondary" style=" height: 450px;">
+    <div class="card-header">
+        <h3 class="mb-0">Add Stock</h3>
+    </div>
+    <form [formGroup]="addInventoryStock" (ngSubmit)="onaddinvetFormSubmit()">
+        <div class="card-body" >
+            <div class="row mt-4">
+              
+                <div class="col-sm-4 pb-3">
+                    <label for="">Product Type</label>
+                   <select name="productType" id="" class="form-control" formControlName="productType"
+                   [ngClass]="{
+                       'is-invalid': submitted && fval.productType.errors
+                   }">
+                       <option value="">choose...</option>
+                   </select>
+                   <div *ngIf="submitted && fval.productType?.errors" class="invalid-feedback" >
+                    <div *ngIf="fval.productType?.errors.required">Product Type is required !</div>
+                </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="">Manufacturer Name</label>
+                   <select name="manufactureName" id="" class="form-control" formControlName="manufactureName"
+                   [ngClass]="{
+                       'is-invalid': submitted && fval.manufactureName.errors
+                   }">
+                       <option value="">choose...</option>
+                   </select>
+                   <div *ngIf="submitted && fval.manufactureName?.errors" class="invalid-feedback" >
+                    <div *ngIf="fval.manufactureName?.errors.required">Manufacturer Name is required !</div>
+                </div>
+                </div>
+                
+                <div class="col-sm-4 pb-3">
+                    <label for="date">Product mfg</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input
+                                class="form-control"
+                                placeholder="yyyy-mm-dd"
+                                name="dp"
+                        
+                                ngbDatepicker
+                                #install="ngbDatepicker" [minDate]="minDate" [maxDate]="maxDate" 
+                            />
+                            <div class="input-group-append">
+                                <button
+                                    class="btn btn-outline-secondary calendar"
+                                    (click)="install.toggle()"
+                                    type="button"
+                                >
+                                <fa name="calendar"></fa>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="serialNo">Serial Number</label>
+                    <input type="text" class="form-control" formControlName="serialNo"
+                    [ngClass]="{
+                        'is-invalid': submitted && fval.serialNo.errors
+                    }"
+                />
+                <div *ngIf="submitted && fval.serialNo?.errors" class="invalid-feedback" >
+                <div *ngIf="fval.serialNo?.errors.required">Serial Number is required !</div>
+            </div>
+                </div>
+                <!-- <div class="col-sm-4 pb-3">
+                    <label for="productManu">Product mfg</label>
+                    <input type="text" class="form-control" formControlName="productManu"
+                    [ngClass]="{
+                        'is-invalid': submitted && fval.productManu.errors
+                    }"
+                />
+                <div *ngIf="submitted && fval.productManu?.errors" class="invalid-feedback" >
+                <div *ngIf="fval.productManu?.errors.required">Product Manufacturer is required !</div>
+            </div>
+                </div> -->
+               
+                <div class="col-sm-4 pb-3">
+                    <label for="productVersion">Product version</label>
+                    <input type="text" class="form-control" formControlName="productVersion"
+                    [ngClass]="{
+                        'is-invalid': submitted && fval.productVersion.errors
+                    }"
+                />
+                <div *ngIf="submitted && fval.productVersion?.errors" class="invalid-feedback" >
+                <div *ngIf="fval.productVersion?.errors.required">Product version is required !</div>
+            </div>
+                </div>
+       
+            </div>
+            <div class="submitButton mt-4 form-group">
+                <button class="btn btn-warning mt-2">
+                    Submit
+                </button>
+            </div>
+            
+        </div>
+     
+    </form>
+    
+</div>
+<!-- <pre>Model-1: {{ Installation | json }}</pre>
+<pre>Model-2: {{ modified | json }}</pre>
+<pre>Time: {{time | json }}</pre> --> 

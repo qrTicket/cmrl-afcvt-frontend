@@ -1,0 +1,85 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+
+
+<nav aria-label="breadcrumb" class="bdcrm">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/equipment/equipmentdash']">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Type List</li>
+    </ol>
+</nav>
+
+
+
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap table"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead>
+            <tr class="text-center">
+                <th>Equipment Type Id</th>
+                <th>Equipment Type</th>
+                <th>Short Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                class="text-center"
+                *ngFor="let list of productTypeList; let i = index"
+            >
+                <td>{{ list.equipmentTypeId }}</td>
+                <td>{{ list.equipmentTypeName | titlecase }}</td>
+                <td>{{ list.equipmentTypeShortName | uppercase }}</td>
+                <td>
+                    <i class="fa fa-pencil-square-o edit" (click)="handleUpdate(list)"></i>
+                </td>
+                <td>
+                    <button class="btn btn-danger delete">
+                        <i
+                            class="fa fa-trash"
+                            (click)="openModal(template)"
+                            style="font-size: 18px"
+                        ></i>
+                    </button>
+                    <ng-template #template>
+                        <div class="modal-body text-center">
+                            <p>Do you really want to delete this?</p>
+                            <button
+                                type="button"
+                                class="btn btn-primary pull-left"
+                                (click)="confirm(list.id, i)"
+                            >
+                            <i class="fa fa-paper-plane"></i>
+                                Confirm
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-danger pull-right"
+                                (click)="decline()"
+                            >
+                            <i class="fa fa-close"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,780 @@
+
+
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+>
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+<div class="card card-outline-secondary">
+    <div class="card-header">
+        <h3 class="hdr-set">Add Gate</h3>
+    </div>
+    <form [formGroup]="gateForm" (ngSubmit)="onFormSubmit()" class="form-set">
+        <!-- <div class="card-body"> -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="productName">Line Name</label>
+                        <select
+                            class="form-control"
+                            formControlName="line"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option value="">Select line</option>
+                            <option
+                                *ngFor="let line of lineList"
+                                [ngValue]="line"
+                            >
+                                {{ line.lineName }}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.line.errors &&
+                                    gateForm.controls.line.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.line.errors.required
+                                        .message
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Station Name</label>
+                        <select
+                            class="form-control"
+                            formControlName="station"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option value="">Select station</option>
+                            <option
+                                *ngFor="let list of stationList"
+                                [ngValue]="list"
+                            >
+                                {{ list.stationName }}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.station.errors &&
+                                    gateForm.controls.station.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.station.errors.required
+                                        .message
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Select Gate</label>
+                        <select
+                            class="form-control"
+                            formControlName="productId"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option value="">Select gate</option>
+                            <ng-container *ngFor="let gate of gateList">
+                                <option [ngValue]="gate">
+                                    {{ gate.id }}
+                                </option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="shortName">Gate Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="gateName"
+                            placeholder="Enter gate name"
+                            minlength="2"
+                            maxlength="15"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        />
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.gateName.errors &&
+                                    gateForm.controls.gateName.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.gateName.errors.required
+                                        .message
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="productName">Gate Placed direction</label>
+                        <select
+                            class="form-control"
+                            formControlName="gateDirection"
+                        >
+                            <option value="">Select gate direction</option>
+                            <option
+                                *ngFor="let direction of gateDirection"
+                                [ngValue]="direction"
+                            >
+                                {{ direction.direction }}
+                            </option>
+                        </select>
+
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.termID1.errors &&
+                                    gateForm.controls.termID1.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.termID1.errors.required
+                                        .message
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Emergency Mode</label>
+                        <select
+                            class="form-control"
+                            formControlName="emergencyMode"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option>Select mode</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.emergency.errors &&
+                                    gateForm.controls.emergency.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.emergency.errors.required
+                                        .message
+                                }}<br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="queLength">Que Lenght</label>
+                        <select
+                            id="queLength"
+                            class="form-control"
+                            formControlName="queLength"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.queLength.errors &&
+                                    gateForm.controls.queLength.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.queLength.errors.required
+                                        .message
+                                }}<br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="flapSafetyTime">Flap Safety Time</label>
+                        <select
+                            id="flapSafetyTime"
+                            class="form-control"
+                            formControlName="flapSafetyTime"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                            <option>30</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.flapSafetyTime.errors &&
+                                    gateForm.controls.flapSafetyTime.errors
+                                        .required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.flapSafetyTime.errors
+                                        .required.message
+                                }}<br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="gateResetTime">Gate Reset Time</label>
+                        <select
+                            id="gateResetTime"
+                            class="form-control"
+                            formControlName="gateResetTime"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option>2</option>
+                            <option>14</option>
+                            <option>6</option>
+                            <option>8</option>
+                            <option>10</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.gateResetTime.errors &&
+                                    gateForm.controls.gateResetTime.errors
+                                        .required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.gateResetTime.errors
+                                        .required.message
+                                }}<br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="buzzerVolume">Buzzer Volume</label>
+                        <select
+                            id="buzzerVolume"
+                            class="form-control"
+                            formControlName="buzzerVolume"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option>1</option>
+                            <option>3</option>
+                            <option>5</option>
+                            <option>7</option>
+                            <option>10</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.buzzerVolume.errors &&
+                                    gateForm.controls.buzzerVolume.errors
+                                        .required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.buzzerVolume.errors
+                                        .required.message
+                                }}<br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="lightIntensity">Light Intensity</label>
+                        <select
+                            id="lightIntensity"
+                            class="form-control"
+                            formControlName="lightIntensity"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option>2</option>
+                            <option>4</option>
+                            <option>6</option>
+                            <option>8</option>
+                            <option>10</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.lightIntensity.errors &&
+                                    gateForm.controls.lightIntensity.errors
+                                        .required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.lightIntensity.errors
+                                        .required.message
+                                }}<br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="sensorInactTime">Sensor Inact Time</label>
+                        <select
+                            class="form-control"
+                            formControlName="sensorInactTime"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>5</option>
+                            <option>10</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.sensorInactTime.errors &&
+                                    gateForm.controls.sensorInactTime.errors
+                                        .required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.sensorInactTime.errors
+                                        .required.message
+                                }}<br />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col-md-3">
+                        <label for="direction">Direction of gate</label>
+                        <select class="form-control">
+                            <option>AB</option>
+                            <option>ABA</option>
+                            <option>BA</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            gateForm.controls.sensorInactTime.errors &&
+                                            gateForm.controls.sensorInactTime.errors
+                                                .required
+                                        "
+                                    >
+                                        {{
+                                            gateForm.controls.sensorInactTime.errors
+                                                .required.message
+                                        }}<br />
+                                    </div>
+                                </div>
+                    </div> -->
+                    <div class="form-group col-md-3">
+                        <label for="direction">Direction of gate</label>
+                        <select
+                            class="form-control"
+                            formControlName="direction"
+                        >
+                            <option>AB</option>
+                            <option>ABA</option>
+                            <option>BA</option>
+                        </select>
+                        <!-- <div *ngIf="submitted" class="invalid-feedback">
+                                <div
+                                    *ngIf="
+                                        gateForm.controls.sensorInactTime.errors &&
+                                        gateForm.controls.sensorInactTime.errors
+                                            .required
+                                    "
+                                >
+                                    {{
+                                        gateForm.controls.sensorInactTime.errors
+                                            .required.message
+                                    }}<br />
+                                </div>
+                            </div> -->
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="equipNumber">Aisle Mode</label>
+                        <select
+                            name="status"
+                            class="form-control"
+                            formControlName="aisleMode"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option selected>Enable</option>
+                            <option>Disable</option>
+                        </select>
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.aisleMode.errors &&
+                                    gateForm.controls.aisleMode.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.aisleMode.errors.required
+                                        .message
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 pb-3">
+                        <label for="equipNumber">Action Type</label>
+                        <select
+                            name="status"
+                            class="form-control"
+                            formControlName="actionType"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option selected>Del Old</option>
+                            <option>False</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 pb-3">
+                        <label>Version</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="version"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <h4>Terminal A</h4>
+
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="productName">Terminal A</label>
+                        <select
+                            class="form-control"
+                            formControlName="termID1"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option value="">Select Terminal id</option>
+                            <option
+                                *ngFor="let term of terminalList"
+                                [ngValue]="term"
+                            >
+                                {{ term.id }}
+                            </option>
+                        </select>
+
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div
+                                *ngIf="
+                                    gateForm.controls.termID1.errors &&
+                                    gateForm.controls.termID1.errors.required
+                                "
+                            >
+                                {{
+                                    gateForm.controls.termID1.errors.required
+                                        .message
+                                }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Terminal Placed at gate(End A)</label>
+                        <select
+                            class="form-control"
+                            formControlName="direction1"
+                        >
+                            <option>Select direction</option>
+                            <option
+                                *ngFor="let dir of directionList"
+                                [ngValue]="dir"
+                            >
+                                {{ dir.directionName }}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- <div class="col-sm-3 pb-3">
+                                    <label for="productName">Terminal (Gate end A)</label>
+                                    <select
+                                        class="form-control"
+                                        formControlName="termID1"
+                                        [ngClass]="{
+                                            'is-invalid': submitted
+                                        }"
+                                    >
+                                        <option
+                                            selected
+                                            *ngFor="let term of gateList"
+                                            [ngValue]="term"
+                                        >
+                                            {{ term.productType.productName }}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="submitted" class="invalid-feedback">
+                                        <div
+                                            *ngIf="
+                                                gateForm.controls.termID1.errors &&
+                                                gateForm.controls.termID1.errors.required
+                                            "
+                                        >
+                                            {{
+                                                gateForm.controls.termID1.errors.required
+                                                    .message
+                                            }}
+                                        </div>
+                                    </div>
+                                </div> -->
+                    <div class="form-group col-md-3">
+                        <label for="">Terminal IP</label>
+                        <input
+                            name="terminalIp"
+                            id=""
+                            class="form-control"
+                            formControlName="terminalIpAddress1"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">Activation Time</label>
+                        <timepicker
+                            formControlName="activationTime1"
+                            [showSpinners]="showSpinners"
+                        ></timepicker>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="equipName">Deactivation Time</label>
+                        <timepicker
+                            formControlName="deactivationTime1"
+                            [showSpinners]="showSpinners"
+                        ></timepicker>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="editable">Editable</label>
+                        <select
+                            id="editable"
+                            class="form-control"
+                            formControlName="editable1"
+                        >
+                            <option selected>True</option>
+                            <option>False</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="equipNumber">Entry Exit Override</label>
+                        <select
+                            name="status"
+                            class="form-control"
+                            formControlName="entryExitOverride1"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option selected>Enable</option>
+                            <option>Disable</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="equipNumber">Time Mode Override </label>
+                        <select
+                            name="status"
+                            class="form-control"
+                            formControlName="timeModeOverride1"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option selected>Enable</option>
+                            <option>Disable</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="equipNumber">High Security Mode</label>
+                        <select
+                            name="status"
+                            class="form-control"
+                            formControlName="highSecurityMode1"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        >
+                            <option selected>Enable</option>
+                            <option>Disable</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <h4>Terminal B</h4>
+
+            <div class="col-md-12">
+                <div class="form-row">
+                    <!-- <h4>Terminal B</h4> -->
+                    <ng-container *ngIf="gateDir === 'bi-directional'">
+                        <div class="form-group col-md-3">
+                            <label for="productName">Terminal B</label>
+                            <select
+                                class="form-control"
+                                formControlName="termID2"
+                                [ngClass]="{
+                                    'is-invalid': submitted
+                                }"
+                            >
+                                <option value="">Select Terminal id</option>
+
+                                <option
+                                    *ngFor="let term of terminalList"
+                                    [ngValue]="term"
+                                >
+                                    {{ term.id }}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted" class="invalid-feedback">
+                                <div
+                                    *ngIf="
+                                        gateForm.controls.termID2.errors &&
+                                        gateForm.controls.termID2.errors
+                                            .required
+                                    "
+                                >
+                                    {{
+                                        gateForm.controls.termID2.errors
+                                            .required.message
+                                    }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Terminal Placed at gate(End B)</label>
+                            <select
+                                class="form-control"
+                                formControlName="direction2"
+                            >
+                                <option selected>Select direction</option>
+                                <option
+                                    *ngFor="let dir of directionList"
+                                    [ngValue]="dir"
+                                >
+                                    {{ dir.directionName }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="">Terminal IP 2</label>
+                            <input
+                                name="terminalIp"
+                                id=""
+                                class="form-control"
+                                formControlName="terminalIpAddress2"
+                                [ngClass]="{
+                                    'is-invalid': submitted
+                                }"
+                            />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Activation Time</label>
+                            <timepicker
+                                formControlName="activationTime2"
+                                [showSpinners]="showSpinners"
+                            ></timepicker>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="equipName">Deactivation Time</label>
+                            <timepicker
+                                formControlName="deactivationTime2"
+                                [showSpinners]="showSpinners"
+                            ></timepicker>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="editable">Editable</label>
+                            <select
+                                id="editable"
+                                class="form-control"
+                                formControlName="editable2"
+                            >
+                                <option selected>True</option>
+                                <option>False</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="equipNumber">Entry Exit Override</label>
+                            <select
+                                name="status"
+                                class="form-control"
+                                formControlName="entryExitOverride2"
+                                [ngClass]="{
+                                    'is-invalid': submitted
+                                }"
+                            >
+                                <option selected>Enable</option>
+                                <option>Disable</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="equipNumber">Time Mode Override </label>
+                            <select
+                                name="status"
+                                class="form-control"
+                                formControlName="timeModeOverride2"
+                                [ngClass]="{
+                                    'is-invalid': submitted
+                                }"
+                            >
+                                <option selected>Enable</option>
+                                <option>Disable</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="equipNumber">High Security Mode</label>
+                            <select
+                                name="status"
+                                class="form-control"
+                                formControlName="highSecurityMode2"
+                                [ngClass]="{
+                                    'is-invalid': submitted
+                                }"
+                            >
+                                <option selected>Enable</option>
+                                <option>Disable</option>
+                            </select>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="submitButton mt-4 form-group col-sm-3 pb-3">
+            <button class="btn btn-warning mt-2 btncss">Add</button>
+        </div>
+        <!-- </div> -->
+    </form>
+</div>

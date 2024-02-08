@@ -1,0 +1,59 @@
+table.dataTable thead .sorting_asc
+{
+    background: none!important;
+}
+table.dataTable thead .sorting
+{
+    background: none!important;
+}
+ .animate{
+     animation: anime .5s ease-in-out ;
+ }
+ .closing{
+     animation: close 6.6s ease-in-out;
+ }
+
+ @keyframes anime{
+     from{
+       opacity: 0;
+       transform: scaleX(2);
+     }
+     to{
+         opacity: 1;
+         transform: scaleX(1);
+     }
+    
+ }
+ @keyframes close{
+     from{
+         opacity: 1;
+     }
+     to{
+         opacity: 0;
+     }
+ }
+
+
+ .bdcrm {
+    margin: 25px 0 0 0;
+    float: left;
+    width: 100%;
+  }
+
+  .shadow{
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    height: 50px;
+}
+
+
+thead{
+    background-color: #212529; 
+    color:white;
+    text-align: center;
+}
+
+.ddl{
+    width: 160px;
+}

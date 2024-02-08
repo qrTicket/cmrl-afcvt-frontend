@@ -1,0 +1,211 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#ffffff"
+    type="timer"
+    [fullScreen]="true"
+>
+    <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+<nav aria-label="breadcrumb" class="bdcrm">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/equipment/equipmentdash']">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Non-Assigned Equipment List</li>
+    </ol>
+</nav>
+
+<div class="table-responsive">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.productList"
+        datatable="ng"
+    >
+        <thead>
+            <tr style="text-align: center">
+                <th>Device ID</th>
+                <th>Equipment Code</th>
+                <th>Equipment Type</th>
+                <th>Equipment version</th>
+                <th>Serial Number</th>
+                <th>Model Name</th>
+                <th>Manufacture Name</th>
+                <th>Manufacturing Date</th>
+                <th>Purchase Date</th>
+                <th>Warrenty</th>
+                <th>Created Date</th>
+                <th>Update</th>
+                <th>Delete</th>
+                <th>Assign</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let list of productList; let i = index"
+                style="text-align: center"
+            >
+                <td>{{ list.deviceId }}</td>
+                <td>{{ list.equipmentCode }}</td>
+                <td>{{ list.equipmentTypeId }}</td>
+                <td>{{ list.version }}</td>
+                <td>{{ list.serialNumber }}</td>
+                <td>{{ list.equipmentModelName }}</td>
+                <td>{{ list.manufactureName }}</td>
+
+                <td>{{ list.mfgDate | date }}</td>
+                <td>{{ list.purchaseDate | date }}</td>
+                <td>{{ list.warranty }}</td>
+                <td>{{ list.createdDate | date }}</td>
+                <td>
+                    <button class="btn btn-warning btn_hover" (click)="editHandler(list)">
+                        <i class="fa fa-edit "></i>
+                    </button>
+                </td>
+                <td>
+                    <button
+                        class="btn btn-danger btn_hover"
+                        (click)="openDeleteModel(deleteTemplate)"
+                    >
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    <ng-template #deleteTemplate>
+                        <div class="modal-body text-center">
+                            <p>Do you want to <strong>delete?</strong></p>
+                            <button
+                                type="button"
+                                class="btn btn-primary pull-left"
+                                (click)="deleteHandler(list.id, i)"
+                            >
+                            <i class="fa fa-paper-plane"></i>
+                                Confirm
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-danger pull-right"
+                                (click)="declineDelete()"
+                            >
+                            <i class="fa fa-close"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td>
+                <td>
+                    <!-- this is assign button -->
+                    <button class="btn btn-success btn_hover">
+                        <i (click)="openAssignModel(assignTemplate, list.id)" class="fa fa-edit" style="font-size: 18px" ></i>
+                    </button>
+
+                    <ng-template #assignTemplate>
+                        <div class="model-dialog model-lg">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title pull-left">
+                                    Assign Equipment to Station
+                                </h4>
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+
+                            <div class="modal-body">
+                                <!-- form starts, 
+                                    here you have to select a station from dropdown and equipment-manager will assign an equipment 
+                                    to that particular station
+                                -->
+                                <form [formGroup]="assignForm" (ngSubmit)="onSubmit()" >
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <select type="text" class="form-control" formControlName="stationCode" [ngClass]="{'is-invalid': submitted && fval.stationCode.errors }" >
+                                                <option value=""> Select station </option>
+                                                <option *ngFor="let station of stationList" [ngValue]="station.stationCode" > {{ station.stationName }}</option>
+                                            </select>
+                                            <div *ngIf="submitted && fval.stationCode.errors" class="invalid-feedback" >
+                                                <div *ngIf=" fval.stationCode.errors.required" >
+                                                    Station is required !
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary">
+                                            Assign
+                                        </button>
+                                    </div>
+                                </form>
+                                <!-- form ends -->
+
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- <div
+    class="shadow m-2 mt-4 p-2"
+    style="background-color: rgba(174, 190, 245, 0.198)"
+>
+    <h2 class="d-flex justify-content-center align-item-middle">
+        Assigned List
+    </h2>
+</div> -->
+<!-- <div class="table-responsive NonassignTable">
+    <table
+        id="dataTable"
+        datatable=""
+        dt-options="dtOptions"
+        dt-columns="dtColumns"
+        class="display nowrap"
+        cellspacing="0"
+        width="100%"
+        *ngIf="this.temp"
+    >
+        <thead style="text-align: center">
+            <tr>
+                <th>Assign</th>
+                <th>Created Date</th>
+                <th>Manufacture Name</th>
+                <th>Device Id</th>
+                <th>Device Name</th>
+                <th>Equipment Code</th>
+                <th>Equipment Model Name</th>
+                <th>Equipment Type Id</th>
+                <th>Manufacturing Date</th>
+                <th>Purchase Date</th>
+                <th>Version</th>
+                <th>Serial No</th>
+                <th>Warrenty</th>
+                <th>Station Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let list of assignList; let i = index"
+                style="text-align: center"
+            >
+                <td>{{ list.assign }}</td>
+                <td>{{ list.createdDate | date }}</td>
+                <td>{{ list.manufactureName }}</td>
+                <td>{{ list.deviceId }}</td>
+                <td>{{ list.deviceName }}</td>
+                <td>{{ list.equipmentCode }}</td>
+                <td>{{ list.equipmentModelName }}</td>
+                <td>{{ list.equipmentTypeId }}</td>
+                <td>{{ list.mfgDate }}</td>
+                <td>{{ list.purchaseDate }}</td>
+                <td>{{ list.version }}</td>
+                <td>{{ list.serialNumber }}</td>
+                <td>{{ list.warranty }}</td>
+                <td>{{ list.stationCode }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->

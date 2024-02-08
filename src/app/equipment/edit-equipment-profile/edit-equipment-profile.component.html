@@ -1,0 +1,178 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<nav aria-label="breadcrumb" class="bdcrm">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/equipment/equipmentdash']">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Equipment-Manager Profile</li>
+    </ol>
+</nav>
+
+
+<div class="card ">
+   
+    <form [formGroup]="editProfileForm" (ngSubmit)="onFormSubmit()">
+        <div class="card-body">
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label for="">Employee ID:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="empId"
+                        readonly
+                    />
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="">Username:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="username"
+                        readonly
+                    />
+                </div>
+                
+
+                <div class="form-group col-md-4">
+                    <label for="">Roles:</label><br/>
+                   
+                    {{ showRole }}
+                </div>
+
+
+                <div class="form-group col-md-4">
+                    <label for="">Name:</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="name"
+                        placeholder="Enter Name"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.name.errors
+                        }"
+                    />
+                    <div *ngIf="submitted  && fval.name.errors" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editProfileForm.controls.name.errors &&
+                                editProfileForm.controls.name.errors.required
+                            "
+                        >
+                            {{
+                                editProfileForm.controls.name.errors.required
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+               
+
+                
+                <div class="form-group col-md-4">
+                    <label for="">Mobile Number:</label><span id="mandatory">*</span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="mobileNumber"
+                        placeholder="Enter Mobile no"
+                        [ngClass]="{
+                            'is-invalid': submitted  && fval.mobileNumber.errors
+                        }" 
+                        maxlength="10"
+                    />
+                    <div *ngIf="submitted  && fval.mobileNumber.errors" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                editProfileForm.controls.mobileNumber.errors &&
+                                editProfileForm.controls.mobileNumber.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                editProfileForm.controls.mobileNumber.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                editProfileForm.controls.mobileNumber.errors &&
+                                editProfileForm.controls.mobileNumber.errors
+                                    .onlyDigit
+                            "
+                        >
+                            {{
+                                editProfileForm.controls.mobileNumber.errors
+                                    .onlyDigit.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="">Email:</label><span id="mandatory">*</span>
+                    <input
+                        type="email"
+                        class="form-control"
+                        formControlName="email"
+                        placeholder="Enter Email"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.email.errors
+                        }" 
+                    />
+                    <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+                        <div *ngIf="editProfileForm.controls.email.errors && editProfileForm.controls.email.errors.required ">
+                            {{ editProfileForm.controls.email.errors.required.message }}
+                        </div>
+                        <div *ngIf="editProfileForm.controls.email.errors && editProfileForm.controls.email.errors.email ">
+                            {{ editProfileForm.controls.email.errors.email.message }}
+                        </div>
+                    </div>
+                </div>
+               
+                
+            </div>
+        </div>
+
+        <div *ngIf="showEditBtn">
+            <div class="row justify-content-center pull-left">
+                <div class="col-0 pb-3">
+                    <button type="submit" (click)="showEditForm()" class="btn btn-info " >
+                        <i class="fa fa-edit"></i>
+                        Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div *ngIf="showUpdateBtn">
+            <div class="row justify-content-center pull-left mb-4">
+                <div >
+                    <button type="submit" class="btn btn-primary ">
+                        <i class="fa fa-paper-plane"></i>
+                        Update
+                    </button>
+                </div>
+               
+                <div >
+                    <button type="submit" (click)="cancel()" class="btn btn-danger ">
+                        <i class="fas fa-close"></i>
+                        Cancel
+                    </button>
+                </div>
+
+               
+            </div>
+    </div>
+    </form>
+</div>

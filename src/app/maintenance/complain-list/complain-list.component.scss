@@ -1,0 +1,66 @@
+// .heading {
+//     text-align: center;
+//     margin: 50px 0 20px;
+// }
+h2 {
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin: 20px;
+    //border-bottom: 4px solid #F02A71;// #31d47d;
+  }
+
+
+.table-set {
+    overflow-x: auto;
+    padding: 10px 20px;
+    // height: 400px;
+    font-size: 14px;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+  
+th {
+  background-color: rgb(228, 224, 224);
+  //background-color: black;
+  //color: white;
+}
+
+th, td {
+  text-align: center;
+  padding: 6px;
+  height: 50px;
+  font-size: 14px;
+}
+  
+tr:nth-child(even) {
+  background-color: #ffffff;
+}
+td {
+  padding-left: 20px !important;
+}
+
+.pl {
+  padding: 0 10px;
+}
+
+hr {
+    height: 3px;
+    background: #231d27;
+}
+.btn-set {
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+
+
+.bdcrm {
+  margin: 25px 0 0 0;
+}

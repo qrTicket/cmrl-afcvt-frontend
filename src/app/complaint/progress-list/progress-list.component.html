@@ -1,0 +1,54 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-fussion" [fullScreen]="true">
+        <p style="color: white">Loading...</p>
+    </ngx-spinner>
+    <div class="heading">
+        <h2>Progressed Complaint List</h2>
+    </div>
+    <hr>
+    
+    <div class="table-responsive table-set">
+        <div class="table-responsive">
+            <table class="table-res row-border hover table-head" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <thead>
+                    <tr>
+                        <th style="width:200px">Station Code</th>
+                        <th style="width:200px">Device ID</th>
+                        <th style="width:200px">Token</th>
+                        <th style="width:180px">Problem Description</th>
+                        <th style="width:200px">Complaint Status</th>
+                        <th style="width:200px">Created By</th>
+                        <th style="width:200px">Created Date & Time</th>
+                        <th style="width:200px">View Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of assignlist">
+                        <td>{{ item.stationCode }}</td>
+                        <td>
+                            <a
+                            href="javascript:;"
+                            [routerLink]="['/complaint/device-details/', item.deviceId]"
+                            >{{ item.deviceId }}
+                            </a>
+                        </td>
+                        <td>{{ item.token }}</td>
+                        <td>{{ item.problemDescription }}</td>
+                        <td><b>{{ item.complaintStatus }}</b></td>
+                        <td>{{ item.createBy }}</td>
+                        <td>{{ item.createdDate | date:'medium'}}</td>
+                        <td>
+                            <a
+                            href="javascript:;"
+                            [routerLink]="['/complaint/complaint-details/', item.token]"
+                            >
+                                <i
+                                    class="fa fa-eye"
+                                    style="font-size: 34px; color: #2806a5"
+                                ></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

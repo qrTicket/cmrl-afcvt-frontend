@@ -1,0 +1,455 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<nav aria-label="breadcrumb" class="bdcrm">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/equipment/inventoryList']">Non Assigned Equipment List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Update Non-Assigned Equipment List</li>
+    </ol>
+</nav>
+
+
+<div class="card card-outline-secondary mt-2">
+    
+    <form [formGroup]="updateEquipmentForm">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-4 pb-3">
+                    <label>Equipment Type</label>
+                    <select
+                        class="form-control"
+                        formControlName="equipmentTypeId"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.equipmentTypeId.errors
+                        }"
+                    >
+                        <option value="">Select equipment Type</option>
+                        <option
+                            *ngFor="let equipment of equipmentTypeList"
+                            [ngValue]="equipment.equipmentTypeId"
+                        >
+                            {{ equipment.equipmentTypeName }}
+                        </option>
+                    </select>
+                    <div
+                        *ngIf="submitted && fval.equipmentTypeId.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.equipmentTypeId
+                                    .errors
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.equipmentTypeId
+                                    .errors.required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="">Manufacture Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="manufactureName"
+                        placeholder="Enter manufacture name"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.manufactureName.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.manufactureName.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.manufactureName
+                                    .errors &&
+                                updateEquipmentForm.controls.manufactureName
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.manufactureName
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.manufactureName
+                                    .errors &&
+                                updateEquipmentForm.controls.manufactureName
+                                    .errors.alpha
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.manufactureName
+                                    .errors.alpha.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="serialNo">Serial Number</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="serialNumber"
+                        placeholder="Enter serial number"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.serialNumber.errors
+                        }"
+                        maxlength="10"
+                        style="text-transform: uppercase"
+                    />
+                    <div
+                        *ngIf="submitted && fval.serialNumber.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.serialNumber
+                                    .errors &&
+                                updateEquipmentForm.controls.serialNumber.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.serialNumber.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.serialNumber
+                                    .errors &&
+                                updateEquipmentForm.controls.serialNumber.errors
+                                    .alphaNumeric
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.serialNumber.errors
+                                    .alphaNumeric.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Equipment Code</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="equipmentCode"
+                        placeholder="Enter equipment code"
+                        maxlength="20"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.equipmentCode.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.equipmentCode.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.equipmentCode
+                                    .errors &&
+                                updateEquipmentForm.controls.equipmentCode
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.equipmentCode
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.equipmentCode
+                                    .errors &&
+                                updateEquipmentForm.controls.equipmentCode
+                                    .errors.alpha
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.equipmentCode
+                                    .errors.alpha.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Product version</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="version"
+                        placeholder="Enter product version"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.version.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.version.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.version.errors &&
+                                updateEquipmentForm.controls.version.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.version.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.version.errors &&
+                                updateEquipmentForm.controls.version.errors
+                                    .numeric
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.version.errors
+                                    .numeric.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.version.errors &&
+                                updateEquipmentForm.controls.version.errors
+                                    .nonZero
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.version.errors
+                                    .nonZero.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.version.errors &&
+                                updateEquipmentForm.controls.version.errors.deci
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.version.errors.deci
+                                    .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Equipment Model Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="equipmentModelName"
+                        placeholder="Enter model name"
+                        maxlength="20"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && fval.equipmentModelName.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.equipmentModelName.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.equipmentModelName
+                                    .errors &&
+                                updateEquipmentForm.controls.equipmentModelName
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.equipmentModelName
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.equipmentModelName
+                                    .errors &&
+                                updateEquipmentForm.controls.equipmentModelName
+                                    .errors.special
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.equipmentModelName
+                                    .errors.special.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Manufacturing Date</label>
+
+                    <input
+                        readonly
+                        type="text"
+                        formControlName="mfgDate"
+                        placeholder="Select Manufacturing date"
+                        class="form-control mfg-date"
+                        bsDatepicker
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigMfg"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.mfgDate.errors
+                        }"
+                        (bsValueChange)="onValueChange($event)"
+                        (onHidden)="handler('onHidden')"
+                    />
+                    <div
+                        *ngIf="submitted && fval.mfgDate.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.mfgDate.errors &&
+                                updateEquipmentForm.controls.mfgDate.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.mfgDate.errors
+                                    .required.message
+                            }}
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label>Purchase Date</label>
+                    <input
+                        readonly
+                        type="text"
+                        bsDatepicker
+                        formControlName="purchaseDate"
+                        placeholder="Select purchase date"
+                        class="form-control mfg-date"
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigPur"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.purchaseDate.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.purchaseDate.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.purchaseDate
+                                    .errors &&
+                                updateEquipmentForm.controls.purchaseDate.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.purchaseDate.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Warranty</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter warrenty in year"
+                        formControlName="warranty"
+                        maxlength="2"
+                        [ngClass]="{
+                            'is-invalid': submitted && fval.warranty.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="submitted && fval.warranty.errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.warranty.errors &&
+                                updateEquipmentForm.controls.warranty.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.warranty.errors
+                                    .required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.warranty.errors &&
+                                updateEquipmentForm.controls.warranty.errors
+                                    .notZero
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.warranty.errors
+                                    .notZero.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateEquipmentForm.controls.warranty.errors &&
+                                updateEquipmentForm.controls.warranty.errors
+                                    .digit
+                            "
+                        >
+                            {{
+                                updateEquipmentForm.controls.warranty.errors
+                                    .digit.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="submitButton mt-4 form-group">
+                    <button class="btn btn-primary mt-1 ml-3" (click)="openModal(updateTemplate)" >
+                        <i class="fa fa-paper-plane"></i>
+                        Update
+                    </button>
+
+                    <button class="btn btn-danger mt-1 ml-3" [routerLink]="['/equipment/inventoryList']" >
+                        <i class="fa fa-close"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<ng-template #updateTemplate>
+    <div class="modal-body text-center">
+        <p>Do you want to update?</p>
+        <button type="button" class="btn btn-primary pull-left" (click)="confirm()">
+            <i class="fa fa-paper-plane"></i>
+            Update
+        </button>
+        <button type="button" class="btn btn-danger pull-right" (click)="decline()">
+            <i class="fa fa-close"></i>
+            Cancel
+        </button>
+    </div>
+</ng-template>

@@ -1,0 +1,43 @@
+table.dataTable thead .sorting_asc
+{
+    background: none!important;
+}
+table.dataTable thead .sorting
+{
+    background: none!important;
+}
+
+.edit {
+    font-size: 20px; 
+    color: #008CBA; 
+    font-size: 32px;
+    margin-left: 18px;
+    cursor: pointer;
+}
+
+.edit:hover{
+  color: red;
+  transform: scale(1.10);
+}
+
+thead{
+    background-color: #212529; 
+    color:white;
+    text-align: center;
+}
+
+.shadow{
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    height: 50px;
+}
+
+.bdcrm {
+    margin: 25px 0 0 0;
+    width: 100%;
+  }
+
+.delete:hover{
+    transform: scale(1.10);
+}

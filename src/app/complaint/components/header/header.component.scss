@@ -1,0 +1,70 @@
+$topnav-background-color:#440404;
+:host {
+    .navbar {
+         //background: linear-gradient(to bottom, #009999 0%, #006699 100%);
+         background:#222;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: white;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+    h3 {
+        text-align: center;
+        color: #ece9e9;
+        letter-spacing: 2px;
+        margin: 0 auto;
+        text-transform: uppercase;
+        font-family: none;
+        position: fixed;
+        left: 42%;
+        top: 2%;
+      }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+    .hdr-logo-txt {
+        letter-spacing: 2px;
+    }
+    .img-st {
+        width: 48px;
+    }
+
+}
+
+.clr {
+    color: #009999;
+    font-size: 18px;
+
+}
+@media only screen and (max-width: 1148px)
+ {
+    h3
+    {
+        display: none;
+    }
+}

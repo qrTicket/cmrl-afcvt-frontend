@@ -1,0 +1,88 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+
+    <div class="list-group">
+        <a routerLink="/maindash" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Dashboard' }}</span>
+        </a>
+        <a [routerLink]="['/complainList']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-list-alt"></i>&nbsp;
+            <span>{{ 'Pending Complaint List' }}</span>
+        </a>
+        <a [routerLink]="['/inprogress-complain-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-list-alt"></i>&nbsp;
+            <span>{{ 'InProgress Complaint List' }}</span>
+        </a>
+        <a [routerLink]="['/completedComplaintList']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-list-alt"></i>&nbsp;
+            <span id="elp-txt">{{ 'Closed Complaint List' }}</span>
+        </a>
+        
+        <!-- ----------------------------------------- -->
+
+        <!-- <a routerLink="/verified-list" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-check"></i>&nbsp;
+            <span>{{ 'Verified Complaint' | translate }}</span>
+        </a>
+        <a routerLink="/rejected-list" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-ban"></i>&nbsp;
+            <span>{{ 'Rejected Complaint' | translate }}</span>
+        </a> -->
+        <!-- <a [routerLink]="['/mail']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-envelope"></i>&nbsp;
+            <span>{{ 'Mail' | translate }}</span>
+        </a> -->
+
+        <!-- <a [routerLink]="['/complaintAssignList']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-bars"></i>&nbsp;
+            <span>{{ 'Assign Complaint List' | translate }}</span>
+        </a> -->
+
+        <!-- <a routerLink="/accept-complaint/:id" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-check"></i>&nbsp;
+            <span>{{ 'Accept Complaint' | translate }}</span>
+        </a> -->
+
+        <div class="header-fields">
+
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user p-left"></i>{{username | titlecase}}</span>
+                    <b class="caret ml-10"></b>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['/editprofile']" [routerLinkActive]="['router-link-active']"
+                                class="dropdown-item">
+                                <i class="fa fa-fw fa-user mr-10"></i>
+                                {{ "Profile" | translate }}
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a [routerLink]="['/privacy']" class="dropdown-item">
+                                <i class="fa fa-lock mr-10"></i>
+                                {{ "Privacy" | translate }}
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                            </a>
+                        </li> -->
+        <li>
+            <a [routerLink]="['/login']" id="txt-un" (click)="onLoggedout()">
+                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+            </a>
+        </li>
+        </ul>
+        </li>
+    </div>
+
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>{{ 'Hide' | translate }}</span>
+    </div>
+    </div>
+</nav>

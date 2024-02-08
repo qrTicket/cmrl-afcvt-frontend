@@ -1,0 +1,295 @@
+<button type="button" class="btn btn-primary" (click)="showChildModal()">
+    <i class="fa fa-gear"> &nbsp;Configure</i>
+</button>
+<div
+    bsModal
+    #lgModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="dialog-child-name"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-child-name" class="modal-title pull-left">
+                    Terminal Configuration
+                </h4>
+                <button
+                    type="button"
+                    class="close pull-right"
+                    aria-label="Close"
+                    (click)="hideChildModal()"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addTerminalForm" (ngSubmit)="onFormSubmit()">
+                    <div class="card-body">
+                        <div class="row mt-4">
+                            <div class="col-sm-4 pb-3">
+                                <label for="productId">Terminal </label>
+                                <select
+                                    class="form-control"
+                                    formControlName="productId"
+                                    [ngClass]="{
+                                        'is-invalid': submitted
+                                    }"
+                                >
+                                    <option>Select terminal</option>
+                                    <option
+                                        *ngFor="let product of productList"
+                                        [ngValue]="product"
+                                    >
+                                        {{ product.productType.productName }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 pb-3">
+                                <label for="">Terminal IP</label>
+                                <input
+                                    name="terminalIp"
+                                    id=""
+                                    class="form-control"
+                                    formControlName="terminalIp"
+                                    [ngClass]="{
+                                        'is-invalid': submitted
+                                    }"
+                                />
+
+                                <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls.terminalIp
+                                                .errors &&
+                                            addTerminalForm.controls.terminalIp
+                                                .errors.required
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls.terminalIp
+                                                .errors.required.message
+                                        }}
+                                    </div>
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls.terminalIp
+                                                .errors &&
+                                            addTerminalForm.controls.terminalIp
+                                                .errors.ip
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls.terminalIp
+                                                .errors.ip.message
+                                        }}<br />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 pb-3">
+                                <label for="">Activation Time</label>
+                                <timepicker
+                                    formControlName="activationTime"
+                                    [showSpinners]="showSpinners"
+                                ></timepicker>
+                                <!-- <input
+                            name="activation"
+                            id=""
+                            class="form-control"
+                            formControlName="activationTime"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        /> -->
+
+                                <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls
+                                                .activationTime.errors &&
+                                            addTerminalForm.controls
+                                                .activationTime.errors.required
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls
+                                                .activationTime.errors.required
+                                                .message
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 pb-3">
+                                <label for="equipName">Deactivation Time</label>
+                                <timepicker
+                                    formControlName="deActivationTime"
+                                    [showSpinners]="showSpinners"
+                                ></timepicker>
+                                <!-- <input
+                            type="text"
+                            class="form-control"
+                            formControlName="deActivationTime"
+                            [ngClass]="{
+                                'is-invalid': submitted
+                            }"
+                        /> -->
+                                <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls
+                                                .deActivationTime.errors &&
+                                            addTerminalForm.controls
+                                                .deActivationTime.errors
+                                                .required
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls
+                                                .deActivationTime.errors
+                                                .required.message
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 pb-3">
+                                <label for="editable">Editable</label>
+                                <select
+                                    id="editable"
+                                    class="form-control"
+                                    formControlName="editable"
+                                >
+                                    <option selected>True</option>
+                                    <option>False</option>
+                                </select>
+                                <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls.editable
+                                                .errors &&
+                                            addTerminalForm.controls.editable
+                                                .errors.required
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls.editable
+                                                .errors.required.message
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 pb-3">
+                                <label for="equipNumber"
+                                    >Entry Exit Override</label
+                                >
+                                <select
+                                    name="status"
+                                    class="form-control"
+                                    formControlName="entryExitOverride"
+                                    [ngClass]="{
+                                        'is-invalid': submitted
+                                    }"
+                                >
+                                    <option selected>Enable</option>
+                                    <option>Disable</option>
+                                </select>
+                                <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls
+                                                .entryExitOverride.errors &&
+                                            addTerminalForm.controls
+                                                .entryExitOverride.errors
+                                                .required
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls
+                                                .entryExitOverride.errors
+                                                .required.message
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 pb-3">
+                                <label for="equipNumber"
+                                    >Time Mode Override
+                                </label>
+                                <select
+                                    name="status"
+                                    class="form-control"
+                                    formControlName="timeModeOverride"
+                                    [ngClass]="{
+                                        'is-invalid': submitted
+                                    }"
+                                >
+                                    <option selected>Enable</option>
+                                    <option>Disable</option>
+                                </select>
+                                <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls
+                                                .timeModeOverride.errors &&
+                                            addTerminalForm.controls
+                                                .timeModeOverride.errors
+                                                .required
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls
+                                                .timeModeOverride.errors
+                                                .required.message
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 pb-3">
+                                <label for="equipNumber"
+                                    >High Security Mode</label
+                                >
+                                <select
+                                    name="status"
+                                    class="form-control"
+                                    formControlName="highSecurityMode"
+                                    [ngClass]="{
+                                        'is-invalid': submitted
+                                    }"
+                                >
+                                    <option selected>Enable</option>
+                                    <option>Disable</option>
+                                </select>
+                                <div *ngIf="submitted" class="invalid-feedback">
+                                    <div
+                                        *ngIf="
+                                            addTerminalForm.controls
+                                                .highSecurityMode.errors &&
+                                            addTerminalForm.controls
+                                                .highSecurityMode.errors
+                                                .required
+                                        "
+                                    >
+                                        {{
+                                            addTerminalForm.controls
+                                                .highSecurityMode.errors
+                                                .required.message
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submitButton mt-4 form-group">
+                                <button class="btn btn-info mt-2">
+                                    <i class="fa fa-paper-plane"></i> &nbsp; Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

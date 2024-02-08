@@ -1,0 +1,426 @@
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-fussion"
+    [fullScreen]="true"
+    ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div class="card card-outline-secondary">
+    <div class="card-header">
+        <h3 class="mb-0">Update Inventory</h3>
+    </div>
+    <form [formGroup]="updateInventoryStock" (ngSubmit)="onFormSubmit()">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-sm-4 pb-3">
+                    <label for="">Product Code</label>
+                    <input readonly
+                        type="text"
+                        class="form-control"
+                        formControlName="productCode"
+                        placeholder="Enter product code"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <!-- <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.manufactureName
+                                    .errors &&
+                                updateInventoryStock.controls.manufactureName
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.manufactureName
+                                    .errors.required.message
+                            }}
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label>Equipment Type</label>
+                    <select
+                        class="form-control"
+                        formControlName="productType"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    >
+                        <option
+                            *ngFor="let item of productList"
+                            [ngValue]="item.id"
+                        >
+                            {{ item.productName }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.productType
+                                    .errors &&
+                                updateInventoryStock.controls.productType.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.productType.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="">Manufacture Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="manufactureName"
+                        placeholder="Enter manufacture name"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.manufactureName
+                                    .errors &&
+                                updateInventoryStock.controls.manufactureName
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.manufactureName
+                                    .errors.required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 pb-3">
+                    <label for="serialNo">Serial Number</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="serialNumber"
+                        placeholder="Enter serial number"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                        maxlength="10"
+                        style="text-transform: uppercase"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.serialNumber
+                                    .errors &&
+                                updateInventoryStock.controls.serialNumber
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.serialNumber
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <!-- <div
+                            *ngIf="
+                                updateInventoryStock.controls.serialNumber
+                                    .errors &&
+                                updateInventoryStock.controls.serialNumber.errors
+                                    .alphaNumeric
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.serialNumber.errors
+                                    .alphaNumeric.message
+                            }}
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productManu">Manufacturing Date</label>
+
+                    <input
+                        type="text"
+                        formControlName="productMfgDate"
+                        placeholder="Select Manufacturing date"
+                        class="form-control"
+                        bsDatepicker
+                        [maxDate]="maxDate"
+                        [outsideClick]="true"
+                        [bsConfig]="{
+                            adaptivePosition: true,
+
+                            containerClass: 'theme-dark-blue'
+                        }"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.productMfgDate
+                                    .errors &&
+                                updateInventoryStock.controls.productMfgDate
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.productMfgDate
+                                    .errors.required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productManu">Expiry Date</label>
+
+                    <input
+                        type="text"
+                        formControlName="productExpDate"
+                        placeholder="Select expiry date"
+                        class="form-control"
+                        bsDatepicker
+                        [minDate]="minDate"
+                        [outsideClick]="true"
+                        [bsConfig]="{
+                            adaptivePosition: true,
+
+                            containerClass: 'theme-dark-blue'
+                        }"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.productExpDate
+                                    .errors &&
+                                updateInventoryStock.controls.productExpDate
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.productExpDate
+                                    .errors.required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productVersion">Product version</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="productVersion"
+                        placeholder="Enter product version"
+                        maxlength="5"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.productVersion
+                                    .errors &&
+                                updateInventoryStock.controls.productVersion
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.productVersion
+                                    .errors.required.message
+                            }}
+                        </div>
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.productVersion
+                                    .errors &&
+                                updateInventoryStock.controls.productVersion
+                                    .errors.numeric
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.productVersion
+                                    .errors.numeric.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="model">Model Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="modelName"
+                        placeholder="Enter model name"
+                        maxlength="10"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.modelName
+                                    .errors &&
+                                updateInventoryStock.controls.modelName.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.modelName.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productVersion">Purchase Date</label>
+                    <input
+                        type="text"
+                        formControlName="purchaseDate"
+                        placeholder="Select purchase date"
+                        class="form-control"
+                        bsDatepicker
+                        [maxDate]="maxDate"
+                        [outsideClick]="true"
+                        [bsConfig]="{
+                            adaptivePosition: true,
+
+                            containerClass: 'theme-dark-blue'
+                        }"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.purchaseDate
+                                    .errors &&
+                                updateInventoryStock.controls.purchaseDate
+                                    .errors.required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.purchaseDate
+                                    .errors.required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="productVersion">Warrenty</label>
+                    <input
+                        type="text"
+                        formControlName="warranty"
+                        placeholder="Enter warranty"
+                        class="form-control"
+                        bsDatepicker
+                        [outsideClick]="true"
+                        [bsConfig]="{
+                            adaptivePosition: true,
+
+                            containerClass: 'theme-dark-blue'
+                        }"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.warranty.errors &&
+                                updateInventoryStock.controls.warranty.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.warranty.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="status">Status</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="status"
+                        placeholder="Enter status"
+                        maxlength="10"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.status.errors &&
+                                updateInventoryStock.controls.status.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.status.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <label for="assign">Assign</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="assign"
+                        placeholder="Enter assign"
+                        maxlength="10"
+                        [ngClass]="{
+                            'is-invalid': submitted
+                        }"
+                    />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div
+                            *ngIf="
+                                updateInventoryStock.controls.assign.errors &&
+                                updateInventoryStock.controls.assign.errors
+                                    .required
+                            "
+                        >
+                            {{
+                                updateInventoryStock.controls.assign.errors
+                                    .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="submitButton mt-4 form-group">
+                    <button class="btn btn-primary mt-1">
+                        <i class="fa fa-paper-plane"></i>
+                        update
+                    </button>
+                </div>
+                <div class="col-sm-4 pb-3">
+                    <input
+                        hidden
+                        type="text"
+                        class="form-control"
+                        formControlName="id"
+                    />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

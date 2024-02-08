@@ -1,0 +1,56 @@
+.heading {
+    text-align: center;
+    margin: 50px 0 20px;
+}
+h2 {
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin: 20px;
+  }
+
+
+.table-set {
+    overflow-x: auto;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+  
+th {
+  background-color: rgb(228, 224, 224);
+}
+
+th, td {
+  text-align: left;
+  padding: 6px;
+}
+  
+tr:nth-child(even) {
+  background-color: #ffffff;
+}
+td {
+  padding-left: 20px !important;
+}
+
+.pl {
+  padding: 0 10px;
+}
+
+hr {
+  border: 0;
+  height: 5px;
+  background: linear-gradient(to bottom, #009999 0%, #006699 100%);
+}
+
+.btn-set {
+  margin: 0 auto;
+  margin-top: 16px;
+}
