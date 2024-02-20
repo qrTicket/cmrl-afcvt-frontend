@@ -24,18 +24,37 @@ export class EquipmentBlacklistComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.spinner.show();
-        this.subscription = this.equipment_API.blacklistEquipment().subscribe(
-            (res) => {
+        this.subscription = 
+        // this.equipment_API.blacklistEquipment().subscribe(
+        //     (res) => {
+        //         this.spinner.hide();
+        //         this.blacklisted = res;
+        //         this.temp = true;
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         this.errormsg = error;
+        //         this.toastr.error("", this.errormsg);
+        //     }
+        // );
+        this.equipment_API.blacklistEquipment().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
                 this.spinner.hide();
                 this.blacklisted = res;
                 this.temp = true;
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                this.errormsg = error;
+                this.errormsg = err.error.data;
                 this.toastr.error("", this.errormsg);
             }
-        );
+          })
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();

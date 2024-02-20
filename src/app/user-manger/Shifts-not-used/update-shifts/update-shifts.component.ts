@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from "@angular/core";
 import { DatePipe } from "@angular/common";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { ToastrService } from "ngx-toastr";
@@ -19,7 +19,7 @@ import { AddUserService } from "../../_services/add-user.service";
     styleUrls: ["./update-shifts.component.scss"],
 })
 export class UpdateShiftsComponent implements OnInit, OnDestroy {
-    updateShift: UntypedFormGroup;
+    updateShift: FormGroup;
     datePickerConfigUpdateStart: Partial<BsDatepickerConfig>;
     datePickerConfigUpdateEnd: Partial<BsDatepickerConfig>;
     subscription: Subscription[] = [];
@@ -35,7 +35,7 @@ export class UpdateShiftsComponent implements OnInit, OnDestroy {
     secondsPlaceholder = "ss";
     myUpdatedData: any;
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private datePipe: DatePipe,
@@ -130,16 +130,42 @@ export class UpdateShiftsComponent implements OnInit, OnDestroy {
             ],
         });
         this.subscription.push(
-            this.shiftsService.assignUserByStation().subscribe((res) => {
-                this.userList = res;
-                // console.log(this.userList);
-            })
+            // this.shiftsService.assignUserByStation().subscribe((res) => {
+            //     this.userList = res;
+            //     // console.log(this.userList);
+            // })
+            this.shiftsService.assignUserByStation().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.userList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
         this.subscription.push(
-            this.addUser__API.getAllStation().subscribe((res) => {
-                this.stationList = res["data"];
-                // console.log(this.stationList);
-            })
+            // this.addUser__API.getAllStation().subscribe((res) => {
+            //     this.stationList = res["data"];
+            //     // console.log(this.stationList);
+            // })
+            this.addUser__API.getAllStation().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.stationList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
 
         this.subscription.push(
@@ -155,16 +181,31 @@ export class UpdateShiftsComponent implements OnInit, OnDestroy {
     }
     getshiftById(id) {
         this.subscription.push(
-            this.shiftsService.getShiftById(id).subscribe(
-                (updateShifts: Shifts) => {
-                    console.log(updateShifts["data"]);
+            // this.shiftsService.getShiftById(id).subscribe(
+            //     (updateShifts: Shifts) => {
+            //         console.log(updateShifts["data"]);
 
-                    this.updateShiftsData(updateShifts["data"]);
+            //         this.updateShiftsData(updateShifts["data"]);
+            //     },
+            //     (error) => {
+            //         // console.log(error);
+            //     }
+            // )
+            this.shiftsService.getShiftById(id).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    // this.spinner.hide();
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.updateShiftsData(res.data);
+                  }
                 },
-                (error) => {
-                    // console.log(error);
+                error:(err)=>{
+                    // this.spinner.hide();
+                    this.toastr.error(err.error.data,'Error!')
                 }
-            )
+              })
         );
     }
     updateShiftsData(updateShifts: Shifts) {
@@ -267,27 +308,46 @@ export class UpdateShiftsComponent implements OnInit, OnDestroy {
             return this.toastr.error("Please fill all fields!!");
         this.spinner.show();
         this.subscription.push(
-            this.shiftsService.edit(this.updateShift.value, this.shiftId).subscribe(
-                (res) => {
-                    if (res["status"] === "1") {
-                        this.spinner.hide();
-                        this.toastr.success(res["data"]);
-                        this.updateShift.reset();
-                        this.submitted = false;
-                        this.router.navigate(["user-manager/shifts/list"]);
-                    } else if (res["status"] === "0") {
-                        this.spinner.hide();
-                        this.toastr.error(res["data"]);
-                    } else {
-                        this.spinner.hide();
-                        this.toastr.error(res["data"]);
-                    }
-                },
-                (error) => {
+            // this.shiftsService.edit(this.updateShift.value, this.shiftId).subscribe(
+            //     (res) => {
+            //         if (res["status"] === "1") {
+            //             this.spinner.hide();
+            //             this.toastr.success(res["data"]);
+            //             this.updateShift.reset();
+            //             this.submitted = false;
+            //             this.router.navigate(["user-manager/shifts/list"]);
+            //         } else if (res["status"] === "0") {
+            //             this.spinner.hide();
+            //             this.toastr.error(res["data"]);
+            //         } else {
+            //             this.spinner.hide();
+            //             this.toastr.error(res["data"]);
+            //         }
+            //     },
+            //     (error) => {
+            //         this.spinner.hide();
+            //         this.toastr.error(error.data);
+            //     }
+            // )
+            this.shiftsService.edit(this.updateShift.value, this.shiftId).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
                     this.spinner.hide();
-                    this.toastr.error(error.data);
+                    this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.spinner.hide();
+                    this.toastr.success(res.data);
+                    this.updateShift.reset();
+                    this.submitted = false;
+                    this.router.navigate(["user-manager/shifts/list"]);
+                  }
+                },
+                error:(err)=>{
+                    this.spinner.hide();
+                    this.toastr.error(err.error.data,'Error!')
                 }
-            )
+              })
         );
         this.modalRef.hide();
     }

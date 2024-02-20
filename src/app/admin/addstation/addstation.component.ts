@@ -160,17 +160,44 @@ export class AddstationComponent implements OnInit {
 
         });
 
-        this.lineservice.getLines().subscribe((res) => {
-            //console.log(res["data"]);
-            this.lineList = res["data"];
-        });
+        // this.lineservice.getLines().subscribe((res) => {
+        //     //console.log(res["data"]);
+        //     this.lineList = res["data"];
+        // });
+        this.lineservice.getLines().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.lineList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
 
-        this.stationservice.getStation().subscribe((res) => {
-            this.station = res["data"];//not in use
-            //station when page load
-            this.stationList = res["data"];
-            console.log(this.stationList, "Station List");
-        });
+
+        // this.stationservice.getStation().subscribe((res) => {
+        //     this.station = res["data"];//not in use
+        //     //station when page load
+        //     this.stationList = res["data"];
+        //     console.log(this.stationList, "Station List");
+        // });
+        this.stationservice.getStation().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.station = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     get stationLinksForms() {
@@ -243,12 +270,26 @@ export class AddstationComponent implements OnInit {
     getStationList(linecode,i){
         console.log(linecode);
         console.log(linecode);
-        this.stationservice.getStationByLineCode(linecode).subscribe(
-            (res)=>{
-                this.stationListArr[i]= res['data'];
+        // this.stationservice.getStationByLineCode(linecode).subscribe(
+        //     (res)=>{
+        //         this.stationListArr[i]= res['data'];
+        //         console.log(this.stationListArr);
+        //     }
+        // )
+        this.stationservice.getStationByLineCode(linecode).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.stationListArr[i] = res.data;
                 console.log(this.stationListArr);
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        )
+          })
     }
 
 
@@ -268,29 +309,46 @@ export class AddstationComponent implements OnInit {
                 text: "Please fill all fields!",
             });
 
-        this.stationservice.postAddstation(this.stationForm.value).subscribe(
-            (data) => {
-                if (data["status"] === "1") {
-                    this.successmsg = data;
-                    this.toastr.success("", this.successmsg.data);
-                    this.router.navigate(["admin/stationlist"]);
-                    this.stationForm.reset();
-                    this.submitted = false;
-                } else {
-                    Swal.fire({
-                        title: "Error!",
-                        text: data["data"],
-                    });
-                }
+        // this.stationservice.postAddstation(this.stationForm.value).subscribe(
+        //     (data) => {
+        //         if (data["status"] === "1") {
+        //             this.successmsg = data;
+        //             this.toastr.success("", this.successmsg.data);
+        //             this.router.navigate(["admin/stationlist"]);
+        //             this.stationForm.reset();
+        //             this.submitted = false;
+        //         } else {
+        //             Swal.fire({
+        //                 title: "Error!",
+        //                 text: data["data"],
+        //             });
+        //         }
+        //     },
+        //     (error) => {
+        //         this.errormsg = error;
+        //         Swal.fire({
+        //             title: "Error!",
+        //             text: this.errormsg,
+        //         });
+        //     }
+        // );
+        this.stationservice.postAddstation(this.stationForm.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.successmsg = res.data;
+                this.toastr.success("", this.successmsg.data);
+                this.router.navigate(["admin/stationlist"]);
+                this.stationForm.reset();
+                this.submitted = false;
+              }
             },
-            (error) => {
-                this.errormsg = error;
-                Swal.fire({
-                    title: "Error!",
-                    text: this.errormsg,
-                });
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
 
         // this.toastr.success("", "testing");
     }

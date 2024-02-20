@@ -28,10 +28,25 @@ export class AllGateHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stationAPI.getAllGateHistory().subscribe((res) => {
-      this.allGateHistoryList = res['data'];
-      this.temp = true;
-    });
+    // this.stationAPI.getAllGateHistory().subscribe((res) => {
+    //   this.allGateHistoryList = res['data'];
+    //   this.temp = true;
+    // });
+
+    this.stationAPI.getAllGateHistory().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.allGateHistoryList = res.data;
+          this.temp = true;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
   

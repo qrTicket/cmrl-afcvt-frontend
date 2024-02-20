@@ -42,45 +42,97 @@ export class HistoryByGateComponent implements OnInit {
   private killTrigger: Subject<void> = new Subject();
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
+    this.dtTrigger.next(true); // to rerender the table when next function is called
     this.gateDetails();
 
   }
 
   gateDetails() {
     this.gateNameList = this.stationService.getConfiguredEquip();
-    this.gateNameList.subscribe(res => {
-      this.gateSelectedStatus = res.data;
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 5,
-        processing: true
-      };
-      this.dtTrigger.next(true); // to rerender the table when next function is called 
-    });
+    // this.gateNameList.subscribe(res => {
+    //   if(res['status'] === "1"){
+    //     this.gateSelectedStatus = res.data;
+         
+    //   }
+      
+    // });
+
+    this.stationService.getConfiguredEquip().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.gateSelectedStatus = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
   onSelect() {
     // this.toastr.info("", this.successmsg);
-    const displayName = this.selectedGateName;
-    this.gateNameList.subscribe((res) => {
-      this.store = res.data;
-      // console.log('this.store', this.store);
-      const gatename = this.store.filter(
-        (x) => x.gateName === displayName
-      )[0].gateName;
-      this.allGate = this.stationService.getDetailsByGateName(gatename);
-      this.allGate.subscribe((res2) => {
-        this.selected = res2.data;
-        // this.toastr.success("", this.successmsg);
+     const displayName = this.selectedGateName;
+    // this.gateNameList.subscribe((res) => {
+    //   this.store = res.data;
+    //   // console.log('this.store', this.store);
+    //   const gatename = this.store.filter(
+    //     (x) => x.gateName === displayName
+    //   )[0].gateName;
+    //   this.allGate = this.stationService.getDetailsByGateName(gatename);
+    //   this.allGate.subscribe((res2) => {
+    //     this.selected = res2.data;
+    //     // this.toastr.success("", this.successmsg);
 
+    //   }
+    //     //      ,
+    //     // (error) => {
+    //     //   this.error = error;
+    //     //   this.toastr.error("", this.error.data);
+    //     // }
+    //   );
+    // });
+    
+    this.stationService.getConfiguredEquip().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          
+          this.store = res.data;
+          const gatename = this.store.filter((x) => x.gateName === displayName)[0].gateName;
+          this.getDetailsOfGateByGateName(gatename);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
       }
-        //      ,
-        // (error) => {
-        //   this.error = error;
-        //   this.toastr.error("", this.error.data);
-        // }
-      );
-    });
+    })
+  }
+
+  getDetailsOfGateByGateName(gatename:any){
+    this.stationService.getDetailsByGateName(gatename).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.selected = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
+    
   }
 
   ngOnDestroy() {

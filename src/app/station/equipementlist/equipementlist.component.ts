@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
 import { GateModel } from '../_model/gate.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class EquipementlistComponent implements OnInit {
     constructor(
         private configapi: ConfigService,
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) { }
     dtOptions: DataTables.Settings = {};
 
@@ -42,16 +44,36 @@ export class EquipementlistComponent implements OnInit {
     }
 
     equipemntlist() {
-        this.configapi.getAllequipement().subscribe(data => {
-            this.equips = data;
-            console.log(this.equips, "Equipment List");
-            this.dtOptions = {
-                pagingType: 'full_numbers',
-                pageLength: 5,
-                processing: true
-            };
-            this.dtTrigger.next(true); // to rerender the table when next function is called 
-        });
+        // this.configapi.getAllequipement().subscribe(data => {
+        //     this.equips = data;
+        //     console.log(this.equips, "Equipment List");
+        //     this.dtOptions = {
+        //         pagingType: 'full_numbers',
+        //         pageLength: 5,
+        //         processing: true
+        //     };
+        //     this.dtTrigger.next(true); // to rerender the table when next function is called 
+        // });
+        this.configapi.getAllequipement().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.equips = res.data;
+                console.log(this.equips, "Equipment List");
+                this.dtOptions = {
+                    pagingType: 'full_numbers',
+                    pageLength: 5,
+                    processing: true
+                };
+                this.dtTrigger.next(true); // to rerender the table when next function is called
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     configgate(item) {

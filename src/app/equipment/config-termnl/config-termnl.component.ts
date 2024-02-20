@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TerminalService } from "../_services/terminal.service";
 
 import { ToastrService } from "ngx-toastr";
@@ -19,14 +19,14 @@ import { ModalDirective } from "ngx-bootstrap/modal";
 })
 export class ConfigTermnlComponent implements OnInit {
     @ViewChild("lgModal") lgModal: ModalDirective;
-    addTerminalForm: UntypedFormGroup;
-    productList: Product[];
+    addTerminalForm: FormGroup;
+    productList: any[];
     submitted = false;
     showSpinners = false;
     successmsg;
     errormsg;
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
 
         private toastr: ToastrService,
         private spinner: NgxSpinnerService,
@@ -85,9 +85,22 @@ export class ConfigTermnlComponent implements OnInit {
                 }),
             ],
         });
-        this.productService.getProductList().subscribe((res) => {
-            this.productList = res;
-        });
+        // this.productService.getProductList().subscribe((res) => {
+        //     this.productList = res;
+        // });
+        this.productService.getProductList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.productList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
     showChildModal(): void {
         this.lgModal.show();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { UserProfileService } from "../../_services/user-profile.service";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -13,14 +13,14 @@ import { Router } from "@angular/router";
     styleUrls: ["./privacy.component.scss"],
 })
 export class PrivacyComponent implements OnInit {
-    updatepwdForm: UntypedFormGroup;
+    updatepwdForm: FormGroup;
     submitted: boolean = false;
     successmsg: any;
     errormsg: any;
 
     constructor(
         private router: Router,
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
         private userProfileAPI: UserProfileService
@@ -78,12 +78,39 @@ export class PrivacyComponent implements OnInit {
                 title: "Error!",
                 text: "Please fill all fields!",
             });
-        this.userProfileAPI.changePassword(this.updatepwdForm.value).subscribe(
-            (res) => {
-                if (res.status === "0") {
-                    this.spinner.hide();
-                    return this.toastr.error(res.data);
-                }
+        // this.userProfileAPI.changePassword(this.updatepwdForm.value).subscribe(
+        //     (res) => {
+        //         if (res.status === "0") {
+        //             this.spinner.hide();
+        //             return this.toastr.error(res.data);
+        //         }
+        //         console.log(res, "Password");
+
+        //         this.spinner.hide();
+        //         this.successmsg = res["data"];
+        //         this.toastr.success("", this.successmsg);
+        //         this.updatepwdForm.reset();
+        //         this.submitted = false;
+        //         this.router.navigateByUrl("/login");
+        //         localStorage.clear();
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+
+        //         Swal.fire({
+        //             title: "Error!",
+        //             text: error["data"],
+        //         });
+                
+        //     }
+        // );
+        this.userProfileAPI.changePassword(this.updatepwdForm.value).subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                return this.toastr.error(res.data);
+              }
+              else if(res.status === "1"){
                 console.log(res, "Password");
 
                 this.spinner.hide();
@@ -93,16 +120,15 @@ export class PrivacyComponent implements OnInit {
                 this.submitted = false;
                 this.router.navigateByUrl("/login");
                 localStorage.clear();
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-
                 Swal.fire({
                     title: "Error!",
-                    text: error["data"],
+                    text: err.error.data,
                 });
-                
             }
-        );
+          })
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Fare } from "../_models/fare.model";
@@ -15,7 +15,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 export class EditFareDetailsComponent implements OnInit {
 
   fare: Fare;
-  editfaredetailsForm: UntypedFormGroup;
+  editfaredetailsForm: FormGroup;
   submitted = false;
   
   successmsg:any;
@@ -26,7 +26,7 @@ export class EditFareDetailsComponent implements OnInit {
 
   constructor(
     private fareService: FareService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private activeRouter: ActivatedRoute,
     private toastr: ToastrService,
@@ -41,9 +41,22 @@ export class EditFareDetailsComponent implements OnInit {
       penaltyDecision: ["", RxwebValidators.required({ message: "Required!", }),]
     });
 
-    this.fareService.getFareList().subscribe((res) => {
-      this.fare = res["data"];
-    });
+    // this.fareService.getFareList().subscribe((res) => {
+    //   this.fare = res["data"];
+    // });
+    this.fareService.getFareList().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.fare = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
     this.activeRouter.paramMap.subscribe((params) => {
       this.FareId = +params.get("id");
@@ -80,22 +93,41 @@ export class EditFareDetailsComponent implements OnInit {
     //   return 
     //   this.toastr.error("Unable to update form: please check all the details", "Error");
     console.log(this.editfaredetailsForm.value);
-    this.fareService
-      .updateFareDetails(this.FareId, this.editfaredetailsForm.value)
-      .subscribe(
-        (data) => {
-          this.spinner.hide();
-          this.successmsg = data;
-          this.toastr.success("", this.successmsg.data);
-          this.router.navigate(['/admin/fare-list']);
-        },
-        (error) => {
-          this.errormsg = error;
-          this.toastr.error("", this.errormsg.data);
-        }
-      );
+    // this.fareService
+    //   .updateFareDetails(this.FareId, this.editfaredetailsForm.value)
+    //   .subscribe(
+    //     (data) => {
+    //       this.spinner.hide();
+    //       this.successmsg = data;
+    //       this.toastr.success("", this.successmsg.data);
+    //       this.router.navigate(['/admin/fare-list']);
+    //     },
+    //     (error) => {
+    //       this.errormsg = error;
+    //       this.toastr.error("", this.errormsg.data);
+    //     }
+    //   );
 
-    this.editfaredetailsForm.reset();
-    this.submitted = false;
+    // this.editfaredetailsForm.reset();
+    // this.submitted = false;
+
+    this.fareService.updateFareDetails(this.FareId, this.editfaredetailsForm.value).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.spinner.hide();
+          this.successmsg = res.data;
+          this.toastr.success("", this.successmsg.data);
+          this.editfaredetailsForm.reset();
+          this.submitted = false;
+          this.router.navigate(['/admin/fare-list']);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 }

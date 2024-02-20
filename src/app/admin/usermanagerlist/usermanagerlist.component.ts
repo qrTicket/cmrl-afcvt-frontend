@@ -44,7 +44,8 @@ export class UsermanagerlistComponent implements OnInit {
       private spinner: NgxSpinnerService,
       private toaster: ToastrService,
       private modalService: BsModalService,
-      private userService: AddUsermanagerService
+      private userService: AddUsermanagerService,
+      private toastr: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -53,26 +54,48 @@ export class UsermanagerlistComponent implements OnInit {
   }
 
   getAllUsers() {
-      this.userService.userList().subscribe(
-          (res) => {
-              this.spinner.hide();
-              this.userList = res["data"];
-              this.temp = true;
-              this.userList = res["data"];
-              //console.log(this.userList);
-              this.userList.forEach((user) => {
-                  user.concanatedRoleCode = "";
-                  user.roles.forEach((role) => {
-                      user.concanatedRoleCode = user.concanatedRoleCode + " "+role.roleCode+","; 
-                  });
-              })
+    //   this.userService.userList().subscribe(
+    //       (res) => {
+    //           this.spinner.hide();
+    //           this.userList = res["data"];
+    //           this.temp = true;
+    //           this.userList = res["data"];
+    //           //console.log(this.userList);
+    //           this.userList.forEach((user) => {
+    //               user.concanatedRoleCode = "";
+    //               user.roles.forEach((role) => {
+    //                   user.concanatedRoleCode = user.concanatedRoleCode + " "+role.roleCode+","; 
+    //               });
+    //           })
               
-          },
-          (error) => {
-              this.spinner.hide();
-              // console.log(error);
+    //       },
+    //       (error) => {
+    //           this.spinner.hide();
+    //           // console.log(error);
+    //       }
+    //   );
+      this.userService.userList().subscribe({
+        next:(res:any)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
           }
-      );
+          else if(res.status === "1"){
+            this.spinner.hide();
+            this.userList = res.data;
+            this.temp = true;
+            this.userList.forEach((user) => {
+                user.concanatedRoleCode = "";
+                user.roles.forEach((role) => {
+                    user.concanatedRoleCode = user.concanatedRoleCode + " "+role.roleCode+","; 
+                });
+            })
+          }
+        },
+        error:(err)=>{
+            this.spinner.hide();
+            this.toastr.error(err.error.data,'Error!')
+        }
+      })
   }
   //update user profile function
   update(user:any) {
@@ -106,41 +129,49 @@ export class UsermanagerlistComponent implements OnInit {
   confirm(username: string, status:number) {
       this.spinner.show();
       this.modalRef.hide();
-      this.userService.statusUpdate(username, this.statusValue).subscribe(
-          (res) => {
-              //console.log(res);
-              if(res.status==="1"){
-                this.spinner.hide();
-                //this.toaster.success("", "User status updated successfully");
-                this.toaster.success("", res.data);
-                this.getAllUsers();
-              }else{
+    //   this.userService.statusUpdate(username, this.statusValue).subscribe(
+    //       (res) => {
+    //           //console.log(res);
+    //           if(res.status==="1"){
+    //             this.spinner.hide();
+    //             //this.toaster.success("", "User status updated successfully");
+    //             this.toaster.success("", res.data);
+    //             this.getAllUsers();
+    //           }else{
+    //             this.spinner.hide();
+    //             this.toaster.error("",res.data);
+    //             this.getAllUsers();
+    //           }
+              
+    //       },
+    //       (error) => {
+    //           this.spinner.hide();
+    //           this.errormsg = error;
+    //           this.modalRef.hide();
+    //           this.toaster.error("", this.errormsg);
+    //       });
+
+          this.userService.statusUpdate(username, this.statusValue).subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
                 this.toaster.error("",res.data);
                 this.getAllUsers();
               }
-              
-          },
-          (error) => {
-              this.spinner.hide();
-              this.errormsg = error;
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.toaster.success("", res.data);
+                this.getAllUsers();
+              }
+            },
+            error:(err)=>{
+                this.spinner.hide();
+              this.errormsg = err.error.data;
               this.modalRef.hide();
               this.toaster.error("", this.errormsg);
-          });
-
-      // this.addUserAPI.deleteUser(id).subscribe(
-      //     (res) => {
-      //         this.spinner.hide();
-      //         this.toaster.success("", "Record deleted Successfully!");
-      //         this.getAllUsers();
-      //     },
-      //     (error) => {
-      //         this.spinner.hide();
-      //         this.errormsg = error;
-      //         this.modalRef.hide();
-      //         this.toaster.error("", this.errormsg);
-      //     }
-      // );
+            }
+          })
+    
 
       this.modalRef.hide();
   }
@@ -156,20 +187,39 @@ export class UsermanagerlistComponent implements OnInit {
   blacklist(id:any) {
       this.spinner.show();
       this.modalRef.hide();
-      this.userService.userBlacklist(id).subscribe(
-          (res) => {
-              this.spinner.hide();
-              this.successmsg = res;
-              this.toaster.success("", this.successmsg.message);
-              this.getAllUsers();
-          },
-          (error) => {
-              this.spinner.hide();
-              this.errormsg = error;
+    //   this.userService.userBlacklist(id).subscribe(
+    //       (res) => {
+    //           this.spinner.hide();
+    //           this.successmsg = res;
+    //           this.toaster.success("", this.successmsg.message);
+    //           this.getAllUsers();
+    //       },
+    //       (error) => {
+    //           this.spinner.hide();
+    //           this.errormsg = error;
+    //           this.modalRef.hide();
+    //           this.toaster.error("", this.errormsg);
+    //       }
+    //   );
+      this.userService.userBlacklist(id).subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.spinner.hide();
+            this.successmsg = res;
+            this.toaster.success("", this.successmsg.message);
+            this.getAllUsers();
+          }
+        },
+        error:(err)=>{
+            this.spinner.hide();
+              this.errormsg = err.error.data;
               this.modalRef.hide();
               this.toaster.error("", this.errormsg);
-          }
-      );
+        }
+      })
   }
   notBlacklist(): void {
       // console.log("Not blacklist");

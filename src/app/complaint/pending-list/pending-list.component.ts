@@ -1,12 +1,10 @@
 import {
   Component, OnInit, ViewChild, TemplateRef
 } from '@angular/core';
-import 'rxjs/Rx';
 import { ComplainService } from '../_complainservices/complain.service';
 import { DataTableDirective } from 'angular-datatables';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { Subject } from 'rxjs';
-import { Subscription } from 'rxjs/Subscription';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Subject, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
@@ -33,8 +31,8 @@ export class PendingListComponent implements OnInit {
   errormsg: any;
 
 
-  assignForm: UntypedFormGroup;
-  rejectForm: UntypedFormGroup;
+  assignForm: FormGroup;
+  rejectForm: FormGroup;
   modalRef: BsModalRef;
   config = {
     animated: true,
@@ -53,7 +51,7 @@ export class PendingListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private complainservice: ComplainService,
     private modalService: BsModalService,
@@ -89,12 +87,25 @@ export class PendingListComponent implements OnInit {
     this.complaintlist();
     
     //get maintinance staff list
-    this.complainservice.maintinanceStaffList().subscribe(
-      (res) => {
-        this.maintinanceUserList=res;
+    // this.complainservice.maintinanceStaffList().subscribe(
+    //   (res) => {
+    //     this.maintinanceUserList=res;
+    //   }
+    // );
+    this.complainservice.maintinanceStaffList().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.maintinanceUserList = res.data;
+          this.temp = true;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
       }
-      
-    )
+    })
 
   }
 
@@ -107,20 +118,34 @@ export class PendingListComponent implements OnInit {
 
   complaintlist() {
     this.subscription.push(
-      this.complainservice.pendingComplaintList().subscribe(
-        (res) => {
-          if (res.status === "1") {
-            this.complains = res['data'];
+      // this.complainservice.pendingComplaintList().subscribe(
+      //   (res) => {
+      //     if (res.status === "1") {
+      //       this.complains = res['data'];
+      //       this.temp = true;
+      //     }
+      //     else {
+      //       this.toastr.warning("", res.data);
+      //     }
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   }
+      // )
+      this.complainservice.pendingComplaintList().subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.complains = res.data;
             this.temp = true;
           }
-          else {
-            this.toastr.warning("", res.data);
-          }
         },
-        (error) => {
-          console.log(error);
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
         }
-      )
+      })
     );
   }
 
@@ -136,30 +161,47 @@ export class PendingListComponent implements OnInit {
     }
 
     this.subscription.push(
-      this.complainservice
-        .postAssignComplaint(this.assignForm.value)
-        .subscribe(
-          (res) => {
-            console.log(res);
-            if(res.status==="1"){
+      // this.complainservice
+      //   .postAssignComplaint(this.assignForm.value)
+      //   .subscribe(
+      //     (res) => {
+      //       console.log(res);
+      //       if(res.status==="1"){
+      //         this.successmsg = res;
+      //         this.toastr.success("", this.successmsg.data);
+      //         this.assignForm.reset();
+      //         this.modalRef.hide();
+      //         this.router.navigate(["complaint/progressList",]);
+      //       }else{
+      //         this.successmsg = res;
+      //         this.toastr.error("", this.successmsg.data);
+      //       }
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //       this.errormsg = error;
+      //       this.toastr.error("", this.errormsg);
+      //     }
+      //   )
+        this.complainservice.postAssignComplaint(this.assignForm.value).subscribe({
+          next:(res)=>{
+            if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+            }
+            else if(res.status === "1"){
               this.successmsg = res;
               this.toastr.success("", this.successmsg.data);
               this.assignForm.reset();
               this.modalRef.hide();
               this.router.navigate(["complaint/progressList",]);
-            }else{
-              this.successmsg = res;
-              this.toastr.error("", this.successmsg.data);
-              
             }
-            
           },
-          (error) => {
-            console.log(error);
-            this.errormsg = error;
+          error:(err)=>{
+              //this.toastr.error(err.error.data,'Error!')
+              this.errormsg = err.error.data;
             this.toastr.error("", this.errormsg);
           }
-        )
+        })
     );
   }
 
@@ -176,12 +218,34 @@ export class PendingListComponent implements OnInit {
     }
 
     this.subscription.push(
-      this.complainservice
-        .rejectComplaint(this.rejectForm.value)
-        .subscribe(
-          (res) => {
-            if (res.status === "1") {
-              this.complains = res['data'];
+      // this.complainservice
+      //   .rejectComplaint(this.rejectForm.value)
+      //   .subscribe(
+      //     (res) => {
+      //       if (res.status === "1") {
+      //         this.complains = res['data'];
+      //         console.log(this.complains, 'Reject Complain List');
+      //         this.successmsg = res;
+      //         this.toastr.success("", this.successmsg.data);
+      //         this.assignForm.reset();
+      //         this.modalRef.hide();
+      //         this.router.navigate(["complaint/rejectedList",]);
+      //       }
+      //       else {
+      //         this.toastr.warning("", res.data);
+      //       }
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      //   )
+        this.complainservice.rejectComplaint(this.rejectForm.value).subscribe({
+          next:(res)=>{
+            if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+            }
+            else if(res.status === "1"){
+              this.complains = res.data;
               console.log(this.complains, 'Reject Complain List');
               this.successmsg = res;
               this.toastr.success("", this.successmsg.data);
@@ -189,14 +253,11 @@ export class PendingListComponent implements OnInit {
               this.modalRef.hide();
               this.router.navigate(["complaint/rejectedList",]);
             }
-            else {
-              this.toastr.warning("", res.data);
-            }
           },
-          (error) => {
-            console.log(error);
+          error:(err)=>{
+              this.toastr.error(err.error.data,'Error!')
           }
-        )
+        })
     );
   }
 

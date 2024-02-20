@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { from } from "rxjs";
 import { UserProfileService } from "../../_services/user-profile.service";
 import { AddUserService } from "../../user-manger/_services/add-user.service";
 import { PTO } from "src/app/auth_models/pto.model";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import Swal from "sweetalert2";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 
@@ -16,7 +16,7 @@ import { RxwebValidators } from "@rxweb/reactive-form-validators";
     styleUrls: ["./edit-profile.component.scss"],
 })
 export class EditProfileComponent implements OnInit {
-    editProfileForm: UntypedFormGroup;
+    editProfileForm: FormGroup;
     // userList;
     submitted: boolean = false;
     role: string;
@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
 
 
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private router: Router,
         private toastr: ToastrService,
         private userProfileAPI: AddUserService,
@@ -74,10 +74,21 @@ export class EditProfileComponent implements OnInit {
         });
 
         this.subscription.push(
-            this.userProfileAPI
-                .getUserProfile()
-                .subscribe((userData: PTO) => {
-                    this.getUserData(userData);
+            // this.userProfileAPI.getUserProfile().subscribe((userData: PTO) => {
+            //         this.getUserData(userData);
+            //     })
+            this.userProfileAPI.getUserProfile().subscribe({
+                next:(res:any)=>{
+                    if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                    }
+                    else if(res.status === "1"){
+                    this.getUserData(res.data)
+                    }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
                 })
         );
         this.editProfileForm.disable();
@@ -119,21 +130,36 @@ export class EditProfileComponent implements OnInit {
             });
         }
 
-        this.userDataUpdate.updateUserProfile(this.editProfileForm.value)
-            .subscribe(
-                (res:any) => {
-                    if(res.status === "1"){
-                        this.toastr.success("SUCCESS! "+res.data);
-                        this.showEditBtn = true;
-                        this.showUpdateBtn = false;
-                        this.editProfileForm.disable();
-                    }
+        // this.userDataUpdate.updateUserProfile(this.editProfileForm.value)
+        //     .subscribe(
+        //         (res:any) => {
+        //             if(res.status === "1"){
+        //                 this.toastr.success("SUCCESS! "+res.data);
+        //                 this.showEditBtn = true;
+        //                 this.showUpdateBtn = false;
+        //                 this.editProfileForm.disable();
+        //             }
+        //         },
+        //         (error) => {
+        //             this.toastr.error("ERROR! ", error.data)
+        //         }
+        //     );
+            this.userDataUpdate.updateUserProfile(this.editProfileForm.value).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.toastr.success("SUCCESS! "+res.data);
+                    this.showEditBtn = true;
+                    this.showUpdateBtn = false;
+                    this.editProfileForm.disable();
+                  }
                 },
-                (error) => {
-                    this.toastr.error("ERROR! ", error.data)
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
                 }
-            );
-
+              })
         
     }
 }

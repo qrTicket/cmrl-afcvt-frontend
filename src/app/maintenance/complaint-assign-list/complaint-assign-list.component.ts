@@ -9,7 +9,7 @@ import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { ComplainService } from "src/app/complaint/_complainservices/complain.service";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: "app-complaint-assign-list",
@@ -17,7 +17,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms
     styleUrls: ["./complaint-assign-list.component.scss"],
 })
 export class ComplaintAssignListComponent implements OnInit {
-    rejectForm: UntypedFormGroup;
+    rejectForm: FormGroup;
     modalRef: BsModalRef;
     config = {
         animated: true,
@@ -41,7 +41,7 @@ export class ComplaintAssignListComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private formbuilder: UntypedFormBuilder,
+        private formbuilder: FormBuilder,
         private modalService: BsModalService,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
@@ -58,15 +58,34 @@ export class ComplaintAssignListComponent implements OnInit {
     }
 
     complaintlist() {
-        this.complainservice.viewAllAssignedComplaint().subscribe((data) => {
-            this.complainassign = data;
-            this.dtOptions = {
-                pagingType: "full_numbers",
-                pageLength: 5,
-                processing: true,
-            };
-            this.dtTrigger.next();
-        });
+        // this.complainservice.viewAllAssignedComplaint().subscribe((data) => {
+        //     this.complainassign = data;
+        //     this.dtOptions = {
+        //         pagingType: "full_numbers",
+        //         pageLength: 5,
+        //         processing: true,
+        //     };
+        //     this.dtTrigger.next(true);
+        // });
+        this.complainservice.viewAllAssignedComplaint().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.complainassign = res.data;
+                this.dtOptions = {
+                  pagingType: 'full_numbers',
+                  pageLength: 5,
+                  processing: true
+                };
+                this.dtTrigger.next(true);
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     acceptComp() {

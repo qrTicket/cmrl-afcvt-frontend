@@ -9,7 +9,7 @@ export class EquipFooterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

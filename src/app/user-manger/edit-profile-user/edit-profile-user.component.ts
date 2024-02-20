@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { disable, NumericValueType, RxwebValidators } from "@rxweb/reactive-form-validators";
 import { UserProfileService } from "../../_services/user-profile.service";
 import { PTO } from "src/app/auth_models/pto.model";
@@ -18,7 +18,7 @@ import { Router } from "@angular/router";
 })
 export class EditProfileUserComponent implements OnInit {
     userList;
-    editProfileForm: UntypedFormGroup;
+    editProfileForm: FormGroup;
     submitted: boolean = false;
     role: string;
     isReadOnly: boolean = true;
@@ -43,7 +43,7 @@ export class EditProfileUserComponent implements OnInit {
     userManagerRole:string;
 
     constructor(
-        private formbuilder: UntypedFormBuilder,
+        private formbuilder: FormBuilder,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
         private userProfileAPI: UserProfileService,
@@ -118,25 +118,51 @@ export class EditProfileUserComponent implements OnInit {
 
         //will fetch all roles on which USER-MANAGER can operate 
         this.subscription.push(
-            this.editUserService.getRolesToAdd().subscribe((res) => {
-                this.roleList = res["data"];              
-            })  
+            // this.editUserService.getRolesToAdd().subscribe((res) => {
+            //     this.roleList = res["data"];              
+            // })  
+            this.editUserService.getRolesToAdd().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.roleList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
 
         
         
 
         //fetching User manager Details
-        this.userProfileAPI.UserProfile().subscribe(
-            (userData) => 
-            {
-                this.getUserData(userData);
+        // this.userProfileAPI.UserProfile().subscribe(
+        //     (userData) => 
+        //     {
+        //         this.getUserData(userData);
                
+        //     },
+        //     (error) => {
+        //         this.toastr.error("", error.data)
+        //     }
+        // );
+        this.userProfileAPI.UserProfile().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.getUserData(res.data);
+              }
             },
-            (error) => {
-                this.toastr.error("", error.data)
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }//ngOnInit ends
 
 
@@ -154,11 +180,24 @@ export class EditProfileUserComponent implements OnInit {
         this.editProfileForm.disable();
         this.showEditBtn = true;
         this.showUpdateBtn = false;
-        this.userProfileAPI.UserProfile().subscribe(
-            (userData) => {
-                this.getUserData(userData);
+        // this.userProfileAPI.UserProfile().subscribe(
+        //     (userData) => {
+        //         this.getUserData(userData);
+        //     }
+        // );
+        this.userProfileAPI.UserProfile().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.getUserData(res.data);
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
         this.isDisabled = false;
         this.showStationCode = false;
        
@@ -206,19 +245,39 @@ export class EditProfileUserComponent implements OnInit {
     
 
         this.spinner.show();
-        this.subscription.push(this.editUserService.editUserManagerProfile(this.editProfileForm.value).subscribe((resp)=>{
-            if(resp["status"] == "1"){
-                this.toastr.success(resp["data"]);
+        this.subscription.push(
+        //     this.editUserService.editUserManagerProfile(this.editProfileForm.value).subscribe((resp)=>{
+        //     if(resp["status"] == "1"){
+        //         this.toastr.success(resp["data"]);
+        //         setTimeout(() => { this.spinner.hide();}, 3000);
+        //             this.showEditBtn = true;
+        //             this.showUpdateBtn = false;
+        //             this.editProfileForm.disable();
+        //             this.isDisabled = false;
+        //     }
+        //     else{
+        //         this.toastr.error("", resp["data"]);
+        //     }
+        // })
+        this.editUserService.editUserManagerProfile(this.editProfileForm.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.toastr.success(res.data);
                 setTimeout(() => { this.spinner.hide();}, 3000);
                     this.showEditBtn = true;
                     this.showUpdateBtn = false;
                     this.editProfileForm.disable();
                     this.isDisabled = false;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-            else{
-                this.toastr.error("", resp["data"]);
-            }
-        }))
+          })
+        )
          }
         
 

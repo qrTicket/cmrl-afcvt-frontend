@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import {
     RxwebValidators,
     NumericValueType,
@@ -13,7 +13,8 @@ import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
 
 import { ProductService } from "../_services/product.service";
 import { Product } from "../_models/product.model";
-import swal from 'sweetalert';
+import Swal from "sweetalert2";
+
 
 @Component({
     selector: "app-update-equipment",
@@ -22,7 +23,7 @@ import swal from 'sweetalert';
 })
 export class UpdateEquipmentComponent implements OnInit, OnDestroy {
     subscriptions: Subscription[] = [];
-    updateEquipmentForm: UntypedFormGroup;
+    updateEquipmentForm: FormGroup;
     datePickerConfigMfg: Partial<BsDatepickerConfig>;
     datePickerConfigPur: Partial<BsDatepickerConfig>;
     modalRef: BsModalRef;
@@ -33,9 +34,9 @@ export class UpdateEquipmentComponent implements OnInit, OnDestroy {
     equipId: any;
     minDate: any;
     maxDate: Date;
-    equipmentTypeList: Object;
+    equipmentTypeList: any;
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private spinner: NgxSpinnerService,
@@ -68,7 +69,12 @@ export class UpdateEquipmentComponent implements OnInit, OnDestroy {
         this.submitted = true;
         if (this.updateEquipmentForm.invalid) {
             // return this.toastr.error("Please fill all fields!");
-            return swal("Please fill all fields!", "", "error");
+            //return swal("Please fill all fields!", "", "error");
+            return Swal.fire({
+                title:'Error',
+                icon:'error',
+                text:'Please fill all fields!'
+              })
         } else {
             this.modalRef = this.modalService.show(updateTemplate);
         }
@@ -76,24 +82,47 @@ export class UpdateEquipmentComponent implements OnInit, OnDestroy {
     confirm() {
         this.spinner.show();
         this.subscriptions.push(
-            this.productService
-                .updateEquipment(this.equipId, this.updateEquipmentForm.value)
-                .subscribe(
-                    (res) => {
+            // this.productService.updateEquipment(this.equipId, this.updateEquipmentForm.value).subscribe(
+            //         (res) => {
+            //             this.spinner.hide();
+            //             this.successmsg = res;
+            //             this.toastr.success(this.successmsg.data);
+            //             this.updateEquipmentForm.reset();
+            //             this.submitted = false;
+            //             this.router.navigate(["equipment/inventoryList"]);
+            //         },
+            //         (error) => {
+            //             this.spinner.hide();
+            //             this.errormessage = error;
+            //             // this.toastr.error(this.errormessage.data);
+            //            // swal(this.errormessage.data, "", "error");
+            //             Swal.fire({
+            //                 title:'Error',
+            //                 icon:'error',
+            //                 text:this.errormessage.data
+            //               })
+            //         }
+            //     )
+                this.productService.updateEquipment(this.equipId, this.updateEquipmentForm.value).subscribe({
+                    next:(res:any)=>{
+                      if(res.status === "0"){
+                        this.spinner.hide();
+                        this.toastr.error(res.data,'Error!')
+                      }
+                      else if(res.status === "1"){
                         this.spinner.hide();
                         this.successmsg = res;
                         this.toastr.success(this.successmsg.data);
                         this.updateEquipmentForm.reset();
                         this.submitted = false;
                         this.router.navigate(["equipment/inventoryList"]);
+                      }
                     },
-                    (error) => {
+                    error:(err)=>{
                         this.spinner.hide();
-                        this.errormessage = error;
-                        // this.toastr.error(this.errormessage.data);
-                        swal(this.errormessage.data, "", "error");
+                        this.toastr.error(err.error.data,'Error!')
                     }
-                )
+                  })
         );
         this.modalRef.hide();
     }
@@ -217,9 +246,22 @@ export class UpdateEquipmentComponent implements OnInit, OnDestroy {
         });
 
         this.subscriptions.push(
-            this.productService.equipmentType().subscribe((res) => {
-                this.equipmentTypeList = res["data"];
-            })
+            // this.productService.equipmentType().subscribe((res) => {
+            //     this.equipmentTypeList = res["data"];
+            // })
+            this.productService.equipmentType().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.equipmentTypeList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
         this.route.paramMap.subscribe((params) => {
             const Eid = +params.get("id");
@@ -253,10 +295,23 @@ export class UpdateEquipmentComponent implements OnInit, OnDestroy {
 
     getEquipment(id) {
         this.subscriptions.push(
-            this.productService
-                .getEquipmentById(id)
-                .subscribe((equipmentData) => {
-                    this.updateEquipment(equipmentData["data"]);
+            // this.productService
+            //     .getEquipmentById(id)
+            //     .subscribe((equipmentData) => {
+            //         this.updateEquipment(equipmentData["data"]);
+            //     })
+            this.productService.getEquipmentById(id).subscribe({
+                next:(res:any)=>{
+                    if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                    }
+                    else if(res.status === "1"){
+                    this.updateEquipment(res.data) ;
+                    }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
                 })
         );
     }

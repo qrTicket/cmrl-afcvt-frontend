@@ -1,12 +1,11 @@
 import {
   Component, OnInit, ViewChild, TemplateRef
 } from '@angular/core';
-import 'rxjs/Rx';
 import { MainService } from '../_mainservices/main.service';
 import { DataTableDirective } from 'angular-datatables';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject } from 'rxjs';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
@@ -32,7 +31,7 @@ export class ComplainListComponent implements OnInit {
   errormsg: any;
 
 
-  assignForm: UntypedFormGroup;
+  assignForm: FormGroup;
   modalRef: BsModalRef;
   config = {
     animated: true,
@@ -49,7 +48,7 @@ export class ComplainListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private mainservice: MainService,
     private complainservice: ComplainService,
@@ -71,12 +70,24 @@ export class ComplainListComponent implements OnInit {
     this.complaintlist();
 
      //get complaint status list
-    this.complainservice.getComplaintStatusList().subscribe(
-      (res) => {
-        this.complaintStatusList=res;
+    // this.complainservice.getComplaintStatusList().subscribe(
+    //   (res) => {
+    //     this.complaintStatusList=res;
+    //   }
+    // )
+    this.complainservice.getComplaintStatusList().subscribe({
+      next:(res)=>{
+        // if(res.status === "0"){
+        //     this.toastr.error(res.data,'Error!')
+        // }
+        // else if(res.status === "1"){
+          this.complaintStatusList = res;
+        //}
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
       }
-      
-    )
+    })
   }
 
   get fval() {
@@ -86,20 +97,34 @@ export class ComplainListComponent implements OnInit {
 
   complaintlist() {
     this.subscription.push(
-      this.complainservice.maintenancePendingComplaintList().subscribe(
-        (res) => {
-          if (res.status === "1") {
-            this.complains = res['data'];
+      // this.complainservice.maintenancePendingComplaintList().subscribe(
+      //   (res) => {
+      //     if (res.status === "1") {
+      //       this.complains = res['data'];
+      //       this.temp = true;
+      //     }
+      //     else {
+      //       this.toastr.warning("", res.data);
+      //     }
+      //   },
+      //   (error) => {
+      //     // console.log(error);
+      //   }
+      // )
+      this.complainservice.maintenancePendingComplaintList().subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.complains = res.data;
             this.temp = true;
           }
-          else {
-            this.toastr.warning("", res.data);
-          }
         },
-        (error) => {
-          // console.log(error);
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
         }
-      )
+      })
     );
   }
 
@@ -115,23 +140,43 @@ export class ComplainListComponent implements OnInit {
     }
 
     this.subscription.push(
-      this.mainservice
-        .closeComplaint(this.assignForm.value)
-        .subscribe(
-          (res) => {
-            console.log(res);
-            this.successmsg = res;
-            this.toastr.success("", this.successmsg.data);
-            this.assignForm.reset();
-            this.modalRef.hide();
-            this.router.navigate(["/inprogress-complain-list",]);
+      // this.mainservice
+      //   .closeComplaint(this.assignForm.value)
+      //   .subscribe(
+      //     (res) => {
+      //       console.log(res);
+      //       this.successmsg = res;
+      //       this.toastr.success("", this.successmsg.data);
+      //       this.assignForm.reset();
+      //       this.modalRef.hide();
+      //       this.router.navigate(["/inprogress-complain-list",]);
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //       this.errormsg = error;
+      //       this.toastr.error("", this.errormsg);
+      //     }
+      //   )
+        this.mainservice.closeComplaint(this.assignForm.value).subscribe({
+          next:(res:any)=>{
+            if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+            }
+            else if(res.status === "1"){
+              this.successmsg = res.data;
+              this.toastr.success("", this.successmsg.data);
+              this.assignForm.reset();
+              this.modalRef.hide();
+              this.router.navigate(["/inprogress-complain-list",]);
+            }
           },
-          (error) => {
-            console.log(error);
-            this.errormsg = error;
+          error:(err)=>{
+            //this.toastr.error(err.error.data,'Error!')
+            console.log(err.error.data);
+            this.errormsg = err.error.data;
             this.toastr.error("", this.errormsg);
           }
-        )
+        })
     );
   }
 

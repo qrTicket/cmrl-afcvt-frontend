@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Station } from "../_models/station.model";
@@ -17,7 +17,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 })
 export class EditLineToStationComponent implements OnInit {
 
-  editlinetostationForm: UntypedFormGroup;
+  editlinetostationForm: FormGroup;
   submitted = false;
 
   station: Station[] = [];
@@ -28,7 +28,7 @@ export class EditLineToStationComponent implements OnInit {
   errormsg;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private activeRouter: ActivatedRoute,
     private toastr: ToastrService,
@@ -45,15 +45,41 @@ export class EditLineToStationComponent implements OnInit {
       createdDate: ["", RxwebValidators.required({ message: "Required!", }),]
     });
 
-    this.lineService.getLines().subscribe((data) => {
-      this.line = data;
-      console.log(this.line, "Line List");
-    });
+    // this.lineService.getLines().subscribe((data) => {
+    //   this.line = data;
+    //   console.log(this.line, "Line List");
+    // });
+    this.lineService.getLines().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.line = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
-    this.stationService.getStation().subscribe((data) => {
-      this.station = data;
-      console.log(this.station, "Station List");
-    });
+    // this.stationService.getStation().subscribe((data) => {
+    //   this.station = data;
+    //   console.log(this.station, "Station List");
+    // });
+    this.stationService.getStation().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.station = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
     this.activeRouter.paramMap.subscribe((params) => {
       const id = +params.get("id");
@@ -69,11 +95,24 @@ export class EditLineToStationComponent implements OnInit {
   }
 
   getDetail(id: number) {
-    this.linetostationService.getAssignedLineToStationById(id)
-      .subscribe(
-        (linetostation: LineToStation) => this.updateLineToStation(linetostation),
-        (error: any) => console.log(error)
-      );
+    // this.linetostationService.getAssignedLineToStationById(id)
+    //   .subscribe(
+    //     (linetostation: LineToStation) => this.updateLineToStation(linetostation),
+    //     (error: any) => console.log(error)
+    //   );
+      this.linetostationService.getAssignedLineToStationById(id).subscribe({
+        next:(res:any)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.updateLineToStation(res.data)
+          }
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
+        }
+      })
   }
 
   updateLineToStation(linetostation: LineToStation) {
@@ -91,23 +130,43 @@ export class EditLineToStationComponent implements OnInit {
     if (this.editlinetostationForm.invalid)
       return this.toastr.error("Unable to update form: please check all the details", "Error");
     console.log(this.editlinetostationForm.value);
-    this.linetostationService.putLineToStation(this.editlinetostationForm.value.id,
-      this.editlinetostationForm.value)
-      .subscribe((res) => {
-        this.successmsg = res;
-        this.toastr.success("", this.successmsg.message);
+    
+    // this.linetostationService.putLineToStation(this.editlinetostationForm.value.id,
+    //   this.editlinetostationForm.value)
+    //   .subscribe((res) => {
+    //     this.successmsg = res;
+    //     this.toastr.success("", this.successmsg.message);
 
-      },
-        (error) => {
-          console.log(error);
-          this.errormsg = error;
-          this.toastr.error("", this.errormsg);
+    //   },
+    //     (error) => {
+    //       console.log(error);
+    //       this.errormsg = error;
+    //       this.toastr.error("", this.errormsg);
+    //     }
+    //   );
+
+    // this.editlinetostationForm.reset();
+    // this.submitted = false;
+    // this.router.navigate(['admin/stationlist']);
+
+    this.linetostationService.putLineToStation(this.editlinetostationForm.value.id,this.editlinetostationForm.value).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
         }
-      );
-
-    this.editlinetostationForm.reset();
-    this.submitted = false;
-    this.router.navigate(['admin/stationlist']);
+        else if(res.status === "1"){
+          this.successmsg = res.data;
+          this.toastr.success("", this.successmsg.message);
+          this.editlinetostationForm.reset();
+          this.submitted = false;
+          this.router.navigate(['admin/stationlist']);
+        }
+      },
+      error:(err)=>{
+        this.errormsg = err.error.data;
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 

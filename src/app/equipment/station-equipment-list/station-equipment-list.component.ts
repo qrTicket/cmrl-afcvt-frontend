@@ -36,10 +36,23 @@ export class StationEquipmentListComponent implements OnInit {
         this.modalRef = this.modalService.show(template, this.config);
     }
     confirm(id) {
-        this.equipmentService.deleteEquipment(id).subscribe((res) => {
-            // console.log(res, "Record Deleted");
-            this.equipmentService.getEquipment();
-        });
+        // this.equipmentService.deleteEquipment(id).subscribe((res) => {
+        //     // console.log(res, "Record Deleted");
+        //     this.equipmentService.getEquipment();
+        // });
+        this.equipmentService.deleteEquipment(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.equipmentService.getEquipment();
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
         this.modalRef.hide();
     }
 
@@ -50,21 +63,40 @@ export class StationEquipmentListComponent implements OnInit {
     }
     ngOnInit() {
         this.spinner.show();
-        this.equipmentService.getEquipment().subscribe(
-            (data) => {
+        // this.equipmentService.getEquipment().subscribe(
+        //     (data) => {
+        //         this.spinner.hide();
+        //         this.equipmentList = data.filter(
+        //             (equipment) => equipment.blacklist === false
+        //         );
+
+        //         this.temp = true;
+        //         // console.log(data);
+        //     },
+        //     (error) => {
+        //         // console.log(error);
+        //         this.spinner.hide();
+        //     }
+        // );
+        this.equipmentService.getEquipment().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
-                this.equipmentList = data.filter(
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.equipmentList = res.data.filter(
                     (equipment) => equipment.blacklist === false
                 );
-
                 this.temp = true;
-                // console.log(data);
+              }
             },
-            (error) => {
-                // console.log(error);
+            error:(err)=>{
                 this.spinner.hide();
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 
     editEquipment(id) {
@@ -78,19 +110,37 @@ export class StationEquipmentListComponent implements OnInit {
     blacklist_confirm(id) {
         this.spinner.show();
         console.log(id, "Blacklist Successfully");
-        this.equipmentService.blacklist_true(id).subscribe(
-            (res) => {
+        // this.equipmentService.blacklist_true(id).subscribe(
+        //     (res) => {
+        //         this.spinner.hide();
+        //         this.successmsg = res;
+        //         this.toastr.success("", this.successmsg.message);
+        //         this.ngOnInit();
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         this.errormsg = error;
+        //         this.toastr.error("", this.errormsg);
+        //     }
+        // );
+        this.equipmentService.blacklist_true(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
-                this.successmsg = res;
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.successmsg = res.data;
                 this.toastr.success("", this.successmsg.message);
                 this.ngOnInit();
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                this.errormsg = error;
-                this.toastr.error("", this.errormsg);
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
         this.modalRef.hide();
     }
 

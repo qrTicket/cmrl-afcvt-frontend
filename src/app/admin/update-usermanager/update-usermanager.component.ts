@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
+  FormBuilder,
+  FormGroup,
   Validators,
   FormControl,
 } from "@angular/forms";
@@ -22,7 +22,7 @@ import { AddUsermanagerService } from "../_services/add-usermanager.service";
 })
 export class UpdateUsermanagerComponent implements OnInit {
 
-  updateUser: UntypedFormGroup;
+  updateUser: FormGroup;
   submitted = false;
   successmgs;
   errormsg;
@@ -40,7 +40,7 @@ export class UpdateUsermanagerComponent implements OnInit {
 
 
   constructor(
-      private formBuilder: UntypedFormBuilder,
+      private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private addUserService: AddUsermanagerService,
       private spinner: NgxSpinnerService,
@@ -105,16 +105,42 @@ export class UpdateUsermanagerComponent implements OnInit {
           status:  this.status 
       });
       
-      this.addUserService.userList().subscribe((users) => {
-          this.usersList = users;
-      });
+    //   this.addUserService.userList().subscribe((users) => {
+    //       this.usersList = users;
+    //   });
+      this.addUserService.userList().subscribe({
+        next:(res:any)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.usersList = res.data;
+          }
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
+        }
+      })
       
       
       this.patchFormValue();
 
       this.subscription.push(
-          this.addUserService.getAllRoles().subscribe((res) => {
-              this.roleList = res["data"];              
+        //   this.addUserService.getAllRoles().subscribe((res) => {
+        //       this.roleList = res["data"];              
+        //   })
+          this.addUserService.getAllRoles().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.roleList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
           })
       );
        
@@ -206,33 +232,60 @@ export class UpdateUsermanagerComponent implements OnInit {
           this.spinner.show();
           //this.updateUser.value.roles = this.updateArray;
           this.updateUser.value.roles = this.rolesArray;
-          this.addUserService.updateUser(this.updateUser.value)
-          .subscribe(
-              (res:any) => {
-                  if(res.status === "0"){
-                      console.log("inside status = before");
-                      this.toastr.error(res.data);
-                      console.log("inside status = after");
-                      console.log("err res => "+res.data);
-                      this.spinner.hide();
-                  }
-                  else{
-                      this.spinner.hide();
+
+        //   this.addUserService.updateUser(this.updateUser.value)
+        //   .subscribe(
+        //       (res:any) => {
+        //           if(res.status === "0"){
+        //               console.log("inside status = before");
+        //               this.toastr.error(res.data);
+        //               console.log("inside status = after");
+        //               console.log("err res => "+res.data);
+        //               this.spinner.hide();
+        //           }
+        //           else{
+        //               this.spinner.hide();
+        //               this.toastr.success(res.data);
+        //               this.updateUser.reset();
+        //               this.submitted = false;
+        //               this.spinner.hide();
+        //               this.router.navigate(['admin/usermanager-list']);
+        //           } 
+        //       },
+        //       (error) => {
+        //           this.errormsg = error;
+        //           this.spinner.hide();
+        //           this.toastr.error("Error!", this.errormsg, {
+        //               progressBar: true,
+        //           });
+        //       }
+        //   );
+          this.addUserService.updateUser(this.updateUser.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                console.log("inside status = before");
+                this.toastr.error(res.data);
+                console.log("inside status = after");
+                console.log("err res => "+res.data);
+                this.spinner.hide();
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
                       this.toastr.success(res.data);
                       this.updateUser.reset();
                       this.submitted = false;
                       this.spinner.hide();
                       this.router.navigate(['admin/usermanager-list']);
-                  } 
-              },
-              (error) => {
-                  this.errormsg = error;
-                  this.spinner.hide();
-                  this.toastr.error("Error!", this.errormsg, {
-                      progressBar: true,
-                  });
               }
-          );
+            },
+            error:(err)=>{
+                this.errormsg = err.error.data;
+                this.spinner.hide();
+                this.toastr.error("Error!", this.errormsg, {
+                    progressBar: true,
+                });
+            }
+          })
       }
 
         

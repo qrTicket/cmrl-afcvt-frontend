@@ -76,10 +76,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
         //fetch roles
         this.subscription.push(
-            this.authservice.getRoles().subscribe((roleResult)=>{
-                this.roleList = roleResult["data"];
-            })
+            // this.authservice.getRoles().subscribe((roleResult)=>{
+            //     this.roleList = roleResult["data"];
+            // })
+            this.authservice.getRoles().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.roleList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
+        
 
         if(localStorage.getItem("username") === ""){
             this.router.navigate(["/login"]);
@@ -107,61 +121,110 @@ export class LoginComponent implements OnInit, AfterViewInit {
         
         this.spinner.show();
 
-        this.authservice.login(this.fval.username.value, this.fval.password.value, this.fval.roleCode.value).pipe(first()).subscribe(
-                (data) => {
-                    if (data.status === "0") 
-                    { 
-                        this.message = data.data;
-                        this.spinner.hide();
-                    } 
-                    else if (data.status === "1") 
-                    {
+        // this.authservice.login(this.fval.username.value, this.fval.password.value, this.fval.roleCode.value).pipe(first()).subscribe(
+        //         (data) => {
+        //             if (data.status === "0") 
+        //             { 
+        //                 this.message = data.data;
+        //                 this.spinner.hide();
+        //             } 
+        //             else if (data.status === "1") 
+        //             {
                         
-                        //console.log("login response is => "+data);
-                        setTimeout(() => { this.spinner.hide();}, 3000);
-                        if (data.data.authorities[0].authority === "ROLE_SUPER")
+        //                 //console.log("login response is => "+data);
+        //                 setTimeout(() => { this.spinner.hide();}, 3000);
+        //                 if (data.data.authorities[0].authority === "ROLE_SUPER")
+        //                 {
+        //                     this.router.navigate(["/super-admin"]);
+        //                 } 
+        //                 else if (data.data.authorities[0].authority === "ROLE_STATION")
+        //                 {
+        //                     this.router.navigate(["/stationdashboard"]);
+        //                 } 
+        //                 else if (data.data.authorities[0].authority === "ROLE_ADMIN") 
+        //                 {
+        //                     this.router.navigate(["/admin"]);
+        //                 } 
+        //                 else if (data.data.authorities[0].authority === "ROLE_EQUIPMENT" ) 
+        //                 {
+        //                     this.router.navigate(["/equipment"]);
+        //                     this.toastr.success( `Welcome back ${data.data.username}` );
+        //                 } 
+        //                 else if (data.data.authorities[0].authority === "ROLE_MAINTENANCE") 
+        //                 {
+        //                     this.router.navigate(["/maindash"]);
+        //                 } 
+        //                 else if (data.data.authorities[0].authority === "ROLE_COMPLAINT") 
+        //                 {
+        //                     this.router.navigate(["/complaint"]);
+        //                 } 
+        //                 else if (data.data.authorities[0].authority === "ROLE_USERMANAGER") 
+        //                 {
+        //                     this.router.navigate(["/user-manager"]);
+        //                     this.toastr.success(`Welcome back ${data.data.username}` );
+        //                 }
+                        
+        //                 // this.router.navigate([this.returnUrl]);
+        //             }
+        //             else if (data.status === "2"){
+        //                 //localStorage.setItem("/navigateDashboard", this.fval.roleCode.value);
+        //                 this.router.navigate(["/changeFirstPassword"]);
+        //             }
+        //         },
+        //         (error) => {
+        //             this.spinner.hide();
+        //             // console.log(error);
+        //         }
+        //     );
+            this.authservice.login(this.fval.username.value, this.fval.password.value, this.fval.roleCode.value).pipe(first()).subscribe({
+                next:(res)=>{
+                  if(res.status === "0"){
+                    this.message = res.data;
+                    this.spinner.hide();
+                  }
+                  else if(res.status === "1"){
+                    setTimeout(() => { this.spinner.hide();}, 3000);
+                        if (res.data.authorities[0].authority === "ROLE_SUPER")
                         {
                             this.router.navigate(["/super-admin"]);
                         } 
-                        else if (data.data.authorities[0].authority === "ROLE_STATION")
+                        else if (res.data.authorities[0].authority === "ROLE_STATION")
                         {
                             this.router.navigate(["/stationdashboard"]);
                         } 
-                        else if (data.data.authorities[0].authority === "ROLE_ADMIN") 
+                        else if (res.data.authorities[0].authority === "ROLE_ADMIN") 
                         {
                             this.router.navigate(["/admin"]);
                         } 
-                        else if (data.data.authorities[0].authority === "ROLE_EQUIPMENT" ) 
+                        else if (res.data.authorities[0].authority === "ROLE_EQUIPMENT" ) 
                         {
                             this.router.navigate(["/equipment"]);
-                            this.toastr.success( `Welcome back ${data.data.username}` );
+                            this.toastr.success( `Welcome back ${res.data.username}` );
                         } 
-                        else if (data.data.authorities[0].authority === "ROLE_MAINTENANCE") 
+                        else if (res.data.authorities[0].authority === "ROLE_MAINTENANCE") 
                         {
                             this.router.navigate(["/maindash"]);
+                            this.toastr.success( `Welcome back ${res.data.username}` );
                         } 
-                        else if (data.data.authorities[0].authority === "ROLE_COMPLAINT") 
+                        else if (res.data.authorities[0].authority === "ROLE_COMPLAINT") 
                         {
                             this.router.navigate(["/complaint"]);
                         } 
-                        else if (data.data.authorities[0].authority === "ROLE_USERMANAGER") 
+                        else if (res.data.authorities[0].authority === "ROLE_USERMANAGER") 
                         {
                             this.router.navigate(["/user-manager"]);
-                            this.toastr.success(`Welcome back ${data.data.username}` );
+                            this.toastr.success(`Welcome back ${res.data.username}` );
                         }
-                        
-                        // this.router.navigate([this.returnUrl]);
-                    }
-                    else if (data.status === "2"){
-                        //localStorage.setItem("/navigateDashboard", this.fval.roleCode.value);
-                        this.router.navigate(["/changeFirstPassword"]);
-                    }
-                },
-                (error) => {
-                    this.spinner.hide();
-                    // console.log(error);
+                  }
+                  else if (res.status === "2"){
+                    this.router.navigate(["/changeFirstPassword"]);
                 }
-            );
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
+
             setTimeout(() => { this.spinner.hide();}, 3000);
             
     }

@@ -1,26 +1,17 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
-
-import * as moment from "moment";
-import {
-    RxwebValidators,
-    NumericValueType,
-    date,
-} from "@rxweb/reactive-form-validators";
+import { Subscription } from "rxjs";
+import { RxwebValidators, NumericValueType, date } from "@rxweb/reactive-form-validators";
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
-
 import { ProductTypeService } from "../_services/product-type.service";
 import { ProductService } from "../_services/product.service";
 import { InvetoryCSVService } from "../_services/invetory-csv.service";
-import { Product } from "../_models/product.model";
-import { ClassGetter } from "@angular/compiler/src/output/output_ast";
-import { getTime } from "ngx-bootstrap/chronos/utils/date-getters";
-import swal from 'sweetalert';
+import Swal from "sweetalert2";
+
 
 @Component({
     selector: "app-add-inventory",
@@ -29,8 +20,8 @@ import swal from 'sweetalert';
 })
 export class AddInventoryComponent implements OnInit, OnDestroy {
     subscriptions: Subscription[] = [];
-    addInventoryStock: UntypedFormGroup;
-    uploadFileForm: UntypedFormGroup;
+    addInventoryStock: FormGroup;
+    uploadFileForm: FormGroup;
     datePickerConfigMfg: Partial<BsDatepickerConfig>;
     datePickerConfigPur: Partial<BsDatepickerConfig>;
     successmsg;
@@ -42,17 +33,17 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
     productList: any = [];
     manufactureList: any = [];
     purchaseDate: any;
-    equipmentTypeList: Object;
+    equipmentTypeList: any[]=[];
     currentDate: any;
     data: any;
-    isDisabled: Boolean = true;
+    isDisabled: boolean = true;
     constructor(
         private router: Router,
         private datePipe: DatePipe,
         private productTypeService: ProductTypeService,
         private productService: ProductService,
         private CSV_API: InvetoryCSVService,
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService
     ) {
@@ -200,9 +191,22 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
             ],
         });
         this.subscriptions.push(
-            this.productService.equipmentType().subscribe((res) => {
-                this.equipmentTypeList = res["data"];
-            })
+            // this.productService.equipmentType().subscribe((res) => {
+            //     this.equipmentTypeList = res["data"];
+            // })
+            this.productService.equipmentType().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.equipmentTypeList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
     }
 
@@ -253,37 +257,61 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
     onaddinvetFormSubmit() {
         this.submitted = true;
         if (this.addInventoryStock.invalid) {
-            // return this.toastr.error("Please fill details!");
-            return swal("Please fill details!", "", "error");
+            //return swal("Please fill details!", "", "error");
+            return Swal.fire({
+                title:'Error',
+                icon:'error',
+                text:"Please fill details!"
+              })
         }
         
         this.spinner.show();
         this.subscriptions.push(
-            this.productService
-                .postProduct(this.addInventoryStock.value)
-                .subscribe(
-                    (data) => {
-                        if(data["status"] === "1"){
-                            this.successmsg = data;
-                            this.spinner.hide();
-                            this.toastr.success("", this.successmsg.data, {
-                                progressBar: true,
-                            });
-                            this.addInventoryStock.reset();
-                            this.router.navigate(["equipment/inventoryList"]);
-                        }
-                        else{
-                            this.spinner.hide();
-                            this.toastr.error("", data["data"], {progressBar:true});
-                        }
-                    },
-                    (error) => {
-                        console.log(error);
-                        this.message = error;
+            // this.productService
+            //     .postProduct(this.addInventoryStock.value)
+            //     .subscribe(
+            //         (data) => {
+            //             if(data["status"] === "1"){
+            //                 this.successmsg = data;
+            //                 this.spinner.hide();
+            //                 this.toastr.success("", this.successmsg.data, {
+            //                     progressBar: true,
+            //                 });
+            //                 this.addInventoryStock.reset();
+            //                 this.router.navigate(["equipment/inventoryList"]);
+            //             }
+            //             else{
+            //                 this.spinner.hide();
+            //                 this.toastr.error("", data["data"], {progressBar:true});
+            //             }
+            //         },
+            //         (error) => {
+            //             console.log(error);
+            //             this.message = error;
+            //             this.spinner.hide();
+            //             swal(this.message.message, "", "error");
+            //         }
+            //     )
+                this.productService.postProduct(this.addInventoryStock.value).subscribe({
+                    next:(res:any)=>{
+                      if(res.status === "0"){
                         this.spinner.hide();
-                        swal(this.message.message, "", "error");
+                        this.toastr.error(res.data,'Error!')
+                      }
+                      else if(res.status === "1"){
+                        this.successmsg = res.data;
+                        this.spinner.hide();
+                        this.toastr.success("", this.successmsg.data, {progressBar: true});
+                        this.addInventoryStock.reset();
+                        this.router.navigate(["equipment/inventoryList"]);
+                      }
+                    },
+                    error:(err)=>{
+                        this.message = err.error.data;
+                        this.spinner.hide();
+                        this.toastr.error(err.error.data,'Error!')
                     }
-                )
+                  })
         );
         //console.log(this.addInventoryStock.value);
         //this.addInventoryStock.reset();

@@ -41,17 +41,34 @@ export class UserToStationListComponent implements OnInit {
     }
 
     getAllUsers() {
-        this.assignUserService.assignUserList().subscribe(
-            (list) => {
+        // this.assignUserService.assignUserList().subscribe(
+        //     (list) => {
+        //         this.spinner.hide();
+        //         this.AssignUserList = list;
+        //         this.temp = true;
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         // console.log(error);
+        //     }
+        // );
+        this.assignUserService.assignUserList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
-                this.AssignUserList = list;
+                  this.toaster.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.AssignUserList = res.data;
                 this.temp = true;
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                // console.log(error);
+                this.toaster.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 
     update(id) {
@@ -64,20 +81,37 @@ export class UserToStationListComponent implements OnInit {
     }
     confirm(id) {
         this.spinner.show();
-        this.assignUserService.deleteAssignUser(id).subscribe(
-            (res) => {
+        // this.assignUserService.deleteAssignUser(id).subscribe(
+        //     (res) => {
+        //         this.spinner.hide();
+        //         this.toaster.success("", "User Deleted Successfully!");
+        //         this.getAllUsers();
+        //         // this.assignUserService.assignUserList();
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         // console.log("Error", error);
+
+        //         this.toaster.error("", "Unable to delete!");
+        //     }
+        // );
+        this.assignUserService.deleteAssignUser(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                  this.toaster.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
                 this.spinner.hide();
                 this.toaster.success("", "User Deleted Successfully!");
                 this.getAllUsers();
-                // this.assignUserService.assignUserList();
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                // console.log("Error", error);
-
-                this.toaster.error("", "Unable to delete!");
+                this.toaster.error(err.error.data,'Error!')
             }
-        );
+          })
 
         this.modalRef.hide();
     }
@@ -110,21 +144,41 @@ export class UserToStationListComponent implements OnInit {
     changestatus(id) {
         this.spinner.show();
         // console.log(id);
-        this.assignUserService.trueStatus(id).subscribe(
-            (res) => {
-                // console.log("Status True", res);
+        // this.assignUserService.trueStatus(id).subscribe(
+        //     (res) => {
+        //         // console.log("Status True", res);
+        //         this.spinner.hide();
+        //         this.successmsg = res;
+        //         this.toaster.success("Active", this.successmsg.message);
+        //         this.getAllUsers();
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         this.errormsg = error;
+        //         // console.log(error);
+        //         this.toaster.error("Deactive", this.errormsg);
+        //     }
+        // );
+        this.assignUserService.trueStatus(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
-                this.successmsg = res;
+                  this.toaster.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.successmsg = res.data;
                 this.toaster.success("Active", this.successmsg.message);
                 this.getAllUsers();
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                this.errormsg = error;
-                // console.log(error);
+                this.errormsg = err.error.data;
                 this.toaster.error("Deactive", this.errormsg);
+                //this.toaster.error(err.error.data,'Error!')
             }
-        );
+          })
     }
     // enabledesable(){
     //     // console.log(, "status");

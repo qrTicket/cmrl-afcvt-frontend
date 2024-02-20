@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Station } from "../_models/station.model";
@@ -14,7 +14,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 export class EditJunctionComponent implements OnInit {
 
   junction: Station[] = [];
-  editjunctionForm: UntypedFormGroup;
+  editjunctionForm: FormGroup;
   submitted = false;
   isDisabled: boolean = true;
 
@@ -22,8 +22,8 @@ export class EditJunctionComponent implements OnInit {
   errormsg;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
-    private router: Router,
+    private formBuilder: FormBuilder,
+    private router: Router, 
     private activeRouter: ActivatedRoute,
     private toastr: ToastrService,
     private stationService: StationService,
@@ -52,6 +52,7 @@ export class EditJunctionComponent implements OnInit {
       }
     });
 
+
   }
 
   get fval() {
@@ -59,11 +60,25 @@ export class EditJunctionComponent implements OnInit {
   }
 
   getDetail(id: number) {
-    this.stationService.getJunctionById(id)
-      .subscribe(
-        (junction: Station) => this.updateJunction(junction),
-        (error: any) => console.log(error)
-      );
+    // this.stationService.getJunctionById(id)
+    //   .subscribe(
+    //     (junction: Station) => this.updateJunction(junction),
+    //     (error: any) => console.log(error)
+    //   );
+
+      this.stationService.getJunctionById(id).subscribe({
+        next:(res:any)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.updateJunction(res.data)
+          }
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
+        }
+      })
   }
 
   updateJunction(junction: Station) {
@@ -90,16 +105,35 @@ export class EditJunctionComponent implements OnInit {
     if (this.editjunctionForm.invalid)
       return this.toastr.error("Unable to update form: please check all the details", "Error");
     console.log(this.editjunctionForm.value);
-    this.stationService.putJunction(this.editjunctionForm.value.id,
-      this.editjunctionForm.value)
-      .subscribe((res) => {
-        this.successmsg = res;
-        // this.toastr.success("", this.successmsg.message);
-      });
-    this.toastr.success("Junction updated successfully.", this.successmsg);
-    this.editjunctionForm.reset();
-    this.submitted = false;
-    this.router.navigate(['admin/junctionlist']);
+
+    // this.stationService.putJunction(this.editjunctionForm.value.id,
+    //   this.editjunctionForm.value)
+    //   .subscribe((res) => {
+    //     this.successmsg = res;
+    //     // this.toastr.success("", this.successmsg.message);
+    //   });
+    // this.toastr.success("Junction updated successfully.", this.successmsg);
+    // this.editjunctionForm.reset();
+    // this.submitted = false;
+    // this.router.navigate(['admin/junctionlist']);
+
+    this.stationService.putJunction(this.editjunctionForm.value.id,this.editjunctionForm.value).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.successmsg = res.data;
+          this.toastr.success("Junction updated successfully.", this.successmsg);
+          this.editjunctionForm.reset();
+          this.submitted = false;
+          this.router.navigate(['admin/junctionlist']);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
   //---------------------------------------------------------------------------------------

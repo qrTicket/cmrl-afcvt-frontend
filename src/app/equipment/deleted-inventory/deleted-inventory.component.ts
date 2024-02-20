@@ -9,7 +9,7 @@ export class DeletedInventoryComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

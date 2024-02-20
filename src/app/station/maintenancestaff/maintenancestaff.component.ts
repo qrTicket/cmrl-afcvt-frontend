@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -12,12 +12,17 @@ import {AtiveuserService} from '../_services/ativeuser.service';
 })
 export class MaintenancestaffComponent implements OnInit {
 
-  addstaffForm: UntypedFormGroup;
+  addstaffForm: FormGroup;
   submitted = false;
   selectedFile: File;
   activeuserList: any = [];
   myarray: any=[];
-  constructor(private mSservice: MaintenancestaffService, private activeuser: AtiveuserService, private formBuilder: UntypedFormBuilder,private router: Router,private toastr: ToastrService,  private http: HttpClient) { }
+  constructor(private mSservice: MaintenancestaffService, 
+    private activeuser: AtiveuserService, 
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService,  
+    private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -31,18 +36,33 @@ export class MaintenancestaffComponent implements OnInit {
      
     });
 
-    this.activeuser.getactiveuser().subscribe(
-      (data) => {
+  //   this.activeuser.getactiveuser().subscribe(
+  //     (data) => {
          
-          this.activeuserList = data;
-          console.log(data);
-          this.myarray=data;
-      },
-      (error) => {
-          console.log(error);
+  //         this.activeuserList = data;
+  //         console.log(data);
+  //         this.myarray=data;
+  //     },
+  //     (error) => {
+  //         console.log(error);
          
+  //     }
+  // );
+  this.activeuser.getactiveuser().subscribe({
+    next:(res)=>{
+      if(res.status === "0"){
+          this.toastr.error(res.data,'Error!')
       }
-  );
+      else if(res.status === "1"){
+        this.activeuserList = res.data;
+        console.log(res.data);
+        this.myarray=res.data;
+      }
+    },
+    error:(err)=>{
+        this.toastr.error(err.error.data,'Error!')
+    }
+  })
 
 }
 
@@ -56,13 +76,25 @@ onFormSubmit() {
   if (this.addstaffForm.invalid) {
       return this.toastr.error('Invalid Form', 'Error');
   }
-  this.mSservice.addmaintenancestaff(this.addstaffForm.value).subscribe(res => 
-    {
-       console.log(res, 'Response'); 
-     
-      //  console.log(this.addFrom.value);   
-    });
-  this.toastr.success('User Add Succeddfully', 'Success');
+  // this.mSservice.addmaintenancestaff(this.addstaffForm.value).subscribe(res => 
+  //   {
+  //     console.log(res, 'Response');    
+  //   });
+  // this.toastr.success('User Add Succeddfully', 'Success');
+
+  this.mSservice.addmaintenancestaff(this.addstaffForm.value).subscribe({
+    next:(res)=>{
+      if(res.status === "0"){
+          this.toastr.error(res.data,'Error!')
+      }
+      else if(res.status === "1"){
+        this.toastr.success('User Add Succeddfully', 'Success');
+      }
+    },
+    error:(err)=>{
+        this.toastr.error(err.error.data,'Error!')
+    }
+  })
   
   // this.configForm.reset();
 }

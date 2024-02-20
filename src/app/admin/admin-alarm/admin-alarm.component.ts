@@ -5,6 +5,7 @@ import { switchMap, takeUntil, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class AdminAlarmComponent implements OnInit, OnDestroy {
   constructor(
     private alarmgapi: AlarmService, 
     private http: HttpClient, 
-    private router: Router
+    private router: Router,
+    private toastr:ToastrService
     ) { }
 
   dtOptions: DataTables.Settings = {};
@@ -36,12 +38,23 @@ export class AdminAlarmComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // this.alarmlist ();
-    this.alarmgapi.getAllalarm().subscribe(data => {
-      this.alarms = data;
-      console.log(data);
-
-      
-    });
+    // this.alarmgapi.getAllalarm().subscribe(data => {
+    //   this.alarms = data;
+    //   console.log(data); 
+    // });
+    this.alarmgapi.getAllalarm().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.alarms = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
   }
 

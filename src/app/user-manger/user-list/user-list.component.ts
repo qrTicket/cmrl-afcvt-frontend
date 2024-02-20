@@ -62,13 +62,35 @@ export class UserListComponent implements OnInit,OnDestroy {
 
     //this function will fetch all user-list on load-time
     getAllUsers() {
-        this.userService.userList().subscribe(
-            (res) => {
-                this.spinner.hide();
-                this.userList = res["data"];
-                this.temp = true;
-                this.userList = res["data"];
+        // this.userService.userList().subscribe(
+        //     (res) => {
+        //         this.spinner.hide();
+        //         this.userList = res["data"];
+        //         this.temp = true;
+        //         this.userList = res["data"];
 
+        //         this.userList.forEach((user) => {
+        //             //creating a string variable to store all roles in the form of string [e.g user.concanatedRoleCode = "";]
+        //             user.concanatedRoleCode = "";
+        //             user.roles.forEach((role) => {
+        //                 user.concanatedRoleCode = user.concanatedRoleCode + ""+role.roleCode+","; 
+        //             });
+        //         })
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //     }
+        // );
+        this.userService.userList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                  this.toaster.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.userList = res.data;
+                this.temp = true;
                 this.userList.forEach((user) => {
                     //creating a string variable to store all roles in the form of string [e.g user.concanatedRoleCode = "";]
                     user.concanatedRoleCode = "";
@@ -76,11 +98,13 @@ export class UserListComponent implements OnInit,OnDestroy {
                         user.concanatedRoleCode = user.concanatedRoleCode + ""+role.roleCode+","; 
                     });
                 })
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
+                this.toaster.error(err.error.data,'Error!')
             }
-        );
+          })
         
     }
 
@@ -155,18 +179,38 @@ export class UserListComponent implements OnInit,OnDestroy {
     confirm(username: string,status:any) {
         this.spinner.show();
         this.modalRef.hide();
-        this.userService.statusUpdate(username, this.statusValue).subscribe(
-            (res) => {
-                this.spinner.hide();
-                this.toaster.success("", "User status updated successfully");
-                this.getAllUsers();
-            },
-            (error) => {
-                this.spinner.hide();
-                this.errormsg = error;
-                this.modalRef.hide();
-                this.toaster.error("", this.errormsg);
-            });
+        // this.userService.statusUpdate(username, this.statusValue).subscribe(
+        //     (res) => {
+        //         this.spinner.hide();
+        //         this.toaster.success("", "User status updated successfully");
+        //         this.getAllUsers();
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         this.errormsg = error;
+        //         this.modalRef.hide();
+        //         this.toaster.error("", this.errormsg);
+        //     });
+            this.userService.statusUpdate(username, this.statusValue).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    this.spinner.hide();
+                    this.toaster.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.spinner.hide();
+                    this.toaster.success("", "User status updated successfully");
+                    this.getAllUsers();
+                  }
+                },
+                error:(err)=>{
+                    //this.toastr.error(err.error.data,'Error!')
+                    this.spinner.hide();
+                    this.errormsg = err.error.data;
+                    this.modalRef.hide();
+                    this.toaster.error("", this.errormsg);
+                }
+              })
 
         // this.addUserAPI.deleteUser(id).subscribe(
         //     (res) => {
@@ -195,20 +239,40 @@ export class UserListComponent implements OnInit,OnDestroy {
     blacklist(id) {
         this.spinner.show();
         this.modalRef.hide();
-        this.userService.userBlacklist(id).subscribe(
-            (res) => {
+        // this.userService.userBlacklist(id).subscribe(
+        //     (res) => {
+        //         this.spinner.hide();
+        //         this.successmsg = res;
+        //         this.toaster.success("", this.successmsg.message);
+        //         this.getAllUsers();
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         this.errormsg = error;
+        //         this.modalRef.hide();
+        //         this.toaster.error("", this.errormsg);
+        //     }
+        // );
+        this.userService.userBlacklist(id).subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                this.toaster.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
                 this.spinner.hide();
                 this.successmsg = res;
                 this.toaster.success("", this.successmsg.message);
                 this.getAllUsers();
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                this.errormsg = error;
+                this.errormsg = err.error.data;
                 this.modalRef.hide();
                 this.toaster.error("", this.errormsg);
             }
-        );
+          })
     }
     notBlacklist(): void {
         // console.log("Not blacklist");

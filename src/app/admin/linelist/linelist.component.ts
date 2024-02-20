@@ -61,6 +61,21 @@ export class LinelistComponent implements OnInit {
             // this.dtTrigger.next();
 
         });
+        this.lineService.getLines().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toaster.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.line = res.data;
+                this.temp = true;
+              }
+            },
+            error:(err)=>{
+                this.toaster.error(err.error.data,'Error!')
+            }
+          })
+          
     }
 
     openModal(templateDeactivate: TemplateRef<any>, templateActive: TemplateRef<any>, e) {
@@ -86,26 +101,40 @@ export class LinelistComponent implements OnInit {
     }
     confirm(lineCode: string, status:number) {
 
-        this.lineService.statusUpdate(lineCode, this.statusValue).subscribe(
-            (res) => {
-                //console.log(res);
-                if(res.status==="1"){
-                  this.toaster.success("", res.data);
+        // this.lineService.statusUpdate(lineCode, this.statusValue).subscribe(
+        //     (res) => {
+        //         //console.log(res);
+        //         if(res.status==="1"){
+        //           this.toaster.success("", res.data);
+        //           this.linelist();
+        //           //this.router.navigate(["admin/linelist"]);
+        //         }else{
+        //           this.toaster.error("",res.data);
+        //           this.linelist();
+        //          // this.router.navigate(["admin/linelist"]);
+        //         }
+        //     },
+        //     (error) => {
+
+        //         this.errormsg = error;
+        //         this.modalRef.hide();
+        //         this.toaster.error("", this.errormsg);
+        //     });
+
+            this.lineService.statusUpdate(lineCode, this.statusValue).subscribe({
+                next:(res)=>{
+                  if(res.status === "0"){
+                    this.toaster.error("",res.data);
+                  }
+                  else if(res.status === "1"){
+                    this.toaster.success("", res.data);
                   this.linelist();
-                  //this.router.navigate(["admin/linelist"]);
-                }else{
-                  this.toaster.error("",res.data);
-                  this.linelist();
-                 // this.router.navigate(["admin/linelist"]);
+                  }
+                },
+                error:(err)=>{
+                    this.toaster.error("",err.error.data);
                 }
-
-            },
-            (error) => {
-
-                this.errormsg = error;
-                this.modalRef.hide();
-                this.toaster.error("", this.errormsg);
-            });
+              })
 
         this.modalRef.hide();
     }

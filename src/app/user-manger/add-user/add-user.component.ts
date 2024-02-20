@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormArray, UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { NumericValueType, RxwebValidators } from "@rxweb/reactive-form-validators";
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -18,7 +18,7 @@ import { Router } from "@angular/router";
     styleUrls: ["./add-user.component.scss"],
 })
 export class AddUserComponent implements OnInit, OnDestroy {
-    addUser: UntypedFormGroup;
+    addUser: FormGroup;
     subscription: Subscription[] = [];
     submitted = false;
     successmgs;
@@ -37,7 +37,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
     // public localWaterMark: string = 'Select Roles';
 
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private addUserService: AddUserService,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
@@ -65,15 +65,41 @@ export class AddUserComponent implements OnInit, OnDestroy {
         this.addUser.controls["stationCode"].disable();
                 
         this.subscription.push(
-            this.addUserService.getRolesToAdd().subscribe((res) => {
-                this.roleList = res["data"];              
-            })
+            // this.addUserService.getRolesToAdd().subscribe((res) => {
+            //     this.roleList = res["data"];              
+            // })
+            this.addUserService.getRolesToAdd().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.roleList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
 
         this.subscription.push(
-            this.addUserService.getAllStation().subscribe((res) => {
-                this.stationList = res["data"];
-            })
+            // this.addUserService.getAllStation().subscribe((res) => {
+            //     this.stationList = res["data"];
+            // })
+            this.addUserService.getAllStation().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.stationList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
         
     }
@@ -168,11 +194,54 @@ export class AddUserComponent implements OnInit, OnDestroy {
 
         this.spinner.show();
         this.subscription.push(
-            this.addUserService.addUser(this.addUser.value).subscribe(
-                (res: any) => {
+            // this.addUserService.addUser(this.addUser.value).subscribe(
+            //     (res: any) => {
+            //         this.spinner.hide();
+            //         if (res["status"] === "1") {
+            //             this.toastr.success(res["data"]);
+            //             this.addUser.reset();
+            //             let num : number = 0;
+            //             for(num; num < this.rolesArray.length; num++){
+            //                 this.rolesArray.splice(num);
+            //             }
+            //             this.submitted = false;
+            //             this.router.navigate(["/user-manager/users/all/list"]);
+            //         } 
+            //         else 
+            //         {
+            //             this.spinner.hide();
+            //             // this.toastr.info(data.data);
+            //             //swal(res.data, "", "warning");
+            //             Swal.fire({
+            //                 icon: "error",
+            //                 text: res.data,
+            //             });
+            //         }
+            //         //this.router.navigate(["/user-manager/users/all/list"]);
+            //     },
+            //     (error) => {
+            //         this.spinner.hide();
+            //         Swal.fire({
+            //             title: "Error !",
+            //             text: "backend error "+error.data,
+            //         });
+            //         // console.log("Error", error);
+            //         // this.errormsg = error;
+            //         // this.toastr.error(this.errormsg.data);
+            //     }
+            // )
+            this.addUserService.getAllStation().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.spinner.hide();
+                        Swal.fire({
+                            icon: "error",
+                            text: res.data,
+                        });
+                  }
+                  else if(res.status === "1"){
                     this.spinner.hide();
-                    if (res["status"] === "1") {
-                        this.toastr.success(res["data"]);
+                    this.toastr.success(res.data);
                         this.addUser.reset();
                         let num : number = 0;
                         for(num; num < this.rolesArray.length; num++){
@@ -180,30 +249,14 @@ export class AddUserComponent implements OnInit, OnDestroy {
                         }
                         this.submitted = false;
                         this.router.navigate(["/user-manager/users/all/list"]);
-                    } 
-                    else 
-                    {
-                        this.spinner.hide();
-                        // this.toastr.info(data.data);
-                        //swal(res.data, "", "warning");
-                        Swal.fire({
-                            icon: "error",
-                            text: res.data,
-                        });
-                    }
-                    //this.router.navigate(["/user-manager/users/all/list"]);
+                  }
                 },
-                (error) => {
+                error:(err)=>{
                     this.spinner.hide();
-                    Swal.fire({
-                        title: "Error !",
-                        text: "backend error "+error.data,
-                    });
-                    // console.log("Error", error);
-                    // this.errormsg = error;
-                    // this.toastr.error(this.errormsg.data);
+                    this.toastr.error(err.error.data,'Error!')
+                    
                 }
-            )
+              })
         );
         
     }

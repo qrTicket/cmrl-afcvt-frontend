@@ -2,7 +2,7 @@
     <p style="color: white">Loading...</p>
 </ngx-spinner> -->
 
-<div class="heading text-center my-4">
+<div class="heading text-center ">
     <h3>Assigned Gate List</h3>
 </div>
 
@@ -31,41 +31,43 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let list of equipmentList">
-                <td>{{ list.deviceId }}</td>
-                <td>{{ list.equipmentCode }}</td>
-                <td>{{ list.equipmentModelName }}</td>
-                <td>{{ list.equipmentTypeId }}</td>
-                <td>{{ list.manufactureName }}</td>
-                <td>{{ list.mfgDate | date }}</td>
-                <!-- <td>{{ list.expDate | date }}</td> -->
-                <td>{{ list.purchaseDate | date }}</td>
-                <td>{{ list.serialNumber }}</td>
-                <td>{{ list.stationCode }}</td>
-                <td>{{ list.version }}</td>
-                <td>{{ list.warranty }}</td>
-                <td>{{ list.createdDate | date }}</td>
-                <td>
-                    <!-- <button class="btn btn-warning" [disabled]="clicked" (click)="openCongif(list); clicked = true;">
-                         <i class="fa fa-gear"></i>Configure
-                    </button> -->
-                    <button type="button"  [disabled]="list.deviceName !== null" class="btn configBtn" (click)="openCongif(list)">
-                        <i class="fa fa-gear"></i>
-                        Configure
-                    </button>
-                </td>
-                <!-- <td>
-                    <button type="button" class="btn editBtn" (click)="EditCongif(list)">
-                        <i class="fa fa-pencil-square-o"></i>
-                        Edit
-                    </button>
-                </td> -->
-                <td>
-                    <button type="button" class="btn btn-info raiseBtn" (click)="raiseComplain(list.deviceId)">
-                        <i class="fa fa-hand-paper-o"></i>
-                    </button>
-                </td>
-            </tr>
+                <tr *ngFor="let list of equipmentList">
+                    <td>{{ list.deviceId }}</td>
+                    <td>{{ list.equipmentCode }}</td>
+                    <td>{{ list.equipmentModelName }}</td>
+                    <td>{{ list.equipmentTypeId }}</td>
+                    <td>{{ list.manufactureName }}</td>
+                    <td>{{ list.mfgDate | date }}</td>
+                    <!-- <td>{{ list.expDate | date }}</td> -->
+                    <td>{{ list.purchaseDate | date }}</td>
+                    <td>{{ list.serialNumber }}</td>
+                    <td>{{ list.stationCode }}</td>
+                    <td>{{ list.version }}</td>
+                    <td>{{ list.warranty }}</td>
+                    <td>{{ list.createdDate | date }}</td>
+                    <td>
+                        <!-- <button class="btn btn-warning" [disabled]="clicked" (click)="openCongif(list); clicked = true;">
+                             <i class="fa fa-gear"></i>Configure
+                        </button> -->
+                        <button type="button"  [disabled]="list.deviceName !== null" class="btn configBtn" (click)="openCongif(list)">
+                            <i class="fa fa-gear"></i>
+                            Configure
+                        </button>
+                    </td>
+                    <!-- <td>
+                        <button type="button" class="btn editBtn" (click)="EditCongif(list)">
+                            <i class="fa fa-pencil-square-o"></i>
+                            Edit
+                        </button>
+                    </td> -->
+                    <td>
+                        <button type="button" class="btn btn-info raiseBtn" (click)="raiseComplain(list.deviceId)">
+                            <i class="fa fa-hand-paper-o"></i>
+                        </button>
+                    </td>
+                </tr>
+            
+            
         </tbody>
     </table>
 </div>

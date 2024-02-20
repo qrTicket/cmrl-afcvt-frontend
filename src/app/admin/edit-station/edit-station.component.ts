@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import Swal from "sweetalert2";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -16,8 +16,8 @@ import { LinesService } from "../_services/lines.service";
 })
 export class EditStationComponent implements OnInit {
     station: Station[] = [];
-    editstationForm: UntypedFormGroup;
-    stationLinks: UntypedFormArray;
+    editstationForm: FormGroup;
+    stationLinks: FormArray;
     submitted = false;
     isDisabled: boolean = true;
 
@@ -33,7 +33,7 @@ export class EditStationComponent implements OnInit {
     stationListArr: any[]=[];
 
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private router: Router,
         private activeRouter: ActivatedRoute,
         private toastr: ToastrService,
@@ -134,18 +134,46 @@ export class EditStationComponent implements OnInit {
         });
 
 
-        this.stationService.getStation().subscribe((res) => {
-            this.station = res["data"];//not in use
-            //station when page load
-            this.stationList = res["data"];
-            console.log(this.stationList, "Station List");
-        });
+        // this.stationService.getStation().subscribe((res) => {
+        //     this.station = res["data"];//not in use
+        //     //station when page load
+        //     this.stationList = res["data"];
+        //     console.log(this.stationList, "Station List");
+        // });
+        this.stationService.getStation().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.stationList = res.data;
+                console.log(this.stationList, "Station List");
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
 
-        this.lineService.getLines().subscribe((res) => {
-            //this.line = res["data"];
-            this.lineList = res["data"];
-            console.log(this.lineList, "Line List");
-        });
+        // this.lineService.getLines().subscribe((res) => {
+        //     //this.line = res["data"];
+        //     this.lineList = res["data"];
+        //     console.log(this.lineList, "Line List");
+        // });
+        this.lineService.getLines().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.lineList = res.data;
+                console.log(this.lineList, "Line List");
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
 
         this.activeRouter.paramMap.subscribe((params) => {
             this.stationId = +params.get("id");
@@ -157,10 +185,10 @@ export class EditStationComponent implements OnInit {
     }
 
     get stationLinksForms() {
-        return this.editstationForm.get('stationLinks') as UntypedFormArray
+        return this.editstationForm.get('stationLinks') as FormArray
     }
 
-    createStationLinks(): UntypedFormGroup {
+    createStationLinks(): FormGroup {
         return this.formBuilder.group({
             lineCode: [
                 "",
@@ -176,7 +204,7 @@ export class EditStationComponent implements OnInit {
     addStationLinks() {
         //this.stationLinks = this.editstationForm.get('stationLinks') as FormArray;
         //this.stationLinks.push(this.createStationLinks());
-        const control = <UntypedFormArray>this.editstationForm.controls['stationLinks'];
+        const control = <FormArray>this.editstationForm.controls['stationLinks'];
         const stationlinks = this.formBuilder.group({
             lineCode: [
                 "",
@@ -240,27 +268,61 @@ export class EditStationComponent implements OnInit {
         //console.log(current_controls[i]);
         current_controls[i].get('prevStationCode').reset();
         current_controls[i].get('nextStationCode').reset();
-        this.stationService.getStationByLineCode(linecode).subscribe(
-            (res)=>{
-                this.stationListArr[i]= res['data'];
+        // this.stationService.getStationByLineCode(linecode).subscribe(
+        //     (res)=>{
+        //         this.stationListArr[i]= res['data'];
+        //         console.log(this.stationListArr,"line's station");
+        //     }
+        // )
+        this.stationService.getStationByLineCode(linecode).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.stationListArr[i] = res.data;
                 console.log(this.stationListArr,"line's station");
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        )
+          })
     }
 
     getDetail(id: number) {
-        this.stationService.getStationById(id).subscribe((station: Station) => {
-            this.getStationList(station['data'].stationLinks[0].lineCode,0)
-            for (var _i = 1; _i < station['data'].stationLinks.length; _i++) {
-                this.addStationLinks();
-                //call line's station
-                this.getStationList(station['data'].stationLinks[_i].lineCode,_i);
-            }
+        // this.stationService.getStationById(id).subscribe((station: Station) => {
+        //     this.getStationList(station['data'].stationLinks[0].lineCode,0)
+        //     for (var _i = 1; _i < station['data'].stationLinks.length; _i++) {
+        //         this.addStationLinks();
+        //         //call line's station
+        //         this.getStationList(station['data'].stationLinks[_i].lineCode,_i);
+        //     }
 
-            this.updateStation(station["data"]);
-            console.log(station['data'].stationLinks, "station link");
+        //     this.updateStation(station["data"]);
+        //     console.log(station['data'].stationLinks, "station link");
             
-        });
+        // });
+        this.stationService.getStationById(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.getStationList(res.data.stationLinks[0].lineCode,0);
+                for (var _i = 1; _i < res.data.stationLinks.length; _i++) {
+                    this.addStationLinks();
+                    //call line's station
+                    this.getStationList(res.data.stationLinks[_i].lineCode,_i);
+                }
+                this.updateStation(res.data);
+                console.log(res.data.stationLinks, "station link");
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     updateStation(station: Station) {
@@ -292,31 +354,49 @@ export class EditStationComponent implements OnInit {
             });
 
         console.log(this.editstationForm.value);
-        this.stationService
-            .putStation(this.stationId, this.editstationForm.value)
-            .subscribe(
-                (res) => {
-                    console.log(res);
-                    if (res["status"] === "1") {
-                        this.successmsg = res;
-                        this.toastr.success("", this.successmsg.data);
-                        this.router.navigate(["/admin/stationlist"]);
-                        this.editstationForm.reset();
-                        this.submitted = false;
-                    } else {
-                        Swal.fire({
-                            title: "Error!",
-                            text: res["data"],
-                        });
-                    }
-                },
-                (error) => {
-                    Swal.fire({
-                        title: "Error!",
-                        text: error.data,
-                    });
+        
+        // this.stationService
+        //     .putStation(this.stationId, this.editstationForm.value)
+        //     .subscribe(
+        //         (res) => {
+        //             console.log(res);
+        //             if (res["status"] === "1") {
+        //                 this.successmsg = res;
+        //                 this.toastr.success("", this.successmsg.data);
+        //                 this.router.navigate(["/admin/stationlist"]);
+        //                 this.editstationForm.reset();
+        //                 this.submitted = false;
+        //             } else {
+        //                 Swal.fire({
+        //                     title: "Error!",
+        //                     text: res["data"],
+        //                 });
+        //             }
+        //         },
+        //         (error) => {
+        //             Swal.fire({
+        //                 title: "Error!",
+        //                 text: error.data,
+        //             });
 
-                }
-            );
+        //         }
+        // );
+        this.stationService.putStation(this.stationId, this.editstationForm.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.successmsg = res.data;
+                this.toastr.success("", this.successmsg.data);
+                this.router.navigate(["/admin/stationlist"]);
+                this.editstationForm.reset();
+                this.submitted = false;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 }

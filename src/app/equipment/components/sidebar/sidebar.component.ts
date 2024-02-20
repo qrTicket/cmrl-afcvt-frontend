@@ -99,7 +99,7 @@ export class SidebarComponent implements OnInit {
 
     rltAndLtr() {
         const dom: any = document.querySelector('body');
-        dom.classList.toggle('rtl');
+        dom.classList.toggle('rtl'); 
     }
 
     changeLang(language: string) {

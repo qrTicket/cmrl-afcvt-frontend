@@ -34,16 +34,35 @@ export class ShiftsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.spinner.show();
-      this.subscription.push(  this.shiftAPI.getAllShifts().subscribe(
-            (list) => {
-                this.shiftList = list["data"];
-                this.temp = true;
-                this.spinner.hide();
-            },
-            (error) => {
-                this.spinner.hide();
-            }
-        ))
+        this.subscription.push(  
+            // this.shiftAPI.getAllShifts().subscribe(
+            //     (list) => {
+            //         this.shiftList = list["data"];
+            //         this.temp = true;
+            //         this.spinner.hide();
+            //     },
+            //     (error) => {
+            //         this.spinner.hide();
+            //     }
+            // )
+            this.shiftAPI.getAllShifts().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    this.spinner.hide();
+                      this.toaster.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.spinner.hide();
+                    this.shiftList = res.data;
+                    this.temp = true;
+                  }
+                },
+                error:(err)=>{
+                    this.spinner.hide();
+                    this.toaster.error(err.error.data,'Error!')
+                }
+              })
+            )//subscription ends
     }
     update(id) {
         // console.log("ID", id);
@@ -55,20 +74,41 @@ export class ShiftsListComponent implements OnInit, OnDestroy {
     }
     confirm(id, index) {
         this.spinner.show();
-      this.subscription.push(  this.shiftAPI.getDelete(id).subscribe(
-            (res) => {
-                this.successmsg = res["data"];
+      this.subscription.push(  
+        // this.shiftAPI.getDelete(id).subscribe(
+        //     (res) => {
+        //         this.successmsg = res["data"];
+        //         this.spinner.hide();
+        //         this.shiftList.splice(index, 1);
+        //         this.toaster.success("", this.successmsg);
+        //         this.shiftAPI.getAllShifts();
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+
+        //         this.toaster.error("", "Unable to Delete!");
+        //     }
+        // )
+        this.shiftAPI.getDelete(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                  this.toaster.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.successmsg = res.data;
                 this.spinner.hide();
                 this.shiftList.splice(index, 1);
                 this.toaster.success("", this.successmsg);
                 this.shiftAPI.getAllShifts();
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-
-                this.toaster.error("", "Unable to Delete!");
+                this.toaster.error(err.error.data,'Error!')
             }
-        ));
+          })
+        );
         this.modalRef.hide();
     }
 

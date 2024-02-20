@@ -29,7 +29,7 @@ export class ScheduleFileUpdateListComponent implements OnInit {
     scheduleJobList() {
       this.temp = true;
       //will get data from api when api will be ready.
-      this.joblist=[];
+      this.joblist=[]; 
     }
 
   

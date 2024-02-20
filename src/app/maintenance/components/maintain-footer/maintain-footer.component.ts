@@ -9,7 +9,7 @@ export class MaintainFooterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

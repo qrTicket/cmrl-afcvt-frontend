@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { UploadFileService } from "../_services/upload-file.service";
@@ -17,7 +17,7 @@ export class PenalityComponent implements OnInit {
   successmsg;
   errormsg;
 
-  uploadFileForm: UntypedFormGroup;
+  uploadFileForm: FormGroup;
   submit = false;
   fileToUpload: File = null;
   error: string;
@@ -25,7 +25,7 @@ export class PenalityComponent implements OnInit {
 
   constructor(
     private uploadfileservice: UploadFileService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
   ) { }
@@ -61,38 +61,65 @@ export class PenalityComponent implements OnInit {
     }
       
 
-    this.uploadfileservice.penalityFileUpload(this.fileToUpload).subscribe(
-      (res) => {
-        if (res.status === "0") {
-          //return swal(res.data, "", "error");
+    // this.uploadfileservice.penalityFileUpload(this.fileToUpload).subscribe(
+    //   (res) => {
+    //     if (res.status === "0") {
+    //       //return swal(res.data, "", "error");
+    //       return Swal.fire({
+    //         icon: "error",
+    //         title: "ERROR",
+    //         text: res.data,
+    //       });
+    //     }
+    //     this.uploadResponse = res;
+    //     this.toastr.success("",this.uploadResponse.data);
+    //   },
+    //   (error) => {
+    //     if (error.status === "1") {
+    //       //return swal(error.data, "", "error");
+    //       return Swal.fire({
+    //         icon: "error",
+    //         title: "ERROR",
+    //         text: error.data,
+    //       });
+    //     }
+    //     this.error = error;
+    //     this.toastr.warning("",
+    //       this.uploadResponse.data
+    //     );
+    //   }
+    // );
+    // this.uploadFileForm.reset();
+    // this.submit = false;
+
+    this.uploadfileservice.penalityFileUpload(this.fileToUpload).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
           return Swal.fire({
             icon: "error",
             title: "ERROR",
             text: res.data,
           });
         }
-        this.uploadResponse = res;
-        this.toastr.success("",
-          this.uploadResponse.data
-        );
+        else if(res.status === "1"){
+          this.uploadResponse = res;
+          this.toastr.success("",this.uploadResponse.data);
+          this.uploadFileForm.reset();
+          this.submit = false;
+        }
       },
-      (error) => {
-        if (error.status === "1") {
-          //return swal(error.data, "", "error");
+      error:(err)=>{
+        if (err.error.status === "1") {
+          //return swal(err.error.data, "", "error");
           return Swal.fire({
             icon: "error",
             title: "ERROR",
-            text: error.data,
+            text: err.error.data,
           });
         }
-        this.error = error;
-        this.toastr.warning("",
-          this.uploadResponse.data
-        );
+          //this.toastr.error(err.error.data,'Error!')
       }
-    );
-    this.uploadFileForm.reset();
-    this.submit = false;
+    })
   }
 
 }

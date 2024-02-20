@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 // import { MustMatch } from 'src/app/_helpers/match-validators';
 import { UserProfileService } from "../../_services/user-profile.service";
@@ -16,12 +16,12 @@ import Swal from 'sweetalert2';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  changePasswordForm: UntypedFormGroup;
+  changePasswordForm: FormGroup;
   submitted: boolean = false;
   successmsg: any;
   errormsg: any;
   constructor(
-    private formbuilder: UntypedFormBuilder,
+    private formbuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private router: Router,
@@ -83,45 +83,66 @@ export class ResetPasswordComponent implements OnInit {
         text:"Please fill all the fields!",
         icon: "error"
       });
-    this.userProfileAPI
-      .changePassword(
-        this.changePasswordForm.value
-      )
-      .subscribe(
-        (res) => {
-            if(res.status === "0"){
-                this.spinner.hide();
-                // return this.toastr.error(res.data)
-                //return Swal.fire(res.data, "", "error");
-                return Swal.fire({
-                  title: "ERROR!",
-                  text:res.data,
-                  icon: "error"
-                });
-            }
-          this.spinner.hide();
-          this.successmsg = res["data"];
-          this.toastr.success("", this.successmsg);
-          //this.router.navigate(['/stationdashboard']);
-          this.changePasswordForm.reset();
-          this.submitted = false;
-          this.router.navigateByUrl("/login");
-          localStorage.clear()
+    // this.userProfileAPI.changePassword(this.changePasswordForm.value).subscribe(
+    //     (res) => {
+    //         if(res.status === "0"){
+    //             this.spinner.hide();
+    //             return Swal.fire({
+    //               title: "ERROR!",
+    //               text:res.data,
+    //               icon: "error"
+    //             });
+    //         }
+    //       this.spinner.hide();
+    //       this.successmsg = res["data"];
+    //       this.toastr.success("", this.successmsg);
+    //       this.changePasswordForm.reset();
+    //       this.submitted = false;
+    //       this.router.navigateByUrl("/login");
+    //       localStorage.clear()
 
+    //     },
+    //     (error) => {
+    //       this.spinner.hide();
+    //       this.errormsg = error["data"];
+    //       Swal.fire({
+    //         title: "ERROR!",
+    //         text:this.errormsg,
+    //         icon: "error"
+    //       });
+    //     }
+    //   );
+
+      this.userProfileAPI.changePassword(this.changePasswordForm.value).subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+            this.spinner.hide();
+            return Swal.fire({
+              title: "ERROR!",
+              text:res.data,
+              icon: "error"
+            });
+          }
+          else if(res.status === "1"){
+            this.spinner.hide();
+            this.successmsg = res.data;
+            this.toastr.success("", this.successmsg);
+            this.changePasswordForm.reset();
+            this.submitted = false;
+            this.router.navigateByUrl("/login");
+            localStorage.clear()
+          }
         },
-        (error) => {
+        error:(err)=>{
           this.spinner.hide();
-          this.errormsg = error["data"];
-          // this.toastr.error("", this.errormsg);
-          //swal(this.errormsg, "", "error");
+          this.errormsg = err.error.data;
           Swal.fire({
             title: "ERROR!",
             text:this.errormsg,
             icon: "error"
           });
         }
-      );
-
+      })
 
   }
 

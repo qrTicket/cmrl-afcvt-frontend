@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { ToastrService } from "ngx-toastr";
@@ -18,7 +18,7 @@ import { AssignUser } from "../_models/assign-user.model";
     styleUrls: ["./update-assign-user.component.scss"],
 })
 export class UpdateAssignUserComponent implements OnInit {
-    updateAssignUser: UntypedFormGroup;
+    updateAssignUser: FormGroup;
     submitted = false;
     successmgs:any;
     errormsg:any;
@@ -31,7 +31,7 @@ export class UpdateAssignUserComponent implements OnInit {
     roleValue: any;
 
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private spinner: NgxSpinnerService,
@@ -61,15 +61,58 @@ export class UpdateAssignUserComponent implements OnInit {
             roles: [""],
             createdDate:[""]
         });
-        this.lineService.getLines().subscribe((list) => {
-            this.lines = list;
-        });
-        this.stationService.getStation().subscribe((list) => {
-            this.stationList = list;
-        });
-        this.adduserService.userList().subscribe((list) => {
-            this.userList = list;
-        });
+        // this.lineService.getLines().subscribe((list) => {
+        //     this.lines = list;
+        // });
+        this.lineService.getLines().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.lines = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
+
+        // this.stationService.getStation().subscribe((list) => {
+        //     this.stationList = list;
+        // });
+        this.stationService.getStation().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.stationList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
+
+
+        // this.adduserService.userList().subscribe((list) => {
+        //     this.userList = list;
+        // });
+        this.adduserService.userList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.userList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
+
         // this.updateAssignUser.get("user").valueChanges.subscribe((res) => {
         //     this.currentval = res;
         //     console.log(this.currentval);
@@ -84,14 +127,27 @@ export class UpdateAssignUserComponent implements OnInit {
         });
     }
     getUserById(id:any) {
-        this.assignUserAPI.assignUserById(id).subscribe(
-            (updatedData: AssignUser) => {
-                this.updateAssignData(updatedData);
+        // this.assignUserAPI.assignUserById(id).subscribe(
+        //     (updatedData: AssignUser) => {
+        //         this.updateAssignData(updatedData);
+        //     },
+        //     (error) => {
+        //         // console.log(error);
+        //     }
+        // );
+        this.assignUserAPI.assignUserById(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.updateAssignData(res.data);
+              }
             },
-            (error) => {
-                // console.log(error);
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 
     updateAssignData(update: AssignUser) {
@@ -112,24 +168,40 @@ export class UpdateAssignUserComponent implements OnInit {
         if (this.updateAssignUser.invalid)
             return this.toastr.error("", "Invalid Forms");
         // console.log("Users DATA", this.updateAssignUser.value);
-        this.assignUserAPI
-            .updateAssignedUser(
-                this.updateAssignUser.value,
-                this.updateAssignUser.value.id
-            )
-            .subscribe(
-                (res) => {
+        // this.assignUserAPI.updateAssignedUser(this.updateAssignUser.value,this.updateAssignUser.value.id)
+        //     .subscribe(
+        //         (res) => {
+        //             this.spinner.hide();
+        //             this.successmgs = res;
+        //             this.toastr.info("", this.successmgs.message);
+        //             this.submitted = false;
+        //             this.updateAssignUser.reset();
+        //         },
+        //         (error) => {
+        //             this.spinner.hide();
+        //             this.errormsg = error;
+        //             this.toastr.error("", this.errormsg);
+        //         }
+        //     );
+            this.assignUserAPI.updateAssignedUser(this.updateAssignUser.value,this.updateAssignUser.value.id).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
                     this.spinner.hide();
-                    this.successmgs = res;
+                    this.successmgs = res.data;
                     this.toastr.info("", this.successmgs.message);
                     this.submitted = false;
                     this.updateAssignUser.reset();
+                  }
                 },
-                (error) => {
+                error:(err)=>{
+                    //this.toastr.error(err.error.data,'Error!')
                     this.spinner.hide();
-                    this.errormsg = error;
+                    this.errormsg = err.error.data;
                     this.toastr.error("", this.errormsg);
                 }
-            );
+              })
     }
 }

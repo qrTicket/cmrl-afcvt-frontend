@@ -9,7 +9,7 @@ export class ServerErrorComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

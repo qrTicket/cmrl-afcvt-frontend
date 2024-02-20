@@ -36,13 +36,7 @@ const routes: Routes = [
         loadChildren: () =>
             import("./admin/admin.module").then((m) => m.AdminModule),
     },
-    /*{
-        path: "",
-        loadChildren: () =>
-            import("./equipment/equipment.module").then(
-                (m) => m.EquipmentModule
-            ),
-    },
+
     {
         path: "",
         loadChildren: () =>
@@ -50,6 +44,14 @@ const routes: Routes = [
                 (m) => m.MaintenanceModule
             ),
     },
+    {
+        path: "",
+        loadChildren: () =>
+            import("./equipment/equipment.module").then(
+                (m) => m.EquipmentModule
+            ),
+    },
+   
 
     {
         path: "",
@@ -57,7 +59,7 @@ const routes: Routes = [
             import("./complaint/complaint.module").then(
                 (m) => m.ComplaintModule
             ),
-    },*/
+    },
     { path: "login", component: LoginComponent },
 
     {path: "changeFirstPassword", component: ChangeFirstPasswordComponent},

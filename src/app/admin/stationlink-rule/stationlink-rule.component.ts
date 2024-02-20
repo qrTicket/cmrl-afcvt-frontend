@@ -9,7 +9,7 @@ export class StationlinkRuleComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

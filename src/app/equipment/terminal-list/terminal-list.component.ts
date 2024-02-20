@@ -18,19 +18,35 @@ export class TerminalListComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.terminalAPI.getTerminalList().subscribe(
-            (data) => {
-                // console.log(data, "Terminal");
-                this.terminalList = data;
+        // this.terminalAPI.getTerminalList().subscribe(
+        //     (data) => {
+        //         // console.log(data, "Terminal");
+        //         this.terminalList = data;
+        //         this.temp = true;
+        //         this.successmsg = data;
+        //         this.toastr.success("", this.successmsg.message);
+        //     },
+        //     (error) => {
+        //         // console.log(error);
+        //         this.errormsg = error;
+        //         this.toastr.error("", this.errormsg);
+        //     }
+        // );
+        this.terminalAPI.getTerminalList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.terminalList = res.data;
                 this.temp = true;
-                this.successmsg = data;
+                this.successmsg = res.data;
                 this.toastr.success("", this.successmsg.message);
+              }
             },
-            (error) => {
-                // console.log(error);
-                this.errormsg = error;
-                this.toastr.error("", this.errormsg);
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 }

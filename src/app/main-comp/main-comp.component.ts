@@ -26,7 +26,7 @@ export class MainCompComponent implements OnInit {
     }
     login(){
       this.router.navigate(["login"], {
-        queryParams: { mode: "write", login: "login pto" }
+        queryParams: { mode: "write", login: "login pto" } 
     });
     }
 }

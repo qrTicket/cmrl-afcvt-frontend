@@ -4,6 +4,7 @@ import { AddUserService } from "../_services/add-user.service";
 import { ShiftsService } from "../_services/shifts.service";
 import { Subscription } from "rxjs";
 import { AddUser } from "../_models/addUser.model";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
     selector: "app-dashboard",
@@ -20,7 +21,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     constructor(
         private userAPI: AddUserService,
-        private shiftAPI: ShiftsService
+        private shiftAPI: ShiftsService,
+        private toastr:ToastrService
     ) {}
 
     ngOnInit() {
@@ -30,22 +32,48 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     totaluserlist() {
         this.subscription.push(
-            this.userAPI.userCount().subscribe((res) => {
-                if(res["status"] === "1"){
-                    this.userCount = res["data"];
+            // this.userAPI.userCount().subscribe((res) => {
+            //     if(res["status"] === "1"){
+            //         this.userCount = res["data"];
+            //     }
+            //     else{
+            //         this.userCount = "Error fetching User count";
+            //     }
+            // })
+            this.userAPI.userCount().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error fetching User count!')
+                  }
+                  else if(res.status === "1"){
+                    this.userCount = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
                 }
-                else{
-                    this.userCount = "Error fetching User count";
-                }
-            })
+              })
         );
     }
 
     totalusershiftlist() {
         this.subscription.push(
-            this.shiftAPI.shiftCount().subscribe((res) => {
-                this.shiftCount = res["data"];
-            })
+            // this.shiftAPI.shiftCount().subscribe((res) => {
+            //     this.shiftCount = res["data"];
+            // })
+            this.shiftAPI.shiftCount().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.shiftCount = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
     }
 

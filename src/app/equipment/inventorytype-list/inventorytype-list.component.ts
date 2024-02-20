@@ -37,31 +37,57 @@ export class InventorytypeListComponent implements OnInit {
     }
     confirm(id, index) {
         this.spinner.show();
-        this.productTypeService.deleteById(id).subscribe(
-            (res) => {
-                if (res["status"] === "0") {
+        // this.productTypeService.deleteById(id).subscribe(
+        //     (res) => {
+        //         if (res["status"] === "0") {
+        //             Swal.fire({
+        //                 icon: "error",
+        //                 text: res["data"],
+        //             });
+        //             // this.toastr.info(res["data"]);
+        //             this.spinner.hide();
+        //         } else if (res["status"] === "1") {
+        //             this.productTypeList.splice(index, 1);
+        //             this.toastr.success(res["data"]);
+        //             this.ProductTypeList();
+        //         }
+        //     },
+        //     (error) => {
+        //         this.errormsg = error;
+        //         this.spinner.hide();
+        //         Swal.fire({
+        //             icon: "error",
+        //             text: this.errormsg,
+        //         });
+        //         // this.toastr.error('', this.errormsg);
+        //     }
+        // );
+        this.productTypeService.deleteById(id).subscribe({
+            next:(res:any)=>{
+                this.spinner.hide();
+                if(res.status === "0"){
                     Swal.fire({
+                        title:'Error!',
                         icon: "error",
-                        text: res["data"],
+                        text: res.data,
                     });
-                    // this.toastr.info(res["data"]);
-                    this.spinner.hide();
-                } else if (res["status"] === "1") {
-                    this.productTypeList.splice(index, 1);
-                    this.toastr.success(res["data"]);
-                    this.ProductTypeList();
                 }
+              else if(res.status === "1"){
+                this.productTypeList.splice(index, 1);
+                this.toastr.success(res.data);
+                this.ProductTypeList();
+              }
             },
-            (error) => {
-                this.errormsg = error;
+            error:(err)=>{
+                this.errormsg = err.error.data;
                 this.spinner.hide();
                 Swal.fire({
+                    title:'Error!',
                     icon: "error",
                     text: this.errormsg,
                 });
-                // this.toastr.error('', this.errormsg);
             }
-        );
+          })
 
         this.modalRef.hide();
     }

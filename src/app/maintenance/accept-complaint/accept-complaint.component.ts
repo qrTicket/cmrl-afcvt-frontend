@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormGroup, UntypedFormBuilder, Validator } from "@angular/forms";
+import { FormGroup, FormBuilder, Validator } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { ToastrService } from "ngx-toastr";
@@ -21,13 +21,13 @@ export class AcceptComplaintComponent implements OnInit {
     errormsg;
     successmsg;
     submitted = false;
-    acceptcomplaintForm: UntypedFormGroup;
+    acceptcomplaintForm: FormGroup;
     ac: ComplainAssignList;
 
     rejectData: any;
 
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private activeRouter: ActivatedRoute,
         private router: Router,
         private toastr: ToastrService,
@@ -61,11 +61,24 @@ export class AcceptComplaintComponent implements OnInit {
     }
 
     getComplain(id) {
-        this.mainservice.getComplaintById(id).subscribe(
-            (ac: ComplainAssignList) => this.editComplaint(ac),
-            (error: any) => 
-            console.log(error)
-        );
+        // this.mainservice.getComplaintById(id).subscribe(
+        //     (ac: ComplainAssignList) => this.editComplaint(ac),
+        //     (error: any) => 
+        //     console.log(error)
+        // );
+        this.mainservice.getComplaintById(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.editComplaint(res)
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     editComplaint(ac: ComplainAssignList) {
@@ -84,41 +97,80 @@ export class AcceptComplaintComponent implements OnInit {
     verifyEve() {
         this.rejectData = this.acceptcomplaintForm.value;
 
-        this.mainservice
-            .postAcceptComplaint(this.acceptcomplaintForm.value)
-            .subscribe(
-                (res) => {
-                    this.successmsg = res;
+        // this.mainservice
+        //     .postAcceptComplaint(this.acceptcomplaintForm.value)
+        //     .subscribe(
+        //         (res) => {
+        //             this.successmsg = res;
+        //             this.spinner.hide();
+        //             this.toastr.success("", this.successmsg, {
+        //                 progressBar: true,
+        //             });
+        //             this.router.navigate(["verified-list"]);
+        //         },
+        //         (error) => {
+        //             this.spinner.hide();
+        //             this.errormsg = error;
+        //             this.toastr.error(this.errormsg);
+        //         }
+        //     );
+            this.mainservice.postAcceptComplaint(this.acceptcomplaintForm.value).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.successmsg = res.data;
                     this.spinner.hide();
                     this.toastr.success("", this.successmsg, {
                         progressBar: true,
                     });
                     this.router.navigate(["verified-list"]);
+                  }
                 },
-                (error) => {
+                error:(err)=>{
                     this.spinner.hide();
-                    this.errormsg = error;
-                    this.toastr.error(this.errormsg);
+                    this.toastr.error(err.error.data,'Error!')
+                    this.errormsg = err.error.data;
                 }
-            );
+              })
     }
     rejectEve() {
       this.spinner.show();
       console.log("Reject", this.acceptcomplaintForm.value);
-      this.mainservice.postRejectComplaint(this.acceptcomplaintForm.value).subscribe(
-        (res) => {
-          console.log(res);
-          this.spinner.hide();
-          this.successmsg = res;
+    //   this.mainservice.postRejectComplaint(this.acceptcomplaintForm.value).subscribe(
+    //     (res) => {
+    //       console.log(res);
+    //       this.spinner.hide();
+    //       this.successmsg = res;
+    //       this.toastr.success("", this.successmsg.message);
+    //       this.router.navigate(["rejected-list"]);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //       this.spinner.hide();
+    //       this.errormsg = error;
+    //       this.toastr.error("", this.errormsg);
+    //     }
+    //   );
+      this.mainservice.postRejectComplaint(this.acceptcomplaintForm.value).subscribe({
+        next:(res:any)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.spinner.hide();
+          this.successmsg = res.data;
           this.toastr.success("", this.successmsg.message);
           this.router.navigate(["rejected-list"]);
+          }
         },
-        (error) => {
-          console.log(error);
-          this.spinner.hide();
-          this.errormsg = error;
+        error:(err)=>{
+            //this.toastr.error(err.error.data,'Error!')
+            this.spinner.hide();
+          this.errormsg = err.error.data;
           this.toastr.error("", this.errormsg);
         }
-      );
+      })
     }
 }

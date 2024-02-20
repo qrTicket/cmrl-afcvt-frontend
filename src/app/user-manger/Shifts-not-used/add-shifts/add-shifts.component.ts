@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DatePipe } from "@angular/common";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { ToastrService } from "ngx-toastr";
@@ -19,7 +19,7 @@ import { AddUserService } from "../../_services/add-user.service";
     styleUrls: ["./add-shifts.component.scss"],
 })
 export class AddShiftsComponent implements OnInit, OnDestroy {
-    addShift: UntypedFormGroup;
+    addShift: FormGroup;
     subscription: Subscription[] = [];
     datePickerConfigStart: Partial<BsDatepickerConfig>;
     datePickerConfigEnd: Partial<BsDatepickerConfig>;
@@ -36,7 +36,7 @@ export class AddShiftsComponent implements OnInit, OnDestroy {
     minutesPlaceholder = "mm";
     secondsPlaceholder = "ss";
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private datePipe: DatePipe,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
@@ -116,16 +116,42 @@ export class AddShiftsComponent implements OnInit, OnDestroy {
             ],
         });
         this.subscription.push(
-            this.shiftsService.assignUserByStation().subscribe((res) => {
-                this.userList = res;
-                // console.log(this.userList);
-            })
+            // this.shiftsService.assignUserByStation().subscribe((res) => {
+            //     this.userList = res;
+            //     // console.log(this.userList);
+            // })
+            this.shiftsService.assignUserByStation().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.userList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
         this.subscription.push(
-            this.addUser__API.getAllStation().subscribe((res) => {
-                this.stationList = res["data"];
-                // console.log(this.stationList);
-            })
+            // this.addUser__API.getAllStation().subscribe((res) => {
+            //     this.stationList = res["data"];
+            //     // console.log(this.stationList);
+            // })
+            this.addUser__API.getAllStation().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.stationList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
     }
     get fval() {
@@ -167,26 +193,44 @@ export class AddShiftsComponent implements OnInit, OnDestroy {
         // this.data = this.addShift.value;
         this.spinner.show();
         this.subscription.push(
-            this.shiftsService.addShifts(myData).subscribe(
-                (res) => {
-                    if (res["status"] === "1") {
-                        this.spinner.hide();
-                        this.toastr.success(res["data"]);
+            // this.shiftsService.addShifts(myData).subscribe(
+            //     (res) => {
+            //         if (res["status"] === "1") {
+            //             this.spinner.hide();
+            //             this.toastr.success(res["data"]);
+            //             this.submitted = false;
+            //             this.addShift.reset();
+            //         } else if (res["status"] === "0") {
+            //             this.spinner.hide();
+            //             this.toastr.error(res["data"]);
+            //         } else {
+            //             this.spinner.hide();
+            //             this.toastr.error(res["data"]);
+            //         }
+            //     },
+            //     (error) => {
+            //         this.spinner.hide();
+            //         this.toastr.error(error.data);
+            //     }
+            // )
+            this.shiftsService.addShifts(myData).subscribe({
+                next:(res)=>{
+                  if(res.status === "0"){
+                    this.spinner.hide();
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.spinner.hide();
+                        this.toastr.success(res.data);
                         this.submitted = false;
                         this.addShift.reset();
-                    } else if (res["status"] === "0") {
-                        this.spinner.hide();
-                        this.toastr.error(res["data"]);
-                    } else {
-                        this.spinner.hide();
-                        this.toastr.error(res["data"]);
-                    }
+                  }
                 },
-                (error) => {
+                error:(err)=>{
                     this.spinner.hide();
-                    this.toastr.error(error.data);
+                    this.toastr.error(err.error.data,'Error!')
                 }
-            )
+              })
         );
     }
 

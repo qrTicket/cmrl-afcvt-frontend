@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { StationService } from "../_services/station.service";
@@ -13,7 +13,7 @@ import { LineToStationService } from '../_services/linetostation.service';
 })
 export class AssignLineToStationComponent implements OnInit {
 
-  assignlinetostationForm: UntypedFormGroup;
+  assignlinetostationForm: FormGroup;
   submitted = false;
 
   line: any = [];
@@ -25,7 +25,7 @@ export class AssignLineToStationComponent implements OnInit {
   stationName: string;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
     private stationapi: StationService,
@@ -40,15 +40,43 @@ export class AssignLineToStationComponent implements OnInit {
       station: ["", Validators.required],
     });
 
-    this.lineapi.getLines().subscribe((data) => {
-      this.line = data;
-      console.log(this.line);
-    });
+    // this.lineapi.getLines().subscribe((data) => {
+    //   this.line = data;
+    //   console.log(this.line);
+    // });
+    this.lineapi.getLines().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.line = res.data;
+          console.log(this.line);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
-    this.stationapi.getStation().subscribe(data => {
-      this.station = data;
-      console.log(this.station);
-    });
+    // this.stationapi.getStation().subscribe(data => {
+    //   this.station = data;
+    //   console.log(this.station);
+    // });
+    this.stationapi.getStation().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.station = res.data;
+          console.log(this.station);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
   }
 
@@ -61,14 +89,30 @@ export class AssignLineToStationComponent implements OnInit {
     if (this.assignlinetostationForm.invalid)
       return this.toastr.error("Unable to submit form, please check all the details!", "Error");
 
-    this.linetostationapi
-      .postAssignLineToStation(this.assignlinetostationForm.value)
-      .subscribe((res) => {
-      })
-    this.toastr.success('Line Assigned To Station Successfully.');
-    this.assignlinetostationForm.reset();
-    this.submitted = false;
+    // this.linetostationapi
+    //   .postAssignLineToStation(this.assignlinetostationForm.value)
+    //   .subscribe((res) => {
+    //   })
+    // this.toastr.success('Line Assigned To Station Successfully.');
+    // this.assignlinetostationForm.reset();
+    // this.submitted = false;
     // this.router.navigate(['admin/extend-line-list']);
+
+    this.linetostationapi.postAssignLineToStation(this.assignlinetostationForm.value).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.toastr.success('Line Assigned To Station Successfully.');
+          this.assignlinetostationForm.reset();
+          this.submitted = false;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { MultiDashboardService } from '../_services/multi-dashboard.service';
@@ -11,7 +11,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
   styleUrls: ['./multi-dashboard.component.scss']
 })
 export class MultiDashboardComponent implements OnInit {
-  dashboardForm: UntypedFormGroup;
+  dashboardForm: FormGroup;
   submitted = false;
 
   successmsg;
@@ -19,7 +19,7 @@ export class MultiDashboardComponent implements OnInit {
 
   constructor(
     private multidashboardservice: MultiDashboardService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private toastr: ToastrService
   ) { }
@@ -43,20 +43,39 @@ export class MultiDashboardComponent implements OnInit {
     if (this.dashboardForm.invalid)
       return this.toastr.error("Unable to submit form: please check all the details", "Error");
     console.log(this.dashboardForm.value);
-    this.multidashboardservice.addDashboard(this.dashboardForm.value)
-      .subscribe(res => {
-        // console.log(res);
-        this.successmsg = res;
-        this.toastr.success("Dashboard added successfullly.", this.successmsg);
-      },
-        (error) => {
-          console.log(error);
-          this.errormsg = error;
-          this.toastr.error("", this.errormsg);
+
+    // this.multidashboardservice.addDashboard(this.dashboardForm.value)
+    //   .subscribe(res => {
+    //     // console.log(res);
+    //     this.successmsg = res;
+    //     this.toastr.success("Dashboard added successfullly.", this.successmsg);
+    //   },
+    //     (error) => {
+    //       console.log(error);
+    //       this.errormsg = error;
+    //       this.toastr.error("", this.errormsg);
+    //     }
+    //   );
+    // this.dashboardForm.reset();
+    // this.submitted = false;
+
+    this.multidashboardservice.addDashboard(this.dashboardForm.value).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
         }
-      );
-    this.dashboardForm.reset();
-    this.submitted = false;
+        else if(res.status === "1"){
+          this.successmsg = res.data;
+          this.toastr.success("Dashboard added successfullly.", this.successmsg);
+          this.dashboardForm.reset();
+          this.submitted = false;
+        }
+      },
+      error:(err)=>{
+        this.errormsg = err.error.data;
+        this.toastr.error("", this.errormsg);
+      }
+    })
   }
 
 }

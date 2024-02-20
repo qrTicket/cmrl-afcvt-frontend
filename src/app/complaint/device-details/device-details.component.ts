@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ComplaintService } from 'src/app/station/_services/complaint.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class DeviceDetailsComponent implements OnInit {
   constructor(
     private complaintService: ComplaintService,
     private route: ActivatedRoute,
+    private toastr : ToastrService
   ) { }
 
   ngOnInit() {
@@ -22,10 +24,18 @@ export class DeviceDetailsComponent implements OnInit {
       console.log(this.deviceId);
     });
 
-    this.complaintService.getDeviceDetails(this.deviceId).subscribe((res) => {
-      this.deviceDetails = res;
-      console.log(this.deviceDetails);
-    });
+    // this.complaintService.getDeviceDetails(this.deviceId).subscribe((res) => {
+    //   this.deviceDetails = res;
+    //   console.log(this.deviceDetails);
+    // });
+    this.complaintService.getDeviceDetails(this.deviceId).subscribe({
+      next:(res)=>{
+        this.deviceDetails = res;
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 }

@@ -88,7 +88,7 @@ export class CentralAlarmsComponent
     ngAfterViewInit() {
         this.subs.push(
             interval(5000).subscribe(() => {
-                this.generalMsgList();
+                this.generalMsgList(); 
             })
         );
     }

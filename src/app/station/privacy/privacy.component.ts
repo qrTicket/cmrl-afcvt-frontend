@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./privacy.component.scss']
 })
 export class PrivacyComponent implements OnInit {
-  updatepwdForm: UntypedFormGroup;
+  updatepwdForm: FormGroup;
   submitted = false;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private toastr: ToastrService
   ) { }
@@ -30,7 +30,7 @@ export class PrivacyComponent implements OnInit {
   }
   onFormSubmit() {
     this.submitted = true;
-
+ 
     if (this.updatepwdForm.invalid) {
       return this.toastr.error('Invalid Form', 'Error');
     }

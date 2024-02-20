@@ -10,7 +10,7 @@ export class EditallComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("editall component loaded");
+    console.log("editall component loaded"); 
   }
 
 }

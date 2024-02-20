@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { StationService } from "../_services/station.service";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -36,7 +36,7 @@ export class EquipmentsComponent implements OnInit {
     error: any;
     constructor(
         private router: Router,
-        private formbuilder: UntypedFormBuilder,
+        private formbuilder: FormBuilder,
         private stationAPI: StationService,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
@@ -44,12 +44,31 @@ export class EquipmentsComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        
-
-        this.stationAPI.assignedGates().subscribe((res) => {
-            this.equipmentList = res["data"];
-            this.temp = true;
-        });
+        // this.stationAPI.assignedGates().subscribe((res) => {
+        //     if(res['status'] === "1"){
+        //         this.temp = true;
+        //         this.equipmentList = res["data"];
+        //         console.log(this.equipmentList,'equipment list')
+        //     }
+        //     else if(res['status'] === "0"){
+        //         this.toastr.error(res['data'])
+        //     }
+        // });
+        this.stationAPI.assignedGates().subscribe({
+            next:(res)=>{
+                if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                }
+                else if(res.status === "1"){
+                    this.temp = true;
+                    this.equipmentList = res.data;
+                    console.log(this.equipmentList,'equipment list')
+                }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+        })
     }
 
     openCongif(list) {

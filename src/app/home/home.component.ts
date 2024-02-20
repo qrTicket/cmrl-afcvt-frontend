@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import {
-    UntypedFormBuilder,
-    UntypedFormGroup,
+    FormGroup,
     Validators,
-    FormControl
+    FormControl,
+    FormBuilder
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CustomValidators } from "ng2-validation";
@@ -19,19 +19,22 @@ import { MustMatch } from "../_helpers/match-validators";
     styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-    ptoform: UntypedFormGroup;
+    ptoform: FormGroup;
     submitted = false;
     successmsg;
     errormsg;
     constructor(
         private ptoService: PtoRegistrationService,
-        private formBuilder: UntypedFormBuilder,
+        private fb: FormBuilder,
         private router: Router,
         private toastr: ToastrService,
         private spinner: NgxSpinnerService
     ) {
-        this.ptoform = this.formBuilder.group(
-            {
+    }
+
+    ngOnInit() {
+        //console.log("Home component loaded");
+        this.ptoform = this.fb.group({
                 vendorName: ["", Validators.required],
                 name: ["", Validators.required],
                 contact: [
@@ -67,12 +70,6 @@ export class HomeComponent implements OnInit {
             {
                 validator: MustMatch("password", "confirmPassword")
             });
-
-       
-    }
-
-    ngOnInit() {
-        console.log("Home component loaded");
     }
 
     get fval() {
@@ -82,20 +79,39 @@ export class HomeComponent implements OnInit {
     onFormSubmit() {
         this.submitted = true;
       
-        this.ptoService
-            .postPtoRegistration(this.ptoform.value)
-            .subscribe(data => {
-                this.successmsg = data;
-                this.spinner.hide();
-                this.toastr.success("", this.successmsg.message);
-                this.ptoform.reset();
-                this.submitted = false;
-                this.router.navigate(["mainComp"]);
-            }, error => {
-                this.spinner.hide();
-                this.errormsg = error;
-                this.toastr.error("", this.errormsg);
-            });
-        
+        // this.ptoService
+        //     .postPtoRegistration(this.ptoform.value)
+        //     .subscribe(data => {
+        //         this.successmsg = data;
+        //         this.spinner.hide();
+        //         this.toastr.success("", this.successmsg.message);
+        //         this.ptoform.reset();
+        //         this.submitted = false;
+        //         this.router.navigate(["mainComp"]);
+        //     }, error => {
+        //         this.spinner.hide();
+        //         this.errormsg = error;
+        //         this.toastr.error("", this.errormsg);
+        //     });
+            this.ptoService.postPtoRegistration(this.ptoform.value).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.successmsg = res.data;
+                    this.spinner.hide();
+                    this.toastr.success("", this.successmsg.message);
+                    this.ptoform.reset();
+                    this.submitted = false;
+                    this.router.navigate(["mainComp"]);
+                  }
+                },
+                error:(err)=>{
+                    this.spinner.hide();
+                    this.errormsg = err.error.data;
+                    this.toastr.error("", this.errormsg);
+                }
+              })
     }
 }

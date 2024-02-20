@@ -82,11 +82,24 @@ export class EditProfileComponent implements OnInit {
         this.editProfileForm.disable();
 
         this.subscription.push(
-            this.userProfileAPI
-                .getUserProfile()
-                .subscribe((userData: any) => {
-                    this.getUserData(userData);
-                })
+            // this.userProfileAPI
+            //     .getUserProfile()
+            //     .subscribe((userData: any) => {
+            //         this.getUserData(userData);
+            //     });
+                this.userProfileAPI.getUserProfile().subscribe({
+                    next:(res:any)=>{
+                      if(res.status === "0"){
+                          this.toastr.error(res.data,'Error!')
+                      }
+                      else if(res.status === "1"){
+                        this.getUserData(res.data);
+                      }
+                    },
+                    error:(err)=>{
+                        this.toastr.error(err.error.data,'Error!')
+                    }
+                  })
         );
     }
 
@@ -135,16 +148,32 @@ export class EditProfileComponent implements OnInit {
         // this.editProfileModel.email = this.editProfileForm.value.email;
         // this.editProfileModel.mobileNumber = this.editProfileForm.value.mobileNumber;
         //console.log("editProfileModel : "+this.editProfileModel);
-        this.adminProfileSrv.editAdminProfile(this.editProfileForm.value).subscribe((res:any)=>{
-            if(res.status === "1"){
+        // this.adminProfileSrv.editAdminProfile(this.editProfileForm.value).subscribe((res:any)=>{
+        //     if(res.status === "1"){
+        //         this.toastr.success(res.data);
+        //         this.showEditBtn = true;
+        //         this.showUpdateBtn = false;
+        //         this.editProfileForm.disable();
+        //     }
+        //     else{
+        //         console.log('error');
+        //     }
+        // })
+        this.adminProfileSrv.editAdminProfile(this.editProfileForm.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
                 this.toastr.success(res.data);
                 this.showEditBtn = true;
                 this.showUpdateBtn = false;
                 this.editProfileForm.disable();
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-            else{
-                console.log('error');
-            }
-        })
+          })
     }
 }

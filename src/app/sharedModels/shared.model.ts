@@ -3,5 +3,5 @@ export class SharedModel {
     firstName: string;
     lastName: string;
     emailId: string;
-    active: boolean;
+    active: boolean; 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ComplaintService } from '../_services/complaint.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./raisecomplaint.component.scss'],
 })
 export class RaisecomplaintComponent implements OnInit {
-  complaintForm: UntypedFormGroup;
+  complaintForm: FormGroup;
   submitted = false;
   successmsg;
   message;
@@ -19,7 +19,7 @@ export class RaisecomplaintComponent implements OnInit {
 
   constructor(
     private complaintService: ComplaintService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router
@@ -46,12 +46,30 @@ export class RaisecomplaintComponent implements OnInit {
     if (this.complaintForm.invalid)
       return this.toastr.error('Please fill details', 'Error');
     // console.log(this.complaintForm.value);
-    this.complaintService.postComplaint(this.complaintForm.value).subscribe((data) => {
-      this.successmsg = data;
-      this.toastr.success("", this.successmsg.data);
-      this.router.navigate(["/trackcomplaintstatus",]);
-    });
-    this.complaintForm.reset();
-    this.submitted = false;
+    // this.complaintService.postComplaint(this.complaintForm.value).subscribe((data) => {
+    //   this.successmsg = data;
+    //   this.toastr.success("", this.successmsg.data);
+    //   this.router.navigate(["/trackcomplaintstatus",]);
+    // });
+    // this.complaintForm.reset();
+    // this.submitted = false;
+
+    this.complaintService.postComplaint(this.complaintForm.value).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.successmsg = res.data;
+          this.toastr.success("", this.successmsg.data);
+          this.complaintForm.reset();
+          this.submitted = false;
+          this.router.navigate(["/trackcomplaintstatus",]);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 }

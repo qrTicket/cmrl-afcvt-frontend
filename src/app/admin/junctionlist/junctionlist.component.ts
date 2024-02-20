@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Station } from '../_models/station.model';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-junctionlist',
@@ -29,7 +30,8 @@ export class JunctionlistComponent implements OnInit {
   constructor(
     private stationService: StationService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
   ) { }
   dtOptions: DataTables.Settings = {};
 
@@ -38,16 +40,35 @@ export class JunctionlistComponent implements OnInit {
   }
 
   junctionlist() {
-    this.stationService.getJunction().subscribe(data => {
-      this.junction = data;
-      console.log(this.junction);
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 5,
-        processing: true
-      };
-      this.dtTrigger.next(true);
-    });
+    // this.stationService.getJunction().subscribe(data => {
+    //   this.junction = data;
+    //   console.log(this.junction);
+    //   this.dtOptions = {
+    //     pagingType: 'full_numbers',
+    //     pageLength: 5,
+    //     processing: true
+    //   };
+    //   this.dtTrigger.next(true);
+    // });
+    this.stationService.getJunction().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.junction = res.data;
+          this.dtOptions = {
+          pagingType: 'full_numbers',
+          pageLength: 5,
+          processing: true
+          };
+          this.dtTrigger.next(true);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 }

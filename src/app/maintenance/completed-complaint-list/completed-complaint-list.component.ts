@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Subject } from "rxjs";
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { DataTableDirective } from "angular-datatables";
 import { MainService } from '../_mainservices/main.service';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-completed-complaint-list',
@@ -23,7 +24,8 @@ export class CompletedComplaintListComponent implements OnInit {
 
 
   constructor(
-    private mainservice: MainService
+    private mainservice: MainService,
+    private toastr : ToastrService
   ) { }
 
   dtOptions: DataTables.Settings = {};
@@ -33,9 +35,22 @@ export class CompletedComplaintListComponent implements OnInit {
   }
 
   closedComplaintList() {
-    this.mainservice.closedComplaintList().subscribe((res) => {
-      this.closedlist = res['data'];
-    });
+    // this.mainservice.closedComplaintList().subscribe((res) => {
+    //   this.closedlist = res['data'];
+    // });
+    this.mainservice.closedComplaintList().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+          this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.closedlist = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 }

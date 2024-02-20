@@ -9,7 +9,7 @@ export class DeletedHistoryComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

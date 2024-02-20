@@ -29,7 +29,7 @@ export class ViewGateDetailsByNameComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+     
   }
 
   ngOnDestroy() {

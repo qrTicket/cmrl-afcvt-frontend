@@ -150,10 +150,24 @@ export class AddUsermanagerComponent implements OnInit, OnDestroy  {
       
       
       this.subscription.push(
-          this.addUserService.getAllRoles().subscribe((res) => {
-              this.roleList = res["data"];              
+        //   this.addUserService.getAllRoles().subscribe((res) => {
+        //       this.roleList = res["data"];              
+        //   })
+        this.addUserService.getAllRoles().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.roleList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
           })
       );
+      
 
       
      /** Not in use */     
@@ -230,50 +244,62 @@ export class AddUsermanagerComponent implements OnInit, OnDestroy  {
       
     this.spinner.show();
     this.subscription.push(
-        this.addUserService.addUser(reqObj).subscribe(
-            (res: any) => {
+        // this.addUserService.addUser(reqObj).subscribe(
+        //     (res: any) => {
+        //         this.spinner.hide();
+        //         if (res["status"] === "1") {
+        //             this.toastr.success(res["data"]);
+        //             this.addUser.reset();
+        //             let num : number = 0;
+        //             for(num; num < this.rolesArray.length; num++){
+        //                 this.rolesArray.splice(num);
+        //             }
+        //             this.submitted = false;
+        //             this.router.navigate(["/admin/usermanager-list"]);
+        //         } 
+        //         else {
+        //             this.spinner.hide();
+        //             return Swal.fire({
+        //                 icon: "warning",
+        //                 text: res.data,
+        //             });
+        //         }
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         console.log("Error", error);
+        //     }
+        // )
+        this.addUserService.addUser(reqObj).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
-                if (res["status"] === "1") {
-                    // console.log("Add User", res);
-                    this.toastr.success(res["data"]);
-                    this.addUser.reset();
-                    let num : number = 0;
-                    for(num; num < this.rolesArray.length; num++){
-                        this.rolesArray.splice(num);
-                    }
-                    this.submitted = false;
-                    this.router.navigate(["/admin/usermanager-list"]);
-                } else 
-                // {
-                //     Swal.fire({
-                //         title: "Error !",
-                //         text: res.data,
-                //     });
-                // }
-                {
-                    this.spinner.hide();
-                    // this.toastr.info(data.data);
-                    //swal(res.data, "", "warning");
-                    return Swal.fire({
-                        icon: "warning",
-                        text: res.data,
-                    });
+                return Swal.fire({
+                    icon: "warning",
+                    text: res.data,
+                });
+              }
+              else if(res.status === "1"){
+                this.toastr.success(res.data);
+                this.addUser.reset();
+                let num : number = 0;
+                for(num; num < this.rolesArray.length; num++){
+                    this.rolesArray.splice(num);
                 }
-                //this.router.navigate(["/admin/usermanager-list"]);
-                //window.location.reload();
+                this.submitted = false;
+                this.router.navigate(["/admin/usermanager-list"]);
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                // Swal.fire({
-                //     title: "Error !",
-                //     text: error.data,
-                // });
-                console.log("Error", error);
-                // this.errormsg = error;
-                // this.toastr.error(this.errormsg.data);
+                return Swal.fire({
+                    icon: "warning",
+                    text: err.error.data,
+                });
             }
-        )
+          })
     );
+    
       
   }
 

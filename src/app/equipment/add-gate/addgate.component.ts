@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -23,7 +23,7 @@ import { TerminalService } from "../_services/terminal.service";
     styleUrls: ["./addgate.component.scss"],
 })
 export class AddgateComponent implements OnInit {
-    gateForm: UntypedFormGroup;
+    gateForm: FormGroup;
     gateList: Terminal[];
     blank = {};
     submitted = false;
@@ -46,7 +46,7 @@ export class AddgateComponent implements OnInit {
         private equipmentService: EquipmentService,
         private gateService: GateService,
         private terminalService: TerminalService,
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private toastr: ToastrService,
         private spinner: NgxSpinnerService
     ) {}
@@ -197,31 +197,118 @@ export class AddgateComponent implements OnInit {
         });
         this.valueChange();
         // this.changeDect();
-        this.lineService.getLines().subscribe((res) => {
-            this.lineList = res;
-            console.log(res);
-        });
-        this.stationService.getStation().subscribe((res) => {
-            this.stationList = res;
-            console.log(res);
-        });
-        this.productService.getProductList().subscribe((res) => {
-            this.gateList = res;
-            console.log(res);
-        });
+        // this.lineService.getLines().subscribe((res) => {
+        //     this.lineList = res;
+        //     console.log(res);
+        // });
+        this.lineService.getLines().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.lineList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
 
-        this.gateService.getGateDirection().subscribe((res) => {
-            this.directionList = res;
-            console.log(res);
-        });
-        this.equipmentService.getGateDirection().subscribe((res) => {
-            this.gateDirection = res;
-            console.log("Gate Direction", this.gateDirection);
-        });
-        this.terminalService.getTerminalList().subscribe((res) => {
-            console.log(res, "Terminal");
-            this.terminalList = res;
-        });
+
+
+        // this.stationService.getStation().subscribe((res) => {
+        //     this.stationList = res;
+        //     console.log(res);
+        // });
+        this.stationService.getStation().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.stationList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
+
+
+        // this.productService.getProductList().subscribe((res) => {
+        //     this.gateList = res;
+        //     console.log(res);
+        // });
+        this.productService.getProductList().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.gateList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
+
+        // this.gateService.getGateDirection().subscribe((res) => {
+        //     this.directionList = res;
+        //     console.log(res);
+        // });
+        this.gateService.getGateDirection().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.directionList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
+
+
+        // this.equipmentService.getGateDirection().subscribe((res) => {
+        //     this.gateDirection = res;
+        //     console.log("Gate Direction", this.gateDirection);
+        // });
+        this.equipmentService.getGateDirection().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.gateDirection = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
+
+
+        // this.terminalService.getTerminalList().subscribe((res) => {
+        //     console.log(res, "Terminal");
+        //     this.terminalList = res;
+        // });
+        this.terminalService.getTerminalList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.terminalList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     get fval() {
@@ -242,28 +329,52 @@ export class AddgateComponent implements OnInit {
         this.submitted = true;
         console.log(this.gateForm.value);
 
-        // if (this.gateForm.invalid)
-        //     return this.toastr.error("Invalid form", "Error incountered");
+        if (this.gateForm.invalid)
+            return this.toastr.error("Invalid form", "Error incountered");
         this.spinner.show();
-        this.gateService.postGate(this.gateForm.value).subscribe(
-            (data) => {
+        // this.gateService.postGate(this.gateForm.value).subscribe(
+        //     (data) => {
+        //         this.spinner.hide();
+        //         console.log(data);
+        //         this.successmsg = data;
+        //         this.toastr.success("", "Terminal assign successfully!", {
+        //             progressBar: true,
+        //         });
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         console.log(error);
+        //         this.errormsg = error;
+        //         // this.toastr.error("", this.errormsg, {
+        //         //     progressBar: true,
+        //         // });
+        //     }
+        // );
+        // this.gateForm.reset();
+        // this.submitted = false;
+
+        this.gateService.postGate(this.gateForm.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
-                console.log(data);
-                this.successmsg = data;
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.successmsg = res.data;
                 this.toastr.success("", "Terminal assign successfully!", {
                     progressBar: true,
                 });
+                this.gateForm.reset();
+                this.submitted = false;
+              }
             },
-            (error) => {
+            error:(err)=>{
+                //this.toastr.error(err.error.data,'Error!')
                 this.spinner.hide();
-                console.log(error);
-                this.errormsg = error;
-                // this.toastr.error("", this.errormsg, {
-                //     progressBar: true,
-                // });
+                console.log(err.error.data);
+                this.errormsg = err.error.data;
             }
-        );
-        this.gateForm.reset();
-        this.submitted = false;
+          })
     }
 }

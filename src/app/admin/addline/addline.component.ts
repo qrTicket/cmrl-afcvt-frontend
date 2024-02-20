@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
@@ -15,7 +15,7 @@ import { RxwebValidators } from "@rxweb/reactive-form-validators";
     styleUrls: ["./addline.component.scss"],
 })
 export class AddlineComponent implements OnInit {
-    lineForm: UntypedFormGroup;
+    lineForm: FormGroup;
     submitted = false;
 
     id: number;
@@ -32,7 +32,7 @@ export class AddlineComponent implements OnInit {
     constructor(
         private linesService: LinesService,
         private stationService: StationService,
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private router: Router,
         private toastr: ToastrService
     ) {}
@@ -113,9 +113,22 @@ export class AddlineComponent implements OnInit {
 
         });
 
-        this.stationService.getStation().subscribe((data) => {
-            this.station = data;
-        });
+        // this.stationService.getStation().subscribe((data) => {
+        //     this.station = data;
+        // });
+        this.stationService.getStation().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.station = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     get fval() {
@@ -132,30 +145,48 @@ export class AddlineComponent implements OnInit {
                 text: "Please fill all fields!",
             });
         // console.log(this.lineForm.value);
-        this.linesService.postAddline(this.lineForm.value).subscribe(
-            (data) => {
-                if (data.status === "1") {
-                    // console.log("");
-                    this.successmsg = data;
+        // this.linesService.postAddline(this.lineForm.value).subscribe(
+        //     (data) => {
+        //         if (data.status === "1") {
+        //             // console.log("");
+        //             this.successmsg = data;
+        //             this.toastr.success("", this.successmsg.data);
+        //             this.lineForm.reset();
+        //             this.submitted = false;
+        //             this.router.navigate(["admin/linelist"]);
+        //         } else {
+        //             Swal.fire({
+        //                 title: "Error!",
+        //                 text: data.data,
+        //             });
+        //         }
+        //     },
+        //     (error) => {
+        //         // console.log(error);
+        //         this.errormsg = error;
+        //         Swal.fire({
+        //             title: "Error!",
+        //             text: this.errormsg,
+        //         });
+        //     }
+        // );
+        this.linesService.postAddline(this.lineForm.value).subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.successmsg = res.data;
                     this.toastr.success("", this.successmsg.data);
                     this.lineForm.reset();
                     this.submitted = false;
                     this.router.navigate(["admin/linelist"]);
-                } else {
-                    Swal.fire({
-                        title: "Error!",
-                        text: data.data,
-                    });
-                }
+              }
             },
-            (error) => {
-                // console.log(error);
-                this.errormsg = error;
-                Swal.fire({
-                    title: "Error!",
-                    text: this.errormsg,
-                });
+            error:(err)=>{
+                this.errormsg = err.error.data;
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 }

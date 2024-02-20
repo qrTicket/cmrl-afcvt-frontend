@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ToastrService } from 'ngx-toastr';
 //import swal from 'sweetalert';
@@ -13,13 +13,13 @@ import { UploadFileService } from '../_services/upload-file.service';
 })
 export class ScheduleUpdateFileComponent implements OnInit {
 
-  scheduleFileForm : UntypedFormGroup;
+  scheduleFileForm : FormGroup;
   submitted = false;
   fileToUpload: File = null;
 
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private uploadfileservice: UploadFileService,
   ) { }
@@ -79,38 +79,54 @@ export class ScheduleUpdateFileComponent implements OnInit {
 
     console.log(this.scheduleFileForm.value);
 
-    this.uploadfileservice.scheduleFileUpload(this.scheduleFileForm.value).subscribe(
-      (res) => {
-        if (res.status === "0") {
-          //return swal(res.data, "", "error");
+    // this.uploadfileservice.scheduleFileUpload(this.scheduleFileForm.value).subscribe(
+    //   (res) => {
+    //     if (res.status === "0") {
+    //       return Swal.fire({
+    //         icon: "error",
+    //         title: "ERROR",
+    //         text: res.data,
+    //       });
+    //     }
+    //   },
+    //   (error) => {
+    //     if (error.status === "1") {
+    //       return Swal.fire({
+    //         icon: "error",
+    //         title: "ERROR",
+    //         text: error.data,
+    //       });
+    //     }
+    //   }
+    // );
+    // this.scheduleFileForm.reset();
+    // this.submitted = false;
+
+    this.uploadfileservice.scheduleFileUpload(this.scheduleFileForm.value).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
           return Swal.fire({
             icon: "error",
             title: "ERROR",
             text: res.data,
           });
         }
-        // this.uploadResponse = res;
-        // this.toastr.success("",
-        //   this.uploadResponse.data
-        // );
+        else if(res.status === "1"){
+          this.toastr.success(res.data,'Success!')
+          this.scheduleFileForm.reset();
+          this.submitted = false;
+        }
       },
-      (error) => {
-        if (error.status === "1") {
-          //return swal(error.data, "", "error");
+      error:(err)=>{
+        if (err.error.status === "1") {
           return Swal.fire({
             icon: "error",
             title: "ERROR",
-            text: error.data,
+            text: err.error.data,
           });
         }
-        // this.error = error;
-        // this.toastr.warning("",
-        //   this.uploadResponse.data
-        // );
       }
-    );
-    this.scheduleFileForm.reset();
-    this.submitted = false;
+    })
   }
 
 }

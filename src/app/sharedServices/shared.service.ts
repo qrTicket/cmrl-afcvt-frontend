@@ -21,6 +21,6 @@ export class SharedService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
   updateShared(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+    return this.http.put(`${this.baseUrl}/${id}`, value); 
   }
 }

@@ -83,26 +83,40 @@ export class SignupComponent implements OnInit {
         this.spinner.show();
         // tslint:disable-next-line:max-line-length
 
-        this.userservice
-            .register(this.registerForm.value)
+        // this.userservice.register(this.registerForm.value).pipe(first()).subscribe(
+        //         data => {
+        //             this.loading = false;
+        //             this.spinner.hide();
+        //             // console.log(data, 'Register');
+        //             // console.log(this.registerForm.value, '%%%%%%');
 
-            .pipe(first())
-
-            .subscribe(
-                data => {
+        //             this.alert.showSuccess();
+        //             this.router.navigate(['/login']);
+        //         },
+        //         error => {
+        //             this.spinner.hide();
+        //             this.alert.showError();
+        //             this.loading = false;
+        //         }
+        //     );
+            this.userservice.register(this.registerForm.value).pipe(first()).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    this.spinner.hide();
+                    this.alert.showError();
+                  }
+                  else if(res.status === "1"){
                     this.loading = false;
                     this.spinner.hide();
-                    // console.log(data, 'Register');
-                    // console.log(this.registerForm.value, '%%%%%%');
-
                     this.alert.showSuccess();
                     this.router.navigate(['/login']);
+                  }
                 },
-                error => {
+                error:(err)=>{
                     this.spinner.hide();
                     this.alert.showError();
                     this.loading = false;
                 }
-            );
+              })
     }
 }

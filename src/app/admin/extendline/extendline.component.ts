@@ -1,7 +1,7 @@
 
 
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { StationService } from "../_services/station.service";
@@ -15,7 +15,7 @@ import { ExtendlineService } from "../_services/extendline.service";
 })
 export class ExtendlineComponent implements OnInit {
 
-  extendlineForm: UntypedFormGroup;
+  extendlineForm: FormGroup;
   submitted = false;
 
   line: any = [];
@@ -34,7 +34,7 @@ export class ExtendlineComponent implements OnInit {
 
   constructor(
     private extendlineService: ExtendlineService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
     private lineService: LinesService,
@@ -47,15 +47,42 @@ export class ExtendlineComponent implements OnInit {
       source: ["", Validators.required],
       destination: ["", Validators.required]
     });
-    this.lineService.getLines().subscribe((data) => {
-      this.line = data;
-      console.log(this.line);
-    });
+    // this.lineService.getLines().subscribe((data) => {
+    //   this.line = data;
+    //   console.log(this.line);
+    // });
+    this.lineService.getLines().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.line = res.data;
+          console.log(this.line);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
-    this.stationService.getStation().subscribe(data => {
-      this.station = data;
-      console.log(this.station);
-    });
+    // this.stationService.getStation().subscribe(data => {
+    //   this.station = data;
+    //   console.log(this.station);
+    // });
+    this.stationService.getStation().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.station = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
   }
 
@@ -68,13 +95,29 @@ export class ExtendlineComponent implements OnInit {
     if (this.extendlineForm.invalid)
       return this.toastr.error("Unable to submit form, please check all the details!", "Error");
 
-    this.extendlineService
-      .postExtendline(this.extendlineForm.value)
-      .subscribe((res) => {
-      })
-    this.toastr.success('Line Extended Successfully.');
-    this.extendlineForm.reset();
-    this.submitted = false;
+    // this.extendlineService
+    //   .postExtendline(this.extendlineForm.value)
+    //   .subscribe((res) => {
+    //   })
+    // this.toastr.success('Line Extended Successfully.');
+    // this.extendlineForm.reset();
+    // this.submitted = false;
+
+    this.extendlineService.postExtendline(this.extendlineForm.value).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.toastr.success('Line Extended Successfully.');
+          this.extendlineForm.reset();
+          this.submitted = false;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 }
 

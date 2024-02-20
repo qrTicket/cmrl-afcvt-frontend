@@ -30,7 +30,7 @@ export class UsershiftService {
   getUserShift() {
     return this.http.get<any>(
       `${environment.productUrl}/station/userShift/usernameList`,
-      this.httpOptions
+      this.httpOptions 
     );
   }
 

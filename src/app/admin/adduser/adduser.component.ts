@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from "ngx-toastr";
 import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
@@ -17,12 +17,12 @@ export class AdduserComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
     private userService: UserService,
   ) { }
-  userForm: UntypedFormGroup;
+  userForm: FormGroup;
   submitted = false;
 
   successmsg;
@@ -53,20 +53,39 @@ export class AdduserComponent implements OnInit {
    onFormSubmit() {
     this.submitted = true;
    
-    this.userService
-      .postAdduser(this.userForm.value)
-      .subscribe(
-        (res) => {
+    // this.userService
+    //   .postAdduser(this.userForm.value)
+    //   .subscribe(
+    //     (res) => {
+    //       this.successmsg = res;
+    //       this.toastr.success("", this.successmsg.message);
+    //     },
+    //     (error) => {
+    //       this.errormsg = error;
+    //       this.toastr.error("", this.errormsg);
+    //     }
+    //   );
+    // this.userForm.reset();
+    // this.submitted = false;
+
+    this.userService.postAdduser(this.userForm.value).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
           this.successmsg = res;
           this.toastr.success("", this.successmsg.message);
-        },
-        (error) => {
-          this.errormsg = error;
-          this.toastr.error("", this.errormsg);
+          this.userForm.reset();
+          this.submitted = false;
         }
-      );
-    this.userForm.reset();
-    this.submitted = false;
+      },
+      error:(err)=>{
+          //this.toastr.error(err.error.data,'Error!')
+          this.errormsg = err.error.data;
+          this.toastr.error("", this.errormsg);
+      }
+    })
   }
 
 }

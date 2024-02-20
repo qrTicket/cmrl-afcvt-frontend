@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/login']);
     }
 
-    changeLang(language: string) {
+    changeLang(language: string) { 
         this.translate.use(language);
     }
 }

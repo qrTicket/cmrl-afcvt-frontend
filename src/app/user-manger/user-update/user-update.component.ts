@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 import {
-    UntypedFormBuilder,
-    UntypedFormGroup,
+    FormBuilder,
+    FormGroup,
     Validators,
     FormControl,
 } from "@angular/forms";
@@ -26,7 +26,7 @@ import Swal from "sweetalert2";
 })
 export class UserUpdateComponent implements OnInit {
     
-    updateUser: UntypedFormGroup;
+    updateUser: FormGroup;
     submitted = false;
     successmgs;
     errormsg;
@@ -47,7 +47,7 @@ export class UserUpdateComponent implements OnInit {
 
 
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private userService: AddUserService,
         private shiftsService: ShiftsService,
@@ -108,22 +108,61 @@ export class UserUpdateComponent implements OnInit {
         });
         this.patchFormValue();
        
-        this.userService.userList().subscribe((users) => {
-            this.usersList = users;
-        });
+        // this.userService.userList().subscribe((users) => {
+        //     this.usersList = users;
+        // });
+        this.userService.userList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.usersList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
         
         
         this.subscription.push(
-            this.userService.getRolesToAdd().subscribe((res) => {
-                this.roleList = res["data"];      
-            })  
+            // this.userService.getRolesToAdd().subscribe((res) => {
+            //     this.roleList = res["data"];      
+            // })  
+            this.userService.getRolesToAdd().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.roleList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
 
         //will populate DropDownList of station fetched from database
         this.subscription.push(
-            this.userService.getAllStation().subscribe((res) => {
-                this.stationList = res["data"];
-            })
+            // this.userService.getAllStation().subscribe((res) => {
+            //     this.stationList = res["data"];
+            // })
+            this.userService.getAllStation().subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.stationList = res.data;
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
         );
 
         
@@ -250,15 +289,46 @@ export class UserUpdateComponent implements OnInit {
            
            this.spinner.show();
            this.updateUser.value.roles = this.updateArray;
-           this.userService.updateUser(this.updateUser.value)
-           .subscribe(
-               (res:any) => {
-                   if(res.status === "0"){
-                       this.toastr.error(res.data);
-                       this.spinner.hide();
-                   }
-                   else{
-                       localStorage.removeItem("data_name");
+        //    this.userService.updateUser(this.updateUser.value).subscribe(
+        //        (res:any) => {
+        //            if(res.status === "0"){
+        //                this.toastr.error(res.data);
+        //                this.spinner.hide();
+        //            }
+        //            else{
+        //                localStorage.removeItem("data_name");
+        //                localStorage.removeItem("data_username");
+        //                localStorage.removeItem("data_email");
+        //                localStorage.removeItem("data_empId");
+        //                localStorage.removeItem("data_mobileNumber");
+        //                localStorage.removeItem("data_stationCode");
+        //                setTimeout(() => {
+        //                    /** spinner ends after 5 seconds */
+        //                    this.spinner.hide();
+        //                  }, 3000);
+        //                this.toastr.success(res.data);
+        //                this.updateUser.reset();
+        //                this.submitted = false;
+                       
+        //                this.router.navigate(['user-manager/users/all/list']);
+        //            } 
+        //        },
+        //        (error) => {
+        //            this.errormsg = error;
+        //            this.spinner.hide();
+        //            this.toastr.error("Error!", this.errormsg, {
+        //                progressBar: true,
+        //            });
+        //        }
+        //    );
+           this.userService.updateUser(this.updateUser.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                localStorage.removeItem("data_name");
                        localStorage.removeItem("data_username");
                        localStorage.removeItem("data_email");
                        localStorage.removeItem("data_empId");
@@ -271,18 +341,16 @@ export class UserUpdateComponent implements OnInit {
                        this.toastr.success(res.data);
                        this.updateUser.reset();
                        this.submitted = false;
-                       
-                       this.router.navigate(['user-manager/users/all/list']);
-                   } 
-               },
-               (error) => {
-                   this.errormsg = error;
-                   this.spinner.hide();
-                   this.toastr.error("Error!", this.errormsg, {
-                       progressBar: true,
-                   });
-               }
-           );
+              }
+            },
+            error:(err)=>{
+                this.spinner.hide();
+                this.errormsg = err.error.data;
+                this.toastr.error("Error!", this.errormsg, {
+                    progressBar: true,
+                });
+            }
+          })
        }
    }
 }

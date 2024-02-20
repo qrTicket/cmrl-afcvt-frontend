@@ -19,18 +19,34 @@ export class UnassignListComponent implements OnInit {
 
     ngOnInit() {
         this.spinner.show();
-        this.productAPI.allUnassignedEquipment().subscribe(
-            (res) => {
+        // this.productAPI.allUnassignedEquipment().subscribe(
+        //     (res) => {
+        //         this.spinner.hide();
+        //         this.unassign = res;
+        //         // console.log(this.unassign);
+        //     },
+        //     (error) => {
+        //         this.spinner.hide();
+        //         // console.log(error);
+        //         this.errormsg = error;
+        //         this.toastr.error("", this.errormsg);
+        //     }
+        // );
+        this.productAPI.allUnassignedEquipment().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
                 this.spinner.hide();
-                this.unassign = res;
-                // console.log(this.unassign);
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.unassign = res.data;
+              }
             },
-            (error) => {
+            error:(err)=>{
                 this.spinner.hide();
-                // console.log(error);
-                this.errormsg = error;
-                this.toastr.error("", this.errormsg);
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 }

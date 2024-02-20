@@ -51,10 +51,25 @@ export class ConfiguredEquipComponent implements OnInit {
             problemDescription: ["", Validators.required]
         });
 
-        this.stationAPI.getConfiguredEquip().subscribe((res) => {
-            this.configuredList = res['data'];
-            this.temp = true;
-        });
+        // this.stationAPI.getConfiguredEquip().subscribe((res) => {
+        //     this.configuredList = res['data'];
+        //     this.temp = true;
+        // });
+
+        this.stationAPI.getConfiguredEquip().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.configuredList = res.data;
+                this.temp = true;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     editConfig(list) {
@@ -67,25 +82,41 @@ export class ConfiguredEquipComponent implements OnInit {
     }
 
     onAccept() {
-        this.subscription.push(
-            this.complaintAPI
-                .postComplaint(this.complaintForm.value)
-                .subscribe(
-                    (res) => {
-                        // console.log(res);
-                        this.successmsg = res;
-                        this.toastr.success("", this.successmsg.data);
-                        this.complaintForm.reset();
-                        this.modalRef.hide();
-                        // this.router.navigate(["complaint/progressList",]);
-                    },
-                    (error) => {
-                        // console.log(error);
-                        this.errormsg = error;
-                        this.toastr.error("", this.errormsg);
-                    }
-                )
-        );
+        // this.subscription.push(this.complaintAPI.postComplaint(this.complaintForm.value).subscribe(
+        //             (res) => {
+        //                 // console.log(res);
+        //                 this.successmsg = res;
+        //                 this.toastr.success("", this.successmsg.data);
+        //                 this.complaintForm.reset();
+        //                 this.modalRef.hide();
+        //                 // this.router.navigate(["complaint/progressList",]);
+        //             },
+        //             (error) => {
+        //                 // console.log(error);
+        //                 this.errormsg = error;
+        //                 this.toastr.error("", this.errormsg);
+        //             }
+        //         )
+        // );
+
+        this.subscription.push( this.complaintAPI.postComplaint(this.complaintForm.value).subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.successmsg = res;
+                this.toastr.success("", this.successmsg.data);
+                this.complaintForm.reset();
+                this.modalRef.hide();
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          }))
+
+       
     }
 
 }

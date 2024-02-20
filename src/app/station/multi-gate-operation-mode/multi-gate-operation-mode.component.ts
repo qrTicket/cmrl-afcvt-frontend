@@ -62,27 +62,57 @@ export class MultiGateOperationModeComponent implements OnInit {
   }
 
   getModeList(){
-    this.stationService.getModelList().subscribe(
-      (res)=>{
-        if(res['status']==="1"){
-          this.modeList = res['data'];
-        }else{
-          this.toastr.error(res.data);
-        }
+    // this.stationService.getModelList().subscribe(
+    //   (res)=>{
+    //     if(res['status']==="1"){
+    //       this.modeList = res['data'];
+    //     }else{
+    //       this.toastr.error(res.data);
+    //     }
         
-        console.log(res);
+    //     console.log(res);
+    // })
+
+    this.stationService.getModelList().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+            this.modeList = res.data;
+            console.log(this.modeList,'modeList list')
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
     })
   }
 
   getconfiguredGateList(){
-    this.stationService.getConfiguredEquip().subscribe(
-      (res)=>{
-        if(res['status']==="1"){
-          this.configuredGateList = res['data'];
-        }else{
-          this.toastr.error(res.data);
+    // this.stationService.getConfiguredEquip().subscribe(
+    //   (res)=>{
+    //     if(res['status']==="1"){
+    //       this.configuredGateList = res['data'];
+    //     }else{
+    //       this.toastr.error(res.data);
+    //     }
+    //       console.log(res);
+    //   })
+
+      this.stationService.getConfiguredEquip().subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+              this.configuredGateList = res.data;
+              console.log(this.configuredGateList,'configuredGate list')
+          }
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
         }
-          console.log(res);
       })
   }
 
@@ -120,13 +150,29 @@ export class MultiGateOperationModeComponent implements OnInit {
       assignTo: this.stn_group
     }
     console.log(obj)
-    this.stationService.updateModeToSpecificGate(obj).subscribe(res => {
-      if(res['status']==="1"){
-        this.toastr.success(res.data);
-        this.oprModeForm.reset();
-        this.checkedEvnt();
-      }else{
-        this.toastr.error(res.data);
+    // this.stationService.updateModeToSpecificGate(obj).subscribe(res => {
+    //   if(res['status']==="1"){
+    //     this.toastr.success(res.data);
+    //     this.oprModeForm.reset();
+    //     this.checkedEvnt();
+    //   }else{
+    //     this.toastr.error(res.data);
+    //   }
+    // })
+
+    this.stationService.updateModeToSpecificGate(obj).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.toastr.success(res.data);
+          this.oprModeForm.reset();
+          this.checkedEvnt();
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
       }
     })
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { User } from '../_models/user.model';
 export class EditUsermanagerComponent implements OnInit {
 
   user: User;
-  editusermanagerForm: UntypedFormGroup;
+  editusermanagerForm: FormGroup;
   submitted = false;
   id: number = null;
 
@@ -24,7 +24,7 @@ export class EditUsermanagerComponent implements OnInit {
   errormsg;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private activeRouter: ActivatedRoute,
     private toastr: ToastrService,
@@ -58,12 +58,24 @@ export class EditUsermanagerComponent implements OnInit {
 
   
   getUser(id) {
-    this.userService.getUserById(id)
-      .subscribe(
-        (user: User) => this.updateUser(user),
-        (error: any) => console.log(error)
-      );
-
+    // this.userService.getUserById(id)
+    //   .subscribe(
+    //     (user: User) => this.updateUser(user),
+    //     (error: any) => console.log(error)
+    //   );
+      this.userService.getUserById(id).subscribe({
+        next:(res:any)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.updateUser(res.data);
+          }
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
+        }
+      })
   }
   updateUser(user: User) {
     this.editusermanagerForm.patchValue({
@@ -88,21 +100,40 @@ export class EditUsermanagerComponent implements OnInit {
     //if (this.editusermanagerForm.invalid)
      // return this.toastr.error("Unable to update form: please check all the details", "Error");
     console.log(this.editusermanagerForm.value);
-    this.userService
-      .putUser(this.editusermanagerForm.value.id, this.editusermanagerForm.value)
-      .subscribe((res) => {
-        this.successmsg = res;
-        this.toastr.success("", this.successmsg.message);
-      },
-        (error) => {
-          console.log(error);
-          this.errormsg = error;
-          this.toastr.error("", this.errormsg);
+    // this.userService
+    //   .putUser(this.editusermanagerForm.value.id, this.editusermanagerForm.value)
+    //   .subscribe((res) => {
+    //     this.successmsg = res;
+    //     this.toastr.success("", this.successmsg.message);
+    //   },
+    //     (error) => {
+    //       console.log(error);
+    //       this.errormsg = error;
+    //       this.toastr.error("", this.errormsg);
+    //     }
+    //   );
+    // this.editusermanagerForm.reset();
+    // this.submitted = false;
+    // this.router.navigate(['admin/userlist']);
+
+    this.userService.putUser(this.editusermanagerForm.value.id, this.editusermanagerForm.value).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
         }
-      );
-    this.editusermanagerForm.reset();
-    this.submitted = false;
-    this.router.navigate(['admin/userlist']);
+        else if(res.status === "1"){
+          this.successmsg = res.data;
+          this.toastr.success("", this.successmsg.message);
+          this.editusermanagerForm.reset();
+          this.submitted = false;
+          this.router.navigate(['admin/userlist']);
+        }
+      },
+      error:(err)=>{
+        this.errormsg = err.error.data;
+        this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 

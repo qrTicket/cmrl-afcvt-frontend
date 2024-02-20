@@ -5,6 +5,7 @@ import { switchMap, takeUntil, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-alarmreport',
@@ -23,7 +24,8 @@ export class AlarmreportComponent implements OnInit, OnDestroy {
   dataRefresher: any;
 
   constructor(
-    private alarmgapi: AlarmService
+    private alarmgapi: AlarmService,
+    private toastr: ToastrService
   ) { }
 
   dtOptions: DataTables.Settings = {};
@@ -36,17 +38,36 @@ export class AlarmreportComponent implements OnInit, OnDestroy {
   }
 
   alarmsList() {
-    this.alarmgapi.getAllalarm().subscribe(res => {
-      this.alarms = res["data"];
-      // console.log(this.alarms, "Alarms");
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 5,
-        processing: true
-      };
-      this.dtTrigger.next(true); // to rerender the table when next function is called 
+    // this.alarmgapi.getAllalarm().subscribe(res => {
+    //   this.alarms = res["data"];
+    //   // console.log(this.alarms, "Alarms");
+    //   this.dtOptions = {
+    //     pagingType: 'full_numbers',
+    //     pageLength: 5,
+    //     processing: true
+    //   };
+    //   this.dtTrigger.next(true); // to rerender the table when next function is called 
+    // });
 
-    });
+    this.alarmgapi.getAllalarm().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.alarms = res.data;
+          this.dtOptions = {
+            pagingType: 'full_numbers',
+            pageLength: 5,
+            processing: true
+          };
+          this.dtTrigger.next(true); // to rerender the table when next function is called 
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
   //console.log(statustext$);

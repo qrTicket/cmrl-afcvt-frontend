@@ -37,10 +37,26 @@ export class GateOperationModeComponent implements OnInit {
   }
 
   getModeList(){
-    this.stationService.getModelList().subscribe(
-      (res)=>{
-        this.modeList = res['data'];
-        console.log(res);
+    // this.stationService.getModelList().subscribe(
+    //   (res)=>{
+    //     this.modeList = res['data'];
+    //     console.log(res);
+    // })
+
+    this.stationService.getModelList().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+            //this.temp = true;
+            this.modeList = res.data;
+            console.log(this.modeList,'modeList list')
+        }
+    },
+    error:(err)=>{
+        this.toastr.error(err.error.data,'Error!')
+    }
     })
   }
 
@@ -56,12 +72,26 @@ export class GateOperationModeComponent implements OnInit {
     });
 
     this.gateMode = this.oprModeForm.value.modeName;
-    this.stationService.updateModeToAllGate(this.gateMode).subscribe(res => {
-      if(res['status']==="1"){
-        this.toastr.success(res.data);
-      }else{
-        this.toastr.error(res.data);
-      }
+    // this.stationService.updateModeToAllGate(this.gateMode).subscribe(res => {
+    //   if(res['status']==="1"){
+    //     this.toastr.success(res.data);
+    //   }else{
+    //     this.toastr.error(res.data);
+    //   }
+    // })
+
+    this.stationService.updateModeToAllGate(this.gateMode).subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+          this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.toastr.success(res.data);
+        }
+    },
+    error:(err)=>{
+        this.toastr.error(err.error.data,'Error!')
+    }
     })
   }
 

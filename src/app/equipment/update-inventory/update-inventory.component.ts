@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -20,7 +20,7 @@ import { ProductType } from "../_models/product-type.model";
     styleUrls: ["./update-inventory.component.scss"],
 })
 export class UpdateInventoryComponent implements OnInit {
-    updateInventoryStock: UntypedFormGroup;
+    updateInventoryStock: FormGroup;
     successmsg;
     errormsg;
     message;
@@ -31,12 +31,12 @@ export class UpdateInventoryComponent implements OnInit {
     active: String = "No";
     status: String = "Active";
 
-    productList: ProductType[] = [];
+    productList: any[] = [];
     manufacturerList: any = [];
     constructor(
         private productTypeService: ProductTypeService,
         private productService: ProductService,
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private toastr: ToastrService,
@@ -136,10 +136,23 @@ export class UpdateInventoryComponent implements OnInit {
         });
         this.updateInventoryStock.get("status").setValue(this.status);
         this.updateInventoryStock.get("assign").setValue(this.active);
-        this.productTypeService.getProductTypeList().subscribe((res) => {
-            this.productList = res;
-            // console.log(this.productList);
-        });
+        // this.productTypeService.getProductTypeList().subscribe((res) => {
+        //     this.productList = res;
+        //     // console.log(this.productList);
+        // });
+        this.productTypeService.getProductTypeList().subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.productList = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
       
     }
 

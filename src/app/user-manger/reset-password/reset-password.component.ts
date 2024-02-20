@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { UserProfileService } from "../../_services/user-profile.service";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -13,13 +13,13 @@ import { MustMatch } from "src/app/_helpers/match-validators";
     styleUrls: ["./reset-password.component.scss"],
 })
 export class ResetPasswordComponent implements OnInit {
-    changePasswordForm: UntypedFormGroup;
+    changePasswordForm: FormGroup;
     submitted: boolean = false;
     successmsg: any;
     errormsg: any;
     constructor(
         private router: Router,
-        private formbuilder: UntypedFormBuilder,
+        private formbuilder: FormBuilder,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
         private userProfileAPI: UserProfileService
@@ -75,35 +75,61 @@ export class ResetPasswordComponent implements OnInit {
                 text: "Please fill all fields!",
             });
         this.spinner.show();
-        this.userProfileAPI
-            .changePassword(this.changePasswordForm.value)
-            .subscribe(
-                (res) => {
-                    if (res.status === "0") {
-                        this.spinner.hide();
-                        return Swal.fire({
-                            icon: "error",
-                            title: "Error!",
-                            text: res.data,
-                        });
-                    }
+        // this.userProfileAPI.changePassword(this.changePasswordForm.value).subscribe(
+        //         (res) => {
+        //             if (res.status === "0") {
+        //                 this.spinner.hide();
+        //                 return Swal.fire({
+        //                     icon: "error",
+        //                     title: "Error!",
+        //                     text: res.data,
+        //                 });
+        //             }
+        //             this.spinner.hide();
+        //             this.successmsg = res["data"];
+        //             this.toastr.success("", this.successmsg);
+        //             this.changePasswordForm.reset();
+        //             this.submitted = false;
+        //             this.router.navigateByUrl("/user-manager/dashboard");
+        //             //localStorage.clear();
+        //         },
+        //         (error) => {
+        //             this.spinner.hide();
+        //             Swal.fire({
+        //                 title: "Error!",
+        //                 text: error.data,
+        //             });
+        //             // this.errormsg = error["data"];
+        //             // this.toastr.error("", this.errormsg);
+        //         }
+        //     );
+            this.userProfileAPI.changePassword(this.changePasswordForm.value).subscribe({
+                next:(res)=>{
+                  if(res.status === "0"){
                     this.spinner.hide();
-                    this.successmsg = res["data"];
+                    return Swal.fire({
+                        icon: "error",
+                        title: "Error!",
+                        text: res.data,
+                    });
+                  }
+                  else if(res.status === "1"){
+                    this.spinner.hide();
+                    this.successmsg = res.data;
                     this.toastr.success("", this.successmsg);
                     this.changePasswordForm.reset();
                     this.submitted = false;
                     this.router.navigateByUrl("/user-manager/dashboard");
-                    //localStorage.clear();
+                  }
                 },
-                (error) => {
+                error:(err)=>{
+                    //this.toastr.error(err.error.data,'Error!')
                     this.spinner.hide();
                     Swal.fire({
                         title: "Error!",
-                        text: error.data,
+                        text: err.error.data,
                     });
-                    // this.errormsg = error["data"];
-                    // this.toastr.error("", this.errormsg);
                 }
-            );
+              })
     }
 }

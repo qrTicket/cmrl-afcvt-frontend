@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
-import { Subscription } from "rxjs/Subscription";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Subscription } from "rxjs";
 
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { AddUserService } from "../../user-manger/_services/add-user.service";
@@ -20,7 +20,7 @@ import { Router } from "@angular/router";
 export class EditEquipmentProfileComponent implements OnInit, OnDestroy {
     subscription: Subscription[] = [];
     userList;
-    editProfileForm: UntypedFormGroup;
+    editProfileForm: FormGroup;
     submitted: boolean = false;
     role: string;
     isReadOnly: boolean = true;
@@ -36,7 +36,7 @@ export class EditEquipmentProfileComponent implements OnInit, OnDestroy {
 
 
     constructor(
-        private formbuilder: UntypedFormBuilder,
+        private formbuilder: FormBuilder,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
         private userProfileAPI: AddUserService,
@@ -88,11 +88,19 @@ export class EditEquipmentProfileComponent implements OnInit, OnDestroy {
             roles:['']
         });
         this.subscription.push(
-            this.userProfileAPI
-                .getUserProfile()
-                .subscribe((profileData: PTO) => {
-                    this.getUserData(profileData);
-                })
+            // this.userProfileAPI
+            //     .getUserProfile()
+            //     .subscribe((profileData: PTO) => {
+            //         this.getUserData(profileData);
+            //     })
+                this.userProfileAPI.getUserProfile().subscribe({
+                    next:(res:any)=>{
+                        this.getUserData(res)
+                    },
+                    error:(err)=>{
+                        this.toastr.error(err.error.data,'Error!')
+                    }
+                  })
         );
         this.editProfileForm.disable();
     }
@@ -151,23 +159,42 @@ export class EditEquipmentProfileComponent implements OnInit, OnDestroy {
             });
         }
 
-        this.userDataUpdate.updateUserProfile(this.editProfileForm.value)
-            .subscribe(
-                (res:any) => {
-                    if(res.status === "1"){
-                        this.spinner.show();
-                        this.toastr.success("SUCCESS! "+res.data);
-                        this.showEditBtn = true;
-                        this.showUpdateBtn = false;
-                        this.editProfileForm.disable();
-                        this.spinner.hide();
-                    }
+        // this.userDataUpdate.updateUserProfile(this.editProfileForm.value)
+        //     .subscribe(
+        //         (res:any) => {
+        //             if(res.status === "1"){
+        //                 this.spinner.show();
+        //                 this.toastr.success("SUCCESS! "+res.data);
+        //                 this.showEditBtn = true;
+        //                 this.showUpdateBtn = false;
+        //                 this.editProfileForm.disable();
+        //                 this.spinner.hide();
+        //             }
+        //         },
+        //         (error) => {
+        //             this.toastr.error("ERROR! ", error.data)
+        //         }
+        //     );
+            this.userDataUpdate.updateUserProfile(this.editProfileForm.value).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                    this.spinner.hide();
+                    this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.spinner.show();
+                    this.toastr.success("SUCCESS! "+res.data);
+                    this.showEditBtn = true;
+                    this.showUpdateBtn = false;
+                    this.editProfileForm.disable();
+                    this.spinner.hide();
+                  }
                 },
-                (error) => {
-                    this.toastr.error("ERROR! ", error.data)
+                error:(err)=>{
+                    this.spinner.hide();
+                    this.toastr.error(err.error.data,'Error!')
                 }
-            );
-
+              })
         
     }
 

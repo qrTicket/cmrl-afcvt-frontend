@@ -23,8 +23,16 @@
                     <td>{{ item.ticketNumber.issueDescription }}</td>
                     <td>
                         <div class="grid">
-                            <button [disabled]="item.accepted === true" class="btn btn-primary p-1 mr-1"
+                            <!-- <button [disabled]="item.accepted === true" class="btn btn-primary p-1 mr-1"
                                 (click)="acceptComp(item.id, item)" [ngClass]="{
+                                    notClickable: item.accepted === true,
+                                    clickable: item.accepted === false
+                                }">
+                                <i class="fa fa-check">Accept</i>
+                            </button> -->
+
+                            <button [disabled]="item.accepted === true" class="btn btn-primary p-1 mr-1"
+                                (click)="acceptComp()" [ngClass]="{
                                     notClickable: item.accepted === true,
                                     clickable: item.accepted === false
                                 }">

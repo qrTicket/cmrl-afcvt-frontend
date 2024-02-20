@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import Swal from "sweetalert2";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -15,7 +15,7 @@ import { RxwebValidators } from "@rxweb/reactive-form-validators";
 })
 export class EditLineComponent implements OnInit {
     line: Line;
-    editlineForm: UntypedFormGroup;
+    editlineForm: FormGroup;
     submitted = false;
     isDisabled: boolean = true;
     successmsg;
@@ -25,7 +25,7 @@ export class EditLineComponent implements OnInit {
 
     constructor(
         private linesService: LinesService,
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private router: Router,
         private activeRouter: ActivatedRoute,
         private toastr: ToastrService,
@@ -94,9 +94,22 @@ export class EditLineComponent implements OnInit {
             ],*/
         });
 
-        this.linesService.getLines().subscribe((res) => {
-            this.line = res["data"];
-        });
+        // this.linesService.getLines().subscribe((res) => {
+        //     this.line = res["data"];
+        // });
+        this.linesService.getLines().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.line = res.data;
+              }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
 
         this.activeRouter.paramMap.subscribe((params) => {
             this.lineId = +params.get("id");
@@ -111,11 +124,25 @@ export class EditLineComponent implements OnInit {
     }
 
     getLine(id: number) {
-        this.linesService.getLineById(id).subscribe((line: Line) => {
-            this.updateLine(line["data"]);
-        }),
-            (error: any) => {
-            };
+        // this.linesService.getLineById(id).subscribe((line: Line) => {
+        //     this.updateLine(line["data"]);
+        // }),
+        //     (error: any) => {
+        //     };
+
+            this.linesService.getLineById(id).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.updateLine(res.data);
+                  }
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
+                }
+              })
     }
     updateLine(line: Line) {
         this.editlineForm.patchValue({
@@ -136,30 +163,49 @@ export class EditLineComponent implements OnInit {
                 title: "Error!",
                 text: "Please fill all fields!",
             });
-        this.linesService.putLine(this.editlineForm.value).subscribe(
-            (data) => {
-                console.log(data);
-                if (data["status"] === "1") {
-                    this.spinner.hide();
-                    this.successmsg = data;
+        // this.linesService.putLine(this.editlineForm.value).subscribe(
+        //     (data) => {
+        //         console.log(data);
+        //         if (data["status"] === "1") {
+        //             this.spinner.hide();
+        //             this.successmsg = data;
+        //             this.toastr.success("", this.successmsg.data);
+        //             this.router.navigate(["/admin/linelist"]);
+        //             this.editlineForm.reset();
+        //             this.submitted = false;
+        //         } else {
+        //             Swal.fire({
+        //                 title: "Error !",
+        //                 text: data["data"],
+        //             });
+        //         }
+        //     },
+        //     (error) => {
+        //         this.errormsg = error;
+        //         Swal.fire({
+        //             title: "Error !",
+        //             text: this.errormsg.data,
+        //         });
+        //     }
+        // );
+
+        this.linesService.putLine(this.editlineForm.value).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                    this.successmsg = res.data;
                     this.toastr.success("", this.successmsg.data);
                     this.router.navigate(["/admin/linelist"]);
                     this.editlineForm.reset();
                     this.submitted = false;
-                } else {
-                    Swal.fire({
-                        title: "Error !",
-                        text: data["data"],
-                    });
-                }
+              }
             },
-            (error) => {
-                this.errormsg = error;
-                Swal.fire({
-                    title: "Error !",
-                    text: this.errormsg.data,
-                });
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 }

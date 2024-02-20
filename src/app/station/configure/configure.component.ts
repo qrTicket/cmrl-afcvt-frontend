@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../_services/config.service';
-import { UntypedFormGroup, UntypedFormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -21,7 +21,7 @@ import { GateDirection } from 'src/app/equipment/_models/gate-direction.model';
   styleUrls: ['./configure.component.scss']
 })
 export class ConfigureComponent implements OnInit {
-  configForm: UntypedFormGroup;
+  configForm: FormGroup;
   submitted = false;
   isSaving = false;
   isDisabled: boolean = true;
@@ -51,7 +51,7 @@ export class ConfigureComponent implements OnInit {
     // private productService: ProductService,
     // private equipmentService: EquipmentService,
     // private router: Router,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -112,11 +112,25 @@ export class ConfigureComponent implements OnInit {
 
     });
 
-    this.configapi.getAllequipement().subscribe((data) => {
-      this.gateList = data;
-      // this.temp = true;
-      console.log(this.gateList, "Gate & Terminal Data");
-    });
+    // this.configapi.getAllequipement().subscribe((data) => {
+    //   this.gateList = data;
+    //   // this.temp = true;
+    //   console.log(this.gateList, "Gate & Terminal Data");
+    // });
+    this.configapi.getAllequipement().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.gateList = res.data;
+          console.log(this.gateList, "Gate & Terminal Data");
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
     this.route.paramMap.subscribe((params) => {
       const Iid = +params.get("gateTriggerId");
@@ -163,10 +177,24 @@ export class ConfigureComponent implements OnInit {
   }
 
   getGateData(gateTriggerId: number) {
-    this.configapi.getgateById(gateTriggerId).subscribe(
-      (gateList: GateModel) => this.configureGate(gateList),
-      (error: any) => console.log(error)
-    );
+    // this.configapi.getgateById(gateTriggerId).subscribe(
+    //   (gateList: GateModel) => this.configureGate(gateList),
+    //   (error: any) => console.log(error)
+    // );
+
+    this.configapi.getgateById(gateTriggerId).subscribe({
+      next:(gateList:any)=>{
+        if(gateList.status === "0"){
+            this.toastr.error(gateList.data,'Error!')
+        }
+        else if(gateList.status === "1"){
+          this.configureGate(gateList)
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
   }
 
@@ -230,27 +258,36 @@ export class ConfigureComponent implements OnInit {
     console.log('Form submitted.',
       this.configForm.value.gateTriggerId);
 
-    this.configapi
-      .putgate(
-        this.configForm.value.gateTriggerId,
-        this.configForm.value
-      )
-      .subscribe(
-        (res) => {
-          console.log(res);
-          this.toastr.info("", "Updated Successfully", {
-            progressBar: true,
-          });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    // console.log(this.configForm.value);
-    this.toastr.info("Updated Successfully.");
-    this.configForm.reset();
-    this.submitted = false;
+    // this.configapi.putgate(
+    //     this.configForm.value.gateTriggerId,
+    //     this.configForm.value
+    //   )
+    //   .subscribe(
+    //     (res) => {
+    //       console.log(res);
+    //       this.toastr.info("", "Updated Successfully", {progressBar: true,});
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // // console.log(this.configForm.value);
+    // this.toastr.info("Updated Successfully.");
+    // this.configForm.reset();
+    // this.submitted = false;
     // this.router.navigate(["stationdashboard"]);
+
+    this.configapi.putgate(this.configForm.value.gateTriggerId, this.configForm.value).subscribe({
+      next:(res)=>{
+        this.toastr.info("", "Updated Successfully", {progressBar: true,});
+        this.toastr.info("Updated Successfully.");
+        this.configForm.reset();
+        this.submitted = false;
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 }

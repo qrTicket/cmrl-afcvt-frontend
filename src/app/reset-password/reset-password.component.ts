@@ -50,22 +50,42 @@ export class ResetPasswordComponent implements OnInit {
     onFormSubmit() {
         this.spinner.show();
         this.submitted = true;
-        this.forgotpasswordService
-            .postChangePassword(this.resetPasswordForm.value)
-            .subscribe(
-                (data) => {
-                    this.spinner.hide();
-                    this.successmsg = data;
-                    this.toastr.success("", this.successmsg.message);
-                },
-                (error) => {
-                    this.spinner.hide();
-                    this.errormsg = error;
-                    this.toastr.error(this.errormsg);
-                }
-            );
+        // this.forgotpasswordService.postChangePassword(this.resetPasswordForm.value).subscribe(
+        //         (data) => {
+        //             this.spinner.hide();
+        //             this.successmsg = data;
+        //             this.toastr.success("", this.successmsg.message);
+        //         },
+        //         (error) => {
+        //             this.spinner.hide();
+        //             this.errormsg = error;
+        //             this.toastr.error(this.errormsg);
+        //         }
+        //     );
        
-        this.resetPasswordForm.reset();
-        this.submitted = false;
+        // this.resetPasswordForm.reset();
+        // this.submitted = false;
+
+        this.forgotpasswordService.postChangePassword(this.resetPasswordForm.value).subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                this.spinner.hide();
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.spinner.hide();
+                this.successmsg = res.data;
+                this.toastr.success("", this.successmsg.message);
+                this.resetPasswordForm.reset();
+                this.submitted = false;
+              }
+            },
+            error:(err)=>{
+                //this.toastr.error(err.error.data,'Error!')
+                this.spinner.hide();
+                this.errormsg = err.error.data;
+                this.toastr.error(this.errormsg);
+            }
+          })
     }
 }

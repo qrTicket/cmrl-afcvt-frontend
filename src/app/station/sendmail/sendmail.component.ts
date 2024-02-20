@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import { MainService } from '../../maintenance/_mainservices/main.service'
 import { HttpClient } from '@angular/common/http';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
@@ -10,13 +10,13 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./sendmail.component.scss']
 })
 export class SendmailComponent implements OnInit {
-  mailForm: UntypedFormGroup;
+  mailForm: FormGroup;
   submitted = false;
   constructor
   (
     private http: HttpClient,
     //private mainService: MainService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService

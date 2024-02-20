@@ -53,25 +53,44 @@ export class StationDashboardComponent implements OnInit {
     dtOptions: DataTables.Settings = {};
 
     ngOnInit() {
-        this.stationAPI.getHoverdataEquip().subscribe((res) => {
-            (res) => (this.North = res.North);
-            (res) => (this.South = res.South);
+        // this.stationAPI.getHoverdataEquip().subscribe((res) => {
+        //     (res) => (this.North = res.North);
+        //     (res) => (this.South = res.South);
             
-                  if(res.status === "0"){
-                    //   this.spinner.hide();
-                    //   return this.toastr.error(res.data, "No data available!")
-                      //return Swal(res.data, "", "error");
-                      return Swal.fire({
-                        text: res.data,
-                        icon: "error"
-                      });
+        //           if(res.status === "0"){
+        //             //   this.spinner.hide();
+        //             //   return this.toastr.error(res.data, "No data available!")
+        //               //return Swal(res.data, "", "error");
+        //               return Swal.fire({
+        //                 text: res.data,
+        //                 icon: "error"
+        //               });
 
-                  }
-                  this.configuredList = res["data"];
-                  this.temp = true;
-            // this.configuredList = res["data"];
-            // this.temp = true;
-        });
+        //           }
+        //           this.configuredList = res["data"];
+        //           this.temp = true;
+        //     // this.configuredList = res["data"];
+        //     // this.temp = true;
+        // });
+
+        this.stationAPI.getHoverdataEquip().subscribe({
+            next:(res)=>{
+                if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                }
+                else if(res.status === "1"){
+                    this.North = res.North;
+                    this.South = res.South;
+                    
+                    this.configuredList = res.data;
+                    this.temp = true;
+                }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+        })
+
         this.alarmlist();
     }
 
@@ -80,10 +99,24 @@ export class StationDashboardComponent implements OnInit {
     }
 
     alarmlist() {
-    this.stationAPI.getallAlarms().subscribe((res) => {
-        this.alarmsList = res["data"];
-        this.temp = true;
-    });
+    // this.stationAPI.getallAlarms().subscribe((res) => {
+    //     this.alarmsList = res["data"];
+    //     this.temp = true;
+    // });
+    this.stationAPI.getallAlarms().subscribe({
+        next:(res)=>{
+            if(res.status === "1"){
+                this.temp = true;
+                this.alarmsList = res.data;
+            }
+            else if(res.status === "0"){
+                this.toastr.error(res.data)
+            }
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.data)
+        }
+    })
 }
 
 }

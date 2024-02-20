@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sentcomplaints',
@@ -23,7 +24,7 @@ dtTrigger: Subject<any> = new Subject();
     searchTerm: any;
     complaintlist:any[];
 
-  constructor(private complaintapi: ComplaintService, private http: HttpClient, private router: Router) { }
+  constructor(private complaintapi: ComplaintService, private http: HttpClient, private router: Router, private toastr:ToastrService) { }
 
   dtOptions: DataTables.Settings = {};
   
@@ -34,17 +35,38 @@ dtTrigger: Subject<any> = new Subject();
 
    sentcomplaintslist()
    {
-    this.complaintapi.getAllComplaints().subscribe(data => {
-      //this.complaints = data;
-      this.complaintlist = data;
-      console.log(this.complaints);
-      this.dtOptions = {
-          pagingType: 'full_numbers',
-          pageLength: 5,
-          processing: true
-        };
-        this.dtTrigger.next(true); // to rerender the table when next function is called 
-    });
+    // this.complaintapi.getAllComplaints().subscribe(data => {
+    //   //this.complaints = data;
+    //   this.complaintlist = data;
+    //   console.log(this.complaints);
+    //   this.dtOptions = {
+    //       pagingType: 'full_numbers',
+    //       pageLength: 5,
+    //       processing: true
+    //     };
+    //     this.dtTrigger.next(true); // to rerender the table when next function is called 
+    // });
+
+    this.complaintapi.getAllComplaints().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.complaintlist = res.data;
+          console.log(this.complaints);
+          this.dtOptions = {
+              pagingType: 'full_numbers',
+              pageLength: 5,
+              processing: true
+            };
+            this.dtTrigger.next(true); // to rerender the table when next function is called 
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
    }
 
     // to reload the data from datable when sorting or filtering function is called 

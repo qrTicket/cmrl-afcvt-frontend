@@ -51,39 +51,62 @@ export class StationlistComponent implements OnInit {
   // -------- display station list function ----------
 
   stationlist() {
-    this.stationService.getStation().subscribe(res => {
-      this.station = res["data"];
-      this.temp = true;
-      // this.dtOptions = {
-      //   pagingType: 'full_numbers',
-      //   pageLength: 5,
-      //   processing: true
-      // };
-      // this.dtTrigger.next();
-    });
+    // this.stationService.getStation().subscribe(res => {
+    //   this.station = res["data"];
+    //   this.temp = true;
+      
+    // });
+    this.stationService.getStation().subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+              this.toaster.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.station = res.data;
+            this.temp = true;
+          }
+        },
+        error:(err)=>{
+            this.toaster.error(err.error.data,'Error!')
+        }
+      })
   }
 
   //change station status without confirm prompt (not in use)
   changeStatus(stationCode: string, status:any){
     console.log(stationCode);
     console.log(status);
-    this.stationService.statusUpdate(stationCode, +status).subscribe(
-      (res) => {
-          //console.log(res);
-          if(res.status==="1"){
-          this.toaster.success("", res.data);
-          this.stationlist();
-          }else{
-          this.toaster.error("",res.data);
-          this.stationlist();
+    // this.stationService.statusUpdate(stationCode, +status).subscribe(
+    //   (res) => {
+    //       //console.log(res);
+    //       if(res.status==="1"){
+    //       this.toaster.success("", res.data);
+    //       this.stationlist();
+    //       }else{
+    //       this.toaster.error("",res.data);
+    //       this.stationlist();
+    //       }
+    //   },
+    //   (error) => {
+    //       this.errormsg = error;
+    //       this.toaster.error("", this.errormsg);
+    //   });
+      this.stationService.statusUpdate(stationCode, +status).subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+            this.toaster.error("",res.data);
+            this.stationlist();
           }
-
-      },
-      (error) => {
-
-          this.errormsg = error;
+          else if(res.status === "1"){
+            this.toaster.success("", res.data);
+            this.stationlist();
+          }
+        },
+        error:(err)=>{
+            this.errormsg = err.error.data;
           this.toaster.error("", this.errormsg);
-      });
+        }
+      })
   }
 
   openModal(templateDeactivate: TemplateRef<any>, templateActive: TemplateRef<any>,templateClose: TemplateRef<any>, e) {
@@ -116,27 +139,47 @@ export class StationlistComponent implements OnInit {
 
     confirm(stationCode: string) {
 
-        this.stationService.statusUpdate(stationCode, this.statusValue).subscribe(
-            (res) => {
-                //console.log(res);
-                if(res.status==="1"){
-                this.toaster.success("", res.data);
-                this.stationlist();
-                }else{
+        // this.stationService.statusUpdate(stationCode, this.statusValue).subscribe(
+        //     (res) => {
+        //         //console.log(res);
+        //         if(res.status==="1"){
+        //         this.toaster.success("", res.data);
+        //         this.stationlist();
+        //         }else{
+        //         this.toaster.error("",res.data);
+        //         this.stationlist();
+        //         }
+
+        //     },
+        //     (error) => {
+
+        //         this.errormsg = error;
+        //         this.modalRef.hide();
+        //         this.toaster.error("", this.errormsg);
+        //     });
+
+        // this.modalRef.hide();
+        // this.statusValue=0;
+
+        this.stationService.statusUpdate(stationCode, this.statusValue).subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
                 this.toaster.error("",res.data);
                 this.stationlist();
-                }
-
+              }
+              else if(res.status === "1"){
+                this.toaster.success("", res.data);
+                this.stationlist();
+              }
             },
-            (error) => {
-
-                this.errormsg = error;
+            error:(err)=>{
+                this.errormsg = err.error.data;
                 this.modalRef.hide();
                 this.toaster.error("", this.errormsg);
-            });
-
-        this.modalRef.hide();
-        this.statusValue=0;
+            }
+          })
+          this.modalRef.hide();
+          this.statusValue=0;
     }
 
     decline() {

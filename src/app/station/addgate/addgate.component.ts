@@ -2,8 +2,8 @@ import { Component, OnInit, NgZone } from "@angular/core";
 import { ConfigService } from "../_services/config.service";
 import { Equipconfig } from "../_model/equipconfig.model";
 import {
-    UntypedFormGroup,
-    UntypedFormBuilder,
+    FormGroup,
+    FormBuilder,
     Validators,
     FormControl,
 } from "@angular/forms";
@@ -17,7 +17,7 @@ import { EquipmentService } from "../../equipment/_services/equipment.service";
     styleUrls: ["./addgate.component.scss"],
 })
 export class AddgateComponent implements OnInit {
-    addForm: UntypedFormGroup;
+    addForm: FormGroup;
     submitted = false;
     selectedFile: File;
     equipmentList: any = [];
@@ -27,7 +27,7 @@ export class AddgateComponent implements OnInit {
     constructor(
         private configapi: ConfigService,
         private equipmentService: EquipmentService,
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private router: Router,
         private toastr: ToastrService,
         private http: HttpClient
@@ -59,16 +59,26 @@ export class AddgateComponent implements OnInit {
             sensorInactTime: ["", Validators.required],
         });
 
-        this.equipmentService.getEquipment().subscribe(
-            (data) => {
-                this.equipmentList = data;
-                console.log(data);
-                this.myarray = data;
+        // this.equipmentService.getEquipment().subscribe(
+        //     (data) => {
+        //         this.equipmentList = data;
+        //         console.log(data);
+        //         this.myarray = data;
+        //     },
+        //     (error) => {
+        //         console.log(error);
+        //     }
+        // );
+        this.equipmentService.getEquipment().subscribe({
+            next:(res)=>{
+                this.equipmentList = res;
+                console.log(res);
+                this.myarray = res;
             },
-            (error) => {
-                console.log(error);
+            error:(err)=>{
+                this.toastr.error(err.error,'Error!')
             }
-        );
+          })
     }
     get fval() {
         return this.addForm.controls;
@@ -80,13 +90,29 @@ export class AddgateComponent implements OnInit {
         if (this.addForm.invalid) {
             return this.toastr.error("Invalid Form", "Error");
         }
-        this.configapi.postequipement(this.addForm.value).subscribe((res) => {
-            console.log(res, "Response");
+        // this.configapi.postequipement(this.addForm.value).subscribe((res) => {
+        //     console.log(res, "Response");
 
-            //  console.log(this.addFrom.value);
+        //     //  console.log(this.addFrom.value);
+        // });
+        this.configapi.postequipement(this.addForm.value).subscribe( {
+            next:(res)=>{
+                if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
+                }
+                else if(res.status === "1"){
+                    this.toastr.success("Equipement configured Succeddfully", "Success");
+                    this.router.navigate(["/equipementlist"]);
+                }
+              },
+              error:(err)=>{
+                  this.toastr.error(err.error.data,'Error!')
+              }
         });
-        this.toastr.success("Equipement configured Succeddfully", "Success");
-        this.router.navigate(["/equipementlist"]);
+
+
+        // this.toastr.success("Equipement configured Succeddfully", "Success");
+        // this.router.navigate(["/equipementlist"]);
         // this.configForm.reset();
     }
 

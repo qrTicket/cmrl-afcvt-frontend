@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { StationService } from "../_services/station.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-terminal-list',
@@ -13,14 +14,38 @@ export class TerminalListComponent implements OnInit {
   
   constructor(
       private stationAPI: StationService,
-      private router: Router
+      private router: Router,
+      private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
-      this.stationAPI.assignedTerminal().subscribe((res) => {
-          this.terminalList = res["data"];
-          this.temp = true;
-      });
+      // this.stationAPI.assignedTerminal().subscribe((res) => {
+      //   if(res['status'] === "1"){
+      //     this.temp = true;
+      //     this.terminalList = res["data"];
+      //     console.log(this.terminalList,'terminal List')
+      // }
+      // else if(res['status'] === "0"){
+      //     this.toastr.error(res['data'])
+      // }
+      //     //this.terminalList = res["data"];
+      //     //this.temp = true;
+      // });
+      this.stationAPI.assignedTerminal().subscribe({
+        next:(res)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+              this.temp = true;
+              this.terminalList = res.data;
+              console.log(this.terminalList,'terminal list')
+          }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+      })
   }
 
   //navigate to raise complain page with device id

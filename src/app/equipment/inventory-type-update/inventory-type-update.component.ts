@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -12,8 +12,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { ProductTypeService } from "../_services/product-type.service";
 import { ProductType } from "../_models/product-type.model";
+import Swal from "sweetalert2";
 
-import swal from 'sweetalert';
 
 @Component({
     selector: "app-inventory-type-update",
@@ -21,7 +21,7 @@ import swal from 'sweetalert';
     styleUrls: ["./inventory-type-update.component.scss"],
 })
 export class InventoryTypeUpdateComponent implements OnInit {
-    updateInventoryType: UntypedFormGroup;
+    updateInventoryType: FormGroup;
     submitted = false;
     successmsg;
     errormsg;
@@ -30,7 +30,7 @@ export class InventoryTypeUpdateComponent implements OnInit {
     spinners = false;
     equipmentId: number;
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private toastr: ToastrService,
@@ -42,8 +42,12 @@ export class InventoryTypeUpdateComponent implements OnInit {
     openModal(updateTemplate: TemplateRef<any>) {
         this.submitted = true;
         if (this.updateInventoryType.invalid) {
-            return swal("Please fill all fields!", "", "error");
-            // this.toastr.error('Please fill all fields!');
+            //return swal("Please fill all fields!", "", "error");
+            return Swal.fire({
+                title:'Error',
+                icon:'error',
+                text:'Please fill all fields'
+              })
         } else {
             this.modalRef = this.modalService.show(updateTemplate);
         }
@@ -102,12 +106,25 @@ export class InventoryTypeUpdateComponent implements OnInit {
 
     //get the equipment type details with id from database
     getEquipmentTypdId(id) {
-        this.productTypeService.getById(id).subscribe(
-            (equipmentData: ProductType) => {
-                this.updateEquipmentType(equipmentData["data"]);
+        // this.productTypeService.getById(id).subscribe(
+        //     (equipmentData: ProductType) => {
+        //         this.updateEquipmentType(equipmentData["data"]);
+        //     },
+        //     (error) => console.log(error)
+        // );
+        this.productTypeService.getById(id).subscribe({
+            next:(res:any)=>{
+              if(res.status === "0"){
+                this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.updateEquipmentType(res.data)
+              }
             },
-            (error) => console.log(error)
-        );
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+          })
     }
 
     //path all equipment type details to form
@@ -126,23 +143,42 @@ export class InventoryTypeUpdateComponent implements OnInit {
         // console.log(this.updateInventoryType.value);
         
         this.spinner.show();
-        this.productTypeService
-            .editEquipmentType(this.equipmentId, this.updateInventoryType.value)
-            .subscribe(
-                (data) => {
+        // this.productTypeService
+        //     .editEquipmentType(this.equipmentId, this.updateInventoryType.value)
+        //     .subscribe(
+        //         (data) => {
+        //             this.spinner.hide();
+        //             this.successmsg = data;
+        //             this.toastr.success(this.successmsg.data);
+        //             this.router.navigate(["equipment/inventoryTypeList"])
+        //         },
+        //         (error) => {
+        //             // console.log(error);
+        //             this.spinner.hide();
+        //             this.errormsg = error;
+        //             // this.toastr.error(this.errormsg);
+        //             swal(this.errormsg, "", "error");
+        //         }
+        //     );
+            this.productTypeService.editEquipmentType(this.equipmentId, this.updateInventoryType.value).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
                     this.spinner.hide();
-                    this.successmsg = data;
+                    this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.spinner.hide();
+                    this.successmsg = res.data;
                     this.toastr.success(this.successmsg.data);
                     this.router.navigate(["equipment/inventoryTypeList"])
+                  }
                 },
-                (error) => {
-                    // console.log(error);
+                error:(err)=>{
                     this.spinner.hide();
-                    this.errormsg = error;
-                    // this.toastr.error(this.errormsg);
-                    swal(this.errormsg, "", "error");
+                    this.errormsg = err.error.data;
+                    this.toastr.error(this.errormsg,'Error!')
                 }
-            );
+              })
 
         
         this.modalRef.hide();

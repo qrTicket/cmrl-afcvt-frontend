@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 @Component({
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ['./update-stock.component.scss']
 })
 export class UpdateStockComponent implements OnInit {
-  updateInventoryStock: UntypedFormGroup;
+  updateInventoryStock: FormGroup;
 
   maxDate: any; minDate:any; startDate:any;
     submitted = false;
@@ -19,7 +19,7 @@ export class UpdateStockComponent implements OnInit {
   icon = false;
   spinners = false;
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService

@@ -37,7 +37,7 @@
 // }
 
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -51,7 +51,7 @@ import Swal from "sweetalert2";
     styleUrls: ["./edit-profile.component.scss"],
 })
 export class EditProfileComponent implements OnInit {
-    editProfileForm: UntypedFormGroup;
+    editProfileForm: FormGroup;
     userList;
     submitted: boolean = false;
     role: string;
@@ -69,7 +69,7 @@ export class EditProfileComponent implements OnInit {
     userRoles:any;
 
     constructor(
-        private formBuilder: UntypedFormBuilder,
+        private formBuilder: FormBuilder,
         private router: Router,
         private toastr: ToastrService,
         private userProfileAPI: UserProfileService
@@ -150,15 +150,29 @@ export class EditProfileComponent implements OnInit {
         //         console.log("User Profile", this.userRole);
         //         this.getUserData(userData);
         //     });
-        this.userProfileAPI.UserProfile().subscribe(
-            (userData) => {
-                this.getUserData(userData);
-                console.log(userData)
+        // this.userProfileAPI.UserProfile().subscribe(
+        //     (userData) => {
+        //         this.getUserData(userData);
+        //         console.log(userData)
+        //     },
+        //     (error) => {
+        //         // console.log(error);
+        //     }
+        // );
+        this.userProfileAPI.UserProfile().subscribe({
+            next:(res)=>{
+              if(res.status === "0"){
+                  this.toastr.error(res.data,'Error!')
+              }
+              else if(res.status === "1"){
+                this.getUserData(res.data);
+                console.log(res.data)
+              }
             },
-            (error) => {
-                // console.log(error);
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
             }
-        );
+          })
     }
 
     getUserData(userData: PTO) {
@@ -208,21 +222,37 @@ export class EditProfileComponent implements OnInit {
             })
         }
 
-        this.userProfileAPI
-            .updateUserProfile(this.editProfileForm.value)
-            .subscribe(
-                (res:any) => {
-                    if(res.status === "1"){
-                        this.toastr.success("SUCCESS! "+res.data);
+        // this.userProfileAPI
+        //     .updateUserProfile(this.editProfileForm.value)
+        //     .subscribe(
+        //         (res:any) => {
+        //             if(res.status === "1"){
+        //                 this.toastr.success("SUCCESS! "+res.data);
+        //                 this.showEditBtn = true;
+        //                 this.showUpdateBtn = false;
+        //                 this.editProfileForm.disable();
+        //             }
+        //         },
+        //         (error) => {
+        //             this.toastr.error("ERROR! ", error.data)
+        //         }
+        //     );
+            this.userProfileAPI.updateUserProfile(this.editProfileForm.value).subscribe({
+                next:(res:any)=>{
+                  if(res.status === "0"){
+                      this.toastr.error(res.data,'Error!')
+                  }
+                  else if(res.status === "1"){
+                    this.toastr.success("SUCCESS! "+res.data);
                         this.showEditBtn = true;
                         this.showUpdateBtn = false;
                         this.editProfileForm.disable();
-                    }
+                  }
                 },
-                (error) => {
-                    this.toastr.error("ERROR! ", error.data)
+                error:(err)=>{
+                    this.toastr.error(err.error.data,'Error!')
                 }
-            );
+              })
     }
 }
 

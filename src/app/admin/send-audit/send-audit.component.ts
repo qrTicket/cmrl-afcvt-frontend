@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
@@ -15,8 +15,8 @@ import { Station } from '../_models/station.model';
   styleUrls: ['./send-audit.component.scss']
 })
 export class SendAuditComponent implements OnInit {
-  singleForm: UntypedFormGroup;
-  allForm: UntypedFormGroup;
+  singleForm: FormGroup;
+  allForm: FormGroup;
   submitted = false;
 
   station: Station[] = [];
@@ -33,7 +33,7 @@ export class SendAuditComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private stationservice: StationService,
@@ -64,9 +64,22 @@ export class SendAuditComponent implements OnInit {
       ],
     });
 
-    this.stationservice.getStation().subscribe((res) => {
-      this.stationList = res["data"];
-    });
+    // this.stationservice.getStation().subscribe((res) => {
+    //   this.stationList = res["data"];
+    // });
+    this.stationservice.getStation().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.stationList = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
 
     this.stationData.stationName = this.route.snapshot.paramMap.get('stationName');
 
@@ -86,29 +99,52 @@ export class SendAuditComponent implements OnInit {
         title: "Error!",
         text: "Please fill all fields!",
       });
-    this.stationservice.auditFileTransfer(this.singleForm.value, this.stationName).subscribe(
-      (res) => {
-        if (res) {
-          this.spinner.hide();
-          return this.toastr.error();
-        }
-        console.log(res, "Single File Transfer");
+    // this.stationservice.auditFileTransfer(this.singleForm.value, this.stationName).subscribe(
+    //   (res) => {
+    //     if (res) {
+    //       this.spinner.hide();
+    //       return this.toastr.error();
+    //     }
+    //     console.log(res, "Single File Transfer");
 
-        this.spinner.hide();
-        // this.successmsg = res["data"];
-        this.toastr.success("", this.successmsg);
-        this.singleForm.reset();
-        this.submitted = false;
-        this.router.navigateByUrl("/auditList");
+    //     this.spinner.hide();
+    //     // this.successmsg = res["data"];
+    //     this.toastr.success("", this.successmsg);
+    //     this.singleForm.reset();
+    //     this.submitted = false;
+    //     this.router.navigateByUrl("/auditList");
+    //   },
+    //   (error) => {
+    //     this.spinner.hide();
+    //     Swal.fire({
+    //       title: "Error!",
+    //       text: error["data"],
+    //     });
+    //   }
+    // );
+    this.stationservice.auditFileTransfer(this.singleForm.value, this.stationName).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+          this.spinner.hide();
+          this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.spinner.hide();
+          // this.successmsg = res["data"];
+          this.toastr.success("", this.successmsg);
+          this.singleForm.reset();
+          this.submitted = false;
+          this.router.navigateByUrl("/auditList");
+        }
       },
-      (error) => {
-        this.spinner.hide();
-        Swal.fire({
-          title: "Error!",
-          text: error["data"],
-        });
+      error:(err)=>{
+          this.spinner.hide();
+          Swal.fire({
+            title: "Error!",
+            text: err.error.data,
+          });
       }
-    );
+    })
   }
 
   

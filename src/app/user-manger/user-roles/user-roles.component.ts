@@ -9,7 +9,7 @@ export class UserRolesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

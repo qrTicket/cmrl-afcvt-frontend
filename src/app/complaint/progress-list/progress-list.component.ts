@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Subject } from "rxjs";
-import { Subscription } from 'rxjs/Subscription';
+import { Subject, Subscription } from "rxjs";
+
 import { DataTableDirective } from "angular-datatables";
 import { ComplainService } from '../_complainservices/complain.service';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-progress-list',
@@ -24,7 +25,8 @@ export class ProgressListComponent implements OnInit {
 
 
   constructor(
-    private complainService: ComplainService
+    private complainService: ComplainService,
+    private toastr:ToastrService
   ) { }
 
   dtOptions: DataTables.Settings = {};
@@ -34,9 +36,22 @@ export class ProgressListComponent implements OnInit {
   }
 
   assignComplaintList() {
-    this.complainService.progressComplaintList().subscribe((res) => {
-      this.assignlist = res['data'];
-    });
+    // this.complainService.progressComplaintList().subscribe((res) => {
+    //   this.assignlist = res['data'];
+    // });
+    this.complainService.progressComplaintList().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.assignlist = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
 

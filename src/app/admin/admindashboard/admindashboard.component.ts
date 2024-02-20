@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular
 import { StationService } from '../_services/station.service';
 import { LinesService } from '../_services/lines.service';
 import { AddUsermanagerService } from '../_services/add-usermanager.service';
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AdmindashboardService } from '../_services/admindashboard.service';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
@@ -34,7 +34,7 @@ export class AdmindashboardComponent implements OnInit {
  
   modeList:any[]= [];
   configuredGateList:any = [];
-  oprModeForm: UntypedFormGroup;
+  oprModeForm: FormGroup;
   submitted:any=false;
   gateMode: any;
   stationCode: any;
@@ -43,14 +43,14 @@ export class AdmindashboardComponent implements OnInit {
   stn_group: any;
   send_btn_text:string="SEND"
 
-  gateConfigForm: UntypedFormGroup;
+  gateConfigForm: FormGroup;
 
 
   constructor(
     private stationService: StationService,
     private lineService: LinesService,
     private userService: AddUsermanagerService,
-    private formbuilder: UntypedFormBuilder,
+    private formbuilder: FormBuilder,
     private toastr: ToastrService,
     private dashboardService : AdmindashboardService,
     private router: Router
@@ -121,17 +121,17 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   get assignToForms() {
-    return this.oprModeForm.get('assignTo') as UntypedFormArray
+    return this.oprModeForm.get('assignTo') as FormArray
   }
 
 
   onCheckboxChange(e) {
-    const checkArray: UntypedFormArray = this.oprModeForm.get('assignTo') as UntypedFormArray;
+    const checkArray: FormArray = this.oprModeForm.get('assignTo') as FormArray;
     if (e.target.checked) {
-      checkArray.push(new UntypedFormControl(e.target.value));
+      checkArray.push(new FormControl(e.target.value));
     } else {
       let i: number = 0;
-      checkArray.controls.forEach((item: UntypedFormControl) => {
+      checkArray.controls.forEach((item: FormControl) => {
         if (item.value == e.target.value) {
           checkArray.removeAt(i);
           return;
@@ -144,63 +144,143 @@ export class AdmindashboardComponent implements OnInit {
   // ----------------- station count ------------------
 
   stationlist() {
-    this.stationService.getStation().subscribe(res => {
-      this.station = res["data"];
-      this.stationcount = res["data"].length;
-      // console.log(this.station);
+    // this.stationService.getStation().subscribe(res => {
+    //   this.station = res["data"];
+    //   this.stationcount = res["data"].length;
+    //   // console.log(this.station);
 
-    });
+    // });
+    this.stationService.getStation().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.station = res.data;
+          this.stationcount = res.data.length;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
   // ----------------- line count ------------------
 
   linelist() {
-    this.lineService.getLines().subscribe(res => {
-      this.line = res["data"];
-      this.linecount = res["data"].length;
-      // console.log(this.line);
+    // this.lineService.getLines().subscribe(res => {
+    //   this.line = res["data"];
+    //   this.linecount = res["data"].length;
+    //   // console.log(this.line);
 
-    });
+    // });
+    this.lineService.getLines().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.line = res.data;
+          this.linecount = res.data.length;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
   getAllUsers() {
-    this.userService.userList().subscribe(
-        (res) => {
-            
-            this.userList = res["data"]; 
-            this.usercount = res["data"].length;
-        },
-      
-    );
+    // this.userService.userList().subscribe(
+    //     (res) => {    
+    //         this.userList = res["data"]; 
+    //         this.usercount = res["data"].length;
+    //     },
+    // );
+    this.userService.userList().subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.userList = res.data;
+          this.usercount = res.data.length;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
+    })
   }
 
   getLiineStationsList(){
-    this.dashboardService.getLiineStationList().subscribe(
-      (res)=>{
-        this.lineStationList = res;
-        console.log(res);
+    // this.dashboardService.getLiineStationList().subscribe(
+    //   (res)=>{
+    //     this.lineStationList = res;
+    //     console.log(res);
+    // })
+    this.dashboardService.getLiineStationList().subscribe({
+      next:(res:any)=>{
+        // if(res.status === "0"){
+        //     this.toastr.error(res.data,'Error!')
+        // }
+        // else if(res.status === "1"){
+          console.log(res,'dashboard serv');
+          this.lineStationList = res;
+        //}
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
     })
   }
 
   getModeList(){
-    this.dashboardService.getModelList().subscribe(
-      (res)=>{
-        this.modeList = res['data'];
-        console.log(res);
+    // this.dashboardService.getModelList().subscribe(
+    //   (res)=>{
+    //     this.modeList = res['data'];
+    //     console.log(res);
+    // })
+    this.dashboardService.getModelList().subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.modeList = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
+      }
     })
   }
   
   //this method will be called when change station
   getconfiguredGateList(stnCode:any){
     console.log(stnCode)
-    this.dashboardService.getConfiguredEquip(stnCode).subscribe(
-      (res)=>{
-        if(res['status']==="1"){
-          this.configuredGateList = res['data'];
-        }else{
-          this.toastr.error(res.data);
+    // this.dashboardService.getConfiguredEquip(stnCode).subscribe(
+    //   (res)=>{
+    //     if(res['status']==="1"){
+    //       this.configuredGateList = res['data'];
+    //     }else{
+    //       this.toastr.error(res.data);
+    //     }
+    //       console.log(res);
+    //   })
+      this.dashboardService.getConfiguredEquip(stnCode).subscribe({
+        next:(res:any)=>{
+          if(res.status === "0"){
+              this.toastr.error(res.data,'Error!')
+          }
+          else if(res.status === "1"){
+            this.configuredGateList = res.data;
+          }
+        },
+        error:(err)=>{
+            this.toastr.error(err.error.data,'Error!')
         }
-          console.log(res);
       })
   }
 
@@ -258,11 +338,24 @@ export class AdmindashboardComponent implements OnInit {
     this.submitted=false;
     console.log(reqObj)
 
-    this.dashboardService.updateModeToSpecificStnGate(reqObj).subscribe(res => {
-      if(res['status']==="1"){
-        this.toastr.success(res.data);
-      }else{
-        this.toastr.error(res.data);
+    // this.dashboardService.updateModeToSpecificStnGate(reqObj).subscribe(res => {
+    //   if(res['status']==="1"){
+    //     this.toastr.success(res.data);
+    //   }else{
+    //     this.toastr.error(res.data);
+    //   }
+    // })
+    this.dashboardService.updateModeToSpecificStnGate(reqObj).subscribe({
+      next:(res:any)=>{
+        if(res.status === "0"){
+            this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.toastr.success(res.data);
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data,'Error!')
       }
     })
   }
