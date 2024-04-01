@@ -1,0 +1,73 @@
+<div class="container mt-5 formBg">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="pt-2">Map Day-Time Slot</h4>
+        </div>
+    </div>
+    <!-- <h2>Map Day-Time Slot</h2>
+    <hr> -->
+    <div class="row formHgt">
+        <form [formGroup]="mapDayTimeSlot" (ngSubmit)="onFormSubmit()">
+            <div class="row ">
+                <!-- Day Type Name -->
+                <div class="col-md-4 form-group">
+                    <label for="dayTypeIds">Day Type</label>
+                    <ng-select formControlName="dayTypeIds"  [ngClass]="{ 'is-invalid': submitted && fval.dayTypeIds.errors}" >
+                        <ng-option value="" selected>Select</ng-option>
+                        <ng-option *ngFor="let item of dayTypeList" value="{{item.id}}">{{ item.dayTypeName }}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.dayTypeIds.errors && fval.dayTypeIds.errors.required">
+                            {{ fval.dayTypeIds.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slot -->
+                <div class="col-md-4 form-group">
+                    <label for="timeSlotId">Time Slot</label>
+                    <ng-select formControlName="timeSlotId"  [ngClass]="{ 'is-invalid': submitted && fval.timeSlotId.errors}" >
+                        <ng-option *ngFor="let item of timeSlotList" value="{{item.id}}">{{ item.fromTime }}-{{ item.toTime }}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.timeSlotId.errors && fval.timeSlotId.errors.required">
+                            {{ fval.timeSlotId.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discount -->
+                <div class="col-md-4 form-group">
+                    <label for="discount">Discount(%)</label>
+                    <input type="text" formControlName="discount" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.discount.errors}" maxlength="20" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.discount.errors && fval.discount.errors.required">
+                            {{ fval.discount.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.discount.errors && fval.discount.errors.maxLength">
+                            {{ fval.discount.errors.maxLength.message }}
+                        </div>
+                        <div *ngIf="fval.discount.errors && fval.discount.errors.numeric">
+                            {{ fval.discount.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="clearfix mt-4 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                
+            </div>
+
+        </form>
+    </div>
+
+</div>

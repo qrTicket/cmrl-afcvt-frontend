@@ -1,0 +1,73 @@
+<div class="container mt-5 mb-5 formBg">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Base Fare
+            </h4>
+        </div>
+    </div>
+    <!-- <h2>Add Base fare</h2>
+    <hr> -->
+    <div class="row form-border mt-4">
+        <form [formGroup]="baseFareFg" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <!-- Base Fare -->
+                <div class="col-md-4 form-group">
+                    <label for="baseFare">Base Fare ( <i class="fa fa-inr" aria-hidden="true"></i> ) <span class="required">*</span></label>
+                    <input type="text" formControlName="baseFare" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.baseFare.errors}" maxlength="32" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.baseFare.errors && fval.baseFare.errors.required">
+                            {{ fval.baseFare.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.baseFare.errors && fval.baseFare.errors.numeric">
+                            {{ fval.baseFare.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Min Distance -->
+                <div class="col-md-4 form-group">
+                    <label for="minDistance">Min Distance (Kms) <span class="required">*</span> </label>
+                    <input type="text" formControlName="minDistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.minDistance.errors}" maxlength="32" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.minDistance.errors && fval.minDistance.errors.required">
+                            {{ fval.minDistance.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.minDistance.errors && fval.minDistance.errors.numeric">
+                            {{ fval.minDistance.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Max Distance -->
+                <div class="col-md-4 form-group">
+                    <label for="maxDistance">Max Distance (Kms) <span class="required">*</span></label>
+                    <input type="text" formControlName="maxDistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.maxDistance.errors }" maxlength="32" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.maxDistance.errors && fval.maxDistance.errors.required">
+                            {{ fval.maxDistance.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.maxDistance.errors && fval.maxDistance.errors.numeric">
+                            {{ fval.maxDistance.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="clearfix mt-4 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                
+            </div>
+
+        </form>
+    </div>
+
+</div>

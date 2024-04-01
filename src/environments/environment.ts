@@ -5,35 +5,39 @@
 
 export const environment = {
     production: false,
-    rootUrl: "http://localhost:8080/api/auth",  //url in use
-    baseUrl: "http://localhost:8080/api/test",
-    gateUrl: "http://localhost:8080/api",
-    lineUrl: "http://localhost:8080/api/admin",
-    ptoUrl: "http://localhost:8080/api/auth",
-    ptoListUrl: "http://localhost:8080/vendor",
-    ptoIdUrl: "http://localhost:8080/vendor",
-    userlist: "http://localhost:8080/api/activeuser",
-    configUrl: "http://localhost:8080/api",
-    complainListUrl: "http://localhost:8080/api",
-    mailUrl: "http://localhost:8080/sendMail",
-    alarmUrl: "http://localhost:8080/api/alarm",
-    dbUrl: "http://localhost:8080/api",
-    eventUrl: "http://localhost:8080/api",
-    ntpUrl: "http://localhost:8080/api",
-    transactionUrl: "http://localhost:8080/api",
-    generalmsgUrl: "http://localhost:8080/api",
-    maintenanceStaffListUrl: "http://localhost:8080/api",
-    // productType: "http://localhost:8080/api/product",
-    productUrl: "http://localhost:8080/api/afc", // url in use
-    equipmentUrl: "http://localhost:8080/api/equipment",
-    productById: "http://localhost:8080/api/singleinventory",
-    equipmentByUrl: "http://localhost:8080/api/singleequipment",
-    directionUrl: "http://localhost:8080/api/gatedirection",
-    stationGateDir: "http://localhost:8080/api/direction",
-    terminalUrl: "http://localhost:8080/api/terminal",
-    createUserUrl: "http://localhost:8080/api/createuser/add",
-    assignUserURL: "http://localhost:8080/api/usertostation",
-    CSV__URL: "http://localhost:8080/api",
+    rootUrl: "http://10.226.40.66:8090/api/auth",  //url in use
+    baseUrl: "http://10.226.40.66:8090/api/test",
+    gateUrl: "http://10.226.40.66:8090/api",
+    lineUrl: "http://10.226.40.66:8090/api/admin",
+    ptoUrl: "http://10.226.40.66:8090/api/auth",
+    ptoListUrl: "http://10.226.40.66:8090/vendor",
+    ptoIdUrl: "http://10.226.40.66:8090/vendor",
+    userlist: "http://10.226.40.66:8090/api/activeuser",
+    configUrl: "http://10.226.40.66:8090/api",
+    complainListUrl: "http://10.226.40.66:8090/api",
+    mailUrl: "http://10.226.40.66:8090/sendMail",
+    alarmUrl: "http://10.226.40.66:8090/api/alarm",
+    dbUrl: "http://10.226.40.66:8090/api",
+    eventUrl: "http://10.226.40.66:8090/api",
+    ntpUrl: "http://10.226.40.66:8090/api",
+    transactionUrl: "http://10.226.40.66:8090/api",
+    generalmsgUrl: "http://10.226.40.66:8090/api",
+    maintenanceStaffListUrl: "http://10.226.40.66:8090/api",
+    // productType: "http://10.226.40.66:8090/api/product",
+    productUrl: "http://10.226.40.66:8090/api/afc", // url in use
+    equipmentUrl: "http://10.226.40.66:8090/api/equipment",
+    productById: "http://10.226.40.66:8090/api/singleinventory",
+    equipmentByUrl: "http://10.226.40.66:8090/api/singleequipment",
+    directionUrl: "http://10.226.40.66:8090/api/gatedirection",
+    stationGateDir: "http://10.226.40.66:8090/api/direction",
+    terminalUrl: "http://10.226.40.66:8090/api/terminal",
+    createUserUrl: "http://10.226.40.66:8090/api/createuser/add",
+    assignUserURL: "http://10.226.40.66:8090/api/usertostation",
+    CSV__URL: "http://10.226.40.66:8090/api",
+
+    //BASEURL: "http://10.226.42.194:8090"
+    // BASEURL: "http://192.168.194.134:8090"
+    BASEURL: "http://10.226.40.66:8090"
 };
 
 // host: "http://localhost:8080",

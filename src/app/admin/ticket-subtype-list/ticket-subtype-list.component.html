@@ -1,0 +1,75 @@
+<div class="container mt-5 mb-5">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Ticket Sub Type List
+            </h4>
+        </div>
+    </div>
+    <!-- <div class="heading">
+        <h2>
+            Ticket Sub Type List
+        </h2>
+    </div> -->
+    
+    <div class="table-responsive table-set mt-4">
+        <table class="table-res row-border hover table-head" id="dataTable" datatable="" class="display nowrap table"  *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>#ID</th>
+                    <th>Ticket Sub Type Name</th>
+                    <th>Ticket Sub Type Code</th>
+                    <th>Discount(%)</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of ticketSubTypeList'>
+                    <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
+                    <td>{{ item && item.ticketSubTypeName ? item.ticketSubTypeName : 'NA' }}</td>
+                    <td>{{ item && item.ticketSubTypeCode ? item.ticketSubTypeCode : 'NA' }}</td>
+                    <td>{{ item && item.discount > 0 ? item.discount : 0 }}</td>
+                    <td>
+                        <select class="p-2 form-control" (change)="openModal(templateActive, templateDeactivate, $event,item.id)" >
+                            <option value="true" [selected]="item.status===true">Activate</option>
+                            <option value="false" [selected]="item.status===false">Deactivate</option>
+                        </select>
+
+                        <ng-template #templateDeactivate>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to change the status ?</p>
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-warning mx-4" (click)="confirm()">
+                                    Deactivate
+                                </button>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #templateActive>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to change the status ?</p>
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-success mx-4" (click)="confirm()">
+                                    Activate
+                                </button>
+                            </div>
+                        </ng-template>
+
+                    </td>
+                    <td>
+                        <a href="javascript:;" [routerLink]="['/admin/ticket-sub-type-edit', item.id]">
+                            <i  class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

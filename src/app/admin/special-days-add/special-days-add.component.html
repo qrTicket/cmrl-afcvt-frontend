@@ -1,0 +1,145 @@
+<div class="container mt-5 mb-5 formBg">
+    <div class="card mb-4">
+        <div class="card-header col-md-12">
+            <h4 class="pt-2 text-primary col-md-8 fltLeft">
+                <i class="fa fa-plus text-primary" aria-hidden="true"></i>
+                Add Special Day
+            </h4>
+            <div class="col-md-4 fltRight">
+                <p *ngIf="calenderInfo.startOfCalender; else addYearDate" class="fltRight mt-2">
+                    Year Start Date : {{ calenderInfo.startOfCalender }}
+                    <span class="badge badge-danger" (click)="patchCalanderData(templateYearStartDate)">
+                        <i class="fa fa-edit" aria-hidden="true" ></i>
+                        Edit
+                    </span>
+                    
+                </p>
+                <ng-template #addYearDate >
+                    <button type="submit" class="btn btn-primary mx-3 mt-1 fltRight" (click)="openModal(templateYearStartDate)">
+                        Add Year Starting Date
+                        <span class="fa-class fa fa-plus"></span>
+                    </button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row form-border">
+        <form [formGroup]="addSpecialDay" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <!-- Special Day Name -->
+                <div class="col-md-4 form-group">
+                    <label for="specialDayName">Special Day Name <span class="required">*</span></label>
+                    <input type="text" formControlName="specialDayName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.specialDayName.errors}" maxlength="255" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.specialDayName.errors && fval.specialDayName.errors.required">
+                            {{ fval.specialDayName.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.specialDayName.errors && fval.specialDayName.errors.alpha">
+                            {{ fval.specialDayName.errors.alpha.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Select Special Day -->
+                <div class="col-md-4 form-group">
+                    <div>
+                        <label for="specialDayDate">Special Day Date <span class="required">*</span></label>
+                        <input readonly type="text" class="form-control date" formControlName="specialDayDate"
+                            [ngClass]="{ 'is-invalid': submitted && fval['specialDayDate'].errors }"
+                            id="specialDayDate"
+                            placeholder="DD-MM-YYYY"
+                            bsDatepicker
+                            [outsideClick]="true"
+                            [bsConfig]="datePickerConfigSpecialDay">
+                            <div *ngIf="submitted" class="invalid-feedback">
+                                <div *ngIf="fval.specialDayDate.errors && fval.specialDayDate.errors.required">
+                                    {{ fval.specialDayDate.errors.required.message }}
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="clearfix mt-4 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<ng-template #templateYearStartDate>
+    <h5 class="pt-2 col-md-12 fltLeft pt-3">
+        <i class="fa fa-plus text-primary" aria-hidden="true"></i>
+        Add Date Of Year Starting
+    </h5>
+    <hr>
+    <div class="modal-body">
+        <!-- (ngSubmit)="onYearStartDateFormSubmit()" -->
+        <form [formGroup]="yearStartDate" >
+            <div class="row">
+                <!-- Select Start of the Year Date -->
+                <div class="col-md-12 form-group">
+                    <label for="yearStartingDayDate">Year Starting Date <span class="required">*</span></label>
+                    <input readonly type="text" class="form-control date" formControlName="yearStartingDayDate"
+                        [ngClass]="{ 'is-invalid': submittedYearStartDate && fvalYearStartDate['yearStartingDayDate'].errors }"
+                        id="yearStartingDayDate"
+                        placeholder="DD-MM-YYYY"
+                        bsDatepicker
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerYearStartingDay"
+                        (bsValueChange)="onValueYearStartChange($event)">
+                        <div *ngIf="submittedYearStartDate" class="invalid-feedback">
+                            <div *ngIf="fvalYearStartDate.yearStartingDayDate.errors && fvalYearStartDate.yearStartingDayDate.errors.required">
+                                {{ fvalYearStartDate.yearStartingDayDate.errors.required.message }}
+                            </div>
+                        </div>
+                </div>
+
+                <!-- Number Of days -->
+                <div class="col-md-12 form-group">
+                    <label for="numberOfDays">Number Of days <span class="required">*</span></label>
+                    <input type="text" formControlName="numberOfDays" class="form-control" [ngClass]="{ 'is-invalid': submittedYearStartDate && fvalYearStartDate.numberOfDays.errors}" maxlength="10" />
+                    <div *ngIf="submittedYearStartDate" class="invalid-feedback">
+                        <div *ngIf="fvalYearStartDate.numberOfDays.errors && fvalYearStartDate.numberOfDays.errors.required">
+                            {{ fvalYearStartDate.numberOfDays.errors.required.message }}
+                        </div>
+                        <div *ngIf="fvalYearStartDate.numberOfDays.errors && fvalYearStartDate.numberOfDays.errors.numeric">
+                            {{ fvalYearStartDate.numberOfDays.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 clearfix mt-4 btn-set">
+                    <button type="submit" class="btn btn-danger" (click)="decline()">Cancel
+                        <span class="fa-class fa fa-close"></span>
+                    </button>
+                    
+                    <button *ngIf="calenderInfo.startOfCalender; else addYearDateButton" type="submit" class="btn btn-primary mx-3" (click)="updateStartOfYear()">
+                        Update
+                        <span class="fa-class fa fa-refresh"></span>
+                    </button>
+
+                    <ng-template #addYearDateButton>
+                        <button type="submit" class="btn btn-primary mx-3" (click)="submitOnYearStartDateForm()">
+                            Submit
+                            <span class="fa-class fa fa-paper-plane"></span>
+                        </button>
+                    </ng-template>
+                    
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

@@ -1,0 +1,46 @@
+.col-3 {
+    flex: 0 0 0;
+}
+.hdr-set {
+    color: #ca7308e8;
+}
+
+#line{
+    border-top:3px solid #ca7308e8;
+}
+#bottomLine{
+    border-bottom:3px solid #ca7308e8;
+}
+
+.checkmark{
+    height: 18px;
+    width: 18px;
+  cursor: pointer;
+}
+
+.roleText{
+    margin-left: 5px;
+    height: 20px;
+}
+
+.errFont{
+    font-size: 13px;
+}
+
+.formHgt{
+    height: 300px;
+}
+
+.zIndex{
+    z-index: 0.1;
+}
+  
+.formBg{
+    padding: 40px;
+    height: 700px;
+    box-shadow: 0px 0px 15px 0px;
+    margin-bottom: 100px;
+}
+  
+  
+  

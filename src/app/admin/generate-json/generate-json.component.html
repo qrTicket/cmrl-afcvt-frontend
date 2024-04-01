@@ -1,0 +1,80 @@
+<div class="container formMrgn">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                List Of Files
+            </h4>
+        </div>
+    </div>
+    
+
+    <div class="table-responsive table-set mt-4">
+        <table class="table-res row-border hover table-head display nowrap table" id="dataTable" datatable="" *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>Id</th>
+                    <th>File Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of listOfFiles; let i=index' >
+                    <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
+                    <td>{{ item && item.fileName ? item.fileName : 'NA' }}</td>
+                    <td>
+                        <button class="btn btn-warning" (click)="openModal(templateFileGeneration, item.id)">
+                            Generate
+                            <i class="fa fa-file-text"></i>
+                        </button>
+                        
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #templateFileGeneration>
+    <h5 class="pt-2 col-md-12 fltLeft pt-3 text-primary">
+        <i class="fa fa-calendar " aria-hidden="true"></i>
+        Activation Date
+    </h5>
+    <hr>
+    <div class="modal-body">
+        <form [formGroup]="GenerateFile" >
+            <div class="row">
+                <!-- Select Activation Date -->
+                <div class="col-md-12 form-group">
+                    <label for="activationDate">Select (DD-MM-YYYY) <span class="text-danger">*</span></label>
+                    <input readonly type="text" class="form-control date" formControlName="activationDate"
+                        [ngClass]="{ 'is-invalid': submitted && fval['activationDate'].errors }"
+                        id="activationDate"
+                        placeholder="DD-MM-YYYY"
+                        bsDatepicker
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerChange">
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div *ngIf="fval.activationDate.errors && fval.activationDate.errors.required">
+                                {{ fval.activationDate.errors.required.message }}
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-md-12 clearfix mt-4 btn-set">
+                    <button type="submit" class="btn btn-danger" (click)="decline()">Cancel
+                        <span class="fa-class fa fa-close"></span>
+                    </button>
+                    
+                    <button  type="submit" class="btn btn-primary mx-3" (click)="generateFile()">
+                        Submit
+                        <span class="fa-class fa fa-paper-plane"></span>
+                    </button>
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+

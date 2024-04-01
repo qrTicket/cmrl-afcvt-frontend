@@ -1,0 +1,75 @@
+<div class="container mt-5 formBg">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-random" aria-hidden="true"></i>
+                Map Media-Ticket
+            </h4>
+        </div>
+    </div>
+    
+    
+    
+    <div class="row formHgt mt-4">
+        <form [formGroup]="mapMediaTicket" (ngSubmit)="onFormSubmit()">
+            <div class="row ">
+                <!-- Media Type Name -->
+                <div class="col-md-4 form-group">
+                    <label for="mediaTypeId">Media Type Name <span class="required">*</span> </label>
+                    <ng-select formControlName="mediaTypeId"  [ngClass]="{ 'is-invalid': submitted && fval.mediaTypeId.errors}" >
+                        <ng-option value="" selected>Select</ng-option>
+                        <ng-option *ngFor="let item of mediaTypeList" value="{{item.id}}">{{ item.mediaTypeName }} ({{ item.mediaTypeCode }})</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.mediaTypeId.errors && fval.mediaTypeId.errors.required">
+                            {{ fval.mediaTypeId.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ticket Type Ids -->
+                <div class="col-md-4 form-group">
+                    <label for="ticketTypeIds">Ticket Type <span class="required">*</span></label>
+                    <ng-select formControlName="ticketTypeIds"  [ngClass]="{ 'is-invalid': submitted && fval.ticketTypeIds.errors}"  >
+                        <!-- <ng-option value="" selected>Select</ng-option> -->
+                        <ng-option *ngFor="let item of ticketTypeList" value="{{item.id}}">{{ item.ticketTypeName }} ({{ item.ticketTypeCode }})</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.ticketTypeIds.errors && fval.ticketTypeIds.errors.required">
+                            {{ fval.ticketTypeIds.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ticket Sub Type Ids -->
+                <div class="col-md-4 form-group">
+                    <label for="ticketSubTypeIds">Ticket Sub Type <span class="required">*</span></label>
+                    <ng-select formControlName="ticketSubTypeIds"  [ngClass]="{ 'is-invalid': submitted && fval.ticketSubTypeIds.errors}" [multiple]="true"  >
+                        <!-- <ng-option value="" selected>Select</ng-option> -->
+                        <ng-option *ngFor="let item of ticketSubTypeList" value="{{item.id}}">{{ item.ticketSubTypeName }} ({{ item.ticketSubTypeCode }})</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.ticketSubTypeIds.errors && fval.ticketSubTypeIds.errors.required">
+                            {{ fval.ticketSubTypeIds.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="clearfix mt-5 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                
+            </div>
+
+        </form>
+    </div>
+
+</div>

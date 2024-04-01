@@ -1,0 +1,65 @@
+<div class="container mt-5 mb-5 formBg">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="pt-2">Update Time Slot</h4>
+        </div>
+    </div>
+    <!-- <h2>Update Time Table</h2>
+    <hr> -->
+    <div class="row form-border">
+        <form [formGroup]="timeTable" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <!-- From Time -->
+                <div class="col-md-4 form-group">
+                    <label for="fromTime">From Time</label>
+                    <input type="text" formControlName="fromTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.fromTime.errors}" maxlength="70" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.fromTime.errors && fval.fromTime.errors.required">
+                            {{ fval.fromTime.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- To Time -->
+                <div class="col-md-4 form-group">
+                    <label for="toTime">To Time</label>
+                    <input type="text" formControlName="toTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.toTime.errors}" maxlength="20" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.toTime.errors && fval.toTime.errors.required">
+                            {{ fval.toTime.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <!-- <div class="col-md-4 form-group">
+                    <label for="status">Status</label>
+                    <ng-select formControlName="status" [ngClass]="{ 'is-invalid': submitted && fval.status.errors }">
+                        <ng-option value="">--Select--</ng-option>
+                        <ng-option [value]="true">Active</ng-option>
+                        <ng-option [value]="false">Inactive</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.status.errors && fval.status.errors.required">
+                            {{ fval.status.errors.required.message }}
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+
+            <div class="clearfix mt-4 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Update
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                
+            </div>
+
+        </form>
+    </div>
+
+</div>

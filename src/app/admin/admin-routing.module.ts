@@ -42,6 +42,32 @@ import { SingleStationDetailsComponent } from "./single-station-details/single-s
 import { StationlinkRuleComponent } from "./stationlink-rule/stationlink-rule.component";
 import { ScheduleUpdateFileComponent } from "./schedule-update-file/schedule-update-file.component";
 import { ScheduleFileUpdateListComponent } from "./schedule-file-update-list/schedule-file-update-list.component";
+import { AddMediaTypeComponent } from "./add-media-type/add-media-type.component";
+import { MediaTypeListComponent } from "./media-type-list/media-type-list.component";
+import { MediaTypeEditComponent } from "./media-type-edit/media-type-edit.component";
+import { TicketTypeAddComponent } from "./ticket-type-add/ticket-type-add.component";
+import { TicketTypeListComponent } from "./ticket-type-list/ticket-type-list.component";
+import { TicketTypeEditComponent } from "./ticket-type-edit/ticket-type-edit.component";
+import { TicketSubtypeAddComponent } from "./ticket-subtype-add/ticket-subtype-add.component";
+import { TicketSubtypeListComponent } from "./ticket-subtype-list/ticket-subtype-list.component";
+import { TicketSubtypeEditComponent } from "./ticket-subtype-edit/ticket-subtype-edit.component";
+import { SpecialDaysAddComponent } from "./special-days-add/special-days-add.component";
+import { SpecialDaysListComponent } from "./special-days-list/special-days-list.component";
+import { SpecialDaysEditComponent } from "./special-days-edit/special-days-edit.component";
+import { TimeTableAddComponent } from "./time-table-add/time-table-add.component";
+import { TimeTableListComponent } from "./time-table-list/time-table-list.component";
+import { TimeTableEditComponent } from "./time-table-edit/time-table-edit.component";
+import { DayTypeAddComponent } from "./day-type-add/day-type-add.component";
+import { DayTypeListComponent } from "./day-type-list/day-type-list.component";
+import { DayTypeEditComponent } from "./day-type-edit/day-type-edit.component";
+import { BaseFareAddComponent } from "./base-fare-add/base-fare-add.component";
+import { BaseFareListComponent } from "./base-fare-list/base-fare-list.component";
+import { BaseFareEditComponent } from "./base-fare-edit/base-fare-edit.component";
+import { MediaTicketMapComponent } from "./media-ticket-map/media-ticket-map.component";
+import { DayTimeSlotMapComponent } from "./day-time-slot-map/day-time-slot-map.component";
+import { DayTimeSlotMapUpdateComponent } from "./day-time-slot-map-update/day-time-slot-map-update.component";
+import { MediaTicketSubtypeListComponent } from "./media-ticket-subtype-list/media-ticket-subtype-list.component";
+import { GenerateJsonComponent } from "./generate-json/generate-json.component";
 
 const routes: Routes = [
     {
@@ -109,6 +135,47 @@ const routes: Routes = [
             { path: "multi-dashboard", component: MultiDashboardComponent },
             { path: "multi-dash-list", component: MultiDashListComponent },
             { path: "admin-mail", component: AdminMailComponent },
+
+            // Media master
+            { path: "add-media-type", component:AddMediaTypeComponent },
+            { path: "media-type-list", component:MediaTypeListComponent },
+            { path: "media-type-edit/:id", component:MediaTypeEditComponent },
+            { path: "media-ticket-map", component:MediaTicketMapComponent },
+            { path: "media-ticket-subtype-list", component:MediaTicketSubtypeListComponent },
+
+            //Ticket master
+            { path: "ticket-type-add", component:TicketTypeAddComponent },
+            { path: "ticket-type-list", component:TicketTypeListComponent },
+            { path: "ticket-type-edit/:id", component:TicketTypeEditComponent },
+
+            //Ticket Sub-Type master
+            { path: "ticket-sub-type-add", component:TicketSubtypeAddComponent },
+            { path: "ticket-sub-type-list", component:TicketSubtypeListComponent },
+            { path: "ticket-sub-type-edit/:id", component:TicketSubtypeEditComponent },
+
+            //Special Days Master
+            { path: "special-days-add", component:SpecialDaysAddComponent },
+            { path: "special-days-list", component:SpecialDaysListComponent },
+            { path: "special-days-edit/:id", component:SpecialDaysEditComponent },
+
+            //Time Table Master
+            { path: "time-table-add", component:TimeTableAddComponent },
+            { path: "time-table-list", component:TimeTableListComponent },
+            { path: "time-table-edit/:id", component:TimeTableEditComponent },
+
+            //Day Type Master
+            { path: "day-type-add", component:DayTypeAddComponent },
+            { path: "day-type-list", component:DayTypeListComponent },
+            { path: "day-type-edit/:id", component:DayTypeEditComponent },
+            { path: "day-timeSlot-map", component:DayTimeSlotMapComponent },
+            { path: "day-timeSlot-map-update/:id", component:DayTimeSlotMapUpdateComponent },
+
+            //Base Fare Master
+            { path: "base-fare-add", component:BaseFareAddComponent },
+            { path: "base-fare-list", component:BaseFareListComponent },
+            { path: "base-fare-edit/:id", component:BaseFareEditComponent },
+
+            { path: "generate-file", component:GenerateJsonComponent }
         ],
     },
 ];

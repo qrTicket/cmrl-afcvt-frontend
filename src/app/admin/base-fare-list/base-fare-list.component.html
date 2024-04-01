@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Base Fare List
+            </h4>
+        </div>
+    </div>
+    <!-- <div class="heading">
+        <h2>
+            Base Fare List
+        </h2>
+    </div> -->
+    
+    <div class="table-responsive table-set mt-4">
+        <table class="table-res row-border hover table-head" id="dataTable" datatable="" class="display nowrap table"  *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>#ID</th>
+                    <th>Base Fare ( <i class="fa fa-inr" aria-hidden="true"></i> ) </th>
+                    <th>Min Distance (Kms)</th>
+                    <th>Max Distance (Kms)</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of baseFareList'>
+                    <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
+                    <td>{{ item && item.baseFare ? item.baseFare : 'NA' }}</td>
+                    <td>{{ item && item.minDistance ? item.minDistance : 'NA' }}</td>
+                    <td>{{ item && item.maxDistance ? item.maxDistance : 'NA' }}</td>
+                    <td>
+                        <a [routerLink]="['/admin/base-fare-edit', item.id]">
+                            <i  class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,99 @@
+<div class="container mt-5 formBg">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Media Type
+            </h4>
+        </div>
+    </div>
+    
+    <div class="row form-border mt-4">
+        <form [formGroup]="addMedia" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <!-- Media Type Name -->
+                <div class="col-md-4 form-group">
+                    <label for="mediaTypeName">Media Type Name <span class="required">*</span> </label>
+                    <input type="text" formControlName="mediaTypeName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.mediaTypeName.errors}" maxlength="255" />
+                    <div *ngIf="submitted && fval.mediaTypeName.errors" class="invalid-feedback">
+                        <div *ngIf="fval.mediaTypeName.errors && fval.mediaTypeName.errors.required">
+                            {{ fval.mediaTypeName.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.mediaTypeName.errors && fval.mediaTypeName.errors.alpha">
+                            {{ fval.mediaTypeName.errors.alpha.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media Type Code -->
+                <div class="col-md-4 form-group">
+                    <label for="mediaTypeCode">Media Type Code <span class="required">*</span></label>
+                    <input type="text" formControlName="mediaTypeCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.mediaTypeCode.errors}" maxlength="255" />
+                    <div *ngIf="submitted && fval.mediaTypeName.errors" class="invalid-feedback">
+                        <div *ngIf="fval.mediaTypeCode.errors && fval.mediaTypeCode.errors.required">
+                            {{ fval.mediaTypeCode.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discount -->
+                <div class="col-md-4 form-group">
+                    <label for="discount">Discount(%) <span class="required">*</span></label>
+                    <input type="text" formControlName="discount" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.discount.errors }" maxlength="32"  />
+                    <div *ngIf="submitted && fval.discount.errors" class="invalid-feedback">
+                        <div *ngIf="fval.discount.errors && fval.discount.errors.required">
+                            {{ fval.discount.errors.required.message }}
+                        </div>
+                        <!-- <div *ngIf="fval.discount.errors && fval.discount.errors.maxLength">
+                            {{ fval.discount.errors.maxLength.message }}
+                        </div> -->
+                        <div *ngIf="fval.discount.errors && fval.discount.errors.numeric">
+                            {{ fval.discount.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Ticket Type Ids, can select multiple ticket type -->
+                 <!-- <div class="col-md-4 form-group">
+                    <label for="ticketTypeIds">Ticket Type</label>
+                    <ng-select formControlName="ticketTypeIds"  [ngClass]="{ 'is-invalid': submitted && fval.ticketTypeIds.errors}" [multiple]="true" >
+                        <ng-option *ngFor="let item of ticketTypeList" value="{{item.id}}">{{ item.ticketTypeName }}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.ticketTypeIds.errors && fval.ticketTypeIds.errors.required">
+                            {{ fval.ticketTypeIds.errors.required.message }}
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+
+            <div class="clearfix mt-5 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                
+            </div>
+
+            <!-- <div class=" row clearfix mt-5 btn-set col-md-12">
+                <div class="col-md-6">.
+                    <button type="submit" class="btn btn-danger fltRight" (click)="cancel()">Cancel
+                        <span class="fa-class fa fa-close"></span>
+                    </button>
+                </div> 
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary ">
+                        Submit
+                        <span class="fa-class fa fa-paper-plane"></span>
+                    </button>
+                </div>
+            </div> -->
+
+        </form>
+    </div>
+
+</div>

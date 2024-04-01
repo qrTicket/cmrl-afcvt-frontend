@@ -26,11 +26,14 @@ import { Observable, throwError, of } from 'rxjs';
 import { AuthService } from '../../_services/auth.service';
 import { User } from '../_models/user.model';
 import { map, catchError, retry } from 'rxjs/operators';
+import { AddMedia } from '../_models/addMediaType';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
+
+
     // httpOptions: boolean;
     //   getUser() {
     //     throw new Error("Method not implemented.");
@@ -114,6 +117,8 @@ export class UserService {
     // getAll() {
     //     return this.http.get<User[]>(environment.rootUrl);
     // }
+
+   
 
 
 }

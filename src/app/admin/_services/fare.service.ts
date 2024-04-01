@@ -5,10 +5,13 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../../_services/auth.service';
 import { Fare } from '../_models/fare.model';
 
+
 @Injectable({
     providedIn: 'root'
 })
 export class FareService {
+
+   
 
     private token: string = localStorage.getItem('token');
 
@@ -49,6 +52,9 @@ export class FareService {
             this.httpOptions
         );
     }
+
+    
+   
 
 }
 

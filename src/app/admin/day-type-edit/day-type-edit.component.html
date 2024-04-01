@@ -1,0 +1,148 @@
+<div class="container mt-5 formBg">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+                Update Day Type
+            </h4>
+        </div>
+    </div>
+   
+    <div class="row form-border mt-4">
+        <form [formGroup]="dayType" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <!-- Day Type Name -->
+                <div class="col-md-4 form-group">
+                    <label for="dayTypeName">Day Type Name</label>
+                    <input type="text" formControlName="dayTypeName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.dayTypeName.errors}" maxlength="70" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.dayTypeName.errors && fval.dayTypeName.errors.required">
+                            {{ fval.dayTypeName.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Status -->
+                 <!-- <div class="col-md-4 form-group">
+                    <label for="status">Status</label>
+                    <ng-select formControlName="status" [ngClass]="{ 'is-invalid': submitted && fval.status.errors }">
+                        
+                        <ng-option [value]="true">Active</ng-option>
+                        <ng-option [value]="false">Inactive</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.status.errors && fval.status.errors.required">
+                            {{ fval.status.errors.required.message }}
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="row col-12 mt-5 mb-4">
+                    <div class="col-md-12">
+                        <legend>Time Slots:</legend>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-md-12  ">
+                        <div formArrayName="timeSlots">
+                            <div *ngFor="let control of timeSlotArray.controls; let i = index">
+                                <div [formGroupName]="i">
+                                    <div class="row">
+                                        <!-- From Time -->
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-12  pb-3 fltLeft">
+                                            <div class=" col-md-12 col-sm-12 col-12">
+                                                <label for="fromTime">({{i+1}}) From Time <span class="required">*</span></label>
+                                                <input type="time" formControlName="fromTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && control.get('fromTime').errors}" />
+                                                <div *ngIf="submitted && control.get('fromTime').errors" class="invalid-feedback">
+                                                    <div *ngIf="control.get('fromTime').errors['required']">
+                                                        {{ control.get('fromTime')!.errors['required'].message }}
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        </div>
+
+                                       <!-- From Time -->
+                                       <div class="col-lg-3 col-md-3 col-sm-12 col-12  pb-3 fltLeft">
+                                            <div class=" col-md-12 col-sm-12 col-12">
+                                                <label for="toTime">To Time <span class="required">*</span></label>
+                                                <input type="time" formControlName="toTime" class="form-control" [ngClass]="{ 'is-invalid': submitted && control.get('toTime').errors}" />
+                                                <div *ngIf="submitted && control.get('toTime').errors" class="invalid-feedback">
+                                                    <div *ngIf="control.get('toTime').errors['required']">
+                                                        {{ control.get('toTime')!.errors['required'].message }}
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        </div>
+
+                                        <!-- Discount -->
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-12  pb-3 fltLeft">
+                                            <div class=" col-md-12 col-sm-12 col-12">
+                                                <label for="discount">Discount(%) <span class="required">*</span></label>
+                                                <input type="text" formControlName="discount" class="form-control" [ngClass]="{ 'is-invalid': submitted && control.get('discount').errors}" maxlength="32" />
+                                                <div *ngIf="submitted && control.get('discount').errors" class="invalid-feedback">
+                                                    <div *ngIf="control.get('discount').errors['required']">
+                                                        {{ control.get('discount')!.errors['required'].message }}
+                                                    </div>
+                                                    <div *ngIf="control.get('discount').errors['numeric']">
+                                                        {{ control.get('discount')!.errors['numeric'].message }}
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- remove fields -->
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-12  pb-3 fltLeft">
+                                            <div class="col-md-1 flt_left">
+                                                <button class="btn btn-danger  mt-4" (click)="deleteTimeSlotField(i)" *ngIf="i>0">Remove</button>
+                                            </div>  
+                                        </div>
+                                                                                
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="addmorebtn">                           
+                            <button type="button" class="btn btn-success" (click)="newTimeSlotField()">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                Add More Time Slots
+                            </button>
+                            <hr>
+                        </div>
+                </div>
+            </div>
+
+
+            
+
+
+            <!-- <div class="clearfix mt-4 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Update
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+            </div> -->
+
+            <div class="row col-md-12 clearfix mt-3 btn-set">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-danger fltRight" (click)="cancel()">Cancel
+                        <span class="fa-class fa fa-close"></span>
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary mx-3">
+                        Update
+                        <span class="fa-class fa fa-refresh"></span>
+                    </button>  
+                </div>
+                           
+            </div>
+
+        </form>
+    </div>
+
+</div>

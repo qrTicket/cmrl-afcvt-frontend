@@ -1,0 +1,83 @@
+<div class="container mrgn">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary"> 
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Media Ticket Mapping List
+            </h4>
+        </div>
+    </div>
+    
+    <div class="table-responsive table-set mt-4">
+        <table class="table-res row-border hover table-head" id="dataTable" datatable="" class="display nowrap table"  *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>#ID</th>
+                    <th>Media</th>
+                    <th>Ticket Type</th>
+                    <th>Ticket Sub Types</th>
+                    <th>Status</th>
+                    <!-- <th>Edit</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of mediaTicketList'>
+                    <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
+                    <td>{{ item && item.mediaTypeName ? item.mediaTypeName : 'NA' }}</td>
+                    <td>{{ item && item.ticketTypeName ? item.ticketTypeName : 'NA' }}</td>
+                    <td class="text-wrap">
+                        <div *ngIf="item.mediaTicketList?.length == 0; else TicketTypes">
+                            NA
+                        </div>
+                        <ng-template #TicketTypes class="text-wrap">
+                            {{ item && item.ticketSubTypeName ? item.ticketSubTypeName : 'NA' }}
+                            <!-- <ng-container *ngFor="let ticketType of item.ticketSubTypeName;let last=last; let i=index" class="text-wrap">
+                               <b> {{ ticketType && ticketType.ticketTypeName ? ticketType.ticketTypeName : 'NA' }}<span *ngIf="!last">,</span> </b>
+                                <span *ngIf="i%2==0"><br> </span>
+                            </ng-container> -->
+                        </ng-template>
+                        
+                    </td>
+                   
+                    <td>
+                        <select class="p-2 form-control" (change)="openModal(templateActive, templateDeactivate, $event,item.id)" >
+                            <option value="true" [selected]="item.status===true">Activate</option>
+                            <option value="false" [selected]="item.status===false">Deactivate</option>
+                        </select>
+
+                        <ng-template #templateDeactivate>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to change the status ?</p>
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-warning mx-4" (click)="confirm()">
+                                    Deactivate
+                                </button>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #templateActive>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to change the status ?</p>
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-success mx-4" (click)="confirm()">
+                                    Activate
+                                </button>
+                            </div>
+                        </ng-template>
+
+                    </td>
+                    <!-- <td>
+                        <a [routerLink]="['/admin/media-type-edit', item.id]">
+                            <i  class="fa fa-edit"></i>
+                        </a>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

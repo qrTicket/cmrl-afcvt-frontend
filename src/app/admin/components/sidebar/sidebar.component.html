@@ -1,5 +1,12 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
-    <div class="list-group">
+
+     <!-- toggle button -->
+     <div class="toggle-button" [ngClass]="{ collapsed: collapsed }" (click)="toggleCollapsed()">
+        <i class="fa fa-bars {{collapsed?'right':'left'}}" style="padding-left: 10px"></i>&nbsp;
+        <span>{{ "Collapse" | translate }}</span>
+    </div>
+
+    <div class="list-group mrgn">
         <!-- admindashboard -->
         <a [routerLink]="['admindashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-home"></i>
@@ -101,7 +108,6 @@
             </li>
         </div>
 
-
         <!-- fare list -->
         <div class="nested-menu">
             <a [routerLink]="['fare-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -147,11 +153,7 @@
             </li>
         </div>
 
-        
-
-        
         <!-- siderbar username and settings -->
-
         <div class="header-fields">
             <div class="nested-menu">
                 <a class="list-group-item" (click)="addExpandClass('profile')">
@@ -190,11 +192,242 @@
             </div>
         </div>
 
-        <!-- toggle button -->
+         <!-- Manage Media Master -->
+         <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list5')">
+                <i class="fa fa-asterisk"></i>&nbsp;
+                <span>{{ "Fare" }}</span>
+            </a>
 
-        <div class="toggle-button" [ngClass]="{ collapsed: collapsed }" (click)="toggleCollapsed()">
-            <i class="fa fa-bars {collapsed?'right':'left'}}" style="padding-left: 10px"></i>&nbsp;
-            <span>{{ "Collapse" | translate }}</span>
+            <li class="nested" [class.expand]="showMenu === 'list5'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['add-media-type']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span class="ml-2">{{ "Add Media type" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['media-type-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span class="ml-2">{{ "Media Type List" }}</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a [routerLink]="['ticket-type-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span class="ml-2">{{ "Add Ticket type" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ticket-type-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span class="ml-2">{{ "Ticket Type List" }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['ticket-sub-type-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span class="ml-2">{{ "Add Ticket Sub Type" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ticket-sub-type-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span class="ml-2">{{ "Ticket Sub Type List" }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['media-ticket-map']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-random mx-1"></i>
+                            <span class="ml-2">{{ "Media-Ticket Map" }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['media-ticket-subtype-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span class="ml-2">{{ "Media-Ticket List" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </div>
+
+        <!-- Manage Ticket Master -->
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list6')">
+                <i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;
+                <span>{{ "Ticket Master" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list6'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['ticket-type-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Ticket type" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ticket-type-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Ticket Type List" }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+
+        <!-- Manage Ticket Sub Type Master -->
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list7')">
+                <i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;
+                <span>{{ "Ticket Sub Type Master" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list7'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['ticket-sub-type-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Ticket Sub Type" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ticket-sub-type-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Ticket Sub Type List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div> -->
+
+
+        <!-- Manage Special Days Master -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list8')">
+                <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
+                <span>{{ "Special Days Master" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list8'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['special-days-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Special Day" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['special-days-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Special Days List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+
+        <!-- Manage Time Slot Master -->
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list9')">
+                <i class="fa fa-clock"></i>&nbsp;
+                <span>{{ "Time Slot Master" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list9'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['time-table-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Time Slot" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['time-table-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Time Slot List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div> -->
+
+        <!-- Manage Day Type Master -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list10')">
+                <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
+                <span>{{ "Day Type Master" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list10'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['day-type-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Day Type" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['day-type-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Day Type List" }}</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a [routerLink]="['day-timeSlot-map']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Day Time Slot Map" }}</span>
+                        </a>
+                    </li> -->
+                   
+                </ul>
+            </li>
+        </div>
+
+        <!-- Manage Base Fare Master -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list11')">
+                <i class="fa fa-inr"></i>&nbsp;&nbsp;
+                <span>{{ "Base Fare Master" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list11'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['base-fare-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Base Fare" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['base-fare-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Base Fare List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+
+        <!-- Generate File -->
+        <div class="nested-menu">
+            <a class="list-group-item" [routerLink]="['generate-file']">
+                <i class="fa fa-file"></i>&nbsp;&nbsp;
+                <span>{{ "Generate File" }}</span>
+            </a>
+        </div>
+
+
+       
     </div>
 </nav>

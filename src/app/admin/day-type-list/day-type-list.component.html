@@ -1,0 +1,115 @@
+<div class="container formMrgn">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Day Type List
+            </h4>
+        </div>
+    </div>
+    
+    <div class="table-responsive table-set mt-4">
+        <table class="table-res row-border hover table-head display nowrap table" id="dataTable" datatable="" *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>Id</th>
+                    <th>Day Type Name</th>
+                    <th>TimeTable</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of dayTypeList; let i=index' >
+                    <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
+                    <td>{{ item && item.dayTypeName ? item.dayTypeName : 'NA' }}</td>
+                    <td>
+                        <span class="linkHover">
+                            <a *ngIf="item.status===true" (click)="openModal(templateTimeTable)">View</a>
+                        </span>
+                        
+                        <ng-template #templateTimeTable>
+                            <h4 class="text-center  mt-3">Time Slots</h4>
+                            <table class="mt-2 mb-2 table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Slot Id</th>
+                                        <th>Time Slot</th>
+                                        <th>Discount(%)</th>
+                                        <!-- <th>Status</th> -->
+                                        <!-- <th>Edit</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let timeTbl of dayTypeList[i].timeTable">
+                                        <td class="text-center"><b> {{ timeTbl && timeTbl.id ? timeTbl.id : 'NA' }} </b></td>
+                                        <td class="text-center"> 
+                                            {{ timeTbl && timeTbl.fromTime ? timeTbl.fromTime : 'NA' }} - {{ timeTbl && timeTbl.toTime ? timeTbl.toTime : 'NA' }}
+                                        </td>
+                                        <td class="text-center"> {{ timeTbl && timeTbl.discount ? timeTbl.discount : 'NA' }} </td>
+                                        <!-- <td class="text-center"> 
+                                            {{ timeTbl && timeTbl.status ? (timeTbl.status===true?'Active':'Inactive') : 'NA' }} 
+                                        </td> -->
+                                        <!-- <td class="text-center">
+                                           
+                                            <a (click)="editData(timeTbl.id)">
+                                                <i  class="fa fa-edit"></i>
+                                            </a>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mb-3 mt-3" (click)="decline()">Ok</button>
+                            </div>
+                        </ng-template>
+                    </td>
+                    <td>
+                        <!-- {{ item && item.status ? (item.status==true?'Active':'Inactive') : 'NA' }} -->
+                        <!-- {{ item && item.status==true?'Active':'Inactive' }} -->
+                        <select class="p-2 form-control" (change)="openStatusModal(templateActive, templateDeactivate, $event,item.id)" >
+                            <option value="true" [selected]="item.status===true">Activate</option>
+                            <option value="false" [selected]="item.status===false">Deactivate</option>
+                        </select>
+
+                        <ng-template #templateDeactivate>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to change the status ?</p>
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-warning mx-4" (click)="confirm()">
+                                    Deactivate
+                                </button>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #templateActive>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to change the status ?</p>
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-success mx-4" (click)="confirm()">
+                                    Activate
+                                </button>
+                            </div>
+                        </ng-template>
+                    </td>
+                    <td>
+                        <a *ngIf="item.status===true" [routerLink]="['/admin/day-type-edit', item.id]">
+                            <i  class="fa fa-edit"></i>
+                        </a>
+                        
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+    
+    
+
+</div>
+
