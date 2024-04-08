@@ -1,0 +1,86 @@
+<div class="container mt-5 mb-5 formBg">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Zone
+            </h4>
+        </div>
+    </div>
+    <!-- <h2>Add Zone</h2>
+    <hr> -->
+    <div class="row form-border mt-4">
+        <form [formGroup]="addZoneForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p10">
+                <!-- Zone full Name -->
+                <div class="col-md-4 form-group">
+                    <label for="baseFare">Zone Full Name<span class="required">*</span></label>
+                    <input type="text" formControlName="zoneFullName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.zoneFullName.errors}" maxlength="255" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.zoneFullName.errors && fval.zoneFullName.errors.required">
+                            {{ fval.zoneFullName.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zone Name -->
+                <div class="col-md-4 form-group">
+                    <label for="baseFare">Zone Name<span class="required">*</span></label>
+                    <input type="text" formControlName="zoneName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.zoneName.errors}" maxlength="255" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.zoneName.errors && fval.zoneName.errors.required">
+                            {{ fval.zoneName.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zone code -->
+                <div class="col-md-4 form-group">
+                    <label for="baseFare">Zone Code<span class="required">*</span></label>
+                    <input type="text" formControlName="zoneCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.zoneCode.errors}" maxlength="255" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.zoneCode.errors && fval.zoneCode.errors.required">
+                            {{ fval.zoneCode.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zone Line/Corridor -->
+                <div class="col-md-4 form-group">
+                    <label for="baseFare">Line/Corridor<span class="required">*</span></label>
+                    <ng-select
+                        formControlName="lines" 
+                        [ngClass]="{ 'is-invalid': submitted && fval.lines.errors}"
+                        [multiple]="true"
+                    >
+                        <ng-option value="">Select Corridor</ng-option>
+                        <ng-option *ngFor="let item of lineList" [value]="item.id">{{item.lineName}} ({{item.lineCode}})</ng-option>
+                    </ng-select>
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.lines.errors && fval.lines.errors.required">
+                            {{ fval.lines.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+
+                
+            </div>
+
+
+            <div class="clearfix mt-4 btn-set">
+                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+                <button type="submit" class="btn btn-primary mx-3">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                
+            </div>
+
+        </form>
+    </div>
+
+</div>

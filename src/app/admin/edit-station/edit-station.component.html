@@ -13,17 +13,17 @@
         <form [formGroup]="editstationForm" (ngSubmit)="onFormSubmit()">
             <div class="row row-p10">
 
-                 <!-- Zone -->
-                 <div class="col-md-4">     
+                  <!-- Zone -->
+                <div class="col-md-4">     
                     <label for="zone" class="required">Zone</label>    
-                    <ng-select id="zone" class=" form-vehicle" formControlName="zone" placeholder="Select Zone"
-                        [ngClass]="{ 'is-invalid': submitted && fval['zone'].errors }" >
+                    <ng-select id="zone" class=" form-vehicle" formControlName="zoneId" placeholder="Select Zone"
+                        [ngClass]="{ 'is-invalid': submitted && fval['zoneId'].errors }" >
                         <ng-option value="" selected>--Select Zone--</ng-option>
-                        <ng-option *ngFor="let zone of zoneList" [value]="zone.id" >{{zone.value}}</ng-option>
+                        <ng-option *ngFor="let zone of zoneList" [value]="zone.id" >{{zone.zoneName}}</ng-option>
                     </ng-select>
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf=" editstationForm.controls.zone.errors && editstationForm.controls.zone.errors.required ">
-                            {{editstationForm.controls.zone.errors.required.message }}
+                        <div *ngIf=" fval.zoneId.errors && fval.zoneId.errors.required ">
+                            {{fval.zoneId.errors.required.message }}
                         </div>
                     </div>
                            
@@ -41,12 +41,12 @@
 
                     <div *ngIf="submitted && fval.stationCode.errors" class="invalid-feedback">
                         <div *ngIf="
-                                editstationForm.controls.stationCode.errors &&
-                                editstationForm.controls.stationCode.errors
+                                fval.stationCode.errors &&
+                                fval.stationCode.errors
                                     .required
                             ">
                             {{
-                            editstationForm.controls.stationCode.errors
+                            fval.stationCode.errors
                             .required.message
                             }}
                         </div>
@@ -64,55 +64,34 @@
 
                     <div *ngIf="submitted && fval.stationName.errors" class="invalid-feedback">
                         <div *ngIf="
-                                editstationForm.controls.stationName.errors &&
-                                editstationForm.controls.stationName.errors
+                                fval.stationName.errors &&
+                                fval.stationName.errors
                                     .required
                             ">
                             {{
-                            editstationForm.controls.stationName.errors
+                            fval.stationName.errors
                             .required.message
                             }}
                         </div>
                         <div *ngIf="
-                                editstationForm.controls.stationName.errors &&
-                                editstationForm.controls.stationName.errors
+                                fval.stationName.errors &&
+                                fval.stationName.errors
                                     .alpha
                             ">
                             {{
-                            editstationForm.controls.stationName.errors
+                            fval.stationName.errors
                             .alpha.message
                             }}
                         </div>
                         <div *ngIf="
-                            editstationForm.controls.stationName.errors &&
-                            editstationForm.controls.stationName.errors.minLength
+                            fval.stationName.errors &&
+                            fval.stationName.errors.minLength
                             ">
                             {{
-                            editstationForm.controls.stationName.errors.minLength
+                            fval.stationName.errors.minLength
                             .message
                             }}
                         </div>
-                    </div>
-                </div>
-
-                <!-- Station Id -->
-                <div class="col-md-4">
-                    <label for="stationId" class="required">
-                        <b> Station Id</b>
-                    </label>
-                    <input formControlName="stationId" class="form-control" type="text"
-                        [ngClass]="{'is-invalid': submitted && fval.stationId.errors}" maxlength="25" />
-                    <div *ngIf="submitted" class="invalid-feedback">
-                        <div
-                            *ngIf="editstationForm.controls.stationId.errors && editstationForm.controls.stationId.errors.required">
-                            {{ editstationForm.controls.stationId.errors.required.message }}
-                        </div>
-                        <!-- <div *ngIf="editstationForm.controls.stationId.errors && editstationForm.controls.stationId.errors.alpha">
-                            {{ editstationForm.controls.stationId.errors.alpha.message }}
-                        </div>
-                        <div *ngIf="editstationForm.controls.stationId.errors && editstationForm.controls.stationId.errors.minLength">
-                            {{ editstationForm.controls.stationId.errors.minLength.message }}
-                        </div> -->
                     </div>
                 </div>
 
@@ -127,22 +106,22 @@
                         }" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="
-                                editstationForm.controls.latitude.errors &&
-                                editstationForm.controls.latitude.errors
+                                fval.latitude.errors &&
+                                fval.latitude.errors
                                     .required
                             ">
                             {{
-                            editstationForm.controls.latitude.errors
+                            fval.latitude.errors
                             .required.message
                             }}
                         </div>
                         <div *ngIf="
-                                editstationForm.controls.latitude.errors &&
-                                editstationForm.controls.latitude.errors
+                                fval.latitude.errors &&
+                                fval.latitude.errors
                                     .latitude
                             ">
                             {{
-                            editstationForm.controls.latitude.errors
+                            fval.latitude.errors
                             .latitude.message
                             }}
                         </div>
@@ -160,22 +139,22 @@
                         }" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="
-                                editstationForm.controls.longitude.errors &&
-                                editstationForm.controls.longitude.errors
+                                fval.longitude.errors &&
+                                fval.longitude.errors
                                     .required
                             ">
                             {{
-                            editstationForm.controls.longitude.errors
+                            fval.longitude.errors
                             .required.message
                             }}
                         </div>
                         <div *ngIf="
-                                editstationForm.controls.longitude.errors &&
-                                editstationForm.controls.longitude.errors
+                                fval.longitude.errors &&
+                                fval.longitude.errors
                                     .longitude
                             ">
                             {{
-                            editstationForm.controls.longitude.errors
+                            fval.longitude.errors
                             .longitude.message
                             }}
                         </div>
@@ -192,47 +171,54 @@
                         }" maxlength="10" />
                     <div *ngIf="submitted && fval.contactNum.errors" class="invalid-feedback">
                         <div *ngIf="
-                                editstationForm.controls.contactNum.errors &&
-                                editstationForm.controls.contactNum.errors.required
+                                fval.contactNum.errors &&
+                                fval.contactNum.errors.required
                             ">
                             {{
-                            editstationForm.controls.contactNum.errors.required
+                            fval.contactNum.errors.required
                             .message
                             }}
                         </div>
                         <div *ngIf="
-                                editstationForm.controls.contactNum.errors &&
-                                editstationForm.controls.contactNum.errors.onlyDigit
+                                fval.contactNum.errors &&
+                                fval.contactNum.errors.onlyDigit
                             ">
                             {{
-                            editstationForm.controls.contactNum.errors.onlyDigit
+                            fval.contactNum.errors.onlyDigit
                             .message
                             }}
                         </div>
                     </div>
                 </div>
 
-                <!-- Address -->
-                <div class="col-md-4">
+               <!-- Address -->
+               <div class="col-md-4">
                     <label for="address" class="required">
-                        <b> Address</b>
+                        <b>Address</b>
                     </label>
-                    <input formControlName="address" class="form-control" type="text" [ngClass]="{
+                    <textarea 
+                        formControlName="address" 
+                        class="form-control" 
+                        [ngClass]="{
                             'is-invalid': submitted && fval.address.errors
-                        }" />
+                        }" 
+                        maxlength="255"
+                    >
+                    </textarea>
                     <div *ngIf="submitted && fval.address.errors" class="invalid-feedback">
                         <div *ngIf="
-                                editstationForm.controls.address.errors &&
-                                editstationForm.controls.address.errors.required
+                            fval.address.errors &&
+                            fval.address.errors.required
                             ">
                             {{
-                            editstationForm.controls.address.errors.required
+                        fval.address.errors.required
                             .message
                             }}
                         </div>
 
                     </div>
                 </div>
+
 
             </div>
 
@@ -241,9 +227,9 @@
                     Update
                     <span class="fa-class fa fa-paper-plane"></span>
                 </button>
-                <button type="reset" class="btn-sub my-5">
-                    Reset
-                    <span class="fa-class fa fa-redo"></span>
+                <button class="btn-sub my-5" (click)="cancel()">
+                    Cancel
+                    <span class="fa-class fa fa-window-close"></span>
                 </button>
             </div>
             <br><br>

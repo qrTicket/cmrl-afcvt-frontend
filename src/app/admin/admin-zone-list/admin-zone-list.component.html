@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Zone List
+            </h4>
+        </div>
+    </div>
+    <!-- <div class="heading">
+        <h2>
+            Base Fare List
+        </h2>
+    </div> -->
+    
+    <div class="table-responsive table-set mt-4">
+        <table class="table-res row-border hover table-head" id="dataTable" datatable="" class="display nowrap table"  *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>S.NO.</th>
+                    <th>Zone Full Name</th>
+                    <th>Zone Name</th>
+                    <th>Zone Code</th>
+                    <th>Line/Corridor</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of zoneList; index as i'>
+                    <td><b>{{ i + 1 }}</b></td>
+                    <td>{{ item && item.zoneFullName ? item.zoneFullName : 'NA' }}</td>
+                    <td>{{ item && item.zoneName ? item.zoneName : 'NA' }}</td>
+                    <td>{{ item && item.zoneCode ? item.zoneCode : 'NA' }}</td>
+                    <td>{{ item && item.lines ? item.lines : 'NA' }}</td>
+                    <td>
+                        <a [routerLink]="['/admin/admin-zone-edit', item.id]">
+                            <i  class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

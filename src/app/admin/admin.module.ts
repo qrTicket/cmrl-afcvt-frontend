@@ -80,6 +80,9 @@ import { DayTimeSlotMapComponent } from './day-time-slot-map/day-time-slot-map.c
 import { DayTimeSlotMapUpdateComponent } from './day-time-slot-map-update/day-time-slot-map-update.component';
 import { MediaTicketSubtypeListComponent } from './media-ticket-subtype-list/media-ticket-subtype-list.component';
 import { GenerateJsonComponent } from './generate-json/generate-json.component';
+import { AdminZoneAddComponent } from './admin-zone-add/admin-zone-add.component';
+import { AdminZoneListComponent } from './admin-zone-list/admin-zone-list.component';
+import { AdminZoneEditComponent } from './admin-zone-edit/admin-zone-edit.component';
 
 
 
@@ -170,7 +173,10 @@ import { GenerateJsonComponent } from './generate-json/generate-json.component';
         DayTimeSlotMapComponent,
         DayTimeSlotMapUpdateComponent,
         MediaTicketSubtypeListComponent,
-        GenerateJsonComponent
+        GenerateJsonComponent,
+        AdminZoneAddComponent,
+        AdminZoneListComponent,
+        AdminZoneEditComponent
     ],
     exports: [PrivacyComponent],
 })

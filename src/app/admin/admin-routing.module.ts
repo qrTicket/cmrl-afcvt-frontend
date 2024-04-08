@@ -68,6 +68,9 @@ import { DayTimeSlotMapComponent } from "./day-time-slot-map/day-time-slot-map.c
 import { DayTimeSlotMapUpdateComponent } from "./day-time-slot-map-update/day-time-slot-map-update.component";
 import { MediaTicketSubtypeListComponent } from "./media-ticket-subtype-list/media-ticket-subtype-list.component";
 import { GenerateJsonComponent } from "./generate-json/generate-json.component";
+import { AdminZoneAddComponent } from "./admin-zone-add/admin-zone-add.component";
+import { AdminZoneEditComponent } from "./admin-zone-edit/admin-zone-edit.component";
+import { AdminZoneListComponent } from "./admin-zone-list/admin-zone-list.component";
 
 const routes: Routes = [
     {
@@ -83,9 +86,11 @@ const routes: Routes = [
             { path: "linelist", component: LinelistComponent },
             { path: "edit-line/:id", component: EditLineComponent },
             { path: "line-stations-detail/:id", component: LineStationsDetailsComponent },
+
             { path: "addstation", component: AddstationComponent },
             { path: "stationlist", component: StationlistComponent },
             { path: "edit-station/:id", component: EditStationComponent },
+            
             { path: "fare-list", component: FareListComponent },
             { path: "edit-fare-details/:id", component: EditFareDetailsComponent },
             { path: "edit-profile", component: EditProfileComponent },
@@ -130,8 +135,11 @@ const routes: Routes = [
 
             { path: "admin-alarm", component: AdminAlarmComponent },
             { path: "warning-sign", component: WarningSignComponent },
+
+            //old zone, this is not used
             { path: "zone", component: ZoneComponent },
             { path: "zonelist", component: ZonelistComponent },
+
             { path: "multi-dashboard", component: MultiDashboardComponent },
             { path: "multi-dash-list", component: MultiDashListComponent },
             { path: "admin-mail", component: AdminMailComponent },
@@ -174,6 +182,11 @@ const routes: Routes = [
             { path: "base-fare-add", component:BaseFareAddComponent },
             { path: "base-fare-list", component:BaseFareListComponent },
             { path: "base-fare-edit/:id", component:BaseFareEditComponent },
+
+            //new zone master route
+            { path: "admin-zone-add", component: AdminZoneAddComponent },
+            { path: "admin-zone-list", component: AdminZoneListComponent },
+            { path: "admin-zone-edit/:id", component: AdminZoneEditComponent },
 
             { path: "generate-file", component:GenerateJsonComponent }
         ],

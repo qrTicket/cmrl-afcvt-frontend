@@ -8,6 +8,7 @@ import { StationService } from "../_services/station.service";
 import { Line } from "../_models/lines.model";
 import { LinesService } from "../_services/lines.service";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
+import { ZoneService } from "../_services/zone.service";
 
 @Component({
     selector: "app-addstation",
@@ -21,8 +22,8 @@ export class AddstationComponent implements OnInit {
     zoneList:any[]=[];
     id: number;
 
-    successmsg;
-    errormsg;
+    successmsg:any;
+    errormsg:any;
     text: any;
     isSaving = false;
     
@@ -32,12 +33,12 @@ export class AddstationComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private toastr: ToastrService,
-        private lineservice: LinesService
+        private zoneService: ZoneService,
     ) {}
 
     ngOnInit() {
         this.stationForm = this.formBuilder.group({
-            zone:['',[RxwebValidators.required({message: "This field is required!"})]],
+            zoneId:['',[RxwebValidators.required({message: "This field is required!"})]],
             stationName: [
                 "",
                 [
@@ -65,7 +66,7 @@ export class AddstationComponent implements OnInit {
                     RxwebValidators.minLength({value:3,message: "Minimum length should be 3!"})
                 ],
             ],
-            stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
+            //stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
             contactNum: ["",
                 [
                     RxwebValidators.required({message: "This field is required!",}),
@@ -109,7 +110,7 @@ export class AddstationComponent implements OnInit {
     }
 
     getZoneList(){
-        this.stationservice.getZoneList().subscribe({
+        this.zoneService.getAllZone().subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
                 this.toastr.error(res.data,'Error!')
@@ -133,20 +134,19 @@ export class AddstationComponent implements OnInit {
         console.log("controls");
         console.log(this.stationForm.value);
 
-        this.submitted = true;
+        //this.submitted = true;
         this.isSaving = true;
 
-        if (this.stationForm.invalid)
-            return Swal.fire({
-                icon: "error",
-                title: "Error!",
-                text: "Please fill all fields!",
-            });
+        if (this.stationForm.invalid){
+            this.submitted = true;
+            return false;
+        }
+           
         let reqObj = {
-            "zone" : this.stationForm.value.zone,
+            "zoneId" : this.stationForm.value.zoneId,
             "stationName" : this.stationForm.value.stationName,
             "stationCode" : this.stationForm.value.stationCode,
-            "stationId" : this.stationForm.value.stationId,
+            //"stationId" : this.stationForm.value.stationId,
             "contactNum" : this.stationForm.value.contactNum,
             "latitude" : this.stationForm.value.latitude,
             "longitude" : this.stationForm.value.longitude,

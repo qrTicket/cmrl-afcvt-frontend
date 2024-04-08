@@ -31,7 +31,7 @@ export class StationService {
 
   postAddstation(station: any) {
 
-    const stationLinksPayload = station.stationLinks.map(item => {
+    /*const stationLinksPayload = station.stationLinks.map(item => {
 
         if(item.prevStationCode==='' && item.nextStationCode ===''){
             return {...item ,prevStationCode :null,nextStationCode:null}
@@ -43,6 +43,7 @@ export class StationService {
             return item;
         }
     })
+
     const payload= {
         "stationName": station.stationName,
         "stationCode": station.stationCode,
@@ -52,12 +53,9 @@ export class StationService {
         "address": station.address,
         "junction": (station.junction==='yes')?1:0,
         "stationLinks": stationLinksPayload
-    }
-    return this.http.post<any>(
-      `${environment.productUrl}/station/save`,
-      payload,
-      this.httpOptions
-    );
+    }*/
+
+    return this.http.post<any>(`${environment.productUrl}/station/save`,station);
   }
 
   // ----------- get station list -------------
@@ -92,7 +90,7 @@ export class StationService {
 
   putStation(id: number, station: any): Observable<Station> {
 
-    const stationLinksPayload = station.stationLinks.map(item => {
+    /*const stationLinksPayload = station.stationLinks.map(item => {
 
         if(item.prevStationCode==='' && item.nextStationCode ===''){
             return {...item ,prevStationCode :null,nextStationCode:null}
@@ -113,13 +111,9 @@ export class StationService {
         "address": station.address,
         "junction": (station.junction==='yes')?1:0,
         "stationLinks": stationLinksPayload
-    }
+    }*/
 
-    return this.http.put<any>(
-      `${environment.productUrl}/station/update/${id}`,
-      payload,
-      this.httpOptions
-    );
+    return this.http.put<any>(`${environment.productUrl}/station/update/${id}`,station);
   }
 
   // ----------- single audit file transfer in future -------------

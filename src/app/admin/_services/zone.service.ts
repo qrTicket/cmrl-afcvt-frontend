@@ -10,6 +10,13 @@ import { map, catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ZoneService {
+
+  saveZoneEndUrl:any = "api/afc/zone/save";
+  getAllZoneEndUrl:any = "api/afc/zone/all";
+  getZoneByIdEndUrl:any = "api/afc/zone";
+  updateZoneEndUrl:any = "api/afc/zone/update";
+
+
   private token: string = localStorage.getItem('token');
 
   private httpOptions = {
@@ -26,6 +33,7 @@ export class ZoneService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
+  //old (not used)
   addZone(zone: Zone): Observable<any> {
     return this.http
       .post<any>(`${environment.lineUrl}/zone/add`, zone, this.httpOptions)
@@ -35,11 +43,36 @@ export class ZoneService {
       );
   }
 
+  //old (not used)
   zoneList() {
     return this.http.get<any>(
       `${environment.lineUrl}/zone/list`,
       this.httpOptions
     );
   }
+
+  //add zone
+  saveZone(payload:any): Observable<any> {
+    return this.http.post<any>(`${environment.BASEURL}/${this.saveZoneEndUrl}`, payload)
+      
+  }
+
+  //add zone
+  getAllZone(): Observable<any> {
+    return this.http.get<any>(`${environment.BASEURL}/${this.getAllZoneEndUrl}`)
+      
+  }
+
+  //get Zone By Id
+  getZoneById(id:any): Observable<any> {
+    return this.http.get<any>(`${environment.BASEURL}/${this.getZoneByIdEndUrl}/${id}`)
+      
+  }
+
+  //Update Zone By Id
+  updateZone(payload:any, id:any): Observable<any> {
+    return this.http.put<any>(`${environment.BASEURL}/${this.updateZoneEndUrl}/${id}`,payload)
+  }
+  
   
 }

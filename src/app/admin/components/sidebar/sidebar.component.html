@@ -82,14 +82,40 @@
             </li>
         </div>
 
+         <!-- Manage zone from admin -->
+         <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list3')">
+                <i class="fa fa-area-chart"></i>&nbsp;
+                <span>{{ "Manage Zone" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list3'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['admin-zone-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-area-chart"></i>&nbsp;
+                            <span>{{ "Add Zone" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['admin-zone-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list"></i>&nbsp;
+                            <span>{{ "Zone List" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </div>
+
         <!-- station -->
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list3')">
+            <a class="list-group-item" (click)="addExpandClass('list4')">
                 <i class="fa fa-subway"></i>&nbsp;
                 <span>{{ "Station" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list3'">
+            <li class="nested" [class.expand]="showMenu === 'list4'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['addstation']">
@@ -129,12 +155,12 @@
         </div>
 
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list4')">
+            <a class="list-group-item" (click)="addExpandClass('list5')">
                 <i class="fa fa-clock"></i>&nbsp;
                 <span>{{ "Schedule File Upload" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list4'">
+            <li class="nested" [class.expand]="showMenu === 'list5'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['schedule-file-update']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -194,12 +220,12 @@
 
          <!-- Manage Media Master -->
          <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list5')">
+            <a class="list-group-item" (click)="addExpandClass('list6')">
                 <i class="fa fa-asterisk"></i>&nbsp;
                 <span>{{ "Fare" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list5'">
+            <li class="nested" [class.expand]="showMenu === 'list6'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['add-media-type']" [routerLinkActive]="['router-link-active']">
@@ -259,12 +285,12 @@
 
         <!-- Manage Ticket Master -->
         <!-- <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list6')">
+            <a class="list-group-item" (click)="addExpandClass('list7')">
                 <i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;
                 <span>{{ "Ticket Master" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list6'">
+            <li class="nested" [class.expand]="showMenu === 'list7'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['ticket-type-add']" [routerLinkActive]="['router-link-active']">
@@ -284,12 +310,12 @@
 
         <!-- Manage Ticket Sub Type Master -->
         <!-- <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list7')">
+            <a class="list-group-item" (click)="addExpandClass('list8')">
                 <i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;
                 <span>{{ "Ticket Sub Type Master" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list7'">
+            <li class="nested" [class.expand]="showMenu === 'list8'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['ticket-sub-type-add']" [routerLinkActive]="['router-link-active']">
@@ -311,12 +337,12 @@
 
         <!-- Manage Special Days Master -->
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list8')">
+            <a class="list-group-item" (click)="addExpandClass('list9')">
                 <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                 <span>{{ "Special Days Master" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list8'">
+            <li class="nested" [class.expand]="showMenu === 'list9'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['special-days-add']" [routerLinkActive]="['router-link-active']">
@@ -337,12 +363,12 @@
 
         <!-- Manage Time Slot Master -->
         <!-- <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list9')">
+            <a class="list-group-item" (click)="addExpandClass('list10')">
                 <i class="fa fa-clock"></i>&nbsp;
                 <span>{{ "Time Slot Master" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list9'">
+            <li class="nested" [class.expand]="showMenu === 'list10'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['time-table-add']" [routerLinkActive]="['router-link-active']">
@@ -363,12 +389,12 @@
 
         <!-- Manage Day Type Master -->
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list10')">
+            <a class="list-group-item" (click)="addExpandClass('list11')">
                 <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                 <span>{{ "Day Type Master" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list10'">
+            <li class="nested" [class.expand]="showMenu === 'list11'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['day-type-add']" [routerLinkActive]="['router-link-active']">
@@ -395,12 +421,12 @@
 
         <!-- Manage Base Fare Master -->
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('list11')">
+            <a class="list-group-item" (click)="addExpandClass('list12')">
                 <i class="fa fa-inr"></i>&nbsp;&nbsp;
                 <span>{{ "Base Fare Master" }}</span>
             </a>
 
-            <li class="nested" [class.expand]="showMenu === 'list11'">
+            <li class="nested" [class.expand]="showMenu === 'list12'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['base-fare-add']" [routerLinkActive]="['router-link-active']">

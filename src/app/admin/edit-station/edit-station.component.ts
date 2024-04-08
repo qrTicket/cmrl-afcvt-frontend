@@ -8,6 +8,7 @@ import { StationService } from "../_services/station.service";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
 import { Line } from "../_models/lines.model";
 import { LinesService } from "../_services/lines.service";
+import { ZoneService } from "../_services/zone.service";
 
 @Component({
     selector: "app-edit-station",
@@ -29,12 +30,12 @@ export class EditStationComponent implements OnInit {
         private activeRouter: ActivatedRoute,
         private toastr: ToastrService,
         private stationService: StationService,
-        private lineService: LinesService
+        private zoneService: ZoneService,
     ) {}
 
     ngOnInit() {
         this.editstationForm = this.formBuilder.group({
-            zone:['',[RxwebValidators.required({message: "This field is required!"})]],
+            zoneId:['',[RxwebValidators.required({message: "This field is required!"})]],
             stationCode: [
                 "",
                 RxwebValidators.required({
@@ -60,7 +61,7 @@ export class EditStationComponent implements OnInit {
                     }),
                 ],
             ],
-            stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
+            //stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
             contactNum: [
                 "",
                 [
@@ -119,7 +120,7 @@ export class EditStationComponent implements OnInit {
     }
 
     getZoneList(){
-        this.stationService.getZoneList().subscribe({
+        this.zoneService.getAllZone().subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
                 this.toastr.error(res.data,'Error!')
@@ -131,7 +132,7 @@ export class EditStationComponent implements OnInit {
             error:(err)=>{
                 this.toastr.error(err.error.data,'Error!')
             }
-          })
+        })
     }
 
     get fval() {
@@ -157,7 +158,7 @@ export class EditStationComponent implements OnInit {
     updateStation(station: Station) {
         this.editstationForm.patchValue({
             //id: station.id,
-            //zone: station && station.zone ? station.zone : "",
+            zoneId: station && station.zoneId ? station.zoneId : "",
             stationCode: station.stationCode,
             stationName: station.stationName,
             //stationId: station.stationId,
@@ -180,10 +181,10 @@ export class EditStationComponent implements OnInit {
             });
 
             let reqObj = {
-                "zone" : this.editstationForm.value.zone,
+                "zoneId" : this.editstationForm.value.zoneId,
                 "stationName" : this.editstationForm.value.stationName,
                 "stationCode" : this.editstationForm.value.stationCode,
-                "stationId" : this.editstationForm.value.stationId,
+                //"stationId" : this.editstationForm.value.stationId,
                 "contactNum" : this.editstationForm.value.contactNum,
                 "latitude" : this.editstationForm.value.latitude,
                 "longitude" : this.editstationForm.value.longitude,
@@ -207,5 +208,9 @@ export class EditStationComponent implements OnInit {
                 this.toastr.error(err.error.data,'Error!')
             }
           })
+    }
+
+    cancel(){
+        this.router.navigate(["/admin/stationlist"]);
     }
 }

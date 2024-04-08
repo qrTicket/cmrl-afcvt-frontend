@@ -6,16 +6,18 @@ export class Station {
   latitude: string;
   longitude: string;
   contactNum: string;
-  junction : number;
+  //junction : number;
   status? : string;
   address : string;
-  stationLinks: [
+  zone: string;
+  zoneId: string;
+  /*stationLinks: [
     {
         lineCode: string;
         prevStationCode: String;
         nextStationCode: String;
     }
-  ];
+  ];*/
   // lineCode: string;
   //lineId: string;
   // id: Line;

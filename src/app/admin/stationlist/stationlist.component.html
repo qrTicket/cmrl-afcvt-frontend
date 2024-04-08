@@ -30,10 +30,14 @@
         >
             <thead>
                 <tr class="text-center">
-                    <th>Line Name</th>
-                    <th>Station Short Name</th>
+                    <th>S.No.</th>
                     <th>Station Name</th>
-                    <th>Is Junction</th>
+                    <th>Station Code</th>
+                    <th>Contact Number</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Zone</th>
+                    <th>address</th>
                     <th>Edit</th>
                     <th>Status</th>
 
@@ -41,11 +45,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center" *ngFor="let item of station">
-                    <td>{{ item.stationLinks[0].lineCode }}</td>
-                    <td>{{ item.stationCode }}</td>
-                    <td>{{ item.stationName }}</td>
-                    <td>{{ item.junction==1?'Yes':'No' }}</td>
+                <tr class="text-center" *ngFor="let item of station; index as i">
+                    <td>{{i+1}}</td>
+                    <td>{{ item && item.stationName ? item.stationName : 'NA' }}</td>
+                    <td>{{ item && item.stationCode ? item.stationCode : 'NA' }}</td>
+                    <td>{{ item && item.contactNum ? item.contactNum : 'NA' }}</td>
+                    <td>{{ item && item.latitude ? item.latitude : 'NA' }}</td>
+                    <td>{{ item && item.longitude ? item.longitude : 'NA' }}</td>
+                    <td>{{ item && item.zone ? item.zone : 'NA' }}</td>
+                    <td>{{ item && item.address ? item.address : 'NA' }}</td>
+                    
                     <td>
                         <a
                             href="javascript:;"
