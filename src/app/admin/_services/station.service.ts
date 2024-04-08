@@ -11,6 +11,8 @@ import { map, catchError, retry, tap } from 'rxjs/operators';
 })
 export class StationService {
 
+  getZoneListEndUrl:string = "";
+
   private token: string = localStorage.getItem('token');
   private httpOptions = {
     headers: new HttpHeaders({
@@ -140,14 +142,16 @@ export class StationService {
     );
   }
 
-
-
-
   getJunction() {
     return this.http.get<any>(
       `${environment.lineUrl}/junction/list`,
       this.httpOptions
     );
+  }
+
+
+  getZoneList() {
+    return this.http.get<any>(`${environment.BASEURL}/${this.getZoneListEndUrl}`,this.httpOptions);
   }
 
 

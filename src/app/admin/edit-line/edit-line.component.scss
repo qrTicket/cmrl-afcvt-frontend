@@ -91,10 +91,11 @@ h2 {
     cursor: pointer;
 }
   
- 
-  
-  
-  
-  span .fa-class {
-    font-size: 18px;
-  }
+span .fa-class {
+  font-size: 18px;
+}
+
+.required::after{
+  content: "*";
+  color: red;
+}

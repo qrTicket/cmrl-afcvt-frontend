@@ -12,6 +12,12 @@ import { Line } from "../_models/lines.model";
 export class LinesService {
     private token: string = localStorage.getItem("token");
 
+    addLineEndUrl:string = "api/afc/line/save";
+    getLineEndUrl:string = "api/afc/line/all";
+    getLinByIdEndUrl:string = "api/afc/line"
+    updateLineEndUrl:string = "api/afc/line/update";
+    updateStatusEndUrl:string = "change/status/line";
+
     private httpOptions = {
         headers: new HttpHeaders({
             Authorization: `Bearer ${this.token}`,
@@ -25,40 +31,23 @@ export class LinesService {
     };
     constructor(private http: HttpClient, private authService: AuthService) {}
 
-    postAddline(line: Line): Observable<any> {
-        return this.http.post<any>(
-            `${environment.productUrl}/line/save`,
-            line,
-            this.httpOptions
-        );
+    postAddline(payload: any): Observable<any> {
+        return this.http.post<any>(`${environment.BASEURL}/${this.addLineEndUrl}`,payload,this.httpOptions);
     }
 
     getLines() {
-        return this.http.get<any>(
-            `${environment.productUrl}/line/all`,
-            this.httpOptions
-        );
+        return this.http.get<any>(`${environment.BASEURL}/${this.getLineEndUrl}`,this.httpOptions);
     }
 
     getLineById(id: number) {
-        return this.http.get<Line>(
-            `${environment.productUrl}/line/${id}`,
-            this.httpOptions
-        );
+        return this.http.get<Line>(`${environment.BASEURL}/${this.getLinByIdEndUrl}/${id}`,this.httpOptions);
     }
 
-    putLine(line: Line): Observable<Line> {
-        return this.http.put<Line>(
-            `${environment.productUrl}/line/update`,
-            line,
-            this.httpOptions
-        );
+    putLine(payload: any, lineId:number): Observable<any> {
+        return this.http.put<Line>(`${environment.BASEURL}/${this.updateLineEndUrl}/${lineId}`, payload, this.httpOptions);
     }
 
     statusUpdate(linecode:string,status:number){
-        return this.http.get<any>(
-            `${environment.productUrl}/change/status/line/${linecode}/${status}`,
-            this.httpOptions
-        );
+        return this.http.get<any>(`${environment.productUrl}/${this.updateStatusEndUrl}/${linecode}/${status}`,this.httpOptions);
     }
 }

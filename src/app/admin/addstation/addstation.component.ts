@@ -16,24 +16,16 @@ import { RxwebValidators } from "@rxweb/reactive-form-validators";
 })
 export class AddstationComponent implements OnInit {
     stationForm: FormGroup;
-    stationLinks: FormArray;
     submitted = false;
 
-    station: Station[] = [];
+    zoneList:any[]=[];
     id: number;
-
-    line: Line[] = [];
-    lineList: any;
-    public lineData: Object;
-    lineId: number;
 
     successmsg;
     errormsg;
     text: any;
     isSaving = false;
-    isJunction:boolean=false;
-    stationList: Object;
-    stationListArr: any[]=[];
+    
 
     constructor(
         private stationservice: StationService,
@@ -45,12 +37,7 @@ export class AddstationComponent implements OnInit {
 
     ngOnInit() {
         this.stationForm = this.formBuilder.group({
-            // lineId: [
-            //     "",
-            //     RxwebValidators.required({
-            //         message: "This field is required!",
-            //     }),
-            // ],
+            zone:['',[RxwebValidators.required({message: "This field is required!"})]],
             stationName: [
                 "",
                 [
@@ -71,50 +58,20 @@ export class AddstationComponent implements OnInit {
                     }),
                 ],
             ],
-            // stationCode: [
-            //     "",
-            //     [
-            //         RxwebValidators.required({
-            //             message: "This field is required!",
-            //         }),
-            //         RxwebValidators.alphaNumeric({
-            //             message: "This accept only alphabet!",
-            //             allowWhiteSpace: true,
-            //         }),
-            //     ],
-            // ],
-            stationCode: [
-                "",
+            stationCode: ["",
                 [
-                    RxwebValidators.required({
-                        message: "This field is required!",
-                    }),
-                    RxwebValidators.pattern({
-                        expression: {
-                            alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,
-                        },
-                        message:
-                            "This accept combination of numbers and alphabets.",
-                    }),
-                    RxwebValidators.minLength({
-                        value:3,
-                        message: "Minimum length should be 3!",
-                    }),
+                    RxwebValidators.required({ message: "This field is required!"}),
+                    RxwebValidators.pattern({expression: {alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/, },message:"This accept combination of numbers and alphabets."}),
+                    RxwebValidators.minLength({value:3,message: "Minimum length should be 3!"})
                 ],
             ],
-            contactNum: [
-                "",
+            stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
+            contactNum: ["",
                 [
-                    RxwebValidators.required({
-                        message: "This field is required!",
-                    }),
-                    RxwebValidators.pattern({
-                        expression: { onlyDigit: /^[6-9]\d{9}$/ },
-                        message: "Invalid mobile number!",
-                    }),
+                    RxwebValidators.required({message: "This field is required!",}),
+                    RxwebValidators.pattern({expression: { onlyDigit: /^[6-9]\d{9}$/ },message: "Invalid mobile number!",}),
                 ],
             ],
-
             latitude: [
                 "",
                 [
@@ -126,7 +83,6 @@ export class AddstationComponent implements OnInit {
                     })
                 ],
             ],
-
             longitude: [
                 "",
                 [
@@ -147,51 +103,19 @@ export class AddstationComponent implements OnInit {
 
                 ],
             ],
-            junction: [
-                "no",
-                [
-                    RxwebValidators.required({
-                        message: "This field is required!",
-                    }),
-
-                ],
-            ],
-            stationLinks:this.formBuilder.array([this.createStationLinks()])
-
         });
 
-        // this.lineservice.getLines().subscribe((res) => {
-        //     //console.log(res["data"]);
-        //     this.lineList = res["data"];
-        // });
-        this.lineservice.getLines().subscribe({
-            next:(res)=>{
+        this.getZoneList();
+    }
+
+    getZoneList(){
+        this.stationservice.getZoneList().subscribe({
+            next:(res:any)=>{
               if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
+                this.toastr.error(res.data,'Error!')
               }
               else if(res.status === "1"){
-                this.lineList = res.data;
-              }
-            },
-            error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
-            }
-          })
-
-
-        // this.stationservice.getStation().subscribe((res) => {
-        //     this.station = res["data"];//not in use
-        //     //station when page load
-        //     this.stationList = res["data"];
-        //     console.log(this.stationList, "Station List");
-        // });
-        this.stationservice.getStation().subscribe({
-            next:(res)=>{
-              if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
-              }
-              else if(res.status === "1"){
-                this.station = res.data;
+                this.zoneList = res.data;
               }
             },
             error:(err)=>{
@@ -199,100 +123,10 @@ export class AddstationComponent implements OnInit {
             }
           })
     }
-
-    get stationLinksForms() {
-        return this.stationForm.get('stationLinks') as FormArray
-    }
-
-    createStationLinks(): FormGroup {
-        return this.formBuilder.group({
-            lineCode: [
-                "",
-                    RxwebValidators.required({
-                        message: "This field is required!",
-                    }),
-            ],
-            prevStationCode: '',
-            nextStationCode: ''
-        });
-    }
-
-    addStationLinks() {
-        //this.stationLinks = this.stationForm.get('stationLinks') as FormArray;
-        //this.stationLinks.push(this.createStationLinks());
-        const control = <FormArray>this.stationForm.controls['stationLinks'];
-        const stationlinks = this.formBuilder.group({
-            lineCode: [
-                "",
-                    RxwebValidators.required({
-                        message: "This field is required!",
-                    }),
-            ],
-            prevStationCode: '',
-            nextStationCode: ''
-        });
-
-        control.push(stationlinks)
-
-    }
-
-    removeStationLinks(i:number) {
-        this.stationLinksForms.removeAt(i);
-    }
-
-    // convenience getter for easy access to form fields
-    get f() {
-        return this.stationLinksForms.controls;
-    }
-
-
+  
     get fval() {
         return this.stationForm.controls;
     }
-
-
-    onJnStChange(e){
-        if(e.target.value==='yes'){
-            this.isJunction=true;
-        }else if(e.target.value === 'no'){
-            this.isJunction=false;
-            // this.stationLinks.clear();
-            // this.stationLinks.push(this.createStationLinks());
-            const valueToKeep = this.stationLinksForms.at(1);
-            this.stationLinksForms.clear();
-            this.stationLinksForms.push(valueToKeep);
-
-
-        }
-    }
-
-    //get station list by line code
-    getStationList(linecode,i){
-        console.log(linecode);
-        console.log(linecode);
-        // this.stationservice.getStationByLineCode(linecode).subscribe(
-        //     (res)=>{
-        //         this.stationListArr[i]= res['data'];
-        //         console.log(this.stationListArr);
-        //     }
-        // )
-        this.stationservice.getStationByLineCode(linecode).subscribe({
-            next:(res:any)=>{
-              if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
-              }
-              else if(res.status === "1"){
-                this.stationListArr[i] = res.data;
-                console.log(this.stationListArr);
-              }
-            },
-            error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
-            }
-          })
-    }
-
-
 
     onFormSubmit() {
 
@@ -308,31 +142,18 @@ export class AddstationComponent implements OnInit {
                 title: "Error!",
                 text: "Please fill all fields!",
             });
-
-        // this.stationservice.postAddstation(this.stationForm.value).subscribe(
-        //     (data) => {
-        //         if (data["status"] === "1") {
-        //             this.successmsg = data;
-        //             this.toastr.success("", this.successmsg.data);
-        //             this.router.navigate(["admin/stationlist"]);
-        //             this.stationForm.reset();
-        //             this.submitted = false;
-        //         } else {
-        //             Swal.fire({
-        //                 title: "Error!",
-        //                 text: data["data"],
-        //             });
-        //         }
-        //     },
-        //     (error) => {
-        //         this.errormsg = error;
-        //         Swal.fire({
-        //             title: "Error!",
-        //             text: this.errormsg,
-        //         });
-        //     }
-        // );
-        this.stationservice.postAddstation(this.stationForm.value).subscribe({
+        let reqObj = {
+            "zone" : this.stationForm.value.zone,
+            "stationName" : this.stationForm.value.stationName,
+            "stationCode" : this.stationForm.value.stationCode,
+            "stationId" : this.stationForm.value.stationId,
+            "contactNum" : this.stationForm.value.contactNum,
+            "latitude" : this.stationForm.value.latitude,
+            "longitude" : this.stationForm.value.longitude,
+            "address" : this.stationForm.value.address,
+        }
+       
+        this.stationservice.postAddstation(reqObj).subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
                   this.toastr.error(res.data,'Error!')

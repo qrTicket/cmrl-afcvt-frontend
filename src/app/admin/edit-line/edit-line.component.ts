@@ -7,6 +7,8 @@ import { Line } from "../_models/lines.model";
 import { LinesService } from "../_services/lines.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
+import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
+import { formatDate } from "@angular/common";
 
 @Component({
     selector: "app-edit-line",
@@ -15,13 +17,20 @@ import { RxwebValidators } from "@rxweb/reactive-form-validators";
 })
 export class EditLineComponent implements OnInit {
     line: Line;
-    editlineForm: FormGroup;
+    lineForm: FormGroup;
     submitted = false;
     isDisabled: boolean = true;
     successmsg;
     errormsg;
     spinners = false;
     lineId: number;
+    activationStatusList:any = [
+        {"key":true,"value": "Active"},
+        {"key":false,"value": "InActive"},
+    ] 
+
+    datePickerConfigOperationFrom: Partial<BsDatepickerConfig>;
+    maxDate: Date;
 
     constructor(
         private linesService: LinesService,
@@ -30,11 +39,20 @@ export class EditLineComponent implements OnInit {
         private activeRouter: ActivatedRoute,
         private toastr: ToastrService,
         private spinner: NgxSpinnerService
-    ) {}
+    ) {
+        this.datePickerConfigOperationFrom = Object.assign(
+            {},
+            {
+                adaptivePosition: true,
+                dateInputFormat: "DD-MM-YYYY",
+                containerClass: "theme-dark-blue",
+                maxDate: (this.maxDate = new Date()),
+            }
+          );
+    }
 
     ngOnInit() {
-        this.editlineForm = this.formBuilder.group({
-            id: ["", RxwebValidators.required({ message: "Required!" })],
+        this.lineForm = this.formBuilder.group({
             lineName: [
                 "",
                 [
@@ -66,50 +84,43 @@ export class EditLineComponent implements OnInit {
                     }),
                 ],
             ],
-            /*source: [
+            lineColour:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            activationStatus:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            length:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            operationFrom:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            terminusA: [
                 "",
                 [
-                    RxwebValidators.required({ message: "Required!" }),
+                    RxwebValidators.required({
+                        message: "This field is required!",
+                    }),
                     RxwebValidators.pattern({
                         expression: {
+                            // alpha: /^(?:[0-9]+[a-z_-]|[a-z-_]+[0-9])[a-z0-9]*$/i,
                             alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,
                         },
                         message:
                             "This accept combination of numbers and alphabets.",
                     }),
                 ],
-            ],*/
-            /*destination: [
+            ],
+            terminusB: [
                 "",
                 [
-                    RxwebValidators.required({ message: "Required!" }),
+                    RxwebValidators.required({
+                        message: "This field is required!",
+                    }),
                     RxwebValidators.pattern({
                         expression: {
+                            // alpha: /^(?:[0-9]+[a-z_-]|[a-z-_]+[0-9])[a-z0-9]*$/i,
                             alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,
                         },
                         message:
                             "This accept combination of numbers and alphabets.",
                     }),
                 ],
-            ],*/
+            ],
         });
-
-        // this.linesService.getLines().subscribe((res) => {
-        //     this.line = res["data"];
-        // });
-        this.linesService.getLines().subscribe({
-            next:(res)=>{
-              if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
-              }
-              else if(res.status === "1"){
-                this.line = res.data;
-              }
-            },
-            error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
-            }
-          })
 
         this.activeRouter.paramMap.subscribe((params) => {
             this.lineId = +params.get("id");
@@ -119,87 +130,74 @@ export class EditLineComponent implements OnInit {
         });
     }
 
+    onValueOperationalDateChange(dt:any){
+        const updatedDate = new Date(dt);
+        this.lineForm.get('operationFrom').setValue(formatDate(updatedDate, 'dd-MM-yyyy','en') )
+    }
+
     get fval() {
-        return this.editlineForm.controls;
+        return this.lineForm.controls;
     }
 
     getLine(id: number) {
-        // this.linesService.getLineById(id).subscribe((line: Line) => {
-        //     this.updateLine(line["data"]);
-        // }),
-        //     (error: any) => {
-        //     };
-
-            this.linesService.getLineById(id).subscribe({
-                next:(res:any)=>{
-                  if(res.status === "0"){
-                      this.toastr.error(res.data,'Error!')
-                  }
-                  else if(res.status === "1"){
-                    this.updateLine(res.data);
-                  }
-                },
-                error:(err)=>{
-                    this.toastr.error(err.error.data,'Error!')
+        this.linesService.getLineById(id).subscribe({
+            next:(res:any)=>{
+                if(res.status === "0"){
+                    this.toastr.error(res.data,'Error!')
                 }
-              })
+                else if(res.status === "1"){
+                this.updateLine(res.data);
+                }
+            },
+            error:(err)=>{
+                this.toastr.error(err.error.data,'Error!')
+            }
+        })
     }
-    updateLine(line: Line) {
-        this.editlineForm.patchValue({
-            id: line.id,
-            lineName: line.lineName,
-            lineCode: line.lineCode,
-            // source: line.source,
-            // destination: line.destination,
+
+    updateLine(line: any) {
+        this.lineForm.patchValue({
+            lineName: line && line.lineName ? line.lineName : "",
+            lineCode: line && line.lineCode ? line.lineCode : "",
+            lineColour: line && line.lineColor ? line.lineColor : "",
+            activationStatus: line && line.active ? line.active : "",
+            length: line && line.lengthInKm ? line.lengthInKm : "",
+            operationFrom: line && line.operationalFrom ? line.operationalFrom : "",
+            terminusA: line && line.terminusA ? line.terminusA : "",
+            terminusB: line && line.terminusB ? line.terminusB : "",
+            
         });
     }
 
     onFormSubmit() {
         this.submitted = true;
-        //console.log(this.editlineForm.value)
-        if (this.editlineForm.invalid)
+        if (this.lineForm.invalid)
             return Swal.fire({
                 icon: "error",
                 title: "Error!",
                 text: "Please fill all fields!",
             });
-        // this.linesService.putLine(this.editlineForm.value).subscribe(
-        //     (data) => {
-        //         console.log(data);
-        //         if (data["status"] === "1") {
-        //             this.spinner.hide();
-        //             this.successmsg = data;
-        //             this.toastr.success("", this.successmsg.data);
-        //             this.router.navigate(["/admin/linelist"]);
-        //             this.editlineForm.reset();
-        //             this.submitted = false;
-        //         } else {
-        //             Swal.fire({
-        //                 title: "Error !",
-        //                 text: data["data"],
-        //             });
-        //         }
-        //     },
-        //     (error) => {
-        //         this.errormsg = error;
-        //         Swal.fire({
-        //             title: "Error !",
-        //             text: this.errormsg.data,
-        //         });
-        //     }
-        // );
+        
+            let reqObj = {
+                "lineName" : this.lineForm.value.lineName,
+                "lineCode" : this.lineForm.value.lineCode,
+                "lineColor" : this.lineForm.value.lineColour,
+                "active" : JSON.parse(this.lineForm.value.activationStatus) ,
+                "lengthInKm" : +this.lineForm.value.length,
+                "operationalFrom" : this.lineForm.value.operationFrom ,
+                "terminusA" : this.lineForm.value.terminusA,
+                "terminusB" : this.lineForm.value.terminusB,
+            }
 
-        this.linesService.putLine(this.editlineForm.value).subscribe({
+        this.linesService.putLine(reqObj, this.lineId).subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
                   this.toastr.error(res.data,'Error!')
               }
               else if(res.status === "1"){
                 this.spinner.hide();
-                    this.successmsg = res.data;
-                    this.toastr.success("", this.successmsg.data);
+                    this.toastr.success(res.data,"SUCCESS");
                     this.router.navigate(["/admin/linelist"]);
-                    this.editlineForm.reset();
                     this.submitted = false;
               }
             },

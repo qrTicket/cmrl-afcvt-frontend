@@ -28,9 +28,9 @@ hr {
 .row-p10 {
     padding: 2px 0;
 }
-.row {
-    justify-content: center !important;
-}
+// .row {
+//     justify-content: center !important;
+// }
 
 .form-border {
     margin: 10px;
@@ -119,4 +119,9 @@ button[type="reset"]:hover {
 
 span .fa-class {
     font-size: 18px;
+}
+
+.required::after{
+    content: "*";
+    color: red;
 }

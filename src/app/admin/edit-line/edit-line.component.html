@@ -1,182 +1,159 @@
-<div class="container-fluid wrapper">
-    <h2>Update Line Details</h2>
+<div class="container">
+    <h2>Update Line/Corridor</h2>
     <hr />
     <div class="row form-border">
-        <form [formGroup]="editlineForm" (ngSubmit)="onFormSubmit()">
+        <form [formGroup]="lineForm" (ngSubmit)="onFormSubmit()">
             <div class="row row-p10">
-                <div class="col-md-6 form-group">
-                    <label>
-                        <i class="fa fa-pencil fa-fw"></i>&nbsp; Line Name
-                    </label>
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="lineName"
-                        formControlName="lineName"
-                        [ngClass]="{
-                            'is-invalid': submitted && fval.lineName.errors
-                        }"
-                        maxlength="25"
-                    />
-
+                 <!-- Line Name -->
+                 <div class="col-md-4 ">
+                    <label for="lineName" class="required">Line Name</label>
+                    <input type="text" class="form-control txt-cap" name="lineName" id="lineName" formControlName="lineName"
+                        [ngClass]="{'is-invalid': submitted && fval.lineName.errors}" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div
-                            *ngIf="
-                                editlineForm.controls.lineName.errors &&
-                                editlineForm.controls.lineName.errors.required
-                            "
-                        >
-                            {{
-                                editlineForm.controls.lineName.errors.required
-                                    .message
-                            }}
+                        <div *ngIf="lineForm.controls.lineName.errors && lineForm.controls.lineName.errors.required">
+                            {{ lineForm.controls.lineName.errors.required.message }}
                         </div>
-                        <div
-                        *ngIf="
-                            editlineForm.controls.lineName.errors &&
-                            editlineForm.controls.lineName.errors.alpha
-                        "
-                    >
-                        {{
-                            editlineForm.controls.lineName.errors.alpha
-                                .message
-                        }}
-                    </div>
+                        <div *ngIf="lineForm.controls.lineName.errors && lineForm.controls.lineName.errors.alpha">
+                            {{ lineForm.controls.lineName.errors.alpha.message }}
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 form-group">
-                    <label for="lineCode">
-                        <i class="fa fa-google-wallet"></i>&nbsp; Line Short Name
-                    </label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        formControlName="lineCode"
-                        [ngClass]="{
-                            'is-invalid': submitted && fval.lineCode.errors
-                        }"
-                        maxlength="8"
-                        readonly
-                    />
+                <!-- Line code -->
+                <div class="col-md-4 ">
+                    <label for="lineCode" class="required">Line Code</label>
+                    <input type="text" class="form-control txt-uppr" formControlName="lineCode"
+                        [ngClass]="{'is-invalid': submitted && fval.lineCode.errors }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div
-                            *ngIf="
-                                editlineForm.controls.lineCode.errors &&
-                                editlineForm.controls.lineCode.errors.required
-                            "
-                        >
-                            {{
-                                editlineForm.controls.lineCode.errors.required
-                                    .message
-                            }}
+                        <div *ngIf="lineForm.controls.lineCode.errors && lineForm.controls.lineCode.errors.required">
+                            {{ lineForm.controls.lineCode.errors.required.message }}
                         </div>
-                        <div
-                            *ngIf="
-                                editlineForm.controls.lineCode.errors &&
-                                editlineForm.controls.lineCode.errors.alpha
-                            "
-                        >
-                            {{
-                                editlineForm.controls.lineCode.errors.alpha
-                                    .message
-                            }}
+                        <div *ngIf="lineForm.controls.lineCode.errors && lineForm.controls.lineCode.errors.alpha">
+                            {{ lineForm.controls.lineCode.errors.alpha.message }}
                         </div>
-                        <div
-                            *ngIf="
-                                editlineForm.controls.lineCode.errors &&
-                                editlineForm.controls.lineCode.errors.minLength
-                            "
-                        >
-                            {{
-                                editlineForm.controls.lineCode.errors.minLength
-                                    .message
-                            }}
+                        <div *ngIf="lineForm.controls.lineCode.errors && lineForm.controls.lineCode.errors.minLength">
+                            {{ lineForm.controls.lineCode.errors.minLength.message }}
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-md-6 form-group">
-                    <label> Terminus A </label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        formControlName="source"
-                        [ngClass]="{
-                            'is-invalid': submitted && fval.source.errors
-                        }"
-                        maxlength="50"
-                    />
+
+                <!-- Line color -->
+                <div class="col-md-4 ">
+                    <label for="lineColour" class="required">Line Colour</label>
+                    <input type="text" class="form-control txt-uppr" formControlName="lineColour"
+                        [ngClass]="{'is-invalid': submitted && fval.lineColour.errors }" maxlength="30" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="lineForm.controls.lineColour.errors && lineForm.controls.lineColour.errors.required">
+                            {{ lineForm.controls.lineColour.errors.required.message }}
+                        </div>
+                        <!-- <div *ngIf="lineForm.controls.lineColour.errors && lineForm.controls.lineColour.errors.alpha">
+                            {{ lineForm.controls.lineColour.errors.alpha.message }}
+                        </div>
+                        <div *ngIf="lineForm.controls.lineColour.errors && lineForm.controls.lineColour.errors.minLength">
+                            {{ lineForm.controls.lineColour.errors.minLength.message }}
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Activation Status -->
+                <div class="col-md-4 ">
+                    <label for="activationStatus" class="required">Activation Status</label>
+
+                    <select class="form-control" formControlName="activationStatus" [ngClass]="{'is-invalid': submitted && fval.activationStatus.errors }">
+                        <option value="" selected>--Select Status--</option>
+                        <option *ngFor="let status of activationStatusList" [value]="status.key">{{ status.value }}</option>
+                    </select>
 
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div
-                            *ngIf="
-                                editlineForm.controls.source.errors &&
-                                editlineForm.controls.source.errors.required
-                            "
-                        >
-                            {{
-                                editlineForm.controls.source.errors.required
-                                    .message
-                            }}
+                        <div *ngIf="lineForm.controls.activationStatus.errors && lineForm.controls.activationStatus.errors.required">
+                            {{ lineForm.controls.activationStatus.errors.required.message }}
                         </div>
-                        <div
-                            *ngIf="
-                                editlineForm.controls.source.errors &&
-                                editlineForm.controls.source.errors.alpha
-                            "
-                        >
-                            {{
-                                editlineForm.controls.source.errors.alpha
-                                    .message
-                            }}
+                        <!-- <div *ngIf="lineForm.controls.activationStatus.errors && lineForm.controls.activationStatus.errors.alpha">
+                            {{ lineForm.controls.activationStatus.errors.alpha.message }}
+                        </div>
+                        <div *ngIf="lineForm.controls.activationStatus.errors && lineForm.controls.activationStatus.errors.minLength">
+                            {{ lineForm.controls.activationStatus.errors.minLength.message }}
+                        </div> -->
+                    </div>
+                </div>
+
+                
+
+                <!-- Terminus A -->
+                <div class="col-md-4 ">
+                    <label class="required">Terminus A</label>
+                    <input type="text" class="form-control" formControlName="terminusA"
+                        [ngClass]="{'is-invalid': submitted && fval.terminusA.errors }" maxlength="255" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="lineForm.controls.terminusA.errors && lineForm.controls.terminusA.errors.required" >
+                            {{ lineForm.controls.terminusA.errors.required.message }}
+                        </div>
+                        <div *ngIf="lineForm.controls.terminusA.errors && lineForm.controls.terminusA.errors.alpha">
+                            {{ lineForm.controls.terminusA.errors.alpha.message }}
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 form-group">
-                    <label> Terminus B </label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        formControlName="destination"
-                        [ngClass]="{
-                            'is-invalid': submitted && fval.destination.errors
-                        }"
-                        maxlength="50"
-                    />
+
+                <!-- Terminus B -->
+                <div class="col-md-4 ">
+                    <label class="required">Terminus B</label>
+                    <input type="text" class="form-control" formControlName="terminusB"
+                        [ngClass]="{ 'is-invalid': submitted && fval.terminusB.errors }" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div
-                            *ngIf="
-                                editlineForm.controls.destination.errors &&
-                                editlineForm.controls.destination.errors
-                                    .required
-                            "
-                        >
-                            {{
-                                editlineForm.controls.destination.errors
-                                    .required.message
-                            }}
+                        <div *ngIf=" lineForm.controls.terminusB.errors && lineForm.controls.terminusB.errors.required ">
+                            {{ lineForm.controls.terminusB.errors.required.message }}
                         </div>
-                        <div
-                            *ngIf="
-                                editlineForm.controls.destination.errors &&
-                                editlineForm.controls.destination.errors.alpha
-                            "
-                        >
-                            {{
-                                editlineForm.controls.destination.errors.alpha
-                                    .message
-                            }}
+                        <div *ngIf="lineForm.controls.terminusB.errors && lineForm.controls.terminusB.errors.alpha">
+                            {{ lineForm.controls.terminusB.errors.alpha.message }}
                         </div>
                     </div>
-                </div> -->
+                </div>
+
+                <!-- Length -->
+                <div class="col-md-4 ">
+                    <label for="length" class="required">Length (Distance in KMs)</label>
+                    <input type="text" class="form-control txt-uppr" formControlName="length"
+                        [ngClass]="{'is-invalid': submitted && fval.length.errors }" maxlength="30" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="lineForm.controls.length.errors && lineForm.controls.length.errors.required">
+                            {{ lineForm.controls.length.errors.required.message }}
+                        </div>
+                        <!-- <div *ngIf="lineForm.controls.length.errors && lineForm.controls.length.errors.alpha">
+                            {{ lineForm.controls.length.errors.alpha.message }}
+                        </div>
+                        <div *ngIf="lineForm.controls.length.errors && lineForm.controls.length.errors.minLength">
+                            {{ lineForm.controls.length.errors.minLength.message }}
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Operation From -->
+                <div class="col-md-4">
+                <label for="operationFrom" class="required">Operation From</label>
+                    <input readonly type="text" class="form-control form-vehicle date" 
+                    formControlName="operationFrom"
+                    [ngClass]="{ 'is-invalid': submitted && fval.operationFrom.errors }"
+                    id="operationFrom"
+                    placeholder="DD-MM-YYYY"
+                    bsDatepicker
+                    [outsideClick]="true"
+                    [bsConfig]="datePickerConfigOperationFrom"
+                    (bsValueChange)="onValueOperationalDateChange($event)" >
+                    <div *ngIf="submitted && fval.operationFrom.errors" class="invalid-feedback">
+                        <div *ngIf="lineForm.controls.operationFrom.errors && lineForm.controls.operationFrom.errors.required">
+                            {{ lineForm.controls.operationFrom.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="row row-p10">
+            <div class="row row-p10 mt-5">
                 <div class="clearfix col-md-12 btn-set">
                     <button type="submit">
                         Update
-                        <span class="fa-class fa fa-paper-plane"></span>
+                        <span class="fa-class fa fa-refresh"></span>
                     </button>
                     <button type="button" id="cancelbtn" [routerLink]="['/admin/linelist']">
                         Cancel

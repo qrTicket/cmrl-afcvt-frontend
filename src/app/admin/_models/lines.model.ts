@@ -3,6 +3,5 @@ export class Line {
     lineId: number;
     lineCode: string;
     lineName: string;
-    // source: string;
-    // destination: string;
+    
 }

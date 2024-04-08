@@ -33,9 +33,7 @@ hr {
     padding: 18px 0;
 }
 
-.row {
-    justify-content: center;
-}
+
 
 
 .form-border {
@@ -146,7 +144,12 @@ span .fa-class {
 /*code by Badal*/
 
 .bdcrm {
+    background: rgb(241, 241, 241);
     margin: 25px 0 0 0;
+}
+
+.bdcrm > ol > li{
+    padding: 15px 0 15px 15px;
 }
 
 .remove-btn{
@@ -154,3 +157,8 @@ span .fa-class {
 }
 
 /*end*/
+
+.required::after{
+    content: "*";
+    color: red;
+}

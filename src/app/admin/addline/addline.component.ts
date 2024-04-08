@@ -8,6 +8,8 @@ import { LinesService } from "../_services/lines.service";
 import { Station } from "../_models/station.model";
 import { StationService } from "../_services/station.service";
 import { RxwebValidators } from "@rxweb/reactive-form-validators";
+import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
+import { formatDate } from "@angular/common";
 
 @Component({
     selector: "app-addline",
@@ -28,6 +30,13 @@ export class AddlineComponent implements OnInit {
     successmsg;
     errormsg;
     isSaving = false;
+    activationStatusList:any = [
+        {"key":true,"value": "Active"},
+        {"key":false,"value": "InActive"},
+    ] 
+
+    datePickerConfigOperationFrom: Partial<BsDatepickerConfig>;
+    maxDate: Date;
 
     constructor(
         private linesService: LinesService,
@@ -35,7 +44,17 @@ export class AddlineComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private toastr: ToastrService
-    ) {}
+    ) {
+        this.datePickerConfigOperationFrom = Object.assign(
+            {},
+            {
+                adaptivePosition: true,
+                dateInputFormat: "DD-MM-YYYY",
+                containerClass: "theme-dark-blue",
+                maxDate: (this.maxDate = new Date()),
+            }
+          );
+    }
 
     ngOnInit() {
         this.lineForm = this.formBuilder.group({
@@ -78,7 +97,11 @@ export class AddlineComponent implements OnInit {
                     }),
                 ],
             ],
-            /*source: [
+            lineColour:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            activationStatus:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            length:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            operationFrom:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            terminusA: [
                 "",
                 [
                     RxwebValidators.required({
@@ -93,8 +116,8 @@ export class AddlineComponent implements OnInit {
                             "This accept combination of numbers and alphabets.",
                     }),
                 ],
-            ],*/
-            /*destination: [
+            ],
+            terminusB: [
                 "",
                 [
                     RxwebValidators.required({
@@ -109,13 +132,14 @@ export class AddlineComponent implements OnInit {
                             "This accept combination of numbers and alphabets.",
                     }),
                 ],
-            ],*/
+            ],
 
         });
+        this.getStation()
+        
+    }
 
-        // this.stationService.getStation().subscribe((data) => {
-        //     this.station = data;
-        // });
+    getStation(){
         this.stationService.getStation().subscribe({
             next:(res)=>{
               if(res.status === "0"){
@@ -128,7 +152,7 @@ export class AddlineComponent implements OnInit {
             error:(err)=>{
                 this.toastr.error(err.error.data,'Error!')
             }
-          })
+        })
     }
 
     get fval() {
@@ -144,43 +168,31 @@ export class AddlineComponent implements OnInit {
                 title: "Error!",
                 text: "Please fill all fields!",
             });
-        // console.log(this.lineForm.value);
-        // this.linesService.postAddline(this.lineForm.value).subscribe(
-        //     (data) => {
-        //         if (data.status === "1") {
-        //             // console.log("");
-        //             this.successmsg = data;
-        //             this.toastr.success("", this.successmsg.data);
-        //             this.lineForm.reset();
-        //             this.submitted = false;
-        //             this.router.navigate(["admin/linelist"]);
-        //         } else {
-        //             Swal.fire({
-        //                 title: "Error!",
-        //                 text: data.data,
-        //             });
-        //         }
-        //     },
-        //     (error) => {
-        //         // console.log(error);
-        //         this.errormsg = error;
-        //         Swal.fire({
-        //             title: "Error!",
-        //             text: this.errormsg,
-        //         });
-        //     }
-        // );
-        this.linesService.postAddline(this.lineForm.value).subscribe({
+        
+        let reqObj = {
+            "lineName" : this.lineForm.value.lineName,
+            "lineCode" : this.lineForm.value.lineCode,
+            "lineColor" : this.lineForm.value.lineColour,
+            "active" : JSON.parse(this.lineForm.value.activationStatus) ,
+            "lengthInKm" : +this.lineForm.value.length,
+            "operationalFrom" : formatDate(this.lineForm.value.operationFrom,'dd-MM-yyyy','en') ,
+            "terminusA" : this.lineForm.value.terminusA,
+            "terminusB" : this.lineForm.value.terminusB,
+        }
+
+        console.log(reqObj,' reqobj');
+        
+        this.linesService.postAddline(reqObj).subscribe({
             next:(res)=>{
               if(res.status === "0"){
                   this.toastr.error(res.data,'Error!')
               }
               else if(res.status === "1"){
                 this.successmsg = res.data;
-                    this.toastr.success("", this.successmsg.data);
-                    this.lineForm.reset();
-                    this.submitted = false;
-                    this.router.navigate(["admin/linelist"]);
+                this.toastr.success(res.data,"SUCCESS");
+                this.lineForm.reset();
+                this.submitted = false;
+                this.router.navigate(["admin/linelist"]);
               }
             },
             error:(err)=>{

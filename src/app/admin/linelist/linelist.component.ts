@@ -13,13 +13,8 @@ import { Router } from "@angular/router";
     styleUrls: ["./linelist.component.scss"],
 })
 export class LinelistComponent implements OnInit {
-    //@ViewChild(DataTableDirective, { static: false })
-    //datatableElement: DataTableDirective;
-    //dtElement: DataTableDirective;
-    //dtTrigger: Subject<any> = new Subject();
-
-    //line: Line[] = [];
-    line: any[] = [];
+    
+    lineList: any[] = [];
     public lineData: Object;
     public temp: Object = false;
     searchTerm: any;
@@ -47,27 +42,27 @@ export class LinelistComponent implements OnInit {
     }
 
     linelist() {
-        this.lineService.getLines().subscribe((res) => {
-            this.line = res["data"];
-            this.temp = true;
-            console.log(res);
+        // this.lineService.getLines().subscribe((res) => {
+        //     this.line = res["data"];
+        //     this.temp = true;
+        //     console.log(res);
 
-            // this.dtOptions = {
-            //     pagingType: "full_numbers",
-            //     pageLength: 5,
-            //     scrollX: true,
-            //     processing: true,
-            // };
-            // this.dtTrigger.next();
+        //     // this.dtOptions = {
+        //     //     pagingType: "full_numbers",
+        //     //     pageLength: 5,
+        //     //     scrollX: true,
+        //     //     processing: true,
+        //     // };
+        //     // this.dtTrigger.next();
 
-        });
+        // });
         this.lineService.getLines().subscribe({
             next:(res)=>{
               if(res.status === "0"){
-                  this.toaster.error(res.data,'Error!')
+                this.toaster.error(res.data,'Error!')
               }
               else if(res.status === "1"){
-                this.line = res.data;
+                this.lineList = res.data;
                 this.temp = true;
               }
             },
