@@ -10,6 +10,9 @@ import { ProductType } from "../_models/product-type.model";
     providedIn: "root",
 })
 export class ProductService {
+
+    addEquipmentEndUrl:string = "api/afc/equipment/save"
+
     constructor(private http: HttpClient) {}
 
     private token: string = localStorage.getItem("token");
@@ -19,12 +22,10 @@ export class ProductService {
             "Content-Type": "application/json",
         }),
     };
-    postProduct(payload: Product) {
-        return this.http.post<Product>(
-            `${environment.productUrl}/equipment/save`,
-            payload,
-            this.httpOptions
-        );
+
+    
+    postProduct(payload: any) {
+        return this.http.post<any>(`${environment.BASEURL}/${this.addEquipmentEndUrl}`,payload,this.httpOptions);
     }
 
     getProductList() {
@@ -48,12 +49,8 @@ export class ProductService {
         );
     }
 
-    updateEquipment(id: number, payload: Product) {
-        return this.http.put(
-            `${environment.productUrl}/equipment/update/${id}`,
-            payload,
-            this.httpOptions
-        );
+    updateEquipment(id: number, payload: any) {
+        return this.http.put(`${environment.productUrl}/equipment/update/${id}`,payload,this.httpOptions);
     }
 
     deleteEquipment(id) {

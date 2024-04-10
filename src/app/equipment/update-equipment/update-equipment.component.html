@@ -16,12 +16,14 @@
 
 
 <div class="card card-outline-secondary mt-2">
-    
-    <form [formGroup]="updateEquipmentForm">
+    <!-- (ngSubmit)="onUpdate()" -->
+    <form [formGroup]="updateEquipmentForm" >
         <div class="card-body">
             <div class="row mt-4">
+
+                <!-- Equipment Type -->
                 <div class="col-sm-4 pb-3">
-                    <label>Equipment Type</label>
+                    <label class="required">Equipment Type</label>
                     <select
                         class="form-control"
                         formControlName="equipmentTypeId"
@@ -56,8 +58,9 @@
                     </div>
                 </div>
 
+                <!-- Manufacture Name -->
                 <div class="col-sm-4 pb-3">
-                    <label for="">Manufacture Name</label>
+                    <label for="" class="required">Manufacture Name</label>
                     <input
                         type="text"
                         class="form-control"
@@ -101,8 +104,9 @@
                     </div>
                 </div>
 
+                <!-- Serial Number -->
                 <div class="col-sm-4 pb-3">
-                    <label for="serialNo">Serial Number</label>
+                    <label for="serialNo" class="required">Serial Number</label>
                     <input
                         type="text"
                         class="form-control"
@@ -146,8 +150,10 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Equipment Code -->
                 <div class="col-sm-4 pb-3">
-                    <label>Equipment Code</label>
+                    <label class="required">Equipment Code</label>
                     <input
                         type="text"
                         class="form-control"
@@ -190,8 +196,10 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Product version -->
                 <div class="col-sm-4 pb-3">
-                    <label>Product version</label>
+                    <label class="required">Product version</label>
                     <input
                         type="text"
                         class="form-control"
@@ -254,8 +262,10 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Equipment Model Name -->
                 <div class="col-sm-4 pb-3">
-                    <label>Equipment Model Name</label>
+                    <label class="required">Equipment Model Name</label>
                     <input
                         type="text"
                         class="form-control"
@@ -299,22 +309,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 pb-3">
-                    <label>Manufacturing Date</label>
 
+                <!-- Manufacturing Date -->
+                <div class="col-sm-4 pb-3">
+                    <label class="required">Manufacturing Date</label>
                     <input
                         readonly
                         type="text"
                         formControlName="mfgDate"
                         placeholder="Select Manufacturing date"
-                        class="form-control mfg-date"
+                        class="form-control "
                         bsDatepicker
                         [outsideClick]="true"
                         [bsConfig]="datePickerConfigMfg"
                         [ngClass]="{
                             'is-invalid': submitted && fval.mfgDate.errors
                         }"
-                        (bsValueChange)="onValueChange($event)"
+                        (bsValueChange)="onManufacturingDateDateChange($event)"
                         (onHidden)="handler('onHidden')"
                     />
                     <div
@@ -337,20 +348,22 @@
                     </div>
                 </div>
 
+                <!-- Purchase Date -->
                 <div class="col-sm-4 pb-3">
-                    <label>Purchase Date</label>
+                    <label class="required">Purchase Date</label>
                     <input
                         readonly
                         type="text"
                         bsDatepicker
                         formControlName="purchaseDate"
                         placeholder="Select purchase date"
-                        class="form-control mfg-date"
+                        class="form-control "
                         [outsideClick]="true"
                         [bsConfig]="datePickerConfigPur"
                         [ngClass]="{
                             'is-invalid': submitted && fval.purchaseDate.errors
                         }"
+                        (bsValueChange)="onPurchaseDateChange($event)"
                     />
                     <div
                         *ngIf="submitted && fval.purchaseDate.errors"
@@ -371,8 +384,10 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Warranty -->
                 <div class="col-sm-4 pb-3">
-                    <label>Warranty</label>
+                    <label class="required">Warranty</label>
                     <input
                         type="text"
                         class="form-control"
@@ -425,8 +440,83 @@
                         </div>
                     </div>
                 </div>
-                <div class="submitButton mt-4 form-group">
-                    <button class="btn btn-primary mt-1 ml-3" (click)="openModal(updateTemplate)" >
+
+                <!-- App version -->
+                <div class="col-sm-4 pb-3">
+                    <label class="required">App Version</label>
+                    <input type="text" class="form-control" formControlName="appVersion" placeholder="Enter app version"
+                        [ngClass]="{'is-invalid': submitted && fval.appVersion.errors}" maxlength="5" />
+                    <div *ngIf="submitted && fval.appVersion.errors" class="invalid-feedback" >
+                        <div *ngIf="  updateEquipmentForm.controls.appVersion.errors && updateEquipmentForm.controls.appVersion.errors.required ">
+                            {{ updateEquipmentForm.controls.appVersion.errors.required.message }}
+                        </div>
+                        <div *ngIf=" updateEquipmentForm.controls.appVersion.errors && updateEquipmentForm.controls.appVersion.errors.numeric ">
+                            {{ updateEquipmentForm.controls.appVersion.errors.numeric.message }}
+                        </div>
+                        <div *ngIf=" updateEquipmentForm.controls.appVersion.errors && updateEquipmentForm.controls.appVersion.errors.nonZero">
+                            {{ updateEquipmentForm.controls.appVersion.errors.nonZero.message }}
+                        </div>
+                        <div *ngIf=" updateEquipmentForm.controls.appVersion.errors && updateEquipmentForm.controls.appVersion.errors.deci">
+                            {{ updateEquipmentForm.controls.appVersion.errors.deci.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warranty Start Date -->
+                <div class="col-sm-4 pb-3">
+                    <label for="warrantyStartDate" class="required">Warranty Start Date</label>
+                    <input readonly type="text"
+                        bsDatepicker
+                        formControlName="warrantyStartDate"
+                        placeholder="Select warranty start date"
+                        class="form-control"
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigWarrantyStartDate"
+                        (bsValueChange)="onWarrantyStartDateChange($event)"
+                        [ngClass]="{'is-invalid': submitted && fval.warrantyStartDate.errors }"
+                    />
+                    <div *ngIf="submitted && fval.warrantyStartDate.errors" class="invalid-feedback">
+                        <div *ngIf=" updateEquipmentForm.controls.warrantyStartDate.errors && updateEquipmentForm.controls.warrantyStartDate.errors.required ">
+                            {{ updateEquipmentForm.controls.warrantyStartDate.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warranty End Date -->
+                <div class="col-sm-4 pb-3">
+                    <label for="warrantyEndDate" class="required">Warranty End Date</label>
+                    <input readonly type="text"
+                        bsDatepicker
+                        formControlName="warrantyEndDate"
+                        placeholder="Select warranty end date"
+                        class="form-control"
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigWarrantyEndDate"
+                        [ngClass]="{'is-invalid': submitted && fval.warrantyEndDate.errors }"
+                        (bsValueChange)="onWarrantyEndDateChange($event)"
+                    />
+                    <div *ngIf="submitted && fval.warrantyEndDate.errors" class="invalid-feedback">
+                        <div *ngIf=" updateEquipmentForm.controls.warrantyEndDate.errors && updateEquipmentForm.controls.warrantyEndDate.errors.required ">
+                            {{ updateEquipmentForm.controls.warrantyEndDate.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Description -->
+                <div class="col-sm-4 pb-3">
+                    <label for="deviceDescription" class="required">Device Description</label>
+                    <input type="text" class="form-control" formControlName="deviceDescription" placeholder="Enter manufacture name"  
+                    [ngClass]="{ 'is-invalid': submitted && fval.deviceDescription.errors }" maxlength="255" />
+                    <div *ngIf="submitted && fval.deviceDescription.errors" class="invalid-feedback" >
+                        <div *ngIf="updateEquipmentForm.controls.deviceDescription.errors && updateEquipmentForm.controls.deviceDescription.errors.required" >
+                            {{ updateEquipmentForm.controls.deviceDescription.errors.required.message  }}
+                        </div>
+                    </div> 
+                </div>
+
+
+                <div class="submitButton mt-4 form-group mb-5">
+                    <button class="btn btn-primary mt-1 ml-3" (click)="checkDates(updateTemplate)" >
                         <i class="fa fa-paper-plane"></i>
                         Update
                     </button>

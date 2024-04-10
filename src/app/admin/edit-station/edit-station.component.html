@@ -1,6 +1,6 @@
-<div class="container">
-    <h2>Update Station</h2>
-    <hr />
+<div class="container mt-5 mb-5 formBg">
+    <!-- <h2>Update Station</h2>
+    <hr /> -->
     <!-- <nav aria-label="breadcrumb" class="bdcrm">
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a [routerLink]="['/admin/stationlist']">Station</a> </li>
@@ -9,7 +9,16 @@
     </nav>
     <hr> -->
 
-    <div class="">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-gear" aria-hidden="true"></i>
+                Update Station
+            </h4>
+        </div>
+    </div>
+
+    <div class="row mt-4">
         <form [formGroup]="editstationForm" (ngSubmit)="onFormSubmit()">
             <div class="row row-p10">
 

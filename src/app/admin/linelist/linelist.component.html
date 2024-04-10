@@ -1,59 +1,71 @@
-<div class="heading">
+<!-- <div class="heading">
     <h2>Corridor List</h2>
     <hr />
+</div> -->
+
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Line List
+            </h4>
+        </div>
+    </div>
+    
+    <div class="table-responsive table-set mgrn mt-4">
+        <!-- datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger" -->
+        <table class="table-res row-border hover table-head" id="dataTable" datatable="" dt-options="dtOptions"
+            dt-columns="dtColumns" class="display nowrap table" cellspacing="0" width="100%" *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>Line ID</th>
+                    <th>Line Name</th>
+                    <th>Line Short Name</th>
+                    <th>Line Colour</th>
+                    <th>Terminus A</th>
+                    <th>Terminus B</th>
+                    <th>Length(Distance in KMs)</th>
+                    <th>Created Date</th>
+                    <th>Operational Date</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                    <th>Stations</th>
+                    
+    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of lineList'>
+                    <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
+                    <td>{{ item && item.lineName ? (item.lineName | titlecase) : 'NA' }}</td>
+                    <td>{{ item && item.lineCode ? item.lineCode : 'NA' }}</td>
+                    <td>{{ item && item.lineColor ? item.lineColor : 'NA' }}</td>
+                    <td>{{ item && item.terminusA ? item.terminusA : 'NA' }}</td>
+                    <td>{{ item && item.terminusB ? item.terminusB : 'NA' }}</td>
+                    <td>{{ item && item.lengthInKm ? item.lengthInKm : 'NA' }}</td>
+                    <td>{{ item && item.createdDate ? item.createdDate : 'NA' }}</td>
+                    <td>{{ item && item.operationalFrom ? item.operationalFrom : 'NA' }}</td>
+                    <td> 
+                        <span *ngIf="!item.active" class="badge badge-danger"> Inactive </span>
+                        <span *ngIf="item.active" class="badge badge-success"> Active </span>
+                    </td>
+                    <td>
+                        <a href="javascript:;" [routerLink]="['/admin/edit-line/', item.id]">
+                            <i class="fa fa-edit editButton" ></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="javascript:;" [routerLink]="['/admin/line-stations-detail/', item.id]">
+                            <i class="fa fa-eye viewStationButton"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div class="table-responsive table-set mgrn">
-    <!-- datatable
-    [dtOptions]="dtOptions"
-    [dtTrigger]="dtTrigger" -->
-    <table class="table-res row-border hover table-head" id="dataTable" datatable="" dt-options="dtOptions"
-        dt-columns="dtColumns" class="display nowrap table" cellspacing="0" width="100%" *ngIf="this.temp">
-        <thead>
-            <tr class="text-center">
-                <th>Line ID</th>
-                <th>Line Name</th>
-                <th>Line Short Name</th>
-                <th>Line Colour</th>
-                <th>Terminus A</th>
-                <th>Terminus B</th>
-                <th>Length(Distance in KMs)</th>
-                <th>Created Date</th>
-                <th>Operational Date</th>
-                <th>Status</th>
-                <th>Edit</th>
-                <th>Stations</th>
-                
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor='let item of lineList'>
-                <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
-                <td>{{ item && item.lineName ? (item.lineName | titlecase) : 'NA' }}</td>
-                <td>{{ item && item.lineCode ? item.lineCode : 'NA' }}</td>
-                <td>{{ item && item.lineColor ? item.lineColor : 'NA' }}</td>
-                <td>{{ item && item.terminusA ? item.terminusA : 'NA' }}</td>
-                <td>{{ item && item.terminusB ? item.terminusB : 'NA' }}</td>
-                <td>{{ item && item.lengthInKm ? item.lengthInKm : 'NA' }}</td>
-                <td>{{ item && item.createdDate ? item.createdDate : 'NA' }}</td>
-                <td>{{ item && item.operationalFrom ? item.operationalFrom : 'NA' }}</td>
-                <td> 
-                    <span *ngIf="!item.active" class="badge badge-danger"> Inactive </span>
-                    <span *ngIf="item.active" class="badge badge-success"> Active </span>
-                </td>
-                <td>
-                    <a href="javascript:;" [routerLink]="['/admin/edit-line/', item.id]">
-                        <i class="fa fa-edit editButton" ></i>
-                    </a>
-                </td>
-                <td>
-                    <a href="javascript:;" [routerLink]="['/admin/line-stations-detail/', item.id]">
-                        <i class="fa fa-eye viewStationButton"></i>
-                    </a>
-                </td>
-                
-            </tr>
-        </tbody>
-    </table>
-</div>

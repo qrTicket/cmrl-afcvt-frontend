@@ -16,4 +16,8 @@ export class Product {
     stationCode: String;
     createdDate: Date;
     modifyDate: Date;
+    appVersion:string;
+    warrantyStartDate:string;
+    warrantyEndDate:string;
+    deviceDescription:string;
 }

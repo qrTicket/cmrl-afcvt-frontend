@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { DatePipe } from "@angular/common";
+import { DatePipe, formatDate } from "@angular/common";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { RxwebValidators, NumericValueType, date } from "@rxweb/reactive-form-validators";
@@ -22,8 +22,12 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
     subscriptions: Subscription[] = [];
     addInventoryStock: FormGroup;
     uploadFileForm: FormGroup;
+
     datePickerConfigMfg: Partial<BsDatepickerConfig>;
     datePickerConfigPur: Partial<BsDatepickerConfig>;
+    datePickerConfigWarrantyStartDate: Partial<BsDatepickerConfig>;
+    datePickerConfigWarrantyEndDate: Partial<BsDatepickerConfig>;
+
     successmsg;
     message;
     minDate: Date;
@@ -51,7 +55,7 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
             {},
             {
                 adaptivePosition: true,
-                dateInputFormat: "YYYY-MM-DD",
+                dateInputFormat: "DD-MM-YYYY",
                 containerClass: "theme-dark-blue",
                 maxDate: (this.maxDate = new Date()),
             }
@@ -61,9 +65,29 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
             {},
             {
                 adaptivePosition: true,
-                dateInputFormat: "YYYY-MM-DD",
+                dateInputFormat: "DD-MM-YYYY",
                 containerClass: "theme-dark-blue",
                 maxDate: (this.maxDate = new Date()),
+            }
+        );
+
+        this.datePickerConfigWarrantyStartDate = Object.assign(
+            {},
+            {
+                adaptivePosition: true,
+                dateInputFormat: "DD-MM-YYYY",
+                containerClass: "theme-dark-blue",
+                maxDate: this.maxDate
+            }
+        );
+
+        this.datePickerConfigWarrantyEndDate = Object.assign(
+            {},
+            {
+                adaptivePosition: true,
+                dateInputFormat: "DD-MM-YYYY",
+                containerClass: "theme-dark-blue",
+                //maxDate: this.maxDate
             }
         );
     }
@@ -189,6 +213,30 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
                     }),
                 ],
             ],
+            appVersion : ['',
+            [
+                RxwebValidators.required({
+                    message: "This field is required!",
+                }),
+                RxwebValidators.numeric({
+                    acceptValue: NumericValueType.PositiveNumber,
+                    allowDecimal: true,
+                    message: "This will only accept positive number!",
+                }),
+                RxwebValidators.pattern({
+                    expression: { nonZero: /^[1-9]/ },
+                    message: "This will accept non zero!",
+                }),
+                RxwebValidators.pattern({
+                    expression: { deci: /^\d+\.\d{1,2}$/ },
+                    message: "This will accept decial number only!",
+                }),
+            ]
+        ],
+        warrantyStartDate: ["",[ RxwebValidators.required({ message: "This field is required!"}) ]],
+        warrantyEndDate: ["",[ RxwebValidators.required({ message: "This field is required!"}) ]],
+        deviceDescription: ["",[ RxwebValidators.required({ message: "This field is required!"}) ]],
+
         });
         this.subscriptions.push(
             // this.productService.equipmentType().subscribe((res) => {
@@ -214,6 +262,7 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
         return this.addInventoryStock.controls;
     }
     onValueChange(value) {
+        this.addInventoryStock.get('purchaseDate').reset();
         // var data;
         this.data = new Date(value);
         // console.log(this.data);
@@ -254,6 +303,25 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
         // );
     }
 
+    onWarrantyStartDateChange(val:any){
+        this.addInventoryStock.get('warrantyEndDate').reset();
+         // var data;
+         this.data = new Date(val);
+         // console.log(this.data);
+         this.data.setDate(this.data.getDate() + 1);
+         // console.log(this.data);
+         this.datePickerConfigWarrantyEndDate = Object.assign(
+             {},
+             {
+                 adaptivePosition: true,
+                 dateInputFormat: "DD-MM-YYYY",
+                 containerClass: "theme-dark-blue",
+                 minDate: this.data,
+                 //maxDate: this.maxDate,
+             }
+         );
+    }
+
     onaddinvetFormSubmit() {
         this.submitted = true;
         if (this.addInventoryStock.invalid) {
@@ -265,56 +333,46 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
               })
         }
         
-        this.spinner.show();
+        //this.spinner.show();
+        console.log(this.addInventoryStock.value,'form values');
+        
+        let reqObj = {
+            "appVersion": this.addInventoryStock.value.appVersion,
+            "deviceDescription": this.addInventoryStock.value.deviceDescription,
+            "equipmentCode": this.addInventoryStock.value.equipmentCode,
+            "equipmentModelName": this.addInventoryStock.value.equipmentModelName,
+            "equipmentTypeId": this.addInventoryStock.value.equipmentTypeId,
+            "manufactureName": this.addInventoryStock.value.manufactureName,
+            "mfgDate": formatDate(this.addInventoryStock.value.mfgDate, 'dd-MM-yyyy','en') ,
+            "purchaseDate": formatDate(this.addInventoryStock.value.purchaseDate,'dd-MM-yyyy','en') , 
+            "serialNumber": this.addInventoryStock.value.serialNumber,
+            "version": this.addInventoryStock.value.version,
+            "warranty": this.addInventoryStock.value.warranty,
+            "warrantyStartDate": formatDate(this.addInventoryStock.value.warrantyStartDate,'dd-MM-yyyy','en') ,
+            "warrantyEndDate": formatDate(this.addInventoryStock.value.warrantyEndDate,'dd-MM-yyyy','en') ,
+        }
         this.subscriptions.push(
-            // this.productService
-            //     .postProduct(this.addInventoryStock.value)
-            //     .subscribe(
-            //         (data) => {
-            //             if(data["status"] === "1"){
-            //                 this.successmsg = data;
-            //                 this.spinner.hide();
-            //                 this.toastr.success("", this.successmsg.data, {
-            //                     progressBar: true,
-            //                 });
-            //                 this.addInventoryStock.reset();
-            //                 this.router.navigate(["equipment/inventoryList"]);
-            //             }
-            //             else{
-            //                 this.spinner.hide();
-            //                 this.toastr.error("", data["data"], {progressBar:true});
-            //             }
-            //         },
-            //         (error) => {
-            //             console.log(error);
-            //             this.message = error;
-            //             this.spinner.hide();
-            //             swal(this.message.message, "", "error");
-            //         }
-            //     )
-                this.productService.postProduct(this.addInventoryStock.value).subscribe({
-                    next:(res:any)=>{
-                      if(res.status === "0"){
-                        this.spinner.hide();
-                        this.toastr.error(res.data,'Error!')
-                      }
-                      else if(res.status === "1"){
-                        this.successmsg = res.data;
-                        this.spinner.hide();
-                        this.toastr.success("", this.successmsg.data, {progressBar: true});
-                        this.addInventoryStock.reset();
-                        this.router.navigate(["equipment/inventoryList"]);
-                      }
-                    },
-                    error:(err)=>{
-                        this.message = err.error.data;
-                        this.spinner.hide();
-                        this.toastr.error(err.error.data,'Error!')
+            this.productService.postProduct(reqObj).subscribe({
+                next:(res:any)=>{
+                    if(res.status === "0"){
+                    this.spinner.hide();
+                    this.toastr.error(res.data,'Error!')
                     }
-                  })
+                    else if(res.status === "1"){
+                    this.successmsg = res.data;
+                    this.spinner.hide();
+                    this.toastr.success(res.data,"SUCCESS", {progressBar: true});
+                    this.addInventoryStock.reset();
+                    this.router.navigate(["equipment/inventoryList"]);
+                    }
+                },
+                error:(err)=>{
+                    this.message = err.error.data;
+                    this.spinner.hide();
+                    this.toastr.error(err.error.data,'Error!')
+                }
+                })
         );
-        //console.log(this.addInventoryStock.value);
-        //this.addInventoryStock.reset();
         this.submitted = false;
     }
 

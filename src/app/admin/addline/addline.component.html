@@ -1,7 +1,16 @@
-<div class="container ">
-    <h2>Add Line/Corridor</h2>
-    <hr />
-    <div class="row ">
+<div class="container mt-5 mb-5 formBg">
+    <!-- <h2>Add Line/Corridor</h2>
+    <hr /> -->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Line
+            </h4>
+        </div>
+    </div>
+
+    <div class="row mt-4">
         <form [formGroup]="lineForm" (ngSubmit)="onFormSubmit()">
             <div class="row col-md-12">
 

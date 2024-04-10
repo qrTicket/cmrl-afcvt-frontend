@@ -1,18 +1,27 @@
-<div class="container-fluid content-wrapper">
+<div class="container">
         <!-- <div class="heading">
         <h2>Station List</h2>
 
         <hr />
     </div> -->
-    <nav aria-label="breadcrumb" class="bdcrm">
+    <!-- <nav aria-label="breadcrumb" class="bdcrm">
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a [routerLink]="['/admin/stationlist']" >Station</a> </li>
             <li class="breadcrumb-item active" aria-current="page">Station List</li>
         </ol>
     </nav>
-    <hr>
+    <hr> -->
 
-    <div class="table-responsive table-set">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Station List
+            </h4>
+        </div>
+    </div>
+
+    <div class="table-responsive table-set mt-4">
         <!-- datatable
         [dtOptions]="dtOptions"
         [dtTrigger]="dtTrigger" -->
@@ -60,10 +69,7 @@
                             href="javascript:;"
                             [routerLink]="['/admin/edit-station/', item.id]"
                         >
-                            <i
-                                class="fa fa-edit"
-                                style="font-size: 38px; color: #00efd1"
-                            ></i>
+                            <i class="fa fa-edit editButton" ></i>
                         </a>
                     </td>
                     <td style="width: 150px;">

@@ -5,3 +5,8 @@
 .bdcrm {
     margin: 25px 0 0 0;
   }
+
+  .required::after{
+    content: "*";
+    color: red;
+  }

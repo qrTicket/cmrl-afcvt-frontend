@@ -24,6 +24,8 @@
     <form [formGroup]="addInventoryStock" (ngSubmit)="onaddinvetFormSubmit()">
         <div class="card-body">
             <div class="row mt-4">
+
+                <!-- Equipment Type -->
                 <div class="col-sm-4 pb-3">
                     <label>Equipment Type</label><span id="mandatory">*</span>
                     <select class="form-control" formControlName="equipmentTypeId" [ngClass]="{ 'is-invalid': submitted && fval.equipmentTypeId.errors }"  >
@@ -41,6 +43,7 @@
                     </div>
                 </div>
 
+                <!-- Manufacture Name -->
                 <div class="col-sm-4 pb-3">
                     <label for="">Manufacture Name</label><span id="mandatory">*</span>
                     <input type="text" class="form-control" formControlName="manufactureName" placeholder="Enter manufacture name"  [ngClass]="{ 'is-invalid': submitted && fval.manufactureName.errors }" maxlength="30" />
@@ -54,9 +57,7 @@
                     </div> 
                 </div>
 
-
-
-
+                <!-- Serial Number -->
                 <div class="col-sm-4 pb-3">
                     <label for="serialNo">Serial Number</label><span id="mandatory">*</span>
                     <input
@@ -102,6 +103,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Equipment Code -->
                 <div class="col-sm-4 pb-3">
                     <label for="model">Equipment Code</label><span id="mandatory">*</span>
                     <input
@@ -146,6 +149,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Expiry Date -->
                 <!-- <div class="col-sm-4 pb-3">
                     <label for="productManu">Expiry Date</label>
 
@@ -192,6 +197,8 @@
                         </div>
                     </div>
                 </div> -->
+                
+                <!-- Product version -->
                 <div class="col-sm-4 pb-3">
                     <label>Product version</label><span id="mandatory">*</span>
                     <input
@@ -257,6 +264,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Equipment Model Name -->
                 <div class="col-sm-4 pb-3">
                     <label for="model">Equipment Model Name</label><span id="mandatory">*</span>
                     <input
@@ -315,9 +324,10 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Manufacturing Date -->
                 <div class="col-sm-4 pb-3">
                     <label for="productManu">Manufacturing Date</label><span id="mandatory">*</span>
-
                     <input
                         readonly
                         formControlName="mfgDate"
@@ -362,6 +372,7 @@
                     </div>
                 </div>
 
+                <!-- Purchase Date -->
                 <div class="col-sm-4 pb-3">
                     <label for="productVersion">Purchase Date</label><span id="mandatory">*</span>
                     <input
@@ -423,6 +434,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Warranty -->
                 <div class="col-sm-4 pb-3">
                     <label>Warranty (in years)</label><span id="mandatory">*</span>
                     <input
@@ -476,10 +489,83 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- App version -->
+                <div class="col-sm-4 pb-3">
+                    <label>App Version</label><span id="mandatory">*</span>
+                    <input type="text" class="form-control" formControlName="appVersion" placeholder="Enter app version"
+                        [ngClass]="{'is-invalid': submitted && fval.appVersion.errors}" maxlength="5" />
+                    <div *ngIf="submitted && fval.appVersion.errors" class="invalid-feedback" >
+                        <div *ngIf="  addInventoryStock.controls.appVersion.errors && addInventoryStock.controls.appVersion.errors.required ">
+                            {{ addInventoryStock.controls.appVersion.errors.required.message }}
+                        </div>
+                        <div *ngIf=" addInventoryStock.controls.appVersion.errors && addInventoryStock.controls.appVersion.errors.numeric ">
+                            {{ addInventoryStock.controls.appVersion.errors.numeric.message }}
+                        </div>
+                        <div *ngIf=" addInventoryStock.controls.appVersion.errors && addInventoryStock.controls.appVersion.errors.nonZero">
+                            {{ addInventoryStock.controls.appVersion.errors.nonZero.message }}
+                        </div>
+                        <div *ngIf=" addInventoryStock.controls.appVersion.errors && addInventoryStock.controls.appVersion.errors.deci">
+                            {{ addInventoryStock.controls.appVersion.errors.deci.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warranty Start Date -->
+                <div class="col-sm-4 pb-3">
+                    <label for="warrantyStartDate">Warranty Start Date</label><span id="mandatory">*</span>
+                    <input readonly type="text"
+                        bsDatepicker
+                        formControlName="warrantyStartDate"
+                        placeholder="Select warranty start date"
+                        class="form-control"
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigWarrantyStartDate"
+                        (bsValueChange)="onWarrantyStartDateChange($event)"
+                        [ngClass]="{'is-invalid': submitted && fval.warrantyStartDate.errors }"
+                    />
+                    <div *ngIf="submitted && fval.warrantyStartDate.errors" class="invalid-feedback">
+                        <div *ngIf=" addInventoryStock.controls.warrantyStartDate.errors && addInventoryStock.controls.warrantyStartDate.errors.required ">
+                            {{ addInventoryStock.controls.warrantyStartDate.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warranty End Date -->
+                <div class="col-sm-4 pb-3">
+                    <label for="warrantyEndDate">Warranty End Date</label><span id="mandatory">*</span>
+                    <input readonly type="text"
+                        bsDatepicker
+                        formControlName="warrantyEndDate"
+                        placeholder="Select warranty end date"
+                        class="form-control"
+                        [outsideClick]="true"
+                        [bsConfig]="datePickerConfigWarrantyEndDate"
+                        [ngClass]="{'is-invalid': submitted && fval.warrantyEndDate.errors }"
+                    />
+                    <div *ngIf="submitted && fval.warrantyEndDate.errors" class="invalid-feedback">
+                        <div *ngIf=" addInventoryStock.controls.warrantyEndDate.errors && addInventoryStock.controls.warrantyEndDate.errors.required ">
+                            {{ addInventoryStock.controls.warrantyEndDate.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Device Description -->
+                 <div class="col-sm-4 pb-3">
+                    <label for="deviceDescription">Device Description</label><span id="mandatory">*</span>
+                    <input type="text" class="form-control" formControlName="deviceDescription" placeholder="Enter manufacture name"  
+                    [ngClass]="{ 'is-invalid': submitted && fval.deviceDescription.errors }" maxlength="255" />
+                    <div *ngIf="submitted && fval.deviceDescription.errors" class="invalid-feedback" >
+                        <div *ngIf="addInventoryStock.controls.deviceDescription.errors && addInventoryStock.controls.deviceDescription.errors.required" >
+                            {{ addInventoryStock.controls.deviceDescription.errors.required.message  }}
+                        </div>
+                    </div> 
+                </div>
+
             </div>
 
 
-            <div class=" mt-4 form-group">
+            <div class=" mt-4 form-group mb-5">
                 <!-- (click)="onaddinvetFormSubmit()" -->
                 <button class="btn btn-primary mt-1 submitButton"   >
                     <i class="fa fa-paper-plane"></i>

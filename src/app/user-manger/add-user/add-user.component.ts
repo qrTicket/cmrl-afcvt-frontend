@@ -194,43 +194,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
 
         this.spinner.show();
         this.subscription.push(
-            // this.addUserService.addUser(this.addUser.value).subscribe(
-            //     (res: any) => {
-            //         this.spinner.hide();
-            //         if (res["status"] === "1") {
-            //             this.toastr.success(res["data"]);
-            //             this.addUser.reset();
-            //             let num : number = 0;
-            //             for(num; num < this.rolesArray.length; num++){
-            //                 this.rolesArray.splice(num);
-            //             }
-            //             this.submitted = false;
-            //             this.router.navigate(["/user-manager/users/all/list"]);
-            //         } 
-            //         else 
-            //         {
-            //             this.spinner.hide();
-            //             // this.toastr.info(data.data);
-            //             //swal(res.data, "", "warning");
-            //             Swal.fire({
-            //                 icon: "error",
-            //                 text: res.data,
-            //             });
-            //         }
-            //         //this.router.navigate(["/user-manager/users/all/list"]);
-            //     },
-            //     (error) => {
-            //         this.spinner.hide();
-            //         Swal.fire({
-            //             title: "Error !",
-            //             text: "backend error "+error.data,
-            //         });
-            //         // console.log("Error", error);
-            //         // this.errormsg = error;
-            //         // this.toastr.error(this.errormsg.data);
-            //     }
-            // )
-            this.addUserService.getAllStation().subscribe({
+            this.addUserService.addUser(this.addUser.value).subscribe({
                 next:(res:any)=>{
                   if(res.status === "0"){
                       this.spinner.hide();
@@ -242,13 +206,13 @@ export class AddUserComponent implements OnInit, OnDestroy {
                   else if(res.status === "1"){
                     this.spinner.hide();
                     this.toastr.success(res.data);
-                        this.addUser.reset();
-                        let num : number = 0;
-                        for(num; num < this.rolesArray.length; num++){
-                            this.rolesArray.splice(num);
-                        }
-                        this.submitted = false;
-                        this.router.navigate(["/user-manager/users/all/list"]);
+                    this.addUser.reset();
+                    let num : number = 0;
+                    for(num; num < this.rolesArray.length; num++){
+                        this.rolesArray.splice(num);
+                    }
+                    this.submitted = false;
+                    this.router.navigate(["/user-manager/users/all/list"]);
                   }
                 },
                 error:(err)=>{

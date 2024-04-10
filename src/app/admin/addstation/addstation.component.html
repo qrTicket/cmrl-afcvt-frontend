@@ -1,14 +1,23 @@
-<div class="container"> 
-    <h2>Add Station</h2>
-    
+<div class="container mt-5 mb-5 formBg"> 
+    <!-- <h2>Add Station</h2>
+    <hr /> -->
     <!-- <nav aria-label="breadcrumb" class="bdcrm">
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a [routerLink]="['/admin/stationlist']">Station</a> </li>
             <li class="breadcrumb-item active" aria-current="page">Add Station</li>
         </ol>
     </nav> -->
-    <hr />
-    <div class="row">
+    
+    <div class="card">
+        <div class="card-header">
+            <h4 class="pt-2 text-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add Station
+            </h4>
+        </div>
+    </div>
+
+    <div class="row mt-4">
         <form [formGroup]="stationForm" (ngSubmit)="onFormSubmit()">
             <div class="row row-p-tb4">
 
