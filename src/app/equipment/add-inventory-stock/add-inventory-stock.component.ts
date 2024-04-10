@@ -266,11 +266,8 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
 
     onValueChange(value) {
         this.addInventoryStock.get('purchaseDate').reset();
-        // var data;
         this.data = new Date(value);
-        // console.log(this.data);
         this.data.setDate(this.data.getDate() + 1);
-        // console.log(this.data);
         this.datePickerConfigPur = Object.assign(
             {},
             {
@@ -279,16 +276,6 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
                 containerClass: "theme-dark-blue",
                 minDate: this.data,
                 maxDate: (this.maxDate = new Date()),
-            }
-        );
-        this.datePickerConfigWarrantyStartDate = Object.assign(
-            {},
-            {
-                adaptivePosition: true,
-                dateInputFormat: "DD-MM-YYYY",
-                containerClass: "theme-dark-blue",
-                minDate: this.data,
-                maxDate: this.maxDate,
             }
         );
     }
@@ -304,7 +291,7 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
                 dateInputFormat: "DD-MM-YYYY",
                 containerClass: "theme-dark-blue",
                 minDate: this.data,
-                maxDate: this.maxDate,
+                maxDate: this.maxDate
             }
         );
     }
@@ -335,19 +322,15 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
 
     onWarrantyStartDateChange(val:any){
         this.addInventoryStock.get('warrantyEndDate').reset();
-         // var data;
          this.data = new Date(val);
-         // console.log(this.data);
          this.data.setDate(this.data.getDate() + 1);
-         // console.log(this.data);
          this.datePickerConfigWarrantyEndDate = Object.assign(
              {},
              {
                  adaptivePosition: true,
                  dateInputFormat: "DD-MM-YYYY",
                  containerClass: "theme-dark-blue",
-                 minDate: this.data,
-                 //maxDate: this.maxDate,
+                 minDate: this.data
              }
          );
     }
