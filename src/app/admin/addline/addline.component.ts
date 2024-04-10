@@ -27,8 +27,8 @@ export class AddlineComponent implements OnInit {
     public stationObject: Object;
     stationName: string;
 
-    successmsg;
-    errormsg;
+    successmsg:any;
+    errormsg:any;
     isSaving = false;
     activationStatusList:any = [
         {"key":true,"value": "Active"},
@@ -135,7 +135,7 @@ export class AddlineComponent implements OnInit {
             ],
 
         });
-        this.getStation()
+        //this.getStation()
         
     }
 

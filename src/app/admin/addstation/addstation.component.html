@@ -76,6 +76,20 @@
                         </div>
                     </div>
                 </div>
+
+                 <!-- Station ID -->
+                 <div class="col-md-4">
+                    <label for="stationId" class="required">
+                        <b >Station ID</b>
+                    </label>
+                    <input formControlName="stationId" class="form-control" type="text" 
+                        [ngClass]="{'is-invalid': submitted && fval.stationId.errors}" maxlength="25" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.stationId.errors && fval.stationId.errors.required">
+                            {{ fval.stationId.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
              
                 <!-- Contact Number -->
                 <div class="col-md-4">

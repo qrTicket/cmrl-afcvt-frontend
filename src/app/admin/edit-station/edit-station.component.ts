@@ -61,7 +61,7 @@ export class EditStationComponent implements OnInit {
                     }),
                 ],
             ],
-            //stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
+            stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
             contactNum: [
                 "",
                 [
@@ -161,7 +161,7 @@ export class EditStationComponent implements OnInit {
             zoneId: station && station.zoneId ? station.zoneId : "",
             stationCode: station.stationCode,
             stationName: station.stationName,
-            //stationId: station.stationId,
+            stationId: station.stationId,
             latitude:station.latitude,
             longitude:station.longitude,
             contactNum:station.contactNum,
@@ -184,7 +184,7 @@ export class EditStationComponent implements OnInit {
                 "zoneId" : this.editstationForm.value.zoneId,
                 "stationName" : this.editstationForm.value.stationName,
                 "stationCode" : this.editstationForm.value.stationCode,
-                //"stationId" : this.editstationForm.value.stationId,
+                "stationId" : this.editstationForm.value.stationId,
                 "contactNum" : this.editstationForm.value.contactNum,
                 "latitude" : this.editstationForm.value.latitude,
                 "longitude" : this.editstationForm.value.longitude,

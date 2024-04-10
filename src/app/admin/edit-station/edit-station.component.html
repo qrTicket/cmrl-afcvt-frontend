@@ -39,29 +39,6 @@
                    
                 </div>
 
-                <!-- Station Code -->
-                <div class="col-md-4">
-                    <label for="stationCode" class="required">
-                        Station Code/Short Name
-                    </label>
-                    <input type="text" class="form-control" formControlName="stationCode" [ngClass]="{
-                            'is-invalid': submitted && fval.stationCode.errors
-                        }" readonly />
-
-                    <div *ngIf="submitted && fval.stationCode.errors" class="invalid-feedback">
-                        <div *ngIf="
-                                fval.stationCode.errors &&
-                                fval.stationCode.errors
-                                    .required
-                            ">
-                            {{
-                            fval.stationCode.errors
-                            .required.message
-                            }}
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Station Name -->
                 <div class="col-md-4">
                     <label for="stationName" class="required">
@@ -103,6 +80,74 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Station Code -->
+                <div class="col-md-4">
+                    <label for="stationCode" class="required">
+                        Station Code/Short Name
+                    </label>
+                    <input type="text" class="form-control" formControlName="stationCode" [ngClass]="{
+                            'is-invalid': submitted && fval.stationCode.errors
+                        }" readonly />
+
+                    <div *ngIf="submitted && fval.stationCode.errors" class="invalid-feedback">
+                        <div *ngIf="
+                                fval.stationCode.errors &&
+                                fval.stationCode.errors
+                                    .required
+                            ">
+                            {{
+                            fval.stationCode.errors
+                            .required.message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Station ID -->
+                 <div class="col-md-4">
+                    <label for="stationId" class="required">
+                        <b >Station ID</b>
+                    </label>
+                    <input formControlName="stationId" class="form-control" type="text" 
+                        [ngClass]="{'is-invalid': submitted && fval.stationId.errors}" maxlength="25" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.stationId.errors && fval.stationId.errors.required">
+                            {{ fval.stationId.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Number -->
+                <div class="col-md-4">
+                    <label for="contactNum" class="required">
+                        <b> Contact Number</b>
+                    </label>
+                    <input formControlName="contactNum" class="form-control" type="text" [ngClass]="{
+                            'is-invalid': submitted && fval.contactNum.errors
+                        }" maxlength="10" />
+                    <div *ngIf="submitted && fval.contactNum.errors" class="invalid-feedback">
+                        <div *ngIf="
+                                fval.contactNum.errors &&
+                                fval.contactNum.errors.required
+                            ">
+                            {{
+                            fval.contactNum.errors.required
+                            .message
+                            }}
+                        </div>
+                        <div *ngIf="
+                                fval.contactNum.errors &&
+                                fval.contactNum.errors.onlyDigit
+                            ">
+                            {{
+                            fval.contactNum.errors.onlyDigit
+                            .message
+                            }}
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Latitude -->
                 <div class="col-md-4">
@@ -170,35 +215,7 @@
                     </div>
                 </div>
 
-                <!-- Contact Number -->
-                <div class="col-md-4">
-                    <label for="contactNum" class="required">
-                        <b> Contact Number</b>
-                    </label>
-                    <input formControlName="contactNum" class="form-control" type="text" [ngClass]="{
-                            'is-invalid': submitted && fval.contactNum.errors
-                        }" maxlength="10" />
-                    <div *ngIf="submitted && fval.contactNum.errors" class="invalid-feedback">
-                        <div *ngIf="
-                                fval.contactNum.errors &&
-                                fval.contactNum.errors.required
-                            ">
-                            {{
-                            fval.contactNum.errors.required
-                            .message
-                            }}
-                        </div>
-                        <div *ngIf="
-                                fval.contactNum.errors &&
-                                fval.contactNum.errors.onlyDigit
-                            ">
-                            {{
-                            fval.contactNum.errors.onlyDigit
-                            .message
-                            }}
-                        </div>
-                    </div>
-                </div>
+                
 
                <!-- Address -->
                <div class="col-md-4">

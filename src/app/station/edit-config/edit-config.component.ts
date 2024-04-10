@@ -543,7 +543,7 @@ export class EditConfigComponent implements OnInit {
 
         //     }
         // );
-        this.stationAPI.gateTerminalConfig(this.assignId, formData).subscribe({
+        this.stationAPI.putconfig(this.assignId, formData).subscribe({
             next:(res)=>{
                 if(res.status === "0"){
                     this.spinner.hide();
@@ -556,13 +556,13 @@ export class EditConfigComponent implements OnInit {
                 else if(res.status === "1"){
                     this.spinner.hide();
                     this.successmsg = res.data;
-                    this.toastr.success(this.successmsg.data);
+                    this.toastr.success(this.successmsg);
                     this.router.navigate(["/stationdashboard"]);
                 }
               },
               error:(err)=>{
                 this.spinner.hide();
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
               }
         })
         this.submitted = false;
