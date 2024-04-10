@@ -66,7 +66,7 @@ export class AddstationComponent implements OnInit {
                     RxwebValidators.minLength({value:3,message: "Minimum length should be 3!"})
                 ],
             ],
-            //stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
+            stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
             contactNum: ["",
                 [
                     RxwebValidators.required({message: "This field is required!",}),
@@ -146,7 +146,7 @@ export class AddstationComponent implements OnInit {
             "zoneId" : this.stationForm.value.zoneId,
             "stationName" : this.stationForm.value.stationName,
             "stationCode" : this.stationForm.value.stationCode,
-            //"stationId" : this.stationForm.value.stationId,
+            "stationId" : this.stationForm.value.stationId,
             "contactNum" : this.stationForm.value.contactNum,
             "latitude" : this.stationForm.value.latitude,
             "longitude" : this.stationForm.value.longitude,

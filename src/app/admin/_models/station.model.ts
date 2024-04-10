@@ -11,6 +11,7 @@ export class Station {
   address : string;
   zone: string;
   zoneId: string;
+  stationId: string;
   /*stationLinks: [
     {
         lineCode: string;

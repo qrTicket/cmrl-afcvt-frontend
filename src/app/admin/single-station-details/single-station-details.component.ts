@@ -36,11 +36,11 @@ export class SingleStationDetailsComponent implements OnInit {
     });
   }
 
-  editConfig(item){
+  editConfig(item:any){
     console.log(item)
   }
 
-  getStationAllGateConfig(stationCode){
+  getStationAllGateConfig(stationCode:any){
     console.log(stationCode)
     // this.dashboardService.getGateConfigListByStationcode(stationCode).subscribe(
     //   (res) => {
@@ -73,15 +73,15 @@ export class SingleStationDetailsComponent implements OnInit {
               this.toastr.error(res.data,'Error!')
           }
           else if(res.status === "1"){
-            this.stationData = res.Station;
-            if(res.GateConfigs.length === 0){
+            this.stationData = res.data.Station;
+            if(res.data.GateConfigs.length === 0){
                 return Swal.fire({
                   icon: "error",
                   title: "ERROR",
                   text: "No data available!",
                 });
             }else{
-              this.configuredList = res.GateConfigs;
+              this.configuredList = res.data.GateConfigs;
             }
           }
         },
