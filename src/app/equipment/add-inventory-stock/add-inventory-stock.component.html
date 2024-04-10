@@ -388,6 +388,7 @@
                         [ngClass]="{
                             'is-invalid': submitted && fval.purchaseDate.errors
                         }"
+                        (bsValueChange)="onPurchaseDateChange($event)"
                     />
                     <div
                         *ngIf="submitted && fval.purchaseDate.errors"

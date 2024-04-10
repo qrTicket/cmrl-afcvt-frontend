@@ -92,24 +92,18 @@
                 </div>
 
                 <div *ngIf="showUpdateBtn">
-                    <div class="row justify-content-center mt-2">
-                        <div >
-                            <!-- class="btn btn-outline-primary mt-1 pull-left" -->
-                            <button type="submit">
-                                <i class="fa fa-paper-plane"></i>
-                                Update
-                            </button>
-                        </div>
-                        <!-- class="col-1 pb-3 mr-4" -->
-                        <div >
-                            <!-- class="btn btn-outline-danger mt-1 pull-left" -->
+                    <div class="row col-0 mt-1">
+                        <div class="fltLeft col-md-12">
                             <button type="submit" (click)="cancel()">
                                 <i class="fas fa-close"></i>
                                 Cancel
                             </button>
-                        </div>
-        
-                        
+                            <button type="submit">
+                                <i class="fa fa-refresh"></i>
+                                Update
+                            </button>
+                        </div> 
+                       
                     </div>
             </div>
     

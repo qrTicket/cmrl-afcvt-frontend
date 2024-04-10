@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-6 form-group">
                 <label for="">Role:</label><br>
-                <span *ngFor="let role of userRoles">&nbsp;&nbsp;&nbsp;{{role.roleName}},</span>
+                <span *ngFor="let role of userRoles; let last=last">&nbsp;&nbsp;&nbsp;{{role.roleName}} <span *ngIf="!last">,</span> </span>
             </div>
         </div>  
 

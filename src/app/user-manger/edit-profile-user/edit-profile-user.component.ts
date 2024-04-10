@@ -113,8 +113,8 @@ export class EditProfileUserComponent implements OnInit {
            role:['']
         });
 
-        //keep form disable untill Edit button is hit
-        this.editProfileForm.disable();
+        
+        
 
         //will fetch all roles on which USER-MANAGER can operate 
         this.subscription.push(
@@ -136,9 +136,6 @@ export class EditProfileUserComponent implements OnInit {
               })
         );
 
-        
-        
-
         //fetching User manager Details
         // this.userProfileAPI.UserProfile().subscribe(
         //     (userData) => 
@@ -152,17 +149,23 @@ export class EditProfileUserComponent implements OnInit {
         // );
         this.userProfileAPI.UserProfile().subscribe({
             next:(res:any)=>{
-              if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
-              }
-              else if(res.status === "1"){
-                this.getUserData(res.data);
-              }
+                this.getUserData(res);
+                
+            //   if(res.status === "0"){
+            //       this.toastr.error(res.data,'Error!')
+            //   }
+            //   else if(res.status === "1"){
+            //     console.log(res,'res');
+            //     this.getUserData(res.data);
+            //   }
             },
             error:(err)=>{
                 this.toastr.error(err.error.data,'Error!')
             }
           })
+
+        //keep form disable untill Edit button is hit
+        this.editProfileForm.disable();
     }//ngOnInit ends
 
 
@@ -191,7 +194,7 @@ export class EditProfileUserComponent implements OnInit {
                   this.toastr.error(res.data,'Error!')
               }
               else if(res.status === "1"){
-                this.getUserData(res.data);
+                this.getUserData(res);
               }
             },
             error:(err)=>{

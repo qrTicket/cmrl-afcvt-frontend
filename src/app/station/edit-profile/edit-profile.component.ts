@@ -161,13 +161,14 @@ export class EditProfileComponent implements OnInit {
         // );
         this.userProfileAPI.UserProfile().subscribe({
             next:(res)=>{
-              if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
-              }
-              else if(res.status === "1"){
-                this.getUserData(res.data);
-                console.log(res.data)
-              }
+                this.getUserData(res);
+            //   if(res.status === "0"){
+            //       this.toastr.error(res.data,'Error!')
+            //   }
+            //   else if(res.status === "1"){
+            //     this.getUserData(res.data);
+            //     console.log(res.data)
+            //   }
             },
             error:(err)=>{
                 this.toastr.error(err.error.data,'Error!')

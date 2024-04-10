@@ -185,20 +185,20 @@ export class InventoryListComponent implements OnInit, OnDestroy {
         //     this.assignList = res["data"];
         //     this.temp = true;
         // });
-        this.productService.assignNonAssigned().subscribe({
-            next:(res:any)=>{
-              if(res.status === "0"){
-                this.toastr.error(res.data,'Error!')
-              }
-              else if(res.status === "1"){
-                this.assignList = res.data;
-                this.temp = true;
-              }
-            },
-            error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
-            }
-          })
+        // this.productService.assignNonAssigned().subscribe({
+        //     next:(res:any)=>{
+        //       if(res.status === "0"){
+        //         this.toastr.error(res.data,'Error!')
+        //       }
+        //       else if(res.status === "1"){
+        //         this.assignList = res.data;
+        //         this.temp = true;
+        //       }
+        //     },
+        //     error:(err)=>{
+        //         this.toastr.error(err.error.data,'Error!')
+        //     }
+        //   })
     }
     get fval() {
         return this.assignForm.controls;

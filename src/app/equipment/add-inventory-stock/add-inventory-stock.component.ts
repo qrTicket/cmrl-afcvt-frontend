@@ -32,11 +32,13 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
     message;
     minDate: Date;
     maxDate: Date;
+    selectedPurchaseDate: Date;
+
     submitted = false;
     submit = false;
     productList: any = [];
     manufactureList: any = [];
-    purchaseDate: any;
+    
     equipmentTypeList: any[]=[];
     currentDate: any;
     data: any;
@@ -261,6 +263,7 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
     get fval() {
         return this.addInventoryStock.controls;
     }
+
     onValueChange(value) {
         this.addInventoryStock.get('purchaseDate').reset();
         // var data;
@@ -272,13 +275,40 @@ export class AddInventoryComponent implements OnInit, OnDestroy {
             {},
             {
                 adaptivePosition: true,
-                dateInputFormat: "YYYY-MM-DD",
+                dateInputFormat: "DD-MM-YYYY",
                 containerClass: "theme-dark-blue",
                 minDate: this.data,
                 maxDate: (this.maxDate = new Date()),
             }
         );
+        this.datePickerConfigWarrantyStartDate = Object.assign(
+            {},
+            {
+                adaptivePosition: true,
+                dateInputFormat: "DD-MM-YYYY",
+                containerClass: "theme-dark-blue",
+                minDate: this.data,
+                maxDate: this.maxDate,
+            }
+        );
     }
+
+    onPurchaseDateChange(val:any){
+        this.addInventoryStock.get('warrantyStartDate').reset();
+        this.data = new Date(val);
+        this.data.setDate(this.data.getDate());
+        this.datePickerConfigWarrantyStartDate = Object.assign(
+            {},
+            {
+                adaptivePosition: true,
+                dateInputFormat: "DD-MM-YYYY",
+                containerClass: "theme-dark-blue",
+                minDate: this.data,
+                maxDate: this.maxDate,
+            }
+        );
+    }
+
     handler(value) {
         this.isDisabled = false;
         // this.datePickerConfigMfg = Object.assign(

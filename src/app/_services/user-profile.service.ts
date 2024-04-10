@@ -24,7 +24,7 @@ export class UserProfileService {
 
     UserProfile(): Observable<any> {
         return this.http.get(
-            `${environment.rootUrl}/profile`,
+            `${environment.BASEURL}/api/auth/profile`,
             this.httpOptions
         );
     }
