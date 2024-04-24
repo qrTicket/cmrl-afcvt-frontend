@@ -97,8 +97,8 @@ export class AdmindashboardComponent implements OnInit {
     this.getModeList();
 
     this.stationlist();
-    this.linelist();
-    this.getAllUsers();
+    //this.linelist();  //not used for now
+    //this.getAllUsers(); //not used for now
     this.getLiineStationsList();
     //this.getconfiguredGateList();
   }

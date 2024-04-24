@@ -20,11 +20,14 @@
                     <input type="text" class="form-control txt-cap" name="lineName" id="lineName" formControlName="lineName"
                         [ngClass]="{'is-invalid': submitted && fval.lineName.errors}" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.lineName.errors && lineForm.controls.lineName.errors.required">
-                            {{ lineForm.controls.lineName.errors.required.message }}
+                        <div *ngIf="fval.lineName.errors && fval.lineName.errors.required">
+                            {{ fval.lineName.errors.required.message }}
                         </div>
-                        <div *ngIf="lineForm.controls.lineName.errors && lineForm.controls.lineName.errors.alpha">
-                            {{ lineForm.controls.lineName.errors.alpha.message }}
+                        <div *ngIf="fval.lineName.errors && fval.lineName.errors.alpha">
+                            {{ fval.lineName.errors.alpha.message }}
+                        </div>
+                        <div *ngIf="fval.lineName.errors && fval.lineName.errors.minLength">
+                            {{ fval.lineName.errors.minLength.message }}
                         </div>
                     </div>
                 </div>
