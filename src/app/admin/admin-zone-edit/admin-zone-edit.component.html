@@ -1,10 +1,18 @@
 <div class="container mt-5 mb-5 formBg">
     <div class="card">
         <div class="card-header">
-            <h4 class="pt-2 text-primary">
-                <i class="fa fa-gear" aria-hidden="true"></i>
-                Update Zone
-            </h4>
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-gear" aria-hidden="true"></i>
+                    Update Zone
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin/admin-zone-list']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
+            
         </div>
     </div>
     <!-- <h2>Add Zone</h2>
@@ -64,19 +72,19 @@
                     </div>
                 </div>
 
-
-                
             </div>
 
 
             <div class="clearfix mt-4 btn-set">
-                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
+                <button type="submit" >
+                    Update
+                    <span class="fa-class fa fa-refresh"></span>
+                </button>
+                <button type="submit" (click)="cancel()">
+                    Cancel 
                     <span class="fa-class fa fa-close"></span>
                 </button>
-                <button type="submit" class="btn btn-primary mx-3">
-                    Submit
-                    <span class="fa-class fa fa-paper-plane"></span>
-                </button>
+                
                 
             </div>
 

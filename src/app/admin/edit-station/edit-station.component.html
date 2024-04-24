@@ -10,11 +10,18 @@
     <hr> -->
 
     <div class="card">
-        <div class="card-header">
-            <h4 class="pt-2 text-primary">
-                <i class="fa fa-gear" aria-hidden="true"></i>
-                Update Station
-            </h4>
+        <div class="card-header col-md-12">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-gear" aria-hidden="true"></i>
+                    Update Station
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin/stationlist']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
         </div>
     </div>
 
@@ -46,7 +53,7 @@
                     </label>
                     <input formControlName="stationName" class="form-control" type="text" [ngClass]="{
                             'is-invalid': submitted && fval.stationName.errors
-                        }" maxlength="50" />
+                        }" maxlength="255" />
 
                     <div *ngIf="submitted && fval.stationName.errors" class="invalid-feedback">
                         <div *ngIf="
@@ -83,29 +90,28 @@
 
                 <!-- Station Code -->
                 <div class="col-md-4">
-                    <label for="stationCode" class="required">
+                    <label for="stationCode" >
                         Station Code/Short Name
                     </label>
                     <input type="text" class="form-control" formControlName="stationCode" [ngClass]="{
                             'is-invalid': submitted && fval.stationCode.errors
                         }" readonly />
 
-                    <div *ngIf="submitted && fval.stationCode.errors" class="invalid-feedback">
-                        <div *ngIf="
-                                fval.stationCode.errors &&
-                                fval.stationCode.errors
-                                    .required
-                            ">
-                            {{
-                            fval.stationCode.errors
-                            .required.message
-                            }}
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div *ngIf="fval.stationCode.errors && fval.stationCode.errors.required">
+                                {{ fval.stationCode.errors.required.message }}
+                            </div>
+                            <div *ngIf="fval.stationCode.errors && fval.stationCode.errors.alpha">
+                                {{ fval.stationCode.errors.alpha.message }}
+                            </div>
+                            <div *ngIf="fval.stationCode.errors && fval.stationCode.errors.minLength">
+                                {{ fval.stationCode.errors.minLength.message }}
+                            </div>
                         </div>
-                    </div>
                 </div>
 
                  <!-- Station ID -->
-                 <div class="col-md-4">
+                 <!-- <div class="col-md-4">
                     <label for="stationId" class="required">
                         <b >Station ID</b>
                     </label>
@@ -116,7 +122,7 @@
                             {{ fval.stationId.errors.required.message }}
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Contact Number -->
                 <div class="col-md-4">
@@ -157,7 +163,7 @@
                     <input formControlName="latitude" class="form-control" type="text" [ngClass]="{
                             'is-invalid':
                                 submitted && fval.latitude.errors
-                        }" />
+                        }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="
                                 fval.latitude.errors &&
@@ -190,7 +196,7 @@
                     <input formControlName="longitude" class="form-control" type="text" [ngClass]="{
                             'is-invalid':
                                 submitted && fval.longitude.errors
-                        }" />
+                        }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="
                                 fval.longitude.errors &&
@@ -251,11 +257,11 @@
             <div class="clearfix col-md-12 btn-set">
                 <button type="submit">
                     Update
-                    <span class="fa-class fa fa-paper-plane"></span>
+                    <span class="fa-class fa fa-refresh"></span>
                 </button>
                 <button class="btn-sub my-5" (click)="cancel()">
                     Cancel
-                    <span class="fa-class fa fa-window-close"></span>
+                    <span class="fa-class fa fa-close"></span>
                 </button>
             </div>
             <br><br>

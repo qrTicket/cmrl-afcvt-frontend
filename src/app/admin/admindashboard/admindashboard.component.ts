@@ -157,7 +157,7 @@ export class AdmindashboardComponent implements OnInit {
         }
         else if(res.status === "1"){
           this.station = res.data;
-          this.stationcount = res.data.length;
+          //this.stationcount = res.data.length;
         }
       },
       error:(err)=>{
@@ -182,7 +182,7 @@ export class AdmindashboardComponent implements OnInit {
         }
         else if(res.status === "1"){
           this.line = res.data;
-          this.linecount = res.data.length;
+          //this.linecount = res.data.length;
         }
       },
       error:(err)=>{
@@ -205,7 +205,7 @@ export class AdmindashboardComponent implements OnInit {
         }
         else if(res.status === "1"){
           this.userList = res.data;
-          this.usercount = res.data.length;
+          //this.usercount = res.data.length;
         }
       },
       error:(err)=>{

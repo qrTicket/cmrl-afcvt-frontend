@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Line } from "../_models/lines.model";
 import { LinesService } from "../_services/lines.service";
 import { NgxSpinnerService } from "ngx-spinner";
-import { RxwebValidators } from "@rxweb/reactive-form-validators";
+import { NumericValueType, RxwebValidators } from "@rxweb/reactive-form-validators";
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
 import { formatDate } from "@angular/common";
 
@@ -84,9 +84,15 @@ export class EditLineComponent implements OnInit {
                     }),
                 ],
             ],
-            lineColour:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            lineColour:['',[ 
+                RxwebValidators.required({message: "This field is required!"}),
+                //RxwebValidators.alpha({message: "This will accept only alphabet!", allowWhiteSpace: true})
+            ]],
             activationStatus:['',[ RxwebValidators.required({message: "This field is required!"})]],
-            length:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            length:['',[ 
+                RxwebValidators.required({message: "This field is required!"}),
+                RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:true, message:"Only numbers are allowed!" })
+            ]],
             operationFrom:['',[ RxwebValidators.required({message: "This field is required!"})]],
             terminusA: [
                 "",

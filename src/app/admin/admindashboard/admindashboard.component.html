@@ -141,7 +141,9 @@
     
                     <h5 class="count-set">No. of Lines</h5>
                     <span class="badge badge-primary count-size">
-                        {{ linecount }}</span>
+                        <!-- {{ linecount }} -->
+                        NA
+                    </span>
                 </a>
             </div>
             
@@ -220,7 +222,8 @@
                 </svg>               
                 <h5 class="count-set">No. of Stations</h5>
                 <span class="badge badge-success count-size">
-                    {{ stationcount }}
+                    <!-- {{ stationcount }} -->
+                    NA
                 </span>
             </a>
         </div>
@@ -234,7 +237,7 @@
         <legend>
             Station Real Time Status
         </legend>
-        <div class="row" *ngFor="let list of lineStationList">
+        <!-- <div class="row" *ngFor="let list of lineStationList">
             <div class="col-md-12 my-2" *ngIf="list['stationList'].length>0">
                 <label><strong>{{list.line.lineName}}</strong> : </label>
                 <div class="fr_stations">
@@ -255,7 +258,6 @@
                             <br />
                             Status: {{ item.status == 1 ? "Station Active" : item.status == 2 ? "Station Close" : "Station Deactive" }}
                         </ng-template>
-                        <!-- <li [ngClass]="{'st-closed': item.status==0}">{{item.stationName}}</li> station-custom-class -->
                         <a [routerLink]="['/admin/single-station-details',item.stationCode]" >
                             <li [ngClass]="[item.status==0 ? 'de-activated' : '',  item.status==2 ? 'st-closed' : '']" [title]="[item.status==0 ? 'Station Deactive' : '' || item.status==1 ? 'Station Active' : '' || item.status==2 ? 'Station Closed' : '']" [tooltipClass]="" placement="top" [ngbTooltip]="stationContent" delay="500">{{item.stationName}}</li>
                         </a>
@@ -263,9 +265,7 @@
                     </ul>
                 </div>
             </div>
-           
-            
-        </div>
+        </div> -->
 
     </section>
 

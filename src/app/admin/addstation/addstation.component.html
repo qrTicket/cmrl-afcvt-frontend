@@ -9,11 +9,18 @@
     </nav> -->
     
     <div class="card">
-        <div class="card-header">
-            <h4 class="pt-2 text-primary">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                Add Station
-            </h4>
+        <div class="card-header col-md-12">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add Station
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin/stationlist']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
         </div>
     </div>
 
@@ -34,8 +41,6 @@
                             {{fval.zoneId.errors.required.message }}
                         </div>
                     </div>
-                           
-                   
                 </div>
 
                 <!-- Station Name -->
@@ -63,7 +68,7 @@
                         <b >Station Code/Short Name</b>
                     </label>
                     <input formControlName="stationCode" class="form-control" type="text" 
-                        [ngClass]="{'is-invalid': submitted && fval.stationCode.errors}" maxlength="25" />
+                        [ngClass]="{'is-invalid': submitted && fval.stationCode.errors}" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="fval.stationCode.errors && fval.stationCode.errors.required">
                             {{ fval.stationCode.errors.required.message }}
@@ -78,7 +83,7 @@
                 </div>
 
                  <!-- Station ID -->
-                 <div class="col-md-4">
+                 <!-- <div class="col-md-4">
                     <label for="stationId" class="required">
                         <b >Station ID</b>
                     </label>
@@ -89,7 +94,7 @@
                             {{ fval.stationId.errors.required.message }}
                         </div>
                     </div>
-                </div>
+                </div> -->
              
                 <!-- Contact Number -->
                 <div class="col-md-4">
@@ -129,7 +134,7 @@
                     <input formControlName="latitude" class="form-control" type="text" [ngClass]="{
                             'is-invalid':
                                 submitted && fval.latitude.errors
-                        }" />
+                        }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="
                                 fval.latitude.errors &&
@@ -162,7 +167,7 @@
                     <input formControlName="longitude" class="form-control" type="text" [ngClass]="{
                             'is-invalid':
                                 submitted && fval.longitude.errors
-                        }" />
+                        }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="
                                 fval.longitude.errors &&

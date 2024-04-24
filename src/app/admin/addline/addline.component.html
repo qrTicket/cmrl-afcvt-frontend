@@ -2,11 +2,19 @@
     <!-- <h2>Add Line/Corridor</h2>
     <hr /> -->
     <div class="card">
-        <div class="card-header">
-            <h4 class="pt-2 text-primary">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                Add Line
-            </h4>
+        <div class="card-header col-md-12">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add Line
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin/linelist']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
+        
         </div>
     </div>
 
@@ -20,11 +28,11 @@
                     <input type="text" class="form-control txt-cap" name="lineName" id="lineName" formControlName="lineName"
                         [ngClass]="{'is-invalid': submitted && fval.lineName.errors}" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.lineName.errors && lineForm.controls.lineName.errors.required">
-                            {{ lineForm.controls.lineName.errors.required.message }}
+                        <div *ngIf="fval.lineName.errors && fval.lineName.errors.required">
+                            {{ fval.lineName.errors.required.message }}
                         </div>
-                        <div *ngIf="lineForm.controls.lineName.errors && lineForm.controls.lineName.errors.alpha">
-                            {{ lineForm.controls.lineName.errors.alpha.message }}
+                        <div *ngIf="fval.lineName.errors && fval.lineName.errors.alpha">
+                            {{ fval.lineName.errors.alpha.message }}
                         </div>
                     </div>
                 </div>
@@ -35,32 +43,29 @@
                     <input type="text" class="form-control txt-uppr" formControlName="lineCode"
                         [ngClass]="{'is-invalid': submitted && fval.lineCode.errors }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.lineCode.errors && lineForm.controls.lineCode.errors.required">
-                            {{ lineForm.controls.lineCode.errors.required.message }}
+                        <div *ngIf="fval.lineCode.errors && fval.lineCode.errors.required">
+                            {{ fval.lineCode.errors.required.message }}
                         </div>
-                        <div *ngIf="lineForm.controls.lineCode.errors && lineForm.controls.lineCode.errors.alpha">
-                            {{ lineForm.controls.lineCode.errors.alpha.message }}
+                        <div *ngIf="fval.lineCode.errors && fval.lineCode.errors.alpha">
+                            {{ fval.lineCode.errors.alpha.message }}
                         </div>
-                        <div *ngIf="lineForm.controls.lineCode.errors && lineForm.controls.lineCode.errors.minLength">
-                            {{ lineForm.controls.lineCode.errors.minLength.message }}
+                        <div *ngIf="fval.lineCode.errors && fval.lineCode.errors.minLength">
+                            {{ fval.lineCode.errors.minLength.message }}
                         </div>
                     </div>
                 </div>
 
-                <!-- Line color -->
+                <!-- Line colour -->
                 <div class="col-md-4 ">
                     <label for="lineColour" class="required">Line Colour</label>
                     <input type="text" class="form-control txt-uppr" formControlName="lineColour"
                         [ngClass]="{'is-invalid': submitted && fval.lineColour.errors }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.lineColour.errors && lineForm.controls.lineColour.errors.required">
-                            {{ lineForm.controls.lineColour.errors.required.message }}
+                        <div *ngIf="fval.lineColour.errors && fval.lineColour.errors.required">
+                            {{ fval.lineColour.errors.required.message }}
                         </div>
-                        <!-- <div *ngIf="lineForm.controls.lineColour.errors && lineForm.controls.lineColour.errors.alpha">
-                            {{ lineForm.controls.lineColour.errors.alpha.message }}
-                        </div>
-                        <div *ngIf="lineForm.controls.lineColour.errors && lineForm.controls.lineColour.errors.minLength">
-                            {{ lineForm.controls.lineColour.errors.minLength.message }}
+                         <!-- <div *ngIf="fval.lineColour.errors && fval.lineColour.errors.alpha">
+                            {{ fval.lineColour.errors.alpha.message }}
                         </div> -->
                     </div>
                 </div>
@@ -75,13 +80,11 @@
                     </select>
 
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.activationStatus.errors && lineForm.controls.activationStatus.errors.required">
-                            {{ lineForm.controls.activationStatus.errors.required.message }}
+                        <div *ngIf="fval.activationStatus.errors && fval.activationStatus.errors.required">
+                            {{ fval.activationStatus.errors.required.message }}
                         </div>
                     </div>
                 </div>
-
-                
 
                 <!-- Terminus A -->
                 <div class="col-md-4 ">
@@ -89,11 +92,11 @@
                     <input type="text" class="form-control" formControlName="terminusA"
                         [ngClass]="{'is-invalid': submitted && fval.terminusA.errors }" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.terminusA.errors && lineForm.controls.terminusA.errors.required" >
-                            {{ lineForm.controls.terminusA.errors.required.message }}
+                        <div *ngIf="fval.terminusA.errors && fval.terminusA.errors.required" >
+                            {{ fval.terminusA.errors.required.message }}
                         </div>
-                        <div *ngIf="lineForm.controls.terminusA.errors && lineForm.controls.terminusA.errors.alpha">
-                            {{ lineForm.controls.terminusA.errors.alpha.message }}
+                        <div *ngIf="fval.terminusA.errors && fval.terminusA.errors.alpha">
+                            {{ fval.terminusA.errors.alpha.message }}
                         </div>
                     </div>
                 </div>
@@ -104,11 +107,11 @@
                     <input type="text" class="form-control" formControlName="terminusB"
                         [ngClass]="{ 'is-invalid': submitted && fval.terminusB.errors }" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf=" lineForm.controls.terminusB.errors && lineForm.controls.terminusB.errors.required ">
-                            {{ lineForm.controls.terminusB.errors.required.message }}
+                        <div *ngIf=" fval.terminusB.errors && fval.terminusB.errors.required ">
+                            {{ fval.terminusB.errors.required.message }}
                         </div>
-                        <div *ngIf="lineForm.controls.terminusB.errors && lineForm.controls.terminusB.errors.alpha">
-                            {{ lineForm.controls.terminusB.errors.alpha.message }}
+                        <div *ngIf="fval.terminusB.errors && fval.terminusB.errors.alpha">
+                            {{ fval.terminusB.errors.alpha.message }}
                         </div>
                     </div>
                 </div>
@@ -119,21 +122,18 @@
                     <input type="text" class="form-control txt-uppr" formControlName="length"
                         [ngClass]="{'is-invalid': submitted && fval.length.errors }" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.length.errors && lineForm.controls.length.errors.required">
-                            {{ lineForm.controls.length.errors.required.message }}
+                        <div *ngIf="fval.length.errors && fval.length.errors.required">
+                            {{ fval.length.errors.required.message }}
                         </div>
-                        <!-- <div *ngIf="lineForm.controls.length.errors && lineForm.controls.length.errors.alpha">
-                            {{ lineForm.controls.length.errors.alpha.message }}
-                        </div>
-                        <div *ngIf="lineForm.controls.length.errors && lineForm.controls.length.errors.minLength">
-                            {{ lineForm.controls.length.errors.minLength.message }}
-                        </div> -->
+                        <div *ngIf="fval.length.errors && fval.length.errors.numeric">
+                            {{ fval.length.errors.numeric.message }}
+                        </div> 
                     </div>
                 </div>
 
                 <!-- Operation From -->
                 <div class="col-md-4">
-                <label for="operationFrom" class="required">Operation From</label>
+                <label for="operationFrom" class="required">Operational From</label>
                     <input readonly type="text" class="form-control form-vehicle date" 
                     formControlName="operationFrom"
                     [ngClass]="{ 'is-invalid': submitted && fval.operationFrom.errors }"
@@ -143,18 +143,16 @@
                     [outsideClick]="true"
                     [bsConfig]="datePickerConfigOperationFrom" >
                     <div *ngIf="submitted && fval.operationFrom.errors" class="invalid-feedback">
-                        <div *ngIf="lineForm.controls.operationFrom.errors && lineForm.controls.operationFrom.errors.required">
-                            {{ lineForm.controls.operationFrom.errors.required.message }}
+                        <div *ngIf="fval.operationFrom.errors && fval.operationFrom.errors.required">
+                            {{ fval.operationFrom.errors.required.message }}
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
             <div class="clearfix col-md-12 btn-set mt-5">
                 <button type="submit">
-                    Add
+                    Submit
                     <span class="fa-class fa fa-paper-plane"></span>
                 </button>
                 <button type="reset">

@@ -7,7 +7,7 @@ import { Line } from "../_models/lines.model";
 import { LinesService } from "../_services/lines.service";
 import { Station } from "../_models/station.model";
 import { StationService } from "../_services/station.service";
-import { RxwebValidators } from "@rxweb/reactive-form-validators";
+import { NumericValueType, RxwebValidators } from "@rxweb/reactive-form-validators";
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
 import { formatDate } from "@angular/common";
 
@@ -97,40 +97,26 @@ export class AddlineComponent implements OnInit {
                     }),
                 ],
             ],
-            lineColour:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            lineColour:['',[ 
+                RxwebValidators.required({message: "This field is required!"}),
+                //RxwebValidators.alpha({message: "This will accept only alphabet!", allowWhiteSpace: true})
+            ]],
             activationStatus:['',[ RxwebValidators.required({message: "This field is required!"})]],
-            length:['',[ RxwebValidators.required({message: "This field is required!"})]],
+            length:['',[ 
+                RxwebValidators.required({message: "This field is required!"}),
+                RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:true, message:"Only numbers are allowed!" })
+            ]],
             operationFrom:['',[ RxwebValidators.required({message: "This field is required!"})]],
-            terminusA: [
-                "",
+            terminusA: ["",
                 [
-                    RxwebValidators.required({
-                        message: "This field is required!",
-                    }),
-                    RxwebValidators.pattern({
-                        expression: {
-                            // alpha: /^(?:[0-9]+[a-z_-]|[a-z-_]+[0-9])[a-z0-9]*$/i,
-                            alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,
-                        },
-                        message:
-                            "This accept combination of numbers and alphabets.",
-                    }),
+                    RxwebValidators.required({message: "This field is required!"}),
+                    RxwebValidators.pattern({expression: {alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,},message:"This accept combination of numbers and alphabets.",}),
                 ],
             ],
-            terminusB: [
-                "",
+            terminusB: ["",
                 [
-                    RxwebValidators.required({
-                        message: "This field is required!",
-                    }),
-                    RxwebValidators.pattern({
-                        expression: {
-                            // alpha: /^(?:[0-9]+[a-z_-]|[a-z-_]+[0-9])[a-z0-9]*$/i,
-                            alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,
-                        },
-                        message:
-                            "This accept combination of numbers and alphabets.",
-                    }),
+                    RxwebValidators.required({message: "This field is required!",}),
+                    RxwebValidators.pattern({expression: {alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,},message:"This accept combination of numbers and alphabets.",}),
                 ],
             ],
 
@@ -143,14 +129,14 @@ export class AddlineComponent implements OnInit {
         this.stationService.getStation().subscribe({
             next:(res)=>{
               if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
+                  this.toastr.error(res.data)
               }
               else if(res.status === "1"){
                 this.station = res.data;
               }
             },
             error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
             }
         })
     }
@@ -185,11 +171,11 @@ export class AddlineComponent implements OnInit {
         this.linesService.postAddline(reqObj).subscribe({
             next:(res)=>{
               if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
+                  this.toastr.error(res.data)
               }
               else if(res.status === "1"){
                 this.successmsg = res.data;
-                this.toastr.success(res.data,"SUCCESS");
+                this.toastr.success(res.data);
                 this.lineForm.reset();
                 this.submitted = false;
                 this.router.navigate(["admin/linelist"]);
@@ -197,7 +183,7 @@ export class AddlineComponent implements OnInit {
             },
             error:(err)=>{
                 this.errormsg = err.error.data;
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
             }
           })
     }

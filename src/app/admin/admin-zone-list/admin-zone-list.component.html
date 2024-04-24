@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card mt-5">
         <div class="card-header">
-            <h4 class="pt-2 text-primary">
+            <h4 class="pt-2 headingTextLabel">
                 <i class="fa fa-list" aria-hidden="true"></i>
                 Zone List
             </h4>
@@ -34,7 +34,7 @@
                     <td>{{ item && item.lines ? item.lines : 'NA' }}</td>
                     <td>
                         <a [routerLink]="['/admin/admin-zone-edit', item.id]">
-                            <i  class="fa fa-edit"></i>
+                            <i  class="fa fa-edit editButton"></i>
                         </a>
                     </td>
                 </tr>
