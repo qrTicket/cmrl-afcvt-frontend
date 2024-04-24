@@ -149,12 +149,12 @@
             
             <a [routerLink]="['penality']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                 <i class="fa fa-upload"></i>&nbsp;
-                <span>{{ "Penality File Upload" }}</span>
+                <span>{{ "Penalty File Upload" }}</span>
             </a>
 
         </div>
 
-        <div class="nested-menu">
+        <div class="nested-menu" style="display: none;">
             <a class="list-group-item" (click)="addExpandClass('list5')">
                 <i class="fa fa-clock"></i>&nbsp;
                 <span>{{ "Schedule File Upload" }}</span>
@@ -219,7 +219,7 @@
         </div>
 
          <!-- Manage Media Master -->
-         <div class="nested-menu">
+         <div class="nested-menu" style="display: none;">
             <a class="list-group-item" (click)="addExpandClass('list6')">
                 <i class="fa fa-asterisk"></i>&nbsp;
                 <span>{{ "Fare" }}</span>
@@ -336,7 +336,7 @@
 
 
         <!-- Manage Special Days Master -->
-        <div class="nested-menu">
+        <div class="nested-menu" style="display: none;">
             <a class="list-group-item" (click)="addExpandClass('list9')">
                 <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                 <span>{{ "Special Days Master" }}</span>
@@ -388,7 +388,7 @@
         </div> -->
 
         <!-- Manage Day Type Master -->
-        <div class="nested-menu">
+        <div class="nested-menu" style="display: none;">
             <a class="list-group-item" (click)="addExpandClass('list11')">
                 <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                 <span>{{ "Day Type Master" }}</span>
@@ -420,7 +420,7 @@
         </div>
 
         <!-- Manage Base Fare Master -->
-        <div class="nested-menu">
+        <div class="nested-menu" style="display: none;">
             <a class="list-group-item" (click)="addExpandClass('list12')">
                 <i class="fa fa-inr"></i>&nbsp;&nbsp;
                 <span>{{ "Base Fare Master" }}</span>
@@ -446,7 +446,7 @@
         </div>
 
         <!-- Generate File -->
-        <div class="nested-menu">
+        <div class="nested-menu" style="display: none;">
             <a class="list-group-item" [routerLink]="['generate-file']">
                 <i class="fa fa-file"></i>&nbsp;&nbsp;
                 <span>{{ "Generate File" }}</span>

@@ -2,7 +2,7 @@ $topnav-background-color: #00004d;
 :host {
     .navbar {
         background-color: $topnav-background-color;
-        box-shadow: inset 0 0 40px #000000;
+        //box-shadow: inset 0 0 40px #000000;
         .navbar-brand {
             color: #fff;
         }
@@ -75,7 +75,7 @@ $topnav-background-color: #00004d;
         letter-spacing: 2px;        
     }
     .img-st {
-        width: 98px;
+        width: 42px;
     }
     a li:hover {
         text-decoration: none !important;

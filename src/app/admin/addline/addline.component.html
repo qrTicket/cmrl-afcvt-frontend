@@ -34,6 +34,9 @@
                         <div *ngIf="fval.lineName.errors && fval.lineName.errors.alpha">
                             {{ fval.lineName.errors.alpha.message }}
                         </div>
+                        <div *ngIf="fval.lineName.errors && fval.lineName.errors.minLength">
+                            {{ fval.lineName.errors.minLength.message }}
+                        </div>
                     </div>
                 </div>
 
