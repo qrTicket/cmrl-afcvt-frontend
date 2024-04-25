@@ -72,6 +72,7 @@ import { AdminZoneAddComponent } from "./admin-zone-add/admin-zone-add.component
 import { AdminZoneEditComponent } from "./admin-zone-edit/admin-zone-edit.component";
 import { AdminZoneListComponent } from "./admin-zone-list/admin-zone-list.component";
 import { AdminConfigBusinessRuleComponent } from "./admin-config-business-rule/admin-config-business-rule.component";
+import { UploadODMatrixComponent } from "./upload-o-d-matrix/upload-o-d-matrix.component";
 
 const routes: Routes = [
     {
@@ -191,7 +192,8 @@ const routes: Routes = [
 
             { path: "generate-file", component:GenerateJsonComponent },
 
-            { path: "admin-config-business-rule", component:AdminConfigBusinessRuleComponent }
+            { path: "admin-config-business-rule", component:AdminConfigBusinessRuleComponent },
+            { path: "OD-matrix-file-upload", component: UploadODMatrixComponent }
         ],
     },
 ];

@@ -1,0 +1,36 @@
+<div class="container mt-5">
+    <div class="head-set">
+        <h2>Origin-Destination Distance Matrix (OD Matrix)</h2>
+        <hr />
+    </div>
+    
+    <form [formGroup]="uploadFileForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <!-- File -->
+        <div class="row row-set col-md-12">
+            <div class="col-md-4 form-group">
+                <label for="file" class="required">Select File</label> 
+                <input type="file" name="file" formControlName="file" class="form-control" (change)="uploadFile($event)" [ngClass]="{ 'is-invalid': submit && fval.file.errors }" />
+                <div *ngIf="submit && fval.file.errors" class="invalid-feedback">
+                    <div *ngIf=" fval.file.errors && fval.file.errors.required ">
+                        {{ fval.file.errors.required.message }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="class col-md-6">
+                <button type="submit">
+                    Upload
+                    <span class="fa-class fa fa-upload"></span>
+                </button>
+                <button type="reset" [routerLink]="['/admin/admindashboard']">
+                    Cancel
+                    <span class="fa-class fa fa-close"></span>
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+

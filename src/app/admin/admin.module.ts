@@ -84,6 +84,7 @@ import { AdminZoneAddComponent } from './admin-zone-add/admin-zone-add.component
 import { AdminZoneListComponent } from './admin-zone-list/admin-zone-list.component';
 import { AdminZoneEditComponent } from './admin-zone-edit/admin-zone-edit.component';
 import { AdminConfigBusinessRuleComponent } from './admin-config-business-rule/admin-config-business-rule.component';
+import { UploadODMatrixComponent } from './upload-o-d-matrix/upload-o-d-matrix.component';
 
 
 
@@ -178,7 +179,8 @@ import { AdminConfigBusinessRuleComponent } from './admin-config-business-rule/a
         AdminZoneAddComponent,
         AdminZoneListComponent,
         AdminZoneEditComponent,
-        AdminConfigBusinessRuleComponent
+        AdminConfigBusinessRuleComponent,
+        UploadODMatrixComponent
     ],
     exports: [PrivacyComponent],
 })

@@ -1,10 +1,24 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root",
 })
 export class CsvFileService {
-    constructor() { }
+    uploadOdMatrixEndUrl:string = "api/afc/upload/odMatrix";
+
+    private httpMultipart = {
+        headers: new HttpHeaders({
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "multipart/form-data"
+        }),
+    };
+
+    constructor(
+        private http:HttpClient
+    ) { }
 
     downloadFile(data, filename = 'data') {
         let csvData = this.ConvertToCSV(data, [
@@ -50,4 +64,11 @@ export class CsvFileService {
         }
         return str;
     }
+
+    uploadOdMatrix(fileData:any): Observable<any> {
+        
+        const formDataBody = new FormData();
+        formDataBody.append('odMatrix', fileData);
+        return this.http.put(`${environment.BASEURL}/${this.uploadOdMatrixEndUrl}`,formDataBody);
+      }
 } 
