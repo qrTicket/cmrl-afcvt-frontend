@@ -1,0 +1,193 @@
+body {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+}
+
+
+h2 {
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin: 20px;
+}
+
+
+hr {
+    border: 0;
+    height: 5px;
+    background: linear-gradient(
+        to right,
+        #00004d,
+        #00004d,
+        // rgb(185 171 171 / 0%)
+    );
+}
+
+
+.wrapper {
+    // width: 100%;
+    max-width: 810px;
+    margin: 0 auto;
+    padding: 18px 0;
+}
+
+
+
+
+.form-border {
+    margin: 10px;
+    border: 1px solid #dddddd94;
+    padding: 10px 90px;
+    box-shadow: 0px 1px 1px 1px #003cff40;
+}
+
+.form-group {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+
+label {
+    font-weight: normal;
+    margin-top: 15px;
+    color: #000;
+    font-weight: 200;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+
+select {
+    height: 35px !important;
+}
+
+
+input {
+    border: 1px solid #d8d5d5ed;
+    height: 35px;
+    border-radius: 4px;
+    max-width: 100%;
+}
+
+.btn-set {
+    padding: 0 18px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.btn-sub {
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+}
+
+button[type="submit"],button[type="reset"] {
+    padding: 8px 22px;
+
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 30px 7px 28px 0px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover,button[type="reset"]:hover {
+    color: #00004d;
+    background: #fff;
+    border: 2px solid #00004d;
+    font-weight: bold;
+}
+
+.m10 {
+    margin: 10px;
+}
+
+.upload {
+    padding: 8px;
+    border: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 48px 0px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.cancel {
+    padding: 8px;
+    border: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-left: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+span .fa-class {
+    font-size: 18px;
+}
+
+.txt-cap {
+    text-transform: capitalize;
+}
+
+.txt-uppr {
+    text-transform: uppercase;
+}
+
+/*code by Badal*/
+
+.bdcrm {
+    background: rgb(241, 241, 241);
+    margin: 25px 0 0 0;
+}
+
+.bdcrm > ol > li{
+    padding: 15px 0 15px 15px;
+}
+
+.remove-btn{
+    margin-top: 45px;
+}
+
+/*end*/
+
+.required::after{
+    content: "*";
+    color: red;
+}
+
+.formBg{
+    padding: 40px;
+    height: 700px;
+    box-shadow: 0px 0px 15px 0px;
+    margin-bottom: 100px;
+  }
+
+  .fltLeft{
+    float: left;
+}
+
+.fltRight{
+    float: right;
+}
+
+.backBtn{
+    padding: 10px 0 0 0;
+    
+}
+
+.backBtn a{
+    text-decoration: none;
+    color: #00004d;
+}
+
+.headingTextLabel{
+    color: #00004d!important;;
+}

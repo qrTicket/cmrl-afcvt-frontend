@@ -1,0 +1,134 @@
+<div class="container mt-5 mb-5 formBg"> 
+    <!-- <h2>Add Station</h2>
+    <hr /> -->
+    <!-- <nav aria-label="breadcrumb" class="bdcrm">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a [routerLink]="['/admin/stationlist']">Station</a> </li>
+            <li class="breadcrumb-item active" aria-current="page">Add Station</li>
+        </ol>
+    </nav> -->
+    
+    <div class="card">
+        <div class="card-header col-md-12">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Update Business Rule
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <form [formGroup]="configBusinessRuleForm" (ngSubmit)="onFormSubmit()">
+            <div class="row row-p-tb4">
+
+                <!-- Minimum Name -->
+                <div class="col-md-4">
+                    <label for="minimumBalance" class="required">
+                        <b>Minimum Balance</b>
+                    </label>
+                    <input formControlName="minimumBalance" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.minimumBalance.errors}" min="1" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.minimumBalance.errors && fval.minimumBalance.errors.required ">
+                            {{fval.minimumBalance.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- timeLimitSourceStn -->
+                <div class="col-md-4">
+                    <label for="timeLimitSourceStn" class="required">
+                        <b>Time Limit Source Station</b>
+                    </label>
+                    <input formControlName="timeLimitSourceStn" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.timeLimitSourceStn.errors}" min="1" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.timeLimitSourceStn.errors && fval.timeLimitSourceStn.errors.required ">
+                            {{fval.timeLimitSourceStn.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- timeLimitDestinationStn -->
+                <div class="col-md-4">
+                    <label for="timeLimitDestinationStn" class="required">
+                        <b>Time Limit Destination Station</b>
+                    </label>
+                    <input formControlName="timeLimitDestinationStn" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.timeLimitDestinationStn.errors}" min="1" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.timeLimitDestinationStn.errors && fval.timeLimitDestinationStn.errors.required ">
+                            {{fval.timeLimitDestinationStn.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- startTimeLimit -->
+                <div class="col-md-4">
+                    <label for="startTimeLimit" class="required">
+                        <b>Start Time Limit</b>
+                    </label>
+                    <input formControlName="startTimeLimit" class="form-control" type="text" [ngClass]="{'is-invalid': submitted && fval.startTimeLimit.errors}" maxlength="30" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.startTimeLimit.errors && fval.startTimeLimit.errors.required ">
+                            {{fval.startTimeLimit.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- endTimeLimit -->
+                <div class="col-md-4">
+                    <label for="endTimeLimit" class="required">
+                        <b>End Time Limit</b>
+                    </label>
+                    <input formControlName="endTimeLimit" class="form-control" type="text" [ngClass]="{'is-invalid': submitted && fval.endTimeLimit.errors}" maxlength="30" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.endTimeLimit.errors && fval.endTimeLimit.errors.required ">
+                            {{fval.endTimeLimit.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- penaltyDecision -->
+                <div class="col-md-4">
+                    <label for="penaltyDecision" class="required">
+                        <b>Penalty Decision</b>
+                    </label>
+                    <input formControlName="penaltyDecision" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.penaltyDecision.errors}" min="0" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.penaltyDecision.errors && fval.penaltyDecision.errors.required ">
+                            {{fval.penaltyDecision.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </div>
+
+            <!-- Submit buttons -->
+            <div class="clearfix col-md-12 btn-set">
+                <button type="submit" class="btn-sub my-5">
+                    Update
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                <button type="reset" class="btn-sub my-5">
+                    Reset
+                    <span class="fa-class fa fa-redo"></span>
+                </button>
+
+            </div>
+            <br>
+        </form>
+    </div>
+</div>

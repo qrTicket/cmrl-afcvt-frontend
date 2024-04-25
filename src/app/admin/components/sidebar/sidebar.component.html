@@ -134,8 +134,8 @@
             </li>
         </div>
 
-        <!-- fare list -->
-        <div class="nested-menu">
+        <!-- fare list  =============== NOT USED now used business rule--> 
+        <div class="nested-menu" style="display: none;">
             <a [routerLink]="['fare-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                 <i class="fa fa-file-text-o"></i>&nbsp;
                 <span>{{ "Fare List" }}</span>
@@ -152,6 +152,15 @@
                 <span>{{ "Penalty File Upload" }}</span>
             </a>
 
+        </div>
+
+        <div class="nested-menu" >
+            <a [routerLink]="['admin-config-business-rule']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-file-text-o"></i>&nbsp;
+                <span>{{ "Business Rule" }}</span>
+            </a>
+
+         
         </div>
 
         <div class="nested-menu" style="display: none;">

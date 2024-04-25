@@ -71,6 +71,7 @@ import { GenerateJsonComponent } from "./generate-json/generate-json.component";
 import { AdminZoneAddComponent } from "./admin-zone-add/admin-zone-add.component";
 import { AdminZoneEditComponent } from "./admin-zone-edit/admin-zone-edit.component";
 import { AdminZoneListComponent } from "./admin-zone-list/admin-zone-list.component";
+import { AdminConfigBusinessRuleComponent } from "./admin-config-business-rule/admin-config-business-rule.component";
 
 const routes: Routes = [
     {
@@ -188,7 +189,9 @@ const routes: Routes = [
             { path: "admin-zone-list", component: AdminZoneListComponent },
             { path: "admin-zone-edit/:id", component: AdminZoneEditComponent },
 
-            { path: "generate-file", component:GenerateJsonComponent }
+            { path: "generate-file", component:GenerateJsonComponent },
+
+            { path: "admin-config-business-rule", component:AdminConfigBusinessRuleComponent }
         ],
     },
 ];

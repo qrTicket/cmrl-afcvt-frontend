@@ -167,7 +167,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -184,7 +184,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -194,14 +194,14 @@ export class ConfigurationEquipmentComponent implements OnInit {
         this.stationAPI.getDirection().subscribe({
             next:(res)=>{
                 if(res.status === "0"){
-                    this.toastr.error(res.data,'Error!')
+                    this.toastr.error(res.data)
                 }
                 else if(res.status === "1"){
                   this.direction = res.data;
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -213,14 +213,14 @@ export class ConfigurationEquipmentComponent implements OnInit {
         this.stationAPI.getEmergencyMode().subscribe( {
             next:(res)=>{
                 if(res.status === "0"){
-                    this.toastr.error(res.data,'Error!')
+                    this.toastr.error(res.data)
                 }
                 else if(res.status === "1"){
                   this.emergency = res.data;
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -238,7 +238,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -256,7 +256,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -274,7 +274,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -292,7 +292,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -310,7 +310,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -328,7 +328,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -346,7 +346,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -364,7 +364,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -382,7 +382,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -400,7 +400,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -418,7 +418,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
     }
@@ -440,12 +440,12 @@ export class ConfigurationEquipmentComponent implements OnInit {
                     message: "This field is required!",
                 }),
             ],
-            modeType: [
+            /*modeType: [
                 "",
                 RxwebValidators.required({
                     message: "This field is required!",
                 }),
-            ],
+            ],*/
             deviceId: [
                 "",
                 RxwebValidators.required({
@@ -459,7 +459,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
         this.terminal().push(this.newTerminal());
     }
 
-    removeTerminal(i) {
+    removeTerminal(i:any) {
         this.terminal().removeAt(i);
     }
 
@@ -537,7 +537,7 @@ export class ConfigurationEquipmentComponent implements OnInit {
               },
               error:(err)=>{
                 this.spinner.hide();
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
               }
         })
     }
