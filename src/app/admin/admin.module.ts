@@ -83,6 +83,7 @@ import { GenerateJsonComponent } from './generate-json/generate-json.component';
 import { AdminZoneAddComponent } from './admin-zone-add/admin-zone-add.component';
 import { AdminZoneListComponent } from './admin-zone-list/admin-zone-list.component';
 import { AdminZoneEditComponent } from './admin-zone-edit/admin-zone-edit.component';
+import { AdminConfigBusinessRuleComponent } from './admin-config-business-rule/admin-config-business-rule.component';
 
 
 
@@ -176,7 +177,8 @@ import { AdminZoneEditComponent } from './admin-zone-edit/admin-zone-edit.compon
         GenerateJsonComponent,
         AdminZoneAddComponent,
         AdminZoneListComponent,
-        AdminZoneEditComponent
+        AdminZoneEditComponent,
+        AdminConfigBusinessRuleComponent
     ],
     exports: [PrivacyComponent],
 })

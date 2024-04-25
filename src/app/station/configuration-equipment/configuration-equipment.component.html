@@ -1,11 +1,11 @@
 <div class="heading text-center">
     <h3>Configure Equipment</h3>
 </div>
-<i class="pull-right">
+<!-- <i class="pull-right">
     <a [routerLink]="['/modePdf']">
         To know more about <strong>modes</strong>...
     </a>
-</i>
+</i> -->
 
 <br />
 
@@ -35,8 +35,8 @@
                 *ngIf="submitted && fval.gateName.errors"
                 class="invalid-feedback"
             >
-                <div *ngIf="configForm.controls.gateName.errors">
-                    {{ configForm.controls.gateName.errors.required.message }}
+                <div *ngIf="fval.gateName.errors">
+                    {{ fval.gateName.errors.required.message }}
                 </div>
             </div>
         </div>
@@ -58,8 +58,8 @@
                 *ngIf="submitted && fval.modeName.errors"
                 class="invalid-feedback"
             >
-                <div *ngIf="configForm.controls.modeName.errors">
-                    {{ configForm.controls.modeName.errors.required.message }}
+                <div *ngIf="fval.modeName.errors">
+                    {{ fval.modeName.errors.required.message }}
                 </div>
             </div>
         </div>
@@ -418,23 +418,20 @@
                                 'is-invalid': submitted && item.get('terminalName').errors
                             }"
                         >
-                            <option value="">Select T1/T2</option>
-                            <option value="T1">T1</option>
-                            <option value="T2">T2</option>
+                            <option value="">Select Term_EN/Term_EX</option>
+                            <!-- <option value="T1">T1</option>
+                            <option value="T2">T2</option> -->
+                            <option value="Term_EN">Term_EN</option>
+                            <option value="Term_EX">Term_EX</option>
                         </select>
                         <div *ngIf="submitted && item.get('terminalName').errors" class="invalid-feedback">
-                            <div
-                                *ngIf="
-                                item.get('terminalName').errors['required']
-                                "
-                            >
-                                <!-- {{
-                                    item.controls.terminalName.errors.required
-                                        .message
-                                }} -->
+                            <div *ngIf="item.get('terminalName').errors['required']">
+                                {{
+                                    item.get('terminalName').errors['required'].message
+                                }}
                             </div>
                         </div>
-                        <i class="terminaldescriptn">Add terminal T1, T2.</i>
+                        <i class="terminaldescriptn">Add terminal Term_EN, Term_EX.</i>
                     </div>
 
                     <div class="col-md-2 form-group">
@@ -457,17 +454,16 @@
                                 item.get('deviceId').errors['required']
                                 "
                             >
-                                <!-- {{
-                                    item.controls.deviceId.errors.required
-                                        .message
-                                }} -->
+                                {{
+                                    item.get('deviceId').errors['required'].message
+                                }}
                             </div>
                         </div>
                         <i class="terminaldescriptn">Select device id.</i>
                     </div>
 
                     <div class="col-md-2 form-group">
-                        <label>Terminal IP</label>
+                        <label>Terminal IP / NCMC Reader IP</label>
                         <input
                             type="text"
                             class="form-control"
@@ -482,17 +478,16 @@
                                 item.get('terminalIp').errors['required']
                                 "
                             >
-                                <!-- {{
-                                    item.controls.terminalIp.errors.required
-                                        .message
-                                }} -->
+                                {{
+                                    item.get('terminalIp').errors['required'].message
+                                }}
                             </div>
                         </div>
                         <i class="terminaldescriptn"
                             >IPv4- 0.0.0.0 - 255.255.255.255</i
                         >
                     </div>
-                    <div class="col-md-2 form-group">
+                    <!-- <div class="col-md-2 form-group">
                         <label>Terminal Mode</label>
                         <select
                             class="form-control"
@@ -515,13 +510,12 @@
                                 item.get('modeType').errors['required']
                                 "
                             >
-                                <!-- {{
-                                    item.controls.modeType.errors.required
-                                        .message
-                                }} -->
+                                {{
+                                    item.get('modeType').errors['required'].message
+                                }}
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <button

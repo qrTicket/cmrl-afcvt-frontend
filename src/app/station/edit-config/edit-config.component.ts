@@ -50,7 +50,8 @@ export class EditConfigComponent implements OnInit {
     data: any;
     terminalData: any;
     formdata: any;
-    options: string[] = ["T1", "T2"];
+    //options: string[] = ["T1", "T2"];
+    options: string[] = ["Term_EN", "Term_EX"];
     terminalList: any;
 
     constructor(
@@ -132,7 +133,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -152,7 +153,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -171,7 +172,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -190,7 +191,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -209,7 +210,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -228,7 +229,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -247,7 +248,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -266,7 +267,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -285,7 +286,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -304,7 +305,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -323,7 +324,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -342,7 +343,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -360,7 +361,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -379,7 +380,7 @@ export class EditConfigComponent implements OnInit {
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
 
@@ -389,14 +390,14 @@ export class EditConfigComponent implements OnInit {
         this.stationAPI.assignedTerminal().subscribe( {
             next:(res)=>{
                 if(res.status === "0"){
-                    this.toastr.error(res.data,'Error!')
+                    this.toastr.error(res.data)
                 }
                 else if(res.status === "1"){
                   this.terminalList = res.data;
                 }
               },
               error:(err)=>{
-                  this.toastr.error(err.error.data,'Error!')
+                  this.toastr.error(err.error.data)
               }
         });
     }
@@ -447,12 +448,12 @@ export class EditConfigComponent implements OnInit {
                     message: "This field is required!",
                 }),
             ],
-            modeType: [
+            /*modeType: [
                 "",
                 RxwebValidators.required({
                     message: "This field is required!",
                 }),
-            ],
+            ],*/
             deviceId: [
                 "",
                 RxwebValidators.required({
@@ -466,7 +467,7 @@ export class EditConfigComponent implements OnInit {
         this.terminal().push(this.newTerminal());
     }
 
-    removeTerminal(i) {
+    removeTerminal(i:any) {
         this.terminal().removeAt(i);
     }
     updateGateData(gateConfigData: GateConfig) {
@@ -504,7 +505,7 @@ export class EditConfigComponent implements OnInit {
                         terminalId: this.data.terminal[i].terminalId,
                         terminalName: this.data.terminal[i].terminalName,
                         terminalIp: this.data.terminal[i].terminalIp,
-                        modeType: this.data.terminal[i].modeType,
+                        //modeType: this.data.terminal[i].modeType,
                         deviceId: this.data.terminal[i].deviceId,
                     })
                 );
@@ -518,7 +519,13 @@ export class EditConfigComponent implements OnInit {
     }
     onFormSubmit() {
         const formData = this.editForm.getRawValue();
+        this.submitted = true;
+        console.log(this.editForm,'this.editForm.controls');
+        if (this.editForm.invalid)
+            return false;
+
         this.spinner.show();
+        
         // this.stationAPI.putconfig(this.assignId, formData).subscribe(
         //     (res) => {
         //         if (res.status === "0") {
@@ -555,6 +562,7 @@ export class EditConfigComponent implements OnInit {
                 }
                 else if(res.status === "1"){
                     this.spinner.hide();
+                    this.submitted = false;
                     this.successmsg = res.data;
                     this.toastr.success(this.successmsg);
                     this.router.navigate(["/stationdashboard"]);
@@ -565,10 +573,10 @@ export class EditConfigComponent implements OnInit {
                 this.toastr.error(err.error.data)
               }
         })
-        this.submitted = false;
+        
     }
 
-    onChange(data) {
+    onChange(data:any) {
         if (data === "NORMAL_MODE") {
             this.editForm.get("emergencyModeName").disable();
             this.editForm.get("directionIndicatorName").enable();

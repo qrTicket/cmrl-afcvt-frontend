@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../_services/auth.service';
 import { Fare } from '../_models/fare.model';
+import { Businessrule } from '../_models/businessrule.model';
 
 
 @Injectable({
@@ -36,7 +37,7 @@ export class FareService {
         );
     }
 
-    // fare details by id
+    // fare details by id - Removed from backend
     getFareById(id: number) {
         return this.http.get<Fare>(
             `${environment.productUrl}/admin/trm/${id}`,
@@ -44,7 +45,7 @@ export class FareService {
         );
     }
 
-    // update fare details
+    // update fare details - Removed from backend
     updateFareDetails(id: number, fare: Fare): Observable<Fare> {
         return this.http.put<Fare>(
             `${environment.productUrl}/admin/update/trm/${id}`,
@@ -52,6 +53,18 @@ export class FareService {
             this.httpOptions
         );
     }
+
+    //NEW - to get business rule and terminal config
+    getBusinessRule(){
+        return this.http.get<any>(`${environment.productUrl}/admin/trm`);
+    }
+
+    // update business rule
+    updateFareDetails1(payload: Businessrule): Observable<any> {
+        return this.http.put<any>(`${environment.productUrl}/admin/update/trm/`,payload);
+    }
+
+    
 
     
    
