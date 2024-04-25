@@ -52,14 +52,14 @@ export class AdminZoneAddComponent implements OnInit {
     this.lineService.getLines().subscribe({
       next:(res)=>{
         if(res.status === "0"){
-          this.toastr.error(res.data,'Error!')
+          this.toastr.error(res.data)
         }
         else if(res.status === "1"){
           this.lineList = res.data;
         }
       },
       error:(err)=>{
-          this.toastr.error(err.error.data,'Error!')
+          this.toastr.error(err.error.data)
       }
     })
   }
@@ -91,7 +91,7 @@ export class AdminZoneAddComponent implements OnInit {
           this.toastr.error(res.data)
         }
         else if(res.status === "1"){
-          this.toastr.success(res.data,"Success");
+          this.toastr.success(res.data);
           this.router.navigate(['/admin/admin-zone-list'])
         }
       },

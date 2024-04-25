@@ -123,7 +123,10 @@ export class AddUserService {
     //fetch user data once from database, store it in localStorage and then perform different operation on it 
     //without hitting database
     //and while logout clear localStorage
-    getUserUpdateData(user){
+    getUserUpdateData(user, roles:any){
+        // console.log(user,'user in srv');
+        // console.log(roles,'roles in srv');
+        
         localStorage.setItem("data_name", user.name);
         localStorage.setItem("data_username", user.username);
         localStorage.setItem("data_email", user.email);

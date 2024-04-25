@@ -105,20 +105,17 @@ export class UpdateUsermanagerComponent implements OnInit {
           status:  this.status 
       });
       
-    //   this.addUserService.userList().subscribe((users) => {
-    //       this.usersList = users;
-    //   });
       this.addUserService.userList().subscribe({
         next:(res:any)=>{
           if(res.status === "0"){
-              this.toastr.error(res.data,'Error!')
+              this.toastr.error(res.data)
           }
           else if(res.status === "1"){
             this.usersList = res.data;
           }
         },
         error:(err)=>{
-            this.toastr.error(err.error.data,'Error!')
+            this.toastr.error(err.error.data)
         }
       })
       
@@ -126,47 +123,28 @@ export class UpdateUsermanagerComponent implements OnInit {
       this.patchFormValue();
 
       this.subscription.push(
-        //   this.addUserService.getAllRoles().subscribe((res) => {
-        //       this.roleList = res["data"];              
-        //   })
           this.addUserService.getAllRoles().subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
+                  this.toastr.error(res.data)
               }
               else if(res.status === "1"){
                 this.roleList = res.data;
               }
             },
             error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
             }
           })
       );
        
-      //Not in use
-      /*this.subscription.push(
-          this.addUserService.getAllStation().subscribe((res) => {
-              this.stationList = res["data"];
-          })
-      );*/
-
       let x:number = 0;
       for(x; x < this.addUserService.userData.roles.length; x++){
-          // if(this.addUserService.userData.roles[x].roleCode === "STN"){
-          //     this.showStationCode = true;
-          //     this.updateUser.controls["stationCode"].enable();
-          // }
-          // else{
-          //     this.showStationCode = false;
-          //     this.updateUser.controls["stationCode"].disable();
-          // }
           this.rolesArray.push(this.addUserService.userData.roles[x].roleCode);
       }        
   }//ngOnInit ends
 
   patchFormValue(){
-      
       this.updateUser.patchValue(this.addUserService.userData);
       this.status = this.addUserService.userData.status;
   }
@@ -177,23 +155,10 @@ export class UpdateUsermanagerComponent implements OnInit {
   
 
   onChange(e){
-      
       if(e.target.checked){
-          // if(e.target.value === "STN"){
-          //     this.showStationCode = true;
-          //     this.updateUser.controls["stationCode"].enable();
-          // }
-          // else{
-          //     this.showStationCode = false;
-          //     this.updateUser.controls["stationCode"].reset();
-          //     this.updateUser.controls["stationCode"].disable();
-          // }
           this.rolesArray.push(e.target.value);
       }
       else{
-          /*this.showStationCode = false;
-          //this.updateUser.controls["stationCode"].reset();
-          this.updateUser.controls["stationCode"].disable();*/
           let i:number = 0;
           for(i; i < this.rolesArray.length; i++){
               if(this.rolesArray[i] == e.target.value){
@@ -203,6 +168,12 @@ export class UpdateUsermanagerComponent implements OnInit {
       }
       this.updateArray = this.rolesArray;
       console.log("updateArray data => "+this.updateArray);
+      if(this.rolesArray.length == 0) {
+        this.roleError = true;
+      }
+      else{
+        this.roleError = false;
+      }
   }
 
   cancel(){
@@ -230,58 +201,26 @@ export class UpdateUsermanagerComponent implements OnInit {
       else
       {
           this.spinner.show();
-          //this.updateUser.value.roles = this.updateArray;
           this.updateUser.value.roles = this.rolesArray;
-
-        //   this.addUserService.updateUser(this.updateUser.value)
-        //   .subscribe(
-        //       (res:any) => {
-        //           if(res.status === "0"){
-        //               console.log("inside status = before");
-        //               this.toastr.error(res.data);
-        //               console.log("inside status = after");
-        //               console.log("err res => "+res.data);
-        //               this.spinner.hide();
-        //           }
-        //           else{
-        //               this.spinner.hide();
-        //               this.toastr.success(res.data);
-        //               this.updateUser.reset();
-        //               this.submitted = false;
-        //               this.spinner.hide();
-        //               this.router.navigate(['admin/usermanager-list']);
-        //           } 
-        //       },
-        //       (error) => {
-        //           this.errormsg = error;
-        //           this.spinner.hide();
-        //           this.toastr.error("Error!", this.errormsg, {
-        //               progressBar: true,
-        //           });
-        //       }
-        //   );
           this.addUserService.updateUser(this.updateUser.value).subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
-                console.log("inside status = before");
                 this.toastr.error(res.data);
-                console.log("inside status = after");
-                console.log("err res => "+res.data);
                 this.spinner.hide();
               }
               else if(res.status === "1"){
                 this.spinner.hide();
-                      this.toastr.success(res.data);
-                      this.updateUser.reset();
-                      this.submitted = false;
-                      this.spinner.hide();
-                      this.router.navigate(['admin/usermanager-list']);
+                this.toastr.success(res.data);
+                this.updateUser.reset();
+                this.submitted = false;
+                this.spinner.hide();
+                this.router.navigate(['admin/usermanager-list']);
               }
             },
             error:(err)=>{
                 this.errormsg = err.error.data;
                 this.spinner.hide();
-                this.toastr.error("Error!", this.errormsg, {
+                this.toastr.error(err.error.data, "", {
                     progressBar: true,
                 });
             }

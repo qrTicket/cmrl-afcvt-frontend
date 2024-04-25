@@ -186,7 +186,7 @@ export class AddUsermanagerComponent implements OnInit, OnDestroy  {
   //fetch all checked roles into this array
   onChange(e){ 
       if(e.target.checked){
-          
+       
         //   if(e.target.value === "STN"){
         //       this.addUser.controls["stationCode"].enable();
         //   }
@@ -195,6 +195,8 @@ export class AddUsermanagerComponent implements OnInit, OnDestroy  {
         //       this.addUser.controls["stationCode"].disable();
         //   }
           this.rolesArray.push(e.target.value);
+         
+            
       }
       else{
         //   this.addUser.controls["stationCode"].reset();
@@ -207,6 +209,12 @@ export class AddUsermanagerComponent implements OnInit, OnDestroy  {
           }
       }
       console.log(this.rolesArray);
+      if(this.rolesArray.length == 0) {
+        this.roleError = true;
+      }
+      else{
+        this.roleError = false;
+      }
   }
 
 

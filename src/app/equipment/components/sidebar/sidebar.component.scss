@@ -175,7 +175,7 @@ $topnav-background-color: #212529;
 }
 
 .toggle-button {
-    position: fixed;
+    // position: fixed;
     width: 236px;
     cursor: pointer;
     padding: 12px;
@@ -202,4 +202,8 @@ $topnav-background-color: #212529;
     span {
         display: none;
     }
+}
+
+.white{
+    color: #fff;
 }

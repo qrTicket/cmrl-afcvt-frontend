@@ -6,7 +6,7 @@ import {
     Validators,
     FormControl,
 } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { NumericValueType, RxwebValidators } from "@rxweb/reactive-form-validators";
 import { ToastrService } from "ngx-toastr";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -45,6 +45,8 @@ export class UserUpdateComponent implements OnInit {
     emptyStationError:boolean = false;
     t:number = 0;
 
+    userData:any;
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -57,6 +59,14 @@ export class UserUpdateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+
+        // this.route.paramMap.subscribe((params:ParamMap)=>{
+        //     this.userData = params.getAll('userData') ;
+        // })
+
+        //console.log(this.userData,'this.userData');
+        
+
         this.updateUser = this.formBuilder.group({
            name:[
                     "", 
@@ -287,7 +297,7 @@ export class UserUpdateComponent implements OnInit {
                }
            }
            
-           this.spinner.show();
+           //this.spinner.show();
            this.updateUser.value.roles = this.updateArray;
         //    this.userService.updateUser(this.updateUser.value).subscribe(
         //        (res:any) => {
@@ -329,18 +339,19 @@ export class UserUpdateComponent implements OnInit {
               }
               else if(res.status === "1"){
                 localStorage.removeItem("data_name");
-                       localStorage.removeItem("data_username");
-                       localStorage.removeItem("data_email");
-                       localStorage.removeItem("data_empId");
-                       localStorage.removeItem("data_mobileNumber");
-                       localStorage.removeItem("data_stationCode");
-                       setTimeout(() => {
-                           /** spinner ends after 5 seconds */
-                           this.spinner.hide();
-                         }, 3000);
-                       this.toastr.success(res.data);
-                       this.updateUser.reset();
-                       this.submitted = false;
+                localStorage.removeItem("data_username");
+                localStorage.removeItem("data_email");
+                localStorage.removeItem("data_empId");
+                localStorage.removeItem("data_mobileNumber");
+                localStorage.removeItem("data_stationCode");
+                setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                    }, 3000);
+                this.toastr.success(res.data);
+                this.updateUser.reset();
+                this.submitted = false;
+                this.router.navigate(['user-manager/users/all/list']);
               }
             },
             error:(err)=>{

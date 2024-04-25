@@ -1,6 +1,9 @@
 
 
-
+table th{
+  background-color: #35434e; 
+  color: #fff;
+}
 
 .hdr-set {
     margin: 20px 0;;
@@ -11,18 +14,11 @@ hr {
     background: #020d27;
 }
 .edit {
-    font-size: 20px; 
-    color: #008CBA; 
-    font-size: 32px;
+    font-size: 25px; 
+    color: #35434e; 
     margin-left: 18px;
     cursor: pointer;
 }
-
-.edit:hover{
-  font-size: 37px;
-  color: red;
-}
-
 
 .delete {
     font-size: 20px; 

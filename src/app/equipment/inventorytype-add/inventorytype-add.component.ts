@@ -87,54 +87,22 @@ export class InventorytypeAddComponent implements OnInit {
     onaddinvetFormSubmit() {
         this.submitted = true;
         if (this.addInventoryType.invalid) {
-            //return swal("Please fill the details.", "", "error");
             return Swal.fire({
                 icon:"error",
                 text:"Please fill the details"
             })
         }
         this.spinner.show();
-        // this.productTypeService
-        //     .postProductType(this.addInventoryType.value)
-        //     .subscribe(
-        //         (data) => {
-        //             if (data["status"] === "1") {
-        //                 this.spinner.hide();
-        //                 this.successmsg = data;
-        //                 this.toastr.success(this.successmsg.data);
-        //                 this.router.navigate(['/equipment/inventoryTypeList']);
-                        
-        //             } else if (data["status"] === "2") {
-        //                 // console.log("called status 2");
-        //                 this.spinner.hide();
-        //                 swal(data.data, "", "warning");
-        //             } else if (data["status"] === "0") {
-        //                 this.spinner.hide();
-        //                 swal(data.data, "", "warning");
-        //             }
-        //         },
-        //         (error) => {
-        //             // console.log(error);
-        //             this.spinner.hide();
-        //             this.errormsg = error;
-        //             // this.toastr.error(this.errormsg);
-        //             swal(this.errormsg, "", "error");
-        //         }
-        //     );
-
-        // this.addInventoryType.reset();
-        // this.submitted = false;
-
         this.productTypeService.postProductType(this.addInventoryType.value).subscribe({
             next:(res)=>{
               if(res.status === "0"){
                 this.spinner.hide();
-                this.toastr.error(res.data,'Error!')
+                this.toastr.error(res.data)
               }
               else if(res.status === "1"){
                 this.spinner.hide();
-                this.successmsg = res.data;
-                this.toastr.success(this.successmsg.data);
+                //this.successmsg = res.data;
+                this.toastr.success(res.data);
                 this.addInventoryType.reset();
                 this.submitted = false;
                 this.router.navigate(['/equipment/inventoryTypeList']);
@@ -142,7 +110,7 @@ export class InventorytypeAddComponent implements OnInit {
             },
             error:(err)=>{
                 this.spinner.hide();
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
             }
           })
     }

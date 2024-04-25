@@ -1,10 +1,18 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-fussion" [fullScreen]="true">
     <p style="color: white">Loading...</p>
 </ngx-spinner>
+
+<nav aria-label="breadcrumb" class="bdcrm mt-2" >
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/user-manager/dashboard']" >Dashboard</a></li>
+        <li class="breadcrumb-item" aria-current="page">Update User</li>
+    </ol>
+</nav>
+
 <div class="card card-outline-secondary shadow-lg p-3 mb-5 bg-white rounded">
-    <div class="card-header hdr-set">
+    <!-- <div class="card-header hdr-set">
         <h3 class="mb-0">Update User</h3>
-    </div>
+    </div> -->
     <form [formGroup]="updateUser" (ngSubmit)="onSubmit()">
         <div class="card-body">
             <div class="row mt-4">
@@ -70,11 +78,8 @@
                     </div>
                 </div>
 
-                <div class="col-sm-4 pb-3"></div>
-                <div class="col-sm-4 pb-3"></div>
-                <div class="col-sm-12 pb-3" id="line"></div>
-
-                <div class="col-sm-4 pb-3">
+                <div class="row">
+                    <div class="col-sm-4 pb-3">
                         <label id="bottomLine"><strong>Role</strong><span class="mandatory">*</span></label>
                         <div *ngFor="let role of roleList" > 
                             <input   type="checkbox" [value]="role.roleCode" class="checkmark" [checked]="rolesArray.indexOf(role.roleCode) != -1"  
@@ -84,48 +89,54 @@
                         <div *ngIf="roleError" class="text-danger errFont">
                             Select Atleast One Role!
                         </div>
-                </div>
+                    </div>
 
-
-                <!-- hiding station -->
-                <div *ngIf="showStationCode" class="col-sm-4 pb-3">
-                    <label><strong>Station Name</strong><span class="mandatory">*</span></label>
-                    <select class="form-control" formControlName="stationCode" [ngClass]="{ 'is-invalid': submitted && fval.stationCode.errors }" >
+                     <!-- hiding station -->
+                    <div *ngIf="showStationCode" class="col-sm-4 pb-3">
+                        <label><strong>Station Name</strong><span class="mandatory">*</span></label>
+                        <select class="form-control" formControlName="stationCode" [ngClass]="{ 'is-invalid': submitted && fval.stationCode.errors }" >
+                            
+                            <option *ngFor="let station of stationList"  [ngValue]="station.stationCode"  >
+                                {{ station.stationName }}
+                            </option>
+                        </select>
                         
-                        <option *ngFor="let station of stationList"  [ngValue]="station.stationCode"  >
-                            {{ station.stationName }}
-                        </option>
-                    </select>
-                    
-                    <div *ngIf="emptyStationError" class="text-danger errFont">
-                        This field is required!
+                        <div *ngIf="emptyStationError" class="text-danger errFont">
+                            This field is required!
+                        </div>
                     </div>
                 </div>
+
+               
             </div>
 
-            
-
-
-
             <div class="row justify-content-center">
-                <div class="col-3 pb-3">
+                <!-- <div class="col-3 pb-3">
                     <button class="btn btn-outline-primary mt-1">
                         <i class="fa fa-paper-plane"></i>
                         Update
                     </button>
                 </div>
-                <!-- <div class="col-3 pb-3">
-                    <button type="reset" class="btn btn-outline-info mt-1">
-                        <i class="fas fa-redo"></i>
-                        Reset
-                    </button>
-                </div> -->
                 <div class="col-3 pb-3">
                     <button type="reset" class="btn btn-outline-danger mt-1 pull-left" (click)="cancel()">
                         <i class="fas fa-close"></i>
                         Cancel
                     </button>
-                </div>
+                </div> -->
+
+                 <!-- Submit Buttons -->
+            <div class="row justify-content-center">
+                <div class="clearfix col-md-12 btn-set">
+                   <button type="submit">
+                    Update
+                       <span class="fa-class fa fa-refresh"></span>
+                   </button>
+                   <button type="reset" (click)="cancel()">
+                    Cancel
+                       <span class="fa-class fa fa-close"></span>
+                   </button>
+               </div>
+           </div>
             </div>
         </div>
     </form>

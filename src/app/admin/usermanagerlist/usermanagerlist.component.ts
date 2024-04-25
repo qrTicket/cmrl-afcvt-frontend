@@ -54,26 +54,7 @@ export class UsermanagerlistComponent implements OnInit {
   }
 
   getAllUsers() {
-    //   this.userService.userList().subscribe(
-    //       (res) => {
-    //           this.spinner.hide();
-    //           this.userList = res["data"];
-    //           this.temp = true;
-    //           this.userList = res["data"];
-    //           //console.log(this.userList);
-    //           this.userList.forEach((user) => {
-    //               user.concanatedRoleCode = "";
-    //               user.roles.forEach((role) => {
-    //                   user.concanatedRoleCode = user.concanatedRoleCode + " "+role.roleCode+","; 
-    //               });
-    //           })
-              
-    //       },
-    //       (error) => {
-    //           this.spinner.hide();
-    //           // console.log(error);
-    //       }
-    //   );
+   
       this.userService.userList().subscribe({
         next:(res:any)=>{
           if(res.status === "0"){
@@ -105,26 +86,34 @@ export class UsermanagerlistComponent implements OnInit {
      this.router.navigate(["admin/usermanager/update"]);
   }
 
-  openModal(templateDeactivate: TemplateRef<any>, templateActive: TemplateRef<any>, e) {
+  openModal(templateDeactivate: TemplateRef<any>, templateActive: TemplateRef<any>, e:any) {
       console.log("checked value => "+e.target.value);
       //incoming 0
       if(e.target.value === "0" ){
-          this.modalRef = this.modalService.show(templateActive, this.config);
-          this.statusValue = 1;
-          e.target.checked = false;
+          // this.modalRef = this.modalService.show(templateActive, this.config);
+          // this.statusValue = 1;
+          // e.target.checked = false;
+
+          this.modalRef = this.modalService.show(templateDeactivate, this.config);
+          this.statusValue = 0;
+          //e.target.checked = false;
       }
       //incoming 1
       else if(e.target.value === "1"){
-          this.modalRef = this.modalService.show(templateDeactivate, this.config);
-          this.statusValue = 0;
-          e.target.checked = true;
-      }
-      //incoming 2
-      else{
+          // this.modalRef = this.modalService.show(templateDeactivate, this.config);
+          // this.statusValue = 0;
+          // e.target.checked = true;
+
           this.modalRef = this.modalService.show(templateActive, this.config);
           this.statusValue = 1;
-          e.target.checked = true;
+          // e.target.checked = true;
       }
+      //incoming 2
+      // else{
+      //     this.modalRef = this.modalService.show(templateActive, this.config);
+      //     this.statusValue = 1;
+      //     e.target.checked = true;
+      // }
   }
   confirm(username: string, status:number) {
       this.spinner.show();

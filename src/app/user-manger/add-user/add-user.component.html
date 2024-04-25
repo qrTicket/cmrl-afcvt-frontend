@@ -296,31 +296,34 @@
                     </div>
                 </div>
 
+                <!-- <div class="col-sm-4 pb-3"></div>
                 <div class="col-sm-4 pb-3"></div>
-                <div class="col-sm-4 pb-3"></div>
-                <div class="col-sm-12 pb-3" id="line"></div>
+                <div class="col-sm-12 pb-3" id="line"></div> -->
 
-                <div class="col-sm-4 pb-3">
-                    <label><strong>Role</strong><span class="mandatory">*</span></label>
-                         <div *ngFor="let roles of roleList; let i = index" > 
-                            <input type="checkbox" [value]="roles.roleCode" class="checkmark"  (change)="onChange($event)" /> 
-                            <span class="roleText">{{ roles.roleName }}</span>
-                        </div>
-                        <div *ngIf="roleError" class="text-danger errFont">
-                            Select Atleast One Role!
-                        </div>
-                    
-                    <!-- <div *ngIf="submitted && fval.role.errors"  class="invalid-feedback" >
-                        <div *ngIf="addUser.controls.role.errors && addUser.controls.role.errors.required" >
-                            {{
-                                addUser.controls.role.errors.required.message
-                            }}
-                        </div>
-                    </div> -->
-                </div> 
+                <div class="row">
+                    <div class="col-sm-4 pb-3">
+                        <label><strong>Role</strong><span class="mandatory">*</span></label>
+                             <div *ngFor="let roles of roleList; let i = index" > 
+                                <input type="checkbox" [value]="roles.roleCode" class="checkmark"  (change)="onChange($event)" /> 
+                                <span class="roleText">{{ roles.roleName }}</span>
+                            </div>
+                            <div *ngIf="roleError" class="text-danger errFont">
+                                Select Atleast One Role!
+                            </div>
+                        
+                        <!-- <div *ngIf="submitted && fval.role.errors"  class="invalid-feedback" >
+                            <div *ngIf="addUser.controls.role.errors && addUser.controls.role.errors.required" >
+                                {{
+                                    addUser.controls.role.errors.required.message
+                                }}
+                            </div>
+                        </div> -->
+                    </div> 
+                </div>
+                
 
 
-
+                <!-- Station Name -->
                 <div *ngIf="showStationList" class="col-sm-4 pb-3">
                     <label id="bottomLine"><strong>Station Name</strong><span class="mandatory">*</span></label>
                     <select class="form-control" formControlName="stationCode"  [ngClass]="{ 'is-invalid': submitted && fval.stationCode.errors }" >
@@ -335,26 +338,19 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Submit Buttons -->
             <div class="row justify-content-center">
-                <div class="col-12 pb-3">
-                    <button class="btn btn-outline-primary mt-1 mr-3">
-                        <i class="fa fa-paper-plane"></i>
-                        Add
+                 <div class="clearfix col-md-12 btn-set">
+                    <button type="submit">
+                        Submit
+                        <span class="fa-class fa fa-paper-plane"></span>
                     </button>
-                    <button class="btn btn-outline-danger mt-1" (click)="cancel()">
-                        <i class="fas fa-close"></i>
-                        Cancel
+                    <button type="reset">
+                        Reset
+                        <span class="fa-class fa fa-undo"></span>
                     </button>
                 </div>
-                <!-- <div class="col-3 pb-3">
-                    <button type="reset" class="btn btn-outline-danger mt-1">
-                        <i class="fas fa-redo"></i>
-                        Reset
-                    </button>
-                </div> -->
-                <!-- <div class="col-3 pb-3">
-                   
-                </div> -->
             </div>
         </div>
     </form>

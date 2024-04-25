@@ -115,14 +115,14 @@ export class InventoryTypeUpdateComponent implements OnInit {
         this.productTypeService.getById(id).subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
-                this.toastr.error(res.data,'Error!')
+                this.toastr.error(res.data)
               }
               else if(res.status === "1"){
                 this.updateEquipmentType(res.data)
               }
             },
             error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
             }
           })
     }
@@ -139,46 +139,29 @@ export class InventoryTypeUpdateComponent implements OnInit {
     get fval() {
         return this.updateInventoryType.controls;
     }
+
+    
     onaddinvetFormSubmit() {
-        // console.log(this.updateInventoryType.value);
-        
         this.spinner.show();
-        // this.productTypeService
-        //     .editEquipmentType(this.equipmentId, this.updateInventoryType.value)
-        //     .subscribe(
-        //         (data) => {
-        //             this.spinner.hide();
-        //             this.successmsg = data;
-        //             this.toastr.success(this.successmsg.data);
-        //             this.router.navigate(["equipment/inventoryTypeList"])
-        //         },
-        //         (error) => {
-        //             // console.log(error);
-        //             this.spinner.hide();
-        //             this.errormsg = error;
-        //             // this.toastr.error(this.errormsg);
-        //             swal(this.errormsg, "", "error");
-        //         }
-        //     );
-            this.productTypeService.editEquipmentType(this.equipmentId, this.updateInventoryType.value).subscribe({
-                next:(res:any)=>{
-                  if(res.status === "0"){
+        this.productTypeService.editEquipmentType(this.equipmentId, this.updateInventoryType.value).subscribe({
+            next:(res:any)=>{
+                if(res.status === "0"){
                     this.spinner.hide();
-                    this.toastr.error(res.data,'Error!')
-                  }
-                  else if(res.status === "1"){
-                    this.spinner.hide();
-                    this.successmsg = res.data;
-                    this.toastr.success(this.successmsg.data);
-                    this.router.navigate(["equipment/inventoryTypeList"])
-                  }
-                },
-                error:(err)=>{
-                    this.spinner.hide();
-                    this.errormsg = err.error.data;
-                    this.toastr.error(this.errormsg,'Error!')
+                    this.toastr.error(res.data)
                 }
-              })
+                else if(res.status === "1"){
+                    this.spinner.hide();
+                    //this.successmsg = res.data;
+                    this.toastr.success(res.data);
+                    this.router.navigate(["equipment/inventoryTypeList"])
+                }
+            },
+            error:(err)=>{
+                this.spinner.hide();
+                this.errormsg = err.error.data;
+                this.toastr.error(this.errormsg)
+            }
+            })
 
         
         this.modalRef.hide();

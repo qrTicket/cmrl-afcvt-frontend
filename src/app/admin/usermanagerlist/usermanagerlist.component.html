@@ -1,98 +1,114 @@
-
-<ngx-spinner
-bdColor="rgba(0, 0, 0, 0.8)"
-size="medium"
-color="#ffffff"
-type="timer"
-[fullScreen]="true"
->
-<p style="color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#ffffff" type="timer" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
 </ngx-spinner>
-<h2 class="card-header hdr-set">User List</h2>
-<div class="table-responsive" style="min-height: 620px">
-<table
-    id="dataTable"
-    datatable=""
-    dt-options="dtOptions"
-    dt-columns="dtColumns"
-    class="display nowrap table"
-    cellspacing="0"
-    width="100%"
-    *ngIf="this.temp"
->
-    <thead class="thead-dark">
-        <tr class="text-center">
-            <th>Emp ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Mobile Number</th>
-            <!-- <th>Station Code</th> -->
-            <th>Role</th>
-            <!-- <th>Created Date</th> -->
-            <th>Edit</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="text-center" *ngFor="let user of userList" >
-            <td>{{ user.empId }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.mobileNumber }}</td>
-            <!-- <td>{{ user.stationCode }}</td> -->
-            <td>{{ user.concanatedRoleCode}}</td>
-            <!-- <td>{{ user.createdDate | date }}</td> -->
-             <td>
-                <i class="fa fa-pencil-square-o edit" (click)="update(user)"></i>
-            </td>
-            
-            <td>
-                <input type="checkbox" [value]="user.status" id="handleCheckBox"  [checked]="(user.status === 0 || user.status===2) ?'':'checked'" (change)="openModal(templateDeactivate, templateActive, $event)" >
 
-                <ng-template #templateDeactivate>
-                    <div class="modal-body text-center">
-                        <p>Are you sure you want to DEACTIVATE this User Account?</p>
-                        <button type="button" class="btn btn-info" (click)="confirm(user.username, user.status)">
-                            Deactivate
-                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn btn-danger" (click)="decline()">
-                            Cancel
-                        </button>
-                    </div>
-                </ng-template>
 
-                <ng-template #templateActive>
-                    <div class="modal-body text-center">
-                        <p>Are you sure you want to ACTIVATE this User Account?</p>
-                        <button type="button" class="btn btn-info" (click)="confirm(user.username, user.status)">
-                            Activate
-                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn btn-danger" (click)="decline()">
-                            Cancel
-                        </button>
-                    </div>
-                </ng-template>
-            </td>
+<!-- <h2 class="card-header hdr-set">User List</h2> -->
 
-            <!--<td>
-                <button class="btn btn-dark" (click)="openBlacklistModel(blacklist_user)">
-                    <i class="fa fa-ban"></i>
-                </button>
-                <ng-template #blacklist_user>
-                    <div class="modal-body text-center">
-                        <p>Do you really want to <b>blacklist </b> this?</p>
-                        <button type="button" class="btn btn-default" (click)="blacklist(user.id)">
-                            Confirm
-                        </button>
-                        <button type="button" class="btn btn-primary" (click)="notBlacklist()">
-                            Cancel
-                        </button>
-                    </div>
-                </ng-template>
-            </td> -->
-        </tr>
-    </tbody>
-</table>
+
+<div class="container container-mrgn">
+    <div class="card mt-5">
+        <div class="card-header col-md-12">
+            <div class="col-md-12 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    User Manager List
+                </h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive table-set mt-3" >
+        <table id="dataTable" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="display nowrap table"
+            cellspacing="0"  *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>Emp ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Mobile Number</th>
+                    <!-- <th>Station Code</th> -->
+                    <th>Role</th>
+                    <!-- <th>Created Date</th> -->
+                    <th>Edit</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of userList">
+                    <td>{{ user && user.empId ? user.empId : 'NA' }}</td>
+                    <td>{{ user && user.name ? user.name : 'NA' }}</td>
+                    <td>{{ user && user.email ? user.email : 'NA' }}</td>
+                    <td>{{ user && user.username ? user.username : 'NA' }}</td>
+                    <td>{{ user && user.mobileNumber ? user.mobileNumber : 'NA' }}</td>
+                    <!-- <td>{{ user.stationCode }}</td> -->
+                    <!-- <td>{{ user.concanatedRoleCode}}</td> -->
+                    <td>
+                        <span *ngFor="let rol of user.roles; let last=last">
+                            {{  rol.roleCode  }} <span *ngIf="!last">,</span>
+                        </span>
+                    </td>
+                    <!-- <td>{{ user.createdDate | date }}</td> -->
+                    <td>
+                        <i class="fa fa-pencil-square-o edit" (click)="update(user)"></i>
+                    </td>
+    
+                    <td>
+                        <!-- <input type="checkbox" [value]="user.status" id="handleCheckBox"
+                            [checked]="(user.status === 0 || user.status===2) ?'':'checked'"
+                            (change)="openModal(templateDeactivate, templateActive, $event)"> -->
+
+                            <select class="form-control" (change)="openModal(templateDeactivate, templateActive, $event)">
+                                <option value="">Select Status</option>
+                                <option value="1" [selected]="user.status == 1 ">Activated</option>
+                                <option value="0" [selected]="user.status == 0 ">Deactivated</option>
+                                <!-- <option value="2" [selected]="user.status=='2' ">Closed Station</option> -->
+                            </select>
+    
+                        <ng-template #templateDeactivate>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to DEACTIVATE this User Account?</p>
+                                <button type="button" class="btn btn-info" (click)="confirm(user.username, user.status)">
+                                    Deactivate
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                            </div>
+                        </ng-template>
+    
+                        <ng-template #templateActive>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to ACTIVATE this User Account?</p>
+                                <button type="button" class="btn btn-info" (click)="confirm(user.username, user.status)">
+                                    Activate
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-danger" (click)="decline()">
+                                    Cancel
+                                </button>
+                            </div>
+                        </ng-template>
+                    </td>
+    
+                    <!--<td>
+                    <button class="btn btn-dark" (click)="openBlacklistModel(blacklist_user)">
+                        <i class="fa fa-ban"></i>
+                    </button>
+                    <ng-template #blacklist_user>
+                        <div class="modal-body text-center">
+                            <p>Do you really want to <b>blacklist </b> this?</p>
+                            <button type="button" class="btn btn-default" (click)="blacklist(user.id)">
+                                Confirm
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="notBlacklist()">
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

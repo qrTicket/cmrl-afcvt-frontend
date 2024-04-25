@@ -1,5 +1,10 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
 
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>{{ 'Collapse' }}</span>
+</div>
+
     <div class="list-group">
         
         <a [routerLink]="['/user-manager/dashboard']" [routerLinkActive]="['isActive']" class="list-group-item">
@@ -75,7 +80,7 @@
                 </ul>
             </li>
         </div>
-        <div class="nested-menu">
+        <!-- <div class="nested-menu">
             <a class="list-group-item" (click)="showShifts('shifts')">
                 <i class="fas fa-users"></i>&nbsp;
                 <span>{{ "Shifts" }}
@@ -90,7 +95,7 @@
                             class="list-group-item">
                             <i class="fa fa-user-plus"></i>&nbsp;
                             <span>{{ "Create Shifts" }}</span>
-                        </a>
+                        </a> -->
                         <!-- <ng-template
                         *ngIf="
                             this.router.url.includes(
@@ -107,7 +112,7 @@
                             <span>{{ "Update Shifts" }}</span>
                         </a>
                     </ng-template> -->
-                        <a [routerLink]="['/user-manager/shifts/list']" [routerLinkActive]="['isActive']"
+                        <!-- <a [routerLink]="['/user-manager/shifts/list']" [routerLinkActive]="['isActive']"
                             class="list-group-item">
                             <i class="fa fa-list"></i>&nbsp;
                             <span>{{ " Shift List" }}</span>
@@ -115,11 +120,13 @@
                     </li>
                 </ul>
             </li>
-        </div>
-        <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        </div> -->
+
+
+        <!-- <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
                 <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
                 <span>{{ 'Collapse Sidebar' }}</span>
-            </div>
+        </div> -->
     </div>
     <!-- <div class="header-fields">
         <div class="nested-menu">

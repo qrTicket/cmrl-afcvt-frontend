@@ -149,14 +149,14 @@ export class EditLineComponent implements OnInit {
         this.linesService.getLineById(id).subscribe({
             next:(res:any)=>{
                 if(res.status === "0"){
-                    this.toastr.error(res.data,'Error!')
+                    this.toastr.error(res.data)
                 }
                 else if(res.status === "1"){
                 this.updateLine(res.data);
                 }
             },
             error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
             }
         })
     }
@@ -166,7 +166,7 @@ export class EditLineComponent implements OnInit {
             lineName: line && line.lineName ? line.lineName : "",
             lineCode: line && line.lineCode ? line.lineCode : "",
             lineColour: line && line.lineColor ? line.lineColor : "",
-            activationStatus: line && line.active ? line.active : "",
+            activationStatus: line && line.active ? line.active : line.active,
             length: line && line.lengthInKm ? line.lengthInKm : "",
             operationFrom: line && line.operationalFrom ? line.operationalFrom : "",
             terminusA: line && line.terminusA ? line.terminusA : "",
@@ -198,17 +198,17 @@ export class EditLineComponent implements OnInit {
         this.linesService.putLine(reqObj, this.lineId).subscribe({
             next:(res:any)=>{
               if(res.status === "0"){
-                  this.toastr.error(res.data,'Error!')
+                  this.toastr.error(res.data)
               }
               else if(res.status === "1"){
                 this.spinner.hide();
-                    this.toastr.success(res.data,"SUCCESS");
+                    this.toastr.success(res.data);
                     this.router.navigate(["/admin/linelist"]);
                     this.submitted = false;
               }
             },
             error:(err)=>{
-                this.toastr.error(err.error.data,'Error!')
+                this.toastr.error(err.error.data)
             }
           })
     }

@@ -6,17 +6,17 @@
     color: #ca7308e8;
 }
 
-.form-control {
-	border-radius: 0;
-	border-color: #ccc;
-   	border-width: 0 0 2px 0;
-   	border-style: none none solid none;
-   	box-shadow: none;
-}
-.form-control:focus {
-	box-shadow: none;
-	border-color: #5e9bfc;
-}
+// .form-control {
+// 	border-radius: 0;
+// 	border-color: #ccc;
+//    	border-width: 0 0 2px 0;
+//    	border-style: none none solid none;
+//    	box-shadow: none;
+// }
+// .form-control:focus {
+// 	box-shadow: none;
+// 	border-color: #5e9bfc;
+// }
 
 .checkmark{
     height: 18px;
@@ -30,10 +30,87 @@
     border-top:3px solid #ca7308e8;
 }
 
-#bottomLine{
-    border-bottom:3px solid #ca7308e8;
-}
-
 .errFont{
     font-size: 13px;
+}
+
+.fltLeft{
+    float: left;
+}
+
+.fltRight{
+    float: right;
+}
+
+.backBtn{
+    padding: 10px 0 0 0;
+    
+}
+
+.backBtn a{
+    text-decoration: none;
+    color: #00004d;
+}
+
+.headingTextLabel{
+    color: #00004d!important;;
+}
+
+.mrgn{
+    margin: 50px 20px 100px 10px;
+}
+
+.required::after{
+    content: " *";
+    color: red;
+}
+
+.btn-set {
+    padding: 0 18px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+button[type="submit"] {
+    padding: 8px 22px;
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 30px 7px 28px 0px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    color: #00004d;
+    background: #fff;
+    border: 2px solid #00004d;
+    font-weight: bold;
+}
+
+button[type="reset"] {
+    padding: 8px 22px;
+    color: #00004d;
+    border: 0;
+    background: #fff;
+    border: 2px solid #00004d;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 30px 0;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="reset"]:hover {
+    color: #fff;
+    background: #00004d;
+    font-weight: bold;
+}
+
+span .fa-class {
+    font-size: 18px;
 }

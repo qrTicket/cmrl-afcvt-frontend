@@ -1,4 +1,4 @@
-<div class="container mt-5 mb-5 formBg"> 
+<div class="container mt-5 mb-5 formBg">
     <!-- <h2>Add Station</h2>
     <hr /> -->
     <!-- <nav aria-label="breadcrumb" class="bdcrm">
@@ -7,7 +7,7 @@
             <li class="breadcrumb-item active" aria-current="page">Add Station</li>
         </ol>
     </nav> -->
-    
+
     <div class="card">
         <div class="card-header col-md-12">
             <div class="col-md-8 fltLeft">
@@ -29,12 +29,12 @@
             <div class="row row-p-tb4">
 
                 <!-- Zone -->
-                <div class="col-md-4">     
-                    <label for="zone" class="required">Zone</label>    
+                <div class="col-md-4">
+                    <label for="zone" class="required">Zone</label>
                     <ng-select id="zone" class=" form-vehicle" formControlName="zoneId" placeholder="Select Zone"
-                        [ngClass]="{ 'is-invalid': submitted && fval['zoneId'].errors }" >
+                        [ngClass]="{ 'is-invalid': submitted && fval['zoneId'].errors }">
                         <ng-option value="" selected>--Select Zone--</ng-option>
-                        <ng-option *ngFor="let zone of zoneList" [value]="zone.id" >{{zone.zoneName}}</ng-option>
+                        <ng-option *ngFor="let zone of zoneList" [value]="zone.id">{{zone.zoneName}}</ng-option>
                     </ng-select>
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf=" fval.zoneId.errors && fval.zoneId.errors.required ">
@@ -48,7 +48,8 @@
                     <label for="stationName" class="required">
                         <b>Station Name</b>
                     </label>
-                    <input formControlName="stationName" class="form-control" type="text" [ngClass]="{'is-invalid': submitted && fval.stationName.errors}" maxlength="255" />
+                    <input formControlName="stationName" class="form-control" type="text"
+                        [ngClass]="{'is-invalid': submitted && fval.stationName.errors}" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf=" fval.stationName.errors && fval.stationName.errors.required ">
                             {{fval.stationName.errors.required.message }}
@@ -65,9 +66,9 @@
                 <!-- Station Code -->
                 <div class="col-md-4">
                     <label for="stationCode" class="required">
-                        <b >Station Code/Short Name</b>
+                        <b>Station Code/Short Name</b>
                     </label>
-                    <input formControlName="stationCode" class="form-control" type="text" 
+                    <input formControlName="stationCode" class="form-control" type="text"
                         [ngClass]="{'is-invalid': submitted && fval.stationCode.errors}" maxlength="30" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="fval.stationCode.errors && fval.stationCode.errors.required">
@@ -82,8 +83,8 @@
                     </div>
                 </div>
 
-                 <!-- Station ID -->
-                 <!-- <div class="col-md-4">
+                <!-- Station ID -->
+                <!-- <div class="col-md-4">
                     <label for="stationId" class="required">
                         <b >Station ID</b>
                     </label>
@@ -95,7 +96,7 @@
                         </div>
                     </div>
                 </div> -->
-             
+
                 <!-- Contact Number -->
                 <div class="col-md-4">
                     <label for="contactNum" class="required">
@@ -197,14 +198,9 @@
                     <label for="address" class="required">
                         <b>Address</b>
                     </label>
-                    <textarea 
-                        formControlName="address" 
-                        class="form-control" 
-                        [ngClass]="{
+                    <textarea formControlName="address" class="form-control" [ngClass]="{
                             'is-invalid': submitted && fval.address.errors
-                        }" 
-                        maxlength="255"
-                    >
+                        }" maxlength="255">
                     </textarea>
                     <div *ngIf="submitted && fval.address.errors" class="invalid-feedback">
                         <div *ngIf="
@@ -212,7 +208,7 @@
                                fval.address.errors.required
                             ">
                             {{
-                           fval.address.errors.required
+                            fval.address.errors.required
                             .message
                             }}
                         </div>
@@ -225,7 +221,7 @@
             <!-- Submit buttons -->
             <div class="clearfix col-md-12 btn-set">
                 <button type="submit" class="btn-sub my-5">
-                    Add
+                    Submit
                     <span class="fa-class fa fa-paper-plane"></span>
                 </button>
                 <button type="reset" class="btn-sub my-5">

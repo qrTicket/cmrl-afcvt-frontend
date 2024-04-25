@@ -114,10 +114,14 @@ export class UserListComponent implements OnInit,OnDestroy {
 
     //update user profile
     update(user:any, roles:any) {
+        console.log(roles,'roles in update func');
+        console.log(user,'user in update func');
+        
         //roles which have been fetched are in the form of String, 
         //so split that string and store in allRoles array in order to prevent 
         //user-manager from editing ADMIN or USER-MANAGER data
-        this.allRoles = roles.split(",");
+        // this.allRoles = roles.split(",");
+        this.allRoles = roles;
 
         //applying a loop to check whether fetched roles contains ADMIN(ADM) or USER-MANAGER(USM) role
         let x:number = 0;
@@ -130,9 +134,9 @@ export class UserListComponent implements OnInit,OnDestroy {
             //     this.router.navigate(["user-manager/user/update"]);
             // }
         }
-        this.userService.getUserUpdateData(user);
-        this.router.navigate(["user-manager/user/update"]);
-
+        this.userService.getUserUpdateData(user, roles);
+        // this.router.navigate(["user-manager/user/update"],{queryParams:{"userData" : user}, skipLocationChange:true});
+        this.router.navigate(["user-manager/user/update"])
         
     }
 
@@ -140,38 +144,41 @@ export class UserListComponent implements OnInit,OnDestroy {
         console.log("checked value => "+e.target.value);
         //incoming target value 0
         if(e.target.value === "0" ){
-            this.modalRef = this.modalService.show(templateActive, this.config);
-            this.statusValue = 1;
-            if(this.successStatus === 1){
-                e.target.checked = true;
-            }
-            else{
-                e.target.checked = false;
-            }
+            // this.modalRef = this.modalService.show(templateActive, this.config);
+            // this.statusValue = 1;
+            // if(this.successStatus === 1){
+            //     e.target.checked = true;
+            // }
+            // else{
+            //     e.target.checked = false;
+            // }
+            this.modalRef = this.modalService.show(templateDeactivate, this.config);
+            this.statusValue = 0;
         }
         //incoming target value 1
         else if(e.target.value === "1"){
-            this.modalRef = this.modalService.show(templateDeactivate, this.config);
-            this.statusValue = 0;
-            if(this.successStatus === 1){
-                e.target.checked = false;
-            }
-            else{
-                e.target.checked = true;
-            }
-            
-        }
-        //incoming target value 2
-        else{
+            // this.modalRef = this.modalService.show(templateDeactivate, this.config);
+            // this.statusValue = 0;
+            // if(this.successStatus === 1){
+            //     e.target.checked = false;
+            // }
+            // else{
+            //     e.target.checked = true;
+            // }
             this.modalRef = this.modalService.show(templateActive, this.config);
             this.statusValue = 1;
-            if(this.successStatus === 1){
-                e.target.checked = true;
-            }
-            else{
-                e.target.checked = false;
-            }
         }
+        //incoming target value 2
+        // else{
+        //     this.modalRef = this.modalService.show(templateActive, this.config);
+        //     this.statusValue = 1;
+        //     if(this.successStatus === 1){
+        //         e.target.checked = true;
+        //     }
+        //     else{
+        //         e.target.checked = false;
+        //     }
+        // }
     }
 
 
@@ -195,7 +202,7 @@ export class UserListComponent implements OnInit,OnDestroy {
                 next:(res:any)=>{
                   if(res.status === "0"){
                     this.spinner.hide();
-                    this.toaster.error(res.data,'Error!')
+                    this.toaster.error(res.data)
                   }
                   else if(res.status === "1"){
                     this.spinner.hide();
@@ -257,7 +264,7 @@ export class UserListComponent implements OnInit,OnDestroy {
             next:(res)=>{
               if(res.status === "0"){
                 this.spinner.hide();
-                this.toaster.error(res.data,'Error!')
+                this.toaster.error(res.data)
               }
               else if(res.status === "1"){
                 this.spinner.hide();
@@ -284,10 +291,11 @@ export class UserListComponent implements OnInit,OnDestroy {
 
     ngOnDestroy(){
         this.subscription.forEach( subs => subs.unsubscribe());
-        let x:number = 0;
-        for(x; x < this.allRoles.length; x++){
-            this.allRoles.splice(x);
-        }
+        // let x:number = 0;
+        // for(x; x < this.allRoles.length; x++){
+        //     this.allRoles.splice(x);
+        // }
+        console.log('in ng on destroy');
         
     }
 }
