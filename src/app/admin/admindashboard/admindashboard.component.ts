@@ -38,7 +38,7 @@ export class AdmindashboardComponent implements OnInit {
   submitted:any=false;
   gateMode: any;
   stationCode: any;
-  lineStationList:any[]=[];
+  lineZoneStationList:any[]=[];
   showconfiguredgatelist:any= false;
   stn_group: any;
   send_btn_text:string="SEND"
@@ -220,15 +220,15 @@ export class AdmindashboardComponent implements OnInit {
     //     this.lineStationList = res;
     //     console.log(res);
     // })
-    this.dashboardService.getLiineStationList().subscribe({
+    this.dashboardService.getLiineStationZoneList().subscribe({
       next:(res:any)=>{
-        // if(res.status === "0"){
-        //     this.toastr.error(res.data,'Error!')
-        // }
-        // else if(res.status === "1"){
+        if(res.status === "0"){
+           this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
           console.log(res,'dashboard serv');
-          this.lineStationList = res;
-        //}
+          this.lineZoneStationList = res.data;
+        }
       },
       error:(err)=>{
           this.toastr.error(err.error.data,'Error!')

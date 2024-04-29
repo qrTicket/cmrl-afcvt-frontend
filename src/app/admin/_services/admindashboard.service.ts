@@ -57,4 +57,11 @@ export class AdmindashboardService {
     );
   }
 
+  //get Line Zone and station to show on dashboard
+  getLiineStationZoneList(): Observable<any> {
+    return this.http.get(
+        `${environment.productUrl}/fetch/lineZoneStation/all`,
+    );
+  }
+
 }

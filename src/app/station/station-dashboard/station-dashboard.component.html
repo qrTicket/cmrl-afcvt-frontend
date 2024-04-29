@@ -41,14 +41,14 @@
                                 <br />
                                 Terminal IP: {{ obj.terminalIp }}
                                 <br />
-                                Terminal Mode: {{ obj.modeType }}
-                                <br />
+                                <!-- Terminal Mode: {{ obj.modeType }}
+                                <br /> -->
                             </span>
                         </ng-template>
 
                         <!-- terminal modes -->
                         <!-- <ng-container *ngIf="configuredList"> -->
-                            <span *ngFor="let obj of item.terminal">
+                            <!-- <span *ngFor="let obj of item.terminal">
                                 <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
                                     class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
                                 <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
@@ -63,7 +63,7 @@
                                 <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
                                     src="../../../assets/images/highsecurity.png" class="highsecurity"
                                     title="High Security Mode" alt="high security override mode" />
-                            </span>
+                            </span> -->
                         <!-- </ng-container> -->
                         
 
@@ -126,6 +126,53 @@
                         <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
                             class="out-of-service" title="Out of Service" alt="Out of Service" />
 
+
+                        
+                        <!-- INCIDENT_MODE -->
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'"
+                            src="../../../assets/images/emer-aba-open.png" alt="Incident Mode"
+                            title="Incident Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                            class="incident" title="Incident Mode" alt="Incident Mode" />
+
+                        <!-- ENTRY_EXIT_OVRIDE -->
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="EntryExit Override Mode"
+                            title="EntryExit Override Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'" src="../../../assets/images/entryexit.png"
+                            class="incident" title="EntryExit Override Mode" alt="EntryExit Override Mode" />
+                        
+                        <!-- TIME_MODE_OVRIDE -->
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Time Mode Override"
+                            title="Time Mode Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'" src="../../../assets/images/timemodeoverride.png"
+                            class="incident" title="Time Mode Override" alt="Time Mode Override" />
+
+                        <!-- FARE_BYPASS1 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS1'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Fare Bypass1"
+                            title="Fare Bypass1" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS1'" class="normal-mode my-2">Fare Bypass1</span>
+
+                        <!-- FARE_BYPASS2 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS2'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Fare Bypass2"
+                            title="Fare Bypass2" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS2'" class="normal-mode my-2">Fare Bypass2</span>    
+
+                        <!-- EXCESS_FAREOVERRIDE -->
+                        <img *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Excess Fare Override"
+                            title="Excess Fare Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" /> <br />
+                            <span  *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'" class="normal-mode my-2">Excess Fare Override</span> &nbsp; 
+
                         <!-- gate name and direction text -->
                         <span>
                             {{ item.gateName }}
@@ -151,13 +198,13 @@
                                 <br />
                                 Terminal IP: {{ obj.terminalIp }}
                                 <br />
-                                Terminal Mode: {{ obj.modeType }}
-                                <br />
+                                <!-- Terminal Mode: {{ obj.modeType }}
+                                <br /> -->
                             </span>
                         </ng-template>
 
                         <!-- terminal modes -->
-                        <span *ngFor="let obj of item.terminal">
+                        <!-- <span *ngFor="let obj of item.terminal">
                             <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
                                 class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
                             <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
@@ -172,7 +219,7 @@
                             <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
                                 src="../../../assets/images/highsecurity.png" class="highsecurity"
                                 title="High Security Mode" alt="high security override mode" />
-                        </span>
+                        </span> -->
 
                         <!-- normal mode -->
                         <img *ngIf="
@@ -231,6 +278,53 @@
                         <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
                             class="out-of-service" title="Out of Service" alt="Out of Service" />
 
+
+
+                        <!-- INCIDENT_MODE -->
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'"
+                            src="../../../assets/images/emer-aba-open.png" alt="Incident Mode"
+                            title="Incident Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                            class="incident" title="Incident Mode" alt="Incident Mode" />
+
+                        <!-- ENTRY_EXIT_OVRIDE -->
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="EntryExit Override Mode"
+                            title="EntryExit Override Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'" src="../../../assets/images/entryexit.png"
+                            class="incident" title="EntryExit Override Mode" alt="EntryExit Override Mode" />
+                        
+                        <!-- TIME_MODE_OVRIDE -->
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Time Mode Override"
+                            title="Time Mode Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'" src="../../../assets/images/timemodeoverride.png"
+                            class="incident" title="Time Mode Override" alt="Time Mode Override" />
+
+                        <!-- FARE_BYPASS1 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS1'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Fare Bypass1"
+                            title="Fare Bypass1" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS1'" class="normal-mode my-2">Fare Bypass1</span>
+
+                        <!-- FARE_BYPASS2 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS2'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Fare Bypass2"
+                            title="Fare Bypass2" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS2'" class="normal-mode my-2">Fare Bypass2</span>    
+
+                        <!-- EXCESS_FAREOVERRIDE -->
+                        <img *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Excess Fare Override"
+                            title="Excess Fare Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" /> <br />
+                            <span  *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'" class="normal-mode my-2">Excess Fare Override</span> &nbsp; 
+
                         <!-- gate name and direction text -->
                         <span>
                             {{ item.gateName }}
@@ -256,13 +350,13 @@
                                 <br />
                                 Terminal IP: {{ obj.terminalIp }}
                                 <br />
-                                Terminal Mode: {{ obj.modeType }}
-                                <br />
+                                <!-- Terminal Mode: {{ obj.modeType }}
+                                <br /> -->
                             </span>
                         </ng-template>
 
                         <!-- terminal modes -->
-                        <span *ngFor="let obj of item.terminal">
+                        <!-- <span *ngFor="let obj of item.terminal">
                             <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
                                 class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
                             <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
@@ -277,7 +371,7 @@
                             <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
                                 src="../../../assets/images/highsecurity.png" class="highsecurity"
                                 title="High Security Mode" alt="high security override mode" />
-                        </span>
+                        </span> -->
 
                         <!-- normal mode image -->
                         <img *ngIf="
@@ -336,6 +430,52 @@
                         <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
                             class="out-of-service" title="Out of Service" alt="Out of Service" />
 
+                        
+                        <!-- INCIDENT_MODE -->
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'"
+                            src="../../../assets/images/emer-aba-open.png" alt="Incident Mode"
+                            title="Incident Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                            class="incident" title="Incident Mode" alt="Incident Mode" />
+
+                        <!-- ENTRY_EXIT_OVRIDE -->
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="EntryExit Override Mode"
+                            title="EntryExit Override Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'" src="../../../assets/images/entryexit.png"
+                            class="incident" title="EntryExit Override Mode" alt="EntryExit Override Mode" />
+                        
+                        <!-- TIME_MODE_OVRIDE -->
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Time Mode Override"
+                            title="Time Mode Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'" src="../../../assets/images/timemodeoverride.png"
+                            class="incident" title="Time Mode Override" alt="Time Mode Override" />
+
+                        <!-- FARE_BYPASS1 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS1'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Fare Bypass1"
+                            title="Fare Bypass1" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS1'" class="normal-mode my-2">Fare Bypass1</span>
+
+                        <!-- FARE_BYPASS2 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS2'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Fare Bypass2"
+                            title="Fare Bypass2" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS2'" class="normal-mode my-2">Fare Bypass2</span>    
+
+                        <!-- EXCESS_FAREOVERRIDE -->
+                        <img *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Excess Fare Override"
+                            title="Excess Fare Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" /> <br />
+                            <span  *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'" class="normal-mode my-2">Excess Fare Override</span> &nbsp;
+
                         <!-- gate name and direction text -->
                         <span>
                             {{ item.gateName }}
@@ -389,13 +529,13 @@
                                 <br />
                                 Terminal IP: {{ obj.terminalIp }}
                                 <br />
-                                Terminal Mode: {{ obj.modeType }}
-                                <br />
+                                <!-- Terminal Mode: {{ obj.modeType }}
+                                <br /> -->
                             </span>
                         </ng-template>
 
                         <!-- terminal modes -->
-                        <span *ngFor="let obj of item.terminal">
+                        <!-- <span *ngFor="let obj of item.terminal">
                             <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
                                 class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
                             <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
@@ -410,7 +550,7 @@
                             <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
                                 src="../../../assets/images/highsecurity.png" class="highsecurity"
                                 title="High Security Mode" alt="high security override mode" />
-                        </span>
+                        </span> -->
 
                         <!-- normal mode image -->
                         <img *ngIf="
@@ -469,6 +609,51 @@
                         <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
                             class="out-of-service" title="Out of Service" alt="Out of Service" />
 
+                        <!-- INCIDENT_MODE -->
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'"
+                            src="../../../assets/images/emer-aba-open.png" alt="Incident Mode"
+                            title="Incident Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                            class="incident" title="Incident Mode" alt="Incident Mode" />
+
+                        <!-- ENTRY_EXIT_OVRIDE -->
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="EntryExit Override Mode"
+                            title="EntryExit Override Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'" src="../../../assets/images/entryexit.png"
+                            class="incident" title="EntryExit Override Mode" alt="EntryExit Override Mode" />
+                        
+                        <!-- TIME_MODE_OVRIDE -->
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Time Mode Override"
+                            title="Time Mode Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'" src="../../../assets/images/timemodeoverride.png"
+                            class="incident" title="Time Mode Override" alt="Time Mode Override" />
+
+                        <!-- FARE_BYPASS1 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS1'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Fare Bypass1"
+                            title="Fare Bypass1" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS1'" class="normal-mode my-2">Fare Bypass1</span>
+
+                        <!-- FARE_BYPASS2 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS2'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Fare Bypass2"
+                            title="Fare Bypass2" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS2'" class="normal-mode my-2">Fare Bypass2</span>    
+
+                        <!-- EXCESS_FAREOVERRIDE -->
+                        <img *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'"
+                            src="../../../assets/images/aisle-ab-enable.png" alt="Excess Fare Override"
+                            title="Excess Fare Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" /> <br />
+                            <span  *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'" class="normal-mode my-2">Excess Fare Override</span> &nbsp;  
+
                         <!-- gate name and direction text -->
                         <span>
                             {{ item.gateName }}
@@ -494,13 +679,13 @@
                                 <br />
                                 Terminal IP: {{ obj.terminalIp }}
                                 <br />
-                                Terminal Mode: {{ obj.modeType }}
-                                <br />
+                                <!-- Terminal Mode: {{ obj.modeType }}
+                                <br /> -->
                             </span>
                         </ng-template>
 
                         <!-- terminal modes -->
-                        <span *ngFor="let obj of item.terminal">
+                        <!-- <span *ngFor="let obj of item.terminal">
                             <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
                                 class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
                             <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
@@ -515,7 +700,7 @@
                             <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
                                 src="../../../assets/images/highsecurity.png" class="highsecurity"
                                 title="High Security Mode" alt="high security override mode" />
-                        </span>
+                        </span> -->
 
                         <!-- normal mode image -->
                         <img *ngIf="
@@ -574,6 +759,52 @@
                         <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
                             class="out-of-service" title="Out of Service" alt="Out of Service" />
 
+
+                        <!-- INCIDENT_MODE -->
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'"
+                            src="../../../assets/images/emer-aba-open.png" alt="Incident Mode"
+                            title="Incident Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                            class="incident" title="Incident Mode" alt="Incident Mode" />
+
+                        <!-- ENTRY_EXIT_OVRIDE -->
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="EntryExit Override Mode"
+                            title="EntryExit Override Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'" src="../../../assets/images/entryexit.png"
+                            class="incident" title="EntryExit Override Mode" alt="EntryExit Override Mode" />
+                        
+                        <!-- TIME_MODE_OVRIDE -->
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Time Mode Override"
+                            title="Time Mode Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'" src="../../../assets/images/timemodeoverride.png"
+                            class="incident" title="Time Mode Override" alt="Time Mode Override" />
+
+                        <!-- FARE_BYPASS1 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS1'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Fare Bypass1"
+                            title="Fare Bypass1" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS1'" class="normal-mode my-2">Fare Bypass1</span>
+
+                        <!-- FARE_BYPASS2 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS2'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Fare Bypass2"
+                            title="Fare Bypass2" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS2'" class="normal-mode my-2">Fare Bypass2</span>    
+
+                        <!-- EXCESS_FAREOVERRIDE -->
+                        <img *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-ba.png" alt="Excess Fare Override"
+                            title="Excess Fare Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" /> <br />
+                            <span  *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'" class="normal-mode my-2">Excess Fare Override</span> &nbsp;    
+
                         <!-- gate name and direction text -->
                         <span>
                             {{ item.gateName }}
@@ -599,13 +830,13 @@
                                 <br />
                                 Terminal IP: {{ obj.terminalIp }}
                                 <br />
-                                Terminal Mode: {{ obj.modeType }}
-                                <br />
+                                <!-- Terminal Mode: {{ obj.modeType }}
+                                <br /> -->
                             </span>
                         </ng-template>
 
                         <!-- terminal modes -->
-                        <span *ngFor="let obj of item.terminal">
+                        <!-- <span *ngFor="let obj of item.terminal">
                             <img *ngIf="obj.modeType == 'NORMAL_MODE'" src="../../../assets/images/termNormal.png"
                                 class="terminalNormal" title="Terminal Mode- Normal" alt="terminal mode - normal" />
                             <img *ngIf="obj.modeType == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
@@ -620,7 +851,7 @@
                             <img *ngIf="obj.modeType == 'HIGHSECURITY_MODE'"
                                 src="../../../assets/images/highsecurity.png" class="highsecurity"
                                 title="High Security Mode" alt="high security override mode" />
-                        </span>
+                        </span> -->
                         
 
                         <!-- normal mode image -->
@@ -679,6 +910,52 @@
                             [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
                         <img *ngIf="item.modeName == 'OUT_OF_SERVICE'" src="../../../assets/images/out-of-service.png"
                             class="out-of-service" title="Out of Service" alt="Out of Service" />
+                        
+                        
+                        <!-- INCIDENT_MODE -->
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'"
+                            src="../../../assets/images/emer-aba-open.png" alt="Incident Mode"
+                            title="Incident Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'INCIDENT_MODE'" src="../../../assets/images/incident.png"
+                            class="incident" title="Incident Mode" alt="Incident Mode" />
+
+                        <!-- ENTRY_EXIT_OVRIDE -->
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="EntryExit Override Mode"
+                            title="EntryExit Override Mode" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'ENTRY_EXIT_OVRIDE'" src="../../../assets/images/entryexit.png"
+                            class="incident" title="EntryExit Override Mode" alt="EntryExit Override Mode" />
+                        
+                        <!-- TIME_MODE_OVRIDE -->
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Time Mode Override"
+                            title="Time Mode Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                        <img *ngIf="item.modeName == 'TIME_MODE_OVRIDE'" src="../../../assets/images/timemodeoverride.png"
+                            class="incident" title="Time Mode Override" alt="Time Mode Override" />
+
+                        <!-- FARE_BYPASS1 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS1'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Fare Bypass1"
+                            title="Fare Bypass1" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS1'" class="normal-mode my-2">Fare Bypass1</span>
+
+                        <!-- FARE_BYPASS2 -->
+                        <img *ngIf="item.modeName == 'FARE_BYPASS2'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Fare Bypass2"
+                            title="Fare Bypass2" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" />
+                            <span  *ngIf="item.modeName == 'FARE_BYPASS2'" class="normal-mode my-2">Fare Bypass2</span>    
+
+                        <!-- EXCESS_FAREOVERRIDE -->
+                        <img *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'"
+                            src="../../../assets/images/normal-aisle-enable-aba.png" alt="Excess Fare Override"
+                            title="Excess Fare Override" tooltipClass="custom-tooltip-class" placement="bottom"
+                            [ngbTooltip]="tipContent" delay="500" (click)="editConfig(item)" /> <br />
+                            <span  *ngIf="item.modeName == 'EXCESS_FAREOVERRIDE'" class="normal-mode my-2">Excess Fare Override</span> &nbsp;  
 
                         <!-- gate name and direction text -->
                         <span>
