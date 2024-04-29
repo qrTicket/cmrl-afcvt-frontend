@@ -296,6 +296,7 @@ export class InventoryListComponent implements OnInit, OnDestroy {
                       }
                       else if(res.status === "1"){
                         this.spinner.hide();
+                        this.submitted = false;
                         console.log(res);
                         this.successmsg = res;
                         this.toastr.success("", this.successmsg.data);

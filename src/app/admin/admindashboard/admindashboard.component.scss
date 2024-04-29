@@ -95,10 +95,14 @@ a {
 }
 //end
 
+.bg-button-blue{
+  background-color: #00004d;
+  color: #ffffff;
+}
 .opr-mode-box{
     min-width: 0px;
     word-wrap: break-word;
-    background-color: #caead2;
+    background-color:#d7d7ff; //#caead2;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
@@ -110,7 +114,7 @@ a {
   .station-details{
     min-width: 0px;
     word-wrap: break-word;
-    background-color: #dddddd;
+    background-color: #d7d7ff;//#dddddd;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
@@ -138,7 +142,7 @@ a {
     -moz-border-radius: 2px;
     border-radius: 2px;
     padding: 11px 25px 11px 15px;
-    color: #585858;
+    color: #00004d;
     font-size: 15px;
     float: left;
     margin-bottom: 5px;
@@ -282,3 +286,5 @@ a {
     border-color: #5cb85c; }
   .checkbox-success input[type="checkbox"]:checked + label::after {
     color: #fff; }
+
+  

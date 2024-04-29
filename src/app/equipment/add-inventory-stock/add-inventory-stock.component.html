@@ -554,7 +554,7 @@
                  <!-- Device Description -->
                  <div class="col-sm-4 pb-3">
                     <label for="deviceDescription">Device Description</label><span id="mandatory">*</span>
-                    <input type="text" class="form-control" formControlName="deviceDescription" placeholder="Enter manufacture name"  
+                    <input type="text" class="form-control" formControlName="deviceDescription" placeholder="Enter Device Description"  
                     [ngClass]="{ 'is-invalid': submitted && fval.deviceDescription.errors }" maxlength="255" />
                     <div *ngIf="submitted && fval.deviceDescription.errors" class="invalid-feedback" >
                         <div *ngIf="addInventoryStock.controls.deviceDescription.errors && addInventoryStock.controls.deviceDescription.errors.required" >

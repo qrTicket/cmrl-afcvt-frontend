@@ -44,34 +44,49 @@
     </div> -->
 
     <!-- Dashboard code start from here -->
-    <!-- <section class="station-details">
+    <section class="station-details">
         <legend>
-            Station Real Time Status
+            Line, Zone And Station
         </legend>
-        <div class="row" *ngFor="let list of lineStationList">
-            <div class="col-md-12 my-2" *ngIf="list['stationList'].length>0">
-                <label><strong>{{list.line.lineName}}</strong> : </label>
+        <div class="row" *ngFor="let list of lineZoneStationList">
+            <div class="col-md-12 my-2" *ngIf="list['zones'].length>0">
+                <label><strong>{{list.lineName}}</strong> : </label>
                 <div class="fr_stations">
-                    <ul *ngFor="let item of list.stationList">
+                    <ul *ngFor="let item of list.zones">
 
                         <ng-template #stationContent>
-                            Station Name: {{ item.stationName }}
-                            <br />
-                            Station Code: {{ item.stationCode }}
-                            <br />
-                            Latitude: {{ item.latitude }}
-                            <br />
-                            Longitude: {{ item.longitude }}
-                            <br />
-                            Contact: {{ item.contactNum }}
-                            <br />
-                            Junction: {{ item.junction? "Yes" : "No" }}
-                            <br />
-                            Status: {{ item.status == 1 ? "Station Active" : item.status == 2 ? "Station Close" : "Station Deactive" }}
+                            <span *ngIf="item.station.length>0; else stnNotFound ">
+                                <ng-container *ngFor="let stn of item.station; index as i">
+                                    <span>
+                                        <strong>Station {{i+1}} :</strong> {{ stn.stationName }}
+                                        <!-- <br />
+                                        Station Code: {{ stn.stationCode }}
+                                        <br />
+                                        Latitude: {{ stn.latitude }}
+                                        <br />
+                                        Longitude: {{ stn.longitude }}
+                                        <br />
+                                        Contact: {{ stn.contactNum }}
+                                        <br />
+                                        Status: {{ stn.status == 1 ? "Station Active" : stn.status == 2 ? "Station Close" : "Station Deactive" }} -->
+                                    </span>
+                                    
+                                    <hr>
+                                </ng-container>
+                            </span>
+
+                            <ng-template #stnNotFound>
+                                Station Not Found
+                            </ng-template>
+                            
+                            
                         </ng-template>
                         
-                        <a [routerLink]="['/admin/single-station-details',item.stationCode]" >
+                        <!-- <a [routerLink]="['/admin/single-station-details',item.stationCode]" >
                             <li [ngClass]="[item.status==0 ? 'de-activated' : '',  item.status==2 ? 'st-closed' : '']" [title]="[item.status==0 ? 'Station Deactive' : '' || item.status==1 ? 'Station Active' : '' || item.status==2 ? 'Station Closed' : '']" [tooltipClass]="" placement="top" [ngbTooltip]="stationContent" delay="500">{{item.stationName}}</li>
+                        </a> -->
+                        <a>
+                            <li [tooltipClass]="" placement="top" [ngbTooltip]="stationContent" delay="500">{{item.zoneName}}</li>
                         </a>
                         
                     </ul>
@@ -81,7 +96,7 @@
             
         </div>
 
-    </section> -->
+    </section>
 
     <hr />
     <section class="opr-mode">
@@ -196,7 +211,7 @@
 
                         
                         <div class="col-md-6 form-group">
-                            <button type="submit" class="btn btn-info text-center">{{send_btn_text}}</button>
+                            <button type="submit" class="btn bg-button-blue text-center">{{send_btn_text}}</button>
                         </div>
                     </div>  
                 </form>
