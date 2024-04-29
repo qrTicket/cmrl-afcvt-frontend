@@ -147,10 +147,10 @@
                 <span>{{ "Audit File" }}</span>
             </a> -->
             
-            <a [routerLink]="['penality']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <!-- <a [routerLink]="['penality']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                 <i class="fa fa-upload"></i>&nbsp;
                 <span>{{ "Penalty File Upload" }}</span>
-            </a>
+            </a> -->
 
         </div>
 
@@ -158,9 +158,14 @@
             <a [routerLink]="['admin-config-business-rule']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                 <i class="fa fa-file-text-o"></i>&nbsp;
                 <span>{{ "Business Rule" }}</span>
-            </a>
+            </a> 
+        </div>
 
-         
+        <div class="nested-menu" >
+            <a [routerLink]="['penality']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-upload"></i>&nbsp;
+                <span>{{ "Penalty File Upload" }}</span>
+            </a>
         </div>
 
         <div class="nested-menu" style="display: none;">

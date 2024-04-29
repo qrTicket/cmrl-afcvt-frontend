@@ -14,17 +14,17 @@ button[type="submit"] {
     border: 0;
     background: #00004d;
     border: 2px solid #00004d;
-    font-size: 16px;
+    font-size: 13px;
     text-transform: uppercase;
     margin: 30px 7px 28px 0px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     cursor: pointer;
 }
 
 button[type="submit"]:hover {
     color: #00004d;
     background: #fff;
-    border: 2px solid #00004d;
+    border: 1px solid #00004d;
     font-weight: bold;
 }
 
@@ -34,10 +34,10 @@ button[type="reset"] {
     border: 0;
     background: #fff;
     border: 2px solid #00004d;
-    font-size: 16px;
+    font-size: 13px;
     text-transform: uppercase;
     margin: 30px 0;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     cursor: pointer;
     font-weight: bold;
 }
@@ -55,4 +55,61 @@ span .fa-class {
 .required::after{
     content: " *";
     color: red;
+}
+
+.mrgn{
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #00006d !important;
+    color: #fff;
+    text-align: center;
+    padding: 6px;
+}
+
+tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+
+#hide-id {
+    display: none;
+}
+
+.fltLeft{
+    float: left;
+}
+
+.fltRight{
+    float: right;
+}
+
+.download {
+    padding: 8px 22px;
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 12px;
+    // margin: 30px 7px 28px 0px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.download:hover {
+    color: #00004d;
+    background: #fff;
+    border: 1px solid #00004d;
+    // font-weight: bold;
 }

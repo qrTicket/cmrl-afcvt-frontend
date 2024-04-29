@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
@@ -8,6 +8,7 @@ import { environment } from "src/environments/environment";
 })
 export class CsvFileService {
     uploadOdMatrixEndUrl:string = "api/afc/upload/odMatrix";
+    getOdMatrixEndUrl:string = "api/afc/fetch/odMatrix";
 
     private httpMultipart = {
         headers: new HttpHeaders({
@@ -66,9 +67,13 @@ export class CsvFileService {
     }
 
     uploadOdMatrix(fileData:any): Observable<any> {
-        
         const formDataBody = new FormData();
         formDataBody.append('odMatrix', fileData);
         return this.http.put(`${environment.BASEURL}/${this.uploadOdMatrixEndUrl}`,formDataBody);
-      }
+    }
+
+    getOdMatrix(): Observable<any> {  
+        //const headers = new HttpHeaders().set('Accept', '*/*');
+        return this.http.get(`${environment.BASEURL}/${this.getOdMatrixEndUrl}`);
+    }
 } 

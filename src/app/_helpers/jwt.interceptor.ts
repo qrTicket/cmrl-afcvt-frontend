@@ -20,13 +20,11 @@ export class JwtInterceptor implements HttpInterceptor {
         private router: Router,
         private authenticationService: AuthService
     ) {}
-    intercept(
-        req: HttpRequest<any>,
-        next: HttpHandler
-    ): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const headersConfig = {
             // "Content-Type": "application/json",
             Accept: "application/json",
+            //Accept: "*/*",
         };
         const token = localStorage.getItem("token");
         if (token) {

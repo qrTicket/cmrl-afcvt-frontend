@@ -15,6 +15,9 @@ export class UploadODMatrixComponent implements OnInit {
   uploadFileForm: FormGroup;
   submit = false;
   fileToUpload:any;
+  public temp: Object = false;
+
+  fileData:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,6 +30,20 @@ export class UploadODMatrixComponent implements OnInit {
     this.uploadFileForm = this.formBuilder.group({
       file: ["", RxwebValidators.required({ message: "Please select file!"})]
     });
+    // this.getOdMatrix();
+  }
+
+  getOdMatrix(){
+    this.csvService.getOdMatrix()
+    .subscribe({
+      next:(response: any)=>{
+        console.log(response);
+       
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error.data)
+      }
+    })
   }
 
   get fval(){
