@@ -99,7 +99,8 @@ export class AddlineComponent implements OnInit {
             ],
             lineColour:['',[ 
                 RxwebValidators.required({message: "This field is required!"}),
-                //RxwebValidators.alpha({message: "This will accept only alphabet!", allowWhiteSpace: true})
+                RxwebValidators.pattern({ expression: {pass: /[a-zA-Z0-9]/,},
+                    message: "Only special symbols are NOT allowed!"})
             ]],
             activationStatus:['',[ RxwebValidators.required({message: "This field is required!"})]],
             length:['',[ 

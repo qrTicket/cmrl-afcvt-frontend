@@ -38,8 +38,8 @@ h2 {
     margin-top: 15px;
     color: #000;
     font-weight: 200;
-    font-size: 18px;
-    letter-spacing: 1px;
+    font-size: 16px;
+    // letter-spacing: 1px;
   }
   
   input {
@@ -96,7 +96,7 @@ span .fa-class {
 }
 
 .required::after{
-  content: "*";
+  content: " *";
   color: red;
 }
 

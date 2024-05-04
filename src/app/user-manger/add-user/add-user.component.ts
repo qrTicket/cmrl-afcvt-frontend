@@ -54,7 +54,9 @@ export class AddUserComponent implements OnInit, OnDestroy {
             name: [ "", [RxwebValidators.required({ message: "This field is required!" }), RxwebValidators.alpha({ message: "This will accept only alphabets!", allowWhiteSpace: true,}), RxwebValidators.minLength({ value: 3, message: "Minimum 3 characters required!" }) ] ],
             email: [ "", [RxwebValidators.required({message: "This field is required!" }), RxwebValidators.email({ message: "Email is not valid!" }) ] ],
             username: [ "", [RxwebValidators.required({ message: "This field is required!" }),
-                            RxwebValidators.maxLength({value:30, message:'Please enter username less than 30 characters!'}) ] ],
+                            RxwebValidators.maxLength({value:30, message:'Please enter username less than 30 characters!'}),
+                            RxwebValidators.pattern({ expression: {pass: /[a-zA-Z0-9]/,}, message: "Only special symbols are NOT allowed!"})
+                         ] ],
             password: [ "", [RxwebValidators.required({message: "This field is required!" }), RxwebValidators.pattern({ expression: { pass: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/, },  message: "This will accept atleast 1 Uppercase, 1 lowercase, 1 symbol and 1 number with min lenght 8!" }) ] ],
             confirmPassword: [ "",[RxwebValidators.required({ message: "This field is required!" }),  RxwebValidators.compare({ fieldName: "password", message: "Password don't match!" }) ]],
             roles: [ this.rolesArray ],

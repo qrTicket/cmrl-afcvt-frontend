@@ -42,8 +42,9 @@ export class AdmindashboardComponent implements OnInit {
   showconfiguredgatelist:any= false;
   stn_group: any;
   send_btn_text:string="SEND"
-
   gateConfigForm: FormGroup;
+
+  generatedTicketCount:any;
 
 
   constructor(
@@ -58,12 +59,6 @@ export class AdmindashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    //jquery('.stnlistselect').select2(); //initialize select2 to particular input
-
-
-   
-
     this.oprModeForm = this.formbuilder.group({
       stationCode: [
         "",
@@ -95,13 +90,28 @@ export class AdmindashboardComponent implements OnInit {
     })
 
     this.getModeList();
-
     this.stationlist();
-    //this.linelist();  //not used for now
-    //this.getAllUsers(); //not used for now
     this.getLiineStationsList();
-    //this.getconfiguredGateList();
+    this.getTicketCount();
+    
   }
+
+  getTicketCount(){
+    this.dashboardService.getTicketCount().subscribe({
+      next:(res)=>{
+        if(res.status === "0"){
+          this.toastr.error(res.data)
+        }
+        else if(res.status === "1"){
+          this.generatedTicketCount = res.data;
+        }
+      },
+      error:(err)=>{
+          this.toastr.error(err.error.data)
+      }
+    })
+  }
+ 
 
   //show gate list to choos on the basis of change event
   showGateList(e){

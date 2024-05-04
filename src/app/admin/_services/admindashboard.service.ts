@@ -3,11 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GateConfig } from 'src/app/station/_model/gate-config.model';
 import { environment } from 'src/environments/environment';
+import { DataTablePayload } from '../_models/custom-datatable.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdmindashboardService {
+
+  getTicketCountEndUrl:string = "api/afc/fetch/transactionCount";
+  postTransactionListEndUrl:string = "api/afc/fetch/transactions/page";
+  getStationListEndUrl:string = "api/afc/stations/dropdown";
+  getTransactionListEndUrl:string = "api/afc/fetch/filtered/transactions";
 
   private token: string = localStorage.getItem("token");
   headers = new HttpHeaders().set("Content-Type", "application/json");
@@ -62,6 +68,24 @@ export class AdmindashboardService {
     return this.http.get(
         `${environment.productUrl}/fetch/lineZoneStation/all`,
     );
+  }
+
+  getTicketCount(): Observable<any> {
+    return this.http.get(`${environment.BASEURL}/${this.getTicketCountEndUrl}`);
+  }
+
+  getStationList(): Observable<any> {
+    return this.http.get(`${environment.BASEURL}/${this.getStationListEndUrl}`);
+  }
+
+  //with pagination
+  postTransactionList(dataTableParameters:DataTablePayload): Observable<any> {
+    return this.http.post<any>(`${environment.BASEURL}/${this.postTransactionListEndUrl}`,dataTableParameters);
+  }
+
+  //without pagination
+  getTransactionList(payload:any): Observable<any> {
+    return this.http.post<any>(`${environment.BASEURL}/${this.getTransactionListEndUrl}`,payload);
   }
 
 }

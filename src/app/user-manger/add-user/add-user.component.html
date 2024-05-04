@@ -24,6 +24,7 @@
         <div class="card-body">
             <div class="row mt-4 formPadding">
 
+                <!-- Employee ID -->
                 <div class="col-sm-4 pb-3">
                     <label id="bottomLine"><strong>Employee Id</strong><span class="mandatory">*</span></label>
                                 <!--maam commented <div class="cont"><i class="fa fa-eye my-eye justify-content-end"></i></div> -->
@@ -52,10 +53,7 @@
                     </div>
                 </div>
 
-
-
-
-
+                <!-- Name -->
                 <div class="col-sm-4 pb-3">
                     <label><strong>Name</strong><span class="mandatory">*</span></label>
                     <!-- <div class="cont"><i class="fa fa-eye my-eye justify-content-end"></i></div> -->
@@ -100,6 +98,7 @@
                     </div>
                 </div>
 
+                <!-- Email -->
                 <div class="col-sm-4 pb-3">
                     <label for="productManu" id="bottomLine"><strong>Email ID</strong><span class="mandatory">*</span></label>
 
@@ -134,39 +133,27 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Username -->
                 <div class="col-sm-4 pb-3">
                     <label id="bottomLine"><strong>Username</strong><span class="mandatory">*</span></label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        formControlName="username"
-                        [ngClass]="{
-                            'is-invalid': submitted && fval.username.errors
-                        }"
-                        
-                    />
-                    <div
-                        *ngIf="submitted && fval.username.errors"
-                        class="invalid-feedback"
-                    >
-                        <div
-                            *ngIf="
-                                addUser.controls.username.errors &&
-                                addUser.controls.username.errors.required
-                            "
-                        >
-                            {{
-                                addUser.controls.username.errors.required
-                                    .message
-                            }}
+                    <input type="text" class="form-control" formControlName="username"
+                        [ngClass]="{'is-invalid': submitted && fval.username.errors}" />
+                    <div *ngIf="submitted && fval.username.errors" class="invalid-feedback">
+                        <div *ngIf=" addUser.controls.username.errors && addUser.controls.username.errors.required">
+                            {{ addUser.controls.username.errors.required.message }}
                         </div>
                         <div *ngIf=" addUser.controls.username.errors && addUser.controls.username.errors.maxLength" >
                             {{ addUser.controls.username.errors.maxLength.message }}
+                        </div>
+                        <div *ngIf=" addUser.controls.username.errors && addUser.controls.username.errors.pass" >
+                            {{ addUser.controls.username.errors.pass.message }}
                         </div>
                         
                     </div>
                 </div>
 
+                <!-- Password -->
                 <div class="col-sm-4 pb-3">
                     <label id="bottomLine"><strong>Password</strong><span class="mandatory">*</span></label>
                     <input
@@ -214,6 +201,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Confirm Password -->
                 <div class="col-sm-4 pb-3">
                     <label id="bottomLine"><strong>Confirm Password</strong><span class="mandatory">*</span></label>
                     <input
@@ -256,6 +245,7 @@
                     </div>
                 </div>
 
+                <!-- Mobile Number -->
                 <div class="col-sm-4 pb-3">
                     <label id="bottomLine"><strong>Mobile Number</strong><span class="mandatory">*</span></label>
                     <input
@@ -296,10 +286,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="col-sm-4 pb-3"></div>
-                <div class="col-sm-4 pb-3"></div>
-                <div class="col-sm-12 pb-3" id="line"></div> -->
-
+                <!-- Role -->
                 <div class="row">
                     <div class="col-sm-4 pb-3">
                         <label><strong>Role</strong><span class="mandatory">*</span></label>
@@ -310,19 +297,9 @@
                             <div *ngIf="roleError" class="text-danger errFont">
                                 Select Atleast One Role!
                             </div>
-                        
-                        <!-- <div *ngIf="submitted && fval.role.errors"  class="invalid-feedback" >
-                            <div *ngIf="addUser.controls.role.errors && addUser.controls.role.errors.required" >
-                                {{
-                                    addUser.controls.role.errors.required.message
-                                }}
-                            </div>
-                        </div> -->
                     </div> 
                 </div>
                 
-
-
                 <!-- Station Name -->
                 <div *ngIf="showStationList" class="col-sm-4 pb-3">
                     <label id="bottomLine"><strong>Station Name</strong><span class="mandatory">*</span></label>

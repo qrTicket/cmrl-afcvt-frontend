@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { CsvFileService } from '../_services/csv-file.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-upload-o-d-matrix',
@@ -16,7 +17,7 @@ export class UploadODMatrixComponent implements OnInit {
   submit = false;
   fileToUpload:any;
   public temp: Object = false;
-
+  baseUrl:any = environment.BASEURL;
   fileData:any;
 
   constructor(

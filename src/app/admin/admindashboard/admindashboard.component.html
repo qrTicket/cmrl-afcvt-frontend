@@ -43,6 +43,64 @@
         </div>
     </div> -->
 
+    <div class="row mb-3">
+        <div class="col-md-2" [routerLink]="['/admin/transactions']">
+          <div class="card cardBg">
+            <div class="card-body col-md-12">
+                <div class="col-md-2 floatLeft">
+                    <i class="fa fa-ticket ticket-icon" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-10 floatLeft">
+                    <h5 class="card-title">
+                        Total QR and NCMC Tickets Generated
+                    </h5>
+                    <p class="card-text count-font-size">
+                        {{ generatedTicketCount && generatedTicketCount.totalTransactionCount ? generatedTicketCount.totalTransactionCount : 0 }} 
+                    </p>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 " [routerLink]="['/admin/transactions']">
+            <div class="card cardBg">
+              <div class="card-body col-md-12">
+                  <div class="col-md-2 floatLeft">
+                      <i class="fa fa-qrcode ticket-icon" aria-hidden="true"></i>
+                  </div>
+                  <div class="col-md-10 floatLeft">
+                      <h5 class="card-title">
+                          Total QR Tickets Generated
+                      </h5>
+                      <p class="card-text count-font-size"> 
+                        {{ generatedTicketCount && generatedTicketCount.qrTransactionCount ? generatedTicketCount.qrTransactionCount : 0 }} 
+                    </p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        
+        <div class="col-md-2" [routerLink]="['/admin/transactions']">
+            <div class="card cardBg">
+                <div class="card-body col-md-12">
+                    <div class="col-md-2 floatLeft">
+                        <i class="fa fa-ticket ticket-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-10 floatLeft">
+                        <h5 class="card-title">
+                            Total NCMC Tickets Generated
+                        </h5>
+                        <p class="card-text count-font-size">
+                            {{ generatedTicketCount && generatedTicketCount.ncmcTransactionCount ? generatedTicketCount.ncmcTransactionCount : 0 }} 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+
     <!-- Dashboard code start from here -->
     <section class="station-details">
         <legend>

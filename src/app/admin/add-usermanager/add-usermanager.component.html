@@ -159,20 +159,12 @@
                             }"
                             maxlength="60"
                         />
-                        <div
-                            *ngIf="submitted && fval.username.errors"
-                            class="invalid-feedback"
-                        >
-                            <div
-                                *ngIf="
-                                    addUser.controls.username.errors &&
-                                    addUser.controls.username.errors.required
-                                "
-                            >
-                                {{
-                                    addUser.controls.username.errors.required
-                                        .message
-                                }}
+                        <div *ngIf="submitted && fval.username.errors" class="invalid-feedback" >
+                            <div *ngIf=" addUser.controls.username.errors && addUser.controls.username.errors.required">
+                                {{ addUser.controls.username.errors.required.message }}
+                            </div>
+                            <div *ngIf=" addUser.controls.username.errors && addUser.controls.username.errors.pass">
+                                {{ addUser.controls.username.errors.pass.message }}
                             </div>
                         </div>
                     </div>

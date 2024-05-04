@@ -1,4 +1,4 @@
-<div class="container mt-5 mb-5 formBg"> 
+<div class="container mt-5 mb-5 "> 
     <!-- <h2>Add Station</h2>
     <hr /> -->
     <!-- <nav aria-label="breadcrumb" class="bdcrm">
@@ -12,7 +12,7 @@
         <div class="card-header col-md-12">
             <div class="col-md-8 fltLeft">
                 <h4 class="pt-2 headingTextLabel">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <i class="fa fa-gear" aria-hidden="true"></i>
                     Update Business Rule
                 </h4>
             </div>
@@ -45,7 +45,7 @@
                 <!-- timeLimitSourceStn -->
                 <div class="col-md-4">
                     <label for="timeLimitSourceStn" class="required">
-                        <b>Time Limit Source Station</b>
+                        <b>Same Station Exit Time</b>
                     </label>
                     <input formControlName="timeLimitSourceStn" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.timeLimitSourceStn.errors}" min="1" />
 
@@ -59,7 +59,7 @@
                 <!-- timeLimitDestinationStn -->
                 <div class="col-md-4">
                     <label for="timeLimitDestinationStn" class="required">
-                        <b>Time Limit Destination Station</b>
+                        <b>Destination Station Exit Time</b>
                     </label>
                     <input formControlName="timeLimitDestinationStn" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.timeLimitDestinationStn.errors}" min="1" />
 
@@ -73,7 +73,7 @@
                 <!-- startTimeLimit -->
                 <div class="col-md-4">
                     <label for="startTimeLimit" class="required">
-                        <b>Start Time Limit</b>
+                        <b>Business Start Time</b>
                     </label>
                     <input formControlName="startTimeLimit" class="form-control" type="text" [ngClass]="{'is-invalid': submitted && fval.startTimeLimit.errors}" maxlength="30" />
 
@@ -87,7 +87,7 @@
                 <!-- endTimeLimit -->
                 <div class="col-md-4">
                     <label for="endTimeLimit" class="required">
-                        <b>End Time Limit</b>
+                        <b>Business End Time</b>
                     </label>
                     <input formControlName="endTimeLimit" class="form-control" type="text" [ngClass]="{'is-invalid': submitted && fval.endTimeLimit.errors}" maxlength="30" />
 

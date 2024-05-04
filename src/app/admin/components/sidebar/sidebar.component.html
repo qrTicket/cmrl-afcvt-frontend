@@ -161,12 +161,12 @@
             </a> 
         </div>
 
-        <div class="nested-menu" >
+        <!-- <div class="nested-menu" >
             <a [routerLink]="['penality']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                 <i class="fa fa-upload"></i>&nbsp;
                 <span>{{ "Penalty File Upload" }}</span>
             </a>
-        </div>
+        </div> -->
 
         <div class="nested-menu" style="display: none;">
             <a class="list-group-item" (click)="addExpandClass('list5')">
@@ -470,8 +470,16 @@
         <!-- Upload OD matrix file -->
         <div class="nested-menu" >
             <a class="list-group-item" [routerLink]="['OD-matrix-file-upload']">
-                <i class="fa fa-file"></i>
+                <i class="fa fa-upload"></i>
                 <span>{{ "Upload OD Matrix" }}</span>
+            </a>
+        </div>
+
+        <!-- Transactions -->
+        <div class="nested-menu" >
+            <a class="list-group-item" [routerLink]="['transactions']">
+                <i class="fa fa-exchange"></i>
+                <span>{{ "Transactions" }}</span>
             </a>
         </div>
 

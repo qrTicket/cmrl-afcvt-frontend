@@ -44,8 +44,8 @@ label {
     margin-top: 15px;
     color: #000;
     font-weight: 200;
-    font-size: 18px;
-    letter-spacing: 1px;
+    font-size: 16px;
+    // letter-spacing: 1px;
 }
 
 input {
@@ -64,7 +64,7 @@ input {
     background-color: #00004d;
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    // letter-spacing: 1px;
     margin: 0 auto;
     color: #fff;
     padding: 8px 30px;
@@ -122,7 +122,7 @@ span .fa-class {
 }
 
 .required::after{
-    content: "*";
+    content: " *";
     color: red;
 }
 

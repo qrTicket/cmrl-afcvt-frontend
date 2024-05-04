@@ -287,4 +287,23 @@ a {
   .checkbox-success input[type="checkbox"]:checked + label::after {
     color: #fff; }
 
-  
+  .count-font-size{
+    font-size: 25px;
+  }
+
+  .cardBg{
+    background-color: #d7d7ff;
+    // color: #fff;
+  }
+
+  .card-title{
+    font-size: 15px!important;
+  }
+
+  .ticket-icon{
+    font-size: 35px;
+  }
+
+  .floatLeft{
+    float: left;
+  }

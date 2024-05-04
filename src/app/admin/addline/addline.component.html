@@ -67,9 +67,9 @@
                         <div *ngIf="fval.lineColour.errors && fval.lineColour.errors.required">
                             {{ fval.lineColour.errors.required.message }}
                         </div>
-                         <!-- <div *ngIf="fval.lineColour.errors && fval.lineColour.errors.alpha">
-                            {{ fval.lineColour.errors.alpha.message }}
-                        </div> -->
+                         <div *ngIf="fval.lineColour.errors && fval.lineColour.errors.pass">
+                            {{ fval.lineColour.errors.pass.message }}
+                        </div>
                     </div>
                 </div>
 
