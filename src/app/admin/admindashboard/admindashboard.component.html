@@ -44,15 +44,15 @@
     </div> -->
 
     <div class="row mb-3">
-        <div class="col-md-2" [routerLink]="['/admin/transactions']">
+        <div class="col-md-4" [routerLink]="['/admin/transactions']">
           <div class="card cardBg">
             <div class="card-body col-md-12">
-                <div class="col-md-2 floatLeft">
+                <div class="col-md-1 floatLeft">
                     <i class="fa fa-ticket ticket-icon" aria-hidden="true"></i>
                 </div>
                 <div class="col-md-10 floatLeft">
                     <h5 class="card-title">
-                        Total QR and NCMC Tickets Generated
+                        Consolidated QR and NCMC Transactions
                     </h5>
                     <p class="card-text count-font-size">
                         {{ generatedTicketCount && generatedTicketCount.totalTransactionCount ? generatedTicketCount.totalTransactionCount : 0 }} 
@@ -62,15 +62,15 @@
           </div>
         </div>
 
-        <div class="col-md-2 " [routerLink]="['/admin/transactions']">
+        <div class="col-md-4 " [routerLink]="['/admin/transactions']">
             <div class="card cardBg">
               <div class="card-body col-md-12">
-                  <div class="col-md-2 floatLeft">
+                  <div class="col-md-1 floatLeft">
                       <i class="fa fa-qrcode ticket-icon" aria-hidden="true"></i>
                   </div>
                   <div class="col-md-10 floatLeft">
                       <h5 class="card-title">
-                          Total QR Tickets Generated
+                          Total QR Transactions
                       </h5>
                       <p class="card-text count-font-size"> 
                         {{ generatedTicketCount && generatedTicketCount.qrTransactionCount ? generatedTicketCount.qrTransactionCount : 0 }} 
@@ -80,15 +80,15 @@
             </div>
           </div>
         
-        <div class="col-md-2" [routerLink]="['/admin/transactions']">
+        <div class="col-md-4" [routerLink]="['/admin/transactions']">
             <div class="card cardBg">
                 <div class="card-body col-md-12">
-                    <div class="col-md-2 floatLeft">
+                    <div class="col-md-1 floatLeft">
                         <i class="fa fa-ticket ticket-icon" aria-hidden="true"></i>
                     </div>
                     <div class="col-md-10 floatLeft">
                         <h5 class="card-title">
-                            Total NCMC Tickets Generated
+                            Total NCMC Transactions
                         </h5>
                         <p class="card-text count-font-size">
                             {{ generatedTicketCount && generatedTicketCount.ncmcTransactionCount ? generatedTicketCount.ncmcTransactionCount : 0 }} 

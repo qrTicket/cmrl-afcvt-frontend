@@ -71,7 +71,8 @@ export class UploadODMatrixComponent implements OnInit {
       next:(response:any)=>{
         if(response['status'] === "1") this.toastr.success(response.data);
         this.submit = false;
-        this.route.navigate(['/admin/admindashboard'])
+        //this.route.navigate(['/admin/admindashboard'])
+        this.uploadFileForm.reset();
       },
       error:(err:any)=>{
         this.toastr.error(err.error.data)

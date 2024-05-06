@@ -12,7 +12,7 @@
         <form [formGroup]="Search" (ngSubmit)="getFilteredResponse()" >
             <div class="row">
                 <div class="col-md-2 ">
-                    <label for="stationCode">Station Code</label>
+                    <label for="stationCode">Station Name</label>
                     <select formControlName="stationCode" class="form-control" >
                         <option value="">Select</option>
                         <option *ngFor="let item of stationList;let i=index" [value]="item.stationCode">{{ item.stationName }}</option>
