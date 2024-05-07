@@ -45,84 +45,46 @@
         </form>
     </div>
     
-    <div class="table-responsive table-set mgrn mt-4">
+    <div class="table-responsive table-set mgrn mt-4 col-md-12 marginBottom">
         <table class="table-responsive table-res row-border hover table-head" id="dataTable"  datatable  class="display nowrap table">
             <thead>
                 <tr >
-                    <th>Sequence no. for File identifier</th>
-                    <!-- <th>Version no of the structure</th> -->
-                    <!-- <th>File Generation Date and Time</th> -->
-                    <th>Txn Record Number</th>
-                    <!-- <th>Transaction Version</th> -->
-                    <!-- <th>txnTrmIdOp</th> -->
-                    <th>Txn Amount</th>
-                    <th>Date and Time of Txn</th>
-                    <!-- <th>txnTypeQ</th> -->
-                    <th>Txn Place</th>
-                    <!-- <th>txnOrd</th> -->
+                    <th>#</th>
+                    <th>Requester Id</th>
+                    <th>ORD</th>
+                    <th>Terminal Id Operator</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Amount</th>
+                    <th>Transaction Place</th>
+                    <th>Transaction Date and Time</th>
                     <th>Source Station</th>
                     <th>Destination Station</th>
-                    <th>Txn Ticket Count</th>
-                    <th>Action</th>
-                    <!-- <th>noRecords</th> -->
-                    <!-- <th>totalAmt</th>
-                    <th>transitFileInsertionTime</th>
-                    <th>mVersion</th>
-                    <th>tc</th>
-                    <th>crdAcptTrmId</th>
-                    <th>crdAcpIdCd</th>
-                    <th>mpan</th>
-                    <th>tpan</th>
-                    <th>cardBal</th>
-                    <th>ncmcPtoInfoNcmcType</th>
-                    <th>ncmcPtoInfoEvmKeyVer</th>
-                    <th>ncmcPtoInfoTpan</th>
-                    <th>rrn</th>
-                    <th>rrnInsertionTime</th>
-                    <th>claimedToAcquirer</th>
-                    <th>ackRecdFromAcquirer</th>
-                    <th>recdByNpci</th>
-                    <th>settledByBank</th>
-                    <th>responseCode</th> -->
+                    <th>Ticket Count</th>
+                    <th>Ticket Serial Number</th>
+                    <th>QR Type</th>
+                    <th>QR Generation Date and Time</th>
+                    <th>QR Product Type</th>
+                    <th>QR Service Type</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor='let item of txnList; let i=index'>
-                    <td>{{ item && item.flSeqNo ? item.flSeqNo : 'NA' }}</td>
-                    <!-- <td>{{ item && item.flVersion ? item.flVersion : 'NA' }}</td> -->
-                    <!-- <td>{{ item && item.flDtTmLcTxn ? item.flDtTmLcTxn : 'NA' }}</td> -->
-                    <td>{{ item && item.txnRecNum ? item.txnRecNum : 'NA' }}</td>
-                    <!-- <td>{{ item && item.txnVersion ? item.txnVersion : 'NA' }}</td> -->
-                    <!-- <td>{{ item && item.txnTrmIdOp ? item.txnTrmIdOp : 'NA' }}</td> -->
-                    <td>{{ item && item.txnAmtTxn ? item.txnAmtTxn : 'NA' }}</td>
-                    <td>{{ item && item.txnDtTmLcTxn ? item.txnDtTmLcTxn : 'NA' }}</td>
-                    <!-- <td>{{ item && item.txnTypeQ ? item.txnTypeQ : 'NA' }}</td> -->
-                    <td>{{ item && item.txnPlace ? item.txnPlace : 'NA' }}</td>
-                    <!-- <td>{{ item && item.txnOrd ? item.txnOrd : 'NA' }}</td> -->
-                    <td>{{ item && item.txnOpDataSrcStn ? item.txnOpDataSrcStn : 'NA' }}</td>
-                    <td>{{ item && item.txnOpDataDstStn ? item.txnOpDataDstStn : 'NA' }}</td>
-                    <td>{{ item && item.txnOtDataTcktCnt ? item.txnOtDataTcktCnt : 'NA' }}</td>
-                    <td> <button type="submit" (click)="openModal(templateActive, item)" class="viewBtn">View</button> </td>
-                    <!-- <td>{{ item && item.noRecords ? item.noRecords : 'NA' }}</td> -->
-                    <!-- <td>{{ item && item.totalAmt ? item.totalAmt : 'NA' }}</td>
-                    <td>{{ item && item.transitFileInsertionTime ? (item.transitFileInsertionTime).split('T')[0] : 'NA' }}</td>
-                    <td>{{ item && item.mVersion ? item.mVersion : 'NA' }}</td>
-                    <td>{{ item && item.tc ? item.tc : 'NA' }}</td>
-                    <td>{{ item && item.crdAcptTrmId ? item.crdAcptTrmId : 'NA' }}</td>
-                    <td>{{ item && item.crdAcpIdCd ? item.crdAcpIdCd : 'NA' }}</td>
-                    <td>{{ item && item.mpan ? item.mpan : 'NA' }}</td>
-                    <td>{{ item && item.tpan ? item.tpan : 'NA' }}</td>
-                    <td>{{ item && item.cardBal ? item.cardBal : 'NA' }}</td>
-                    <td>{{ item && item.ncmcPtoInfoNcmcType ? item.ncmcPtoInfoNcmcType : 'NA' }}</td>
-                    <td>{{ item && item.ncmcPtoInfoEvmKeyVer ? item.ncmcPtoInfoEvmKeyVer : 'NA' }}</td>
-                    <td>{{ item && item.ncmcPtoInfoTpan ? item.ncmcPtoInfoTpan : 'NA' }}</td>
-                    <td>{{ item && item.rrn ? item.rrn : 'NA' }}</td>
-                    <td>{{ item && item.rrnInsertionTime ? item.rrnInsertionTime : 'NA' }}</td>
-                    <td>{{ item && item.claimedToAcquirer ? item.claimedToAcquirer : 'NA' }}</td>
-                    <td>{{ item && item.ackRecdFromAcquirer ? item.ackRecdFromAcquirer : 'NA' }}</td>
-                    <td>{{ item && item.recdByNpci ? item.recdByNpci : 'NA' }}</td>
-                    <td>{{ item && item.settledByBank ? item.settledByBank : 'NA' }}</td>
-                    <td>{{ item && item.responseCode ? item.responseCode : 'NA' }}</td> -->
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item && item.requesterId ? item.requesterId : 'NA' }}</td>
+                    <td>{{ item && item.ord ? item.ord : 'NA' }}</td>
+                    <td>{{ item && item.cardAcceptorTerminalId ? item.cardAcceptorTerminalId : 'NA' }}</td>
+                    <td>{{ item && item.transactionType ? item.transactionType : 'NA' }}</td>
+                    <td>{{ item && item.transactionAmount ? item.transactionAmount : 'NA' }}</td>
+                    <td>{{ item && item.transactionPlace ? item.transactionPlace : 'NA' }}</td>
+                    <td>{{ item && item.transactionDateTime ? item.transactionDateTime : 'NA' }}</td>
+                    <td>{{ item && item.sourceStation ? item.sourceStation : 'NA' }}</td>
+                    <td>{{ item && item.destinationStation ? item.destinationStation : 'NA' }}</td>
+                    <td>{{ item && item.ticketCount ? item.ticketCount : 'NA' }}</td>
+                    <td>{{ item && item.ticketSerialNumber ? item.ticketSerialNumber : 'NA' }}</td>
+                    <td>{{ item && item.qrType ? item.qrType : 'NA' }}</td>
+                    <td>{{ item && item.qrGenerationDateTime ? item.qrGenerationDateTime : 'NA' }}</td>
+                    <td>{{ item && item.qrProductType ? item.qrProductType : 'NA' }}</td>
+                    <td>{{ item && item.qrServiceType ? item.qrServiceType : 'NA' }}</td>
                 </tr>
             </tbody>
             <!-- <tbody *ngIf="txnList?.length == 0">

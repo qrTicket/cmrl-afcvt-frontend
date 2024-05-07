@@ -29,8 +29,8 @@ export class TransactionListComponent implements OnInit {
 
   ticketType:any [] = [
     { "ticketCode" : "QR", "ticketValue" : "QR" },
-    { "ticketCode" : "NCMC", "ticketValue" : "NCMC" },
-    { "ticketCode" : "ALL", "ticketValue" : "ALL" },
+    // { "ticketCode" : "NCMC", "ticketValue" : "NCMC" },
+    // { "ticketCode" : "ALL", "ticketValue" : "ALL" },
   ];
 
   modalRef: BsModalRef;
