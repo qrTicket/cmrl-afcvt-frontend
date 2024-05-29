@@ -1,10 +1,26 @@
 <div class="contnr">
     <div class="card mt-5">
-        <div class="card-header">
-            <h4 class="pt-2 headingTextLabel">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                Transaction List
-            </h4>
+        <div class="card-header fltLeft">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Transaction List
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <!-- <a  class="fltRight download mt-1">
+                    <i class="fa fa-download"></i>
+                    Download Uploaded Matrix
+                </a> -->
+                <!-- <select #fileExtn class="download fltRight" (change)="onFileExtensionChange($event)" >
+                    <option value="">Download</option>
+                    <option value="pdf">.pdf</option>
+                    <option value="csv">.csv</option>
+                    <option value="docx">.docx</option> -->
+                    <!-- <option *ngFor="let item of fileExtension;let i=index" [value]="item.id">{{ item.fileType }}</option> -->
+                <!-- </select> -->
+            </div>
+            
         </div>
     </div>
     
@@ -37,16 +53,26 @@
                     </select>
                 </div>
 
-                <div class="col-md-2 ">
-                    <button type="submit" class="searchBtn">Search</button>
-                    <button type="reset" class="searchBtn mx-1">Reset</button>
+                <div class="col-md-4 ">
+                    <button type="submit" class="searchBtn">
+                        Search
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <button type="reset" class="searchBtn mx-1">
+                        Reset
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                    <select #fileExtn class="searchBtn mx-2" (change)="onFileExtensionChange($event)" >
+                        <option value="">Download</option>
+                        <option *ngFor="let item of fileExtension;let i=index" [value]="item">{{ item }}</option>
+                    </select>
                 </div>
             </div>
         </form>
     </div>
     
-    <div class="table-responsive table-set mgrn mt-4 col-md-12 marginBottom">
-        <table class="table-responsive table-res row-border hover table-head" id="dataTable"  datatable  class="display nowrap table">
+    <div class="table-responsive table-set mgrn mt-4 col-md-12 marginBottom" >
+        <table class="table-responsive table-res row-border hover table-head" id="dataTable" datatable=""  class="display nowrap table" [dtOptions]="dtOptions" *ngIf="temp">
             <thead>
                 <tr >
                     <th>#</th>

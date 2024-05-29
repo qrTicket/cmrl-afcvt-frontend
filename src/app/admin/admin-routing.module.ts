@@ -74,6 +74,7 @@ import { AdminZoneListComponent } from "./admin-zone-list/admin-zone-list.compon
 import { AdminConfigBusinessRuleComponent } from "./admin-config-business-rule/admin-config-business-rule.component";
 import { UploadODMatrixComponent } from "./upload-o-d-matrix/upload-o-d-matrix.component";
 import { TransactionListComponent } from "./transaction-list/transaction-list.component";
+import { TestingDatatableComponent } from "./testing-datatable/testing-datatable.component";
 
 const routes: Routes = [
     {
@@ -197,6 +198,8 @@ const routes: Routes = [
             { path: "OD-matrix-file-upload", component: UploadODMatrixComponent },
 
             { path: "transactions", component: TransactionListComponent },
+
+            // { path: "testing", component: TestingDatatableComponent },
         ],
     },
 ];
