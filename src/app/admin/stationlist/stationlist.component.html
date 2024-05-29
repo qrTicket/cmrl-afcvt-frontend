@@ -78,8 +78,8 @@
 
                         <select class="form-control" (change)="openModal(templateDeactivate, templateActive,templateClose, $event)">
                             <option value="">Select Status</option>
-                            <option value="1" [selected]="item.status=='1' ">Activated</option>
-                            <option value="0" [selected]="item.status=='0'">Deactivated</option>
+                            <option value="1" [selected]="item.status=='1' ">Activate</option>
+                            <option value="0" [selected]="item.status=='0'">Deactivate</option>
                             <option value="2" [selected]="item.status=='2' ">Closed Station</option>
                         </select>
 

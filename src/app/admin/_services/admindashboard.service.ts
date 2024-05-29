@@ -14,6 +14,8 @@ export class AdmindashboardService {
   postTransactionListEndUrl:string = "api/afc/fetch/transactions/page";
   getStationListEndUrl:string = "api/afc/stations/dropdown";
   getTransactionListEndUrl:string = "api/afc/fetch/filtered/transactions";
+  getFileExtensionEndUrl:string = "api/afc/transactionReport/docFormats";
+  downloadTxnFileEndUrl:string = "api/afc/transactionReport/download";
 
   private token: string = localStorage.getItem("token");
   headers = new HttpHeaders().set("Content-Type", "application/json");
@@ -79,13 +81,27 @@ export class AdmindashboardService {
   }
 
   //with pagination
-  postTransactionList(dataTableParameters:DataTablePayload): Observable<any> {
+  postTransactionList(dataTableParameters:any): Observable<any> {
     return this.http.post<any>(`${environment.BASEURL}/${this.postTransactionListEndUrl}`,dataTableParameters);
   }
 
   //without pagination
   getTransactionList(payload:any): Observable<any> {
     return this.http.post<any>(`${environment.BASEURL}/${this.getTransactionListEndUrl}`,payload);
+  }
+
+  getFileExtension(): Observable<any> {
+    return this.http.get(`${environment.BASEURL}/${this.getFileExtensionEndUrl}`);
+  }
+
+  downloadTxnFile(payload:any, fileExt:any): Observable<any> {
+    const header = {
+      headers: new HttpHeaders({
+          Authorization: `Bearer ${this.token}`,
+          //"Content-Type": "application/json",
+      }),
+  };
+    return this.http.post<any>(`${environment.BASEURL}/${this.downloadTxnFileEndUrl}/${fileExt}`, payload, {...header, responseType: 'blob' as 'json'});
   }
 
 }

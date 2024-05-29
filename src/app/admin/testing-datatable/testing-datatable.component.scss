@@ -73,11 +73,7 @@ td {
   }
 
 .fltLeft{
-    float: left!important;
-}
-
-.fltRight{
-    float: right!important;
+    float: left;
 }
 
 .marginBottom{
@@ -109,21 +105,3 @@ td {
     text-transform: uppercase;
     cursor: pointer;
 }
-
-.download {
-    padding: 8px 22px;
-    color: #fff!important;
-    border: 0;
-    background: #00004d;
-    border: 2px solid #00004d;
-    font-size: 12px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-// .download:hover {
-//     color: #00004d!important;
-//     background: #fff!important;
-//     border: 1px solid #00004d;
-// }

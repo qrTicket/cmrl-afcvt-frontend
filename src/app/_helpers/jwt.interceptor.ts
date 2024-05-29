@@ -22,9 +22,10 @@ export class JwtInterceptor implements HttpInterceptor {
     ) {}
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const headersConfig = {
-            // "Content-Type": "application/json",
+            // Accept: '*/*',
+            //  "Content-Type": "application/json",
             Accept: "application/json",
-            //Accept: "*/*",
+            
         };
         const token = localStorage.getItem("token");
         if (token) {
