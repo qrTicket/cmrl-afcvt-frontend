@@ -21,7 +21,7 @@ export class SpecialDaysAddComponent implements OnInit {
   maxDate: Date;
   datePickerConfigSpecialDay: Partial<BsDatepickerConfig>;
   datePickerYearStartingDay: Partial<BsDatepickerConfig>;
-  calenderInfo:any;
+  calenderInfo:any = "";
 
   modalRef: BsModalRef;
     statusValue: number;

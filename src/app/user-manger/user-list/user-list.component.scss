@@ -84,39 +84,29 @@ hr {
     margin: 25px 0 0 0 ;
   }
   
+  .fltLeft{
+    float: left;
+  }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  /* general styling */
-//   html, body {
-//     height: 100%;
-//     margin: 0;
-//   }
-  
-//   body {
-//     -webkit-box-align: center;
-//     -ms-flex-align: center;
-//     align-items: center;
-//     background-color: #f1f2f3;
-//     display: -webkit-box;
-//     display: -ms-flexbox;
-//     display: flex;
-//   }
-  
-//   .container {
-//     margin: 0 auto;
-//   }
+  .fltRight{
+    float: right;
+  }
 
+  .brdBg{
+    background-color: #e9ecef !important;
+    float: left;
+  }
+  .download {
+    padding: 8px 22px;
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+  }
 
 
 

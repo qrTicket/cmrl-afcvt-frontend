@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h4 class="pt-2 headingTextLabel">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Station Discount List
+            </h4>
+        </div>
+    </div>
+    
+    <div class="table-responsive table-set mgrn mt-4">
+        <table class="table-res row-border hover table-head" id="dataTable" datatable="" 
+             class="display nowrap table" cellspacing="0" width="100%" *ngIf="this.temp">
+            <thead>
+                <tr class="text-center">
+                    <th>Sr.No.</th>
+                    <th>Station Name</th>
+                    <th>Station Code</th>
+                    <th>Discount</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of stationList'>
+                    <td><b>{{ item && item.id ? item.id : 'NA' }}</b></td>
+                    <td>{{ item && item.stationName ? item.stationName : 'NA' }}</td>
+                    <td>{{ item && item.stationCode ? item.stationCode  : 'NA' }}</td>
+                    <td>{{ item && item.discount ? item.discount : 'NA' }}</td>
+                    <td>
+                        <a href="javascript:;" [routerLink]="['/admin/station-discount-edit/', item.id]">
+                            <i class="fa fa-edit editButton" ></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -29,7 +29,7 @@
         <form [formGroup]="editstationForm" (ngSubmit)="onFormSubmit()">
             <div class="row row-p10">
 
-                  <!-- Zone -->
+                <!-- Zone -->
                 <div class="col-md-4">     
                     <label for="zone" class="required">Zone</label>    
                     <ng-select id="zone" class=" form-vehicle" formControlName="zoneId" placeholder="Select Zone"
@@ -42,8 +42,6 @@
                             {{fval.zoneId.errors.required.message }}
                         </div>
                     </div>
-                           
-                   
                 </div>
 
                 <!-- Station Name -->
@@ -88,6 +86,23 @@
                     </div>
                 </div>
 
+                <!-- Station ID -->
+                <div class="col-md-4">
+                    <label for="stationId" class="required">
+                        <b>Station Id</b>
+                    </label>
+                    <input formControlName="stationId" class="form-control" type="text"
+                        [ngClass]="{'is-invalid': submitted && fval.stationId.errors}" maxlength="128" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.stationId.errors && fval.stationId.errors.required ">
+                            {{fval.stationId.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.stationId.errors && fval.stationId.errors.numeric">
+                            {{ fval.stationId.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Station Code -->
                 <div class="col-md-4">
                     <label for="stationCode" >
@@ -110,31 +125,15 @@
                         </div>
                 </div>
 
-                 <!-- Station ID -->
-                 <!-- <div class="col-md-4">
-                    <label for="stationId" class="required">
-                        <b >Station ID</b>
-                    </label>
-                    <input formControlName="stationId" class="form-control" type="text" 
-                        [ngClass]="{'is-invalid': submitted && fval.stationId.errors}" maxlength="25" />
-                    <div *ngIf="submitted" class="invalid-feedback">
-                        <div *ngIf="fval.stationId.errors && fval.stationId.errors.required">
-                            {{ fval.stationId.errors.required.message }}
-                        </div>
-                    </div>
-                </div> -->
-
                 <!-- Contact Number -->
                 <div class="col-md-4">
                     <label for="contactNum" class="required">
                         <b> Contact Number</b>
                     </label>
                     <input formControlName="contactNum" class="form-control" type="text" [ngClass]="{
-                            'is-invalid': submitted && fval.contactNum.errors
-                        }" maxlength="10" />
+                            'is-invalid': submitted && fval.contactNum.errors}" maxlength="10" />
                     <div *ngIf="submitted && fval.contactNum.errors" class="invalid-feedback">
-                        <div *ngIf="
-                                fval.contactNum.errors &&
+                        <div *ngIf="fval.contactNum.errors &&
                                 fval.contactNum.errors.required
                             ">
                             {{
@@ -153,7 +152,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Latitude -->
                 <div class="col-md-4">
@@ -221,10 +219,8 @@
                     </div>
                 </div>
 
-                
-
-               <!-- Address -->
-               <div class="col-md-4">
+                <!-- Address -->
+                <div class="col-md-4">
                     <label for="address" class="required">
                         <b>Address</b>
                     </label>
@@ -250,10 +246,9 @@
 
                     </div>
                 </div>
-
-
             </div>
 
+            <!-- update buttons -->
             <div class="clearfix col-md-12 btn-set">
                 <button type="submit">
                     Update

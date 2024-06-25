@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Station } from "../_models/station.model";
 import { StationService } from "../_services/station.service";
-import { RxwebValidators } from "@rxweb/reactive-form-validators";
+import { NumericValueType, RxwebValidators } from "@rxweb/reactive-form-validators";
 import { Line } from "../_models/lines.model";
 import { LinesService } from "../_services/lines.service";
 import { ZoneService } from "../_services/zone.service";
@@ -60,7 +60,10 @@ export class EditStationComponent implements OnInit {
                     }),
                 ],
             ],
-            //stationId:['',[RxwebValidators.required({message: "This field is required!"})]],
+            stationId:['',[
+                RxwebValidators.required({ message: "This field is required!"}),
+                RxwebValidators.numeric({ acceptValue:NumericValueType.PositiveNumber, message: "Only numbers are allowed!"})
+            ]],
             contactNum: [
                 "",
                 [
@@ -157,14 +160,14 @@ export class EditStationComponent implements OnInit {
     updateStation(station: Station) {
         this.editstationForm.patchValue({
             //id: station.id,
-            zoneId: station && station.zoneId ? station.zoneId : "",
-            stationCode: station.stationCode,
-            stationName: station.stationName,
-            //stationId: station.stationId,
-            latitude:station.latitude,
-            longitude:station.longitude,
-            contactNum:station.contactNum,
-            address:station.address,
+            zoneId: station && station.zoneId ? station.zoneId : '',
+            stationCode: station && station.stationCode ? station.stationCode : '',
+            stationName: station && station.stationName ? station.stationName : '',
+            stationId: station && station.stationId ? station.stationId : '',
+            latitude: station && station.latitude ? station.latitude : '',
+            longitude: station && station.longitude ? station.longitude : '',
+            contactNum: station && station.contactNum ? station.contactNum : '',
+            address: station && station.address ? station.address : '',
 
         });
     }
@@ -183,7 +186,7 @@ export class EditStationComponent implements OnInit {
                 "zoneId" : this.editstationForm.value.zoneId,
                 "stationName" : this.editstationForm.value.stationName,
                 "stationCode" : this.editstationForm.value.stationCode,
-                //"stationId" : this.editstationForm.value.stationId,
+                "stationId" : +this.editstationForm.value.stationId,
                 "contactNum" : this.editstationForm.value.contactNum,
                 "latitude" : this.editstationForm.value.latitude,
                 "longitude" : this.editstationForm.value.longitude,

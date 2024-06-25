@@ -1,15 +1,28 @@
-<div class="container mt-5 mb-5 formBg">
-    <div class="card mb-4">
+<div class="container mt-5 mb-5 ">
+    <!-- <div class="card mb-4">
         <div class="card-header">
-            <h4 class="pt-2 text-primary">
-                <i class="fa fa-edit" aria-hidden="true"></i>
+            <h4 class="pt-2">
+                <i class="fa fa-gears" aria-hidden="true"></i>
                 Update Special Day
             </h4>
         </div>
+    </div> -->
+    <div class="card">
+        <div class="card-header col-md-12">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-gears" aria-hidden="true"></i>
+                    Update Special Day
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin/special-days-list']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
+        </div>
     </div>
-    <!-- <h2>Update Special Day</h2>
-    <hr> -->
-    <div class="row form-border">
+    <div class="row form-border mt-4">
         <form [formGroup]="updateSpecialDay" (ngSubmit)="onFormSubmit()">
             <div class="row row-p10">
                 <!-- Special Day Name -->
@@ -82,7 +95,7 @@
             </div>
 
 
-            <div class="clearfix mt-4 btn-set">
+            <!-- <div class="clearfix mt-4 btn-set">
                 <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
                     <span class="fa-class fa fa-close"></span>
                 </button>
@@ -90,7 +103,20 @@
                     Update
                     <span class="fa-class fa fa-paper-plane"></span>
                 </button>
-                
+            </div> -->
+
+            <div class=" row mt-5 mrgnBttom  col-md-12">
+                <div class="col-md-6 ">
+                    <button type="submit" class="fltRight mx-3">
+                        Update
+                        <span class="fa-class fa fa-refresh"></span>
+                    </button>
+                </div>
+                <div class="col-md-6 ">.
+                    <button type="submit"  (click)="cancel()">Cancel
+                        <span class="fa-class fa fa-close"></span>
+                    </button>
+                </div> 
             </div>
 
         </form>

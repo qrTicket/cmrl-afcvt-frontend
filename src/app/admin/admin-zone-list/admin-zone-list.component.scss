@@ -110,3 +110,24 @@ input[type="checkbox"]{
   .headingTextLabel{
     color: #00004d!important;;
   }
+
+  .fltLeft{
+    float: left;
+  }
+  
+  .fltRight{
+    float: right;
+  }
+  
+  .download {
+    padding: 8px 22px;
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 12px;
+    // margin: 30px 7px 28px 0px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+  }

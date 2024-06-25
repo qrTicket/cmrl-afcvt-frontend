@@ -16,10 +16,19 @@
     </h2>
 </div> -->
 
-<nav aria-label="breadcrumb" class="bdcrm">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/equipment/equipmentdash']">Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Assigned Equipment List</li>
+<nav aria-label="breadcrumb" class="bdcrm col-md-12">
+    <ol class="breadcrumb fltLeft col-md-12">
+        <div class="col-md-8 fltLeft pt-2">
+            <li class="breadcrumb-item fltLeft"><a [routerLink]="['/equipment/equipmentdash']">Dashboard</a></li>
+            <li class="breadcrumb-item active fltLeft" aria-current="page">Assigned Equipment List</li>
+        </div>
+        
+        <div class="fltRight col-md-4">
+            <select #fileExtn class="download fltRight mt-1" (change)="onFileExtensionChange($event)" >
+                <option value="">Download</option>
+                <option *ngFor="let item of fileExtension;let i=index" [value]="item">{{ item }}</option>
+            </select>
+        </div>
     </ol>
 </nav>
 

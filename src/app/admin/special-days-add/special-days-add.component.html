@@ -1,13 +1,13 @@
-<div class="container mt-5 mb-5 formBg">
+<div class="container mt-5 mb-5 ">
     <div class="card mb-4">
         <div class="card-header col-md-12">
-            <h4 class="pt-2 text-primary col-md-8 fltLeft">
-                <i class="fa fa-plus text-primary" aria-hidden="true"></i>
+            <h4 class="pt-2 col-md-8 fltLeft">
+                <i class="fa fa-plus " aria-hidden="true"></i>
                 Add Special Day
             </h4>
             <div class="col-md-4 fltRight">
                 <p *ngIf="calenderInfo.startOfCalender; else addYearDate" class="fltRight mt-2">
-                    Year Start Date : {{ calenderInfo.startOfCalender }}
+                    Year Start Date : {{ calenderInfo && calenderInfo.startOfCalender ? calenderInfo.startOfCalender : "" }}
                     <span class="badge badge-danger" (click)="patchCalanderData(templateYearStartDate)">
                         <i class="fa fa-edit" aria-hidden="true" ></i>
                         Edit
@@ -62,7 +62,7 @@
             </div>
 
 
-            <div class="clearfix mt-4 btn-set">
+            <!-- <div class="clearfix mt-4 btn-set">
                 <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
                     <span class="fa-class fa fa-close"></span>
                 </button>
@@ -70,7 +70,20 @@
                     Submit
                     <span class="fa-class fa fa-paper-plane"></span>
                 </button>
-                
+            </div> -->
+
+            <div class=" row mt-5 mrgnBttom  col-md-12">
+                <div class="col-md-6 ">
+                    <button type="submit" class="fltRight mx-3">
+                        Submit
+                        <span class="fa-class fa fa-paper-plane"></span>
+                    </button>
+                </div>
+                <div class="col-md-6 ">.
+                    <button type="submit"  (click)="cancel()">Cancel
+                        <span class="fa-class fa fa-close"></span>
+                    </button>
+                </div> 
             </div>
 
         </form>
@@ -125,7 +138,7 @@
                         <span class="fa-class fa fa-close"></span>
                     </button>
                     
-                    <button *ngIf="calenderInfo.startOfCalender; else addYearDateButton" type="submit" class="btn btn-primary mx-3" (click)="updateStartOfYear()">
+                    <button *ngIf="calenderInfo.startOfCalender; else addYearDateButton" type="submit" class=" mx-3" (click)="updateStartOfYear()">
                         Update
                         <span class="fa-class fa fa-refresh"></span>
                     </button>
@@ -136,9 +149,10 @@
                             <span class="fa-class fa fa-paper-plane"></span>
                         </button>
                     </ng-template>
-                    
-                    
                 </div>
+
+                
+
             </div>
         </form>
     </div>

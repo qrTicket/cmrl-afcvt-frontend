@@ -14,10 +14,24 @@
 
     <div class="card mt-5">
         <div class="card-header">
-            <h4 class="pt-2 headingTextLabel">
+            <!-- <h4 class="pt-2 headingTextLabel">
                 <i class="fa fa-list" aria-hidden="true"></i>
                 Station List
-            </h4>
+            </h4> -->
+            <div class="col-md-12">
+                <div class="col-md-8 fltLeft">
+                    <h4 class="pt-2 headingTextLabel">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        Station List
+                    </h4>
+                </div>
+                <div class="col-md-4 fltRight">
+                    <select #fileExtn class="download fltRight mt-1" (change)="onFileExtensionChange($event)" >
+                        <option value="">Download</option>
+                        <option *ngFor="let item of fileExtension;let i=index" [value]="item">{{ item }}</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -42,6 +56,7 @@
                     <th>S.No.</th>
                     <th>Station Name</th>
                     <th>Station Code</th>
+                    <th>Station ID</th>
                     <th>Contact Number</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
@@ -58,6 +73,7 @@
                     <td>{{i+1}}</td>
                     <td>{{ item && item.stationName ? item.stationName : 'NA' }}</td>
                     <td>{{ item && item.stationCode ? item.stationCode : 'NA' }}</td>
+                    <td>{{ item && item.stationId ? item.stationId : 'NA' }}</td>
                     <td>{{ item && item.contactNum ? item.contactNum : 'NA' }}</td>
                     <td>{{ item && item.latitude ? item.latitude : 'NA' }}</td>
                     <td>{{ item && item.longitude ? item.longitude : 'NA' }}</td>
@@ -72,11 +88,11 @@
                             <i class="fa fa-edit editButton" ></i>
                         </a>
                     </td>
-                    <td style="width: 150px;">
+                    <td >
                         <!-- <input type="checkbox" [value]="item.status" id="handleCheckBox"  [checked]="(item.status === 0) ?'':'checked'" (change)="openModal(templateDeactivate, templateActive, $event)" > -->
                         <!-- <select class="form-control" (change)="changeStatus(item.stationCode, $event.target.value)"> -->
 
-                        <select class="form-control" (change)="openModal(templateDeactivate, templateActive,templateClose, $event)">
+                        <select class="form-control statusDropdownList" (change)="openModal(templateDeactivate, templateActive,templateClose, $event)">
                             <option value="">Select Status</option>
                             <option value="1" [selected]="item.status=='1' ">Activate</option>
                             <option value="0" [selected]="item.status=='0'">Deactivate</option>

@@ -112,11 +112,24 @@ input[type="checkbox"]{
     border: 1px solid red;
   }
 
-  .fltLeft{
-    float: left;
-}
-
 .linkHover:hover{
   text-decoration: underline;
   cursor: pointer;
+}
+
+.fltLeft{
+  float: left;
+}
+
+.fltRight{
+  float: right;
+}
+
+.backBtn{
+  padding: 10px 0 0 0;
+}
+
+.backBtn a{
+  text-decoration: none;
+  color: #00004d;
 }

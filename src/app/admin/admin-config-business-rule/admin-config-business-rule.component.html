@@ -100,11 +100,14 @@
 
                 <!-- penaltyDecision -->
                 <div class="col-md-4">
-                    <label for="penaltyDecision" class="required">
-                        <b>Penalty Decision</b>
-                    </label>
-                    <input formControlName="penaltyDecision" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.penaltyDecision.errors}" min="0" />
-
+                    <label for="penaltyDecision" class="required"><b>Penalty Decision</b></label>
+                    <!-- <input formControlName="penaltyDecision" class="form-control" type="number" 
+                        [ngClass]="{'is-invalid': submitted && fval.penaltyDecision.errors}" min="0" /> -->
+                    <ng-select id="penaltyDecision" class=" form-vehicle" formControlName="penaltyDecision" placeholder="Select"
+                            [ngClass]="{ 'is-invalid': submitted && fval['penaltyDecision'].errors }">
+                        <ng-option value="" selected>--Select--</ng-option>
+                        <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
+                    </ng-select>
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf=" fval.penaltyDecision.errors && fval.penaltyDecision.errors.required ">
                             {{fval.penaltyDecision.errors.required.message }}
@@ -112,6 +115,80 @@
                     </div>
                 </div>
 
+                <!-- Error Codes -->
+                <div class="col-md-4">
+                    <label for="errorCodes" class="required">Error Code Enable</label>
+                    <ng-select id="errorCodes" class=" form-vehicle" formControlName="errorCodes" placeholder="Select"
+                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }" (change)="onErrCodeChange($event)" >
+                        <ng-option value="" selected>--Select--</ng-option>
+                        <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.errorCodes.errors && fval.errorCodes.errors.required ">
+                            {{fval.errorCodes.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entry Mismatch -->
+                <div class="col-md-4">
+                    <label for="entryMisMatch" class="required">Entry MisMatch</label>
+                    <ng-select id="entryMisMatch" class=" form-vehicle" formControlName="entryMisMatch" placeholder="Select"
+                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        <ng-option value="" selected>--Select--</ng-option>
+                        <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.entryMisMatch.errors && fval.entryMisMatch.errors.required ">
+                            {{fval.entryMisMatch.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exit Mismatch -->
+                <div class="col-md-4">
+                    <label for="exitMisMatch" class="required">Exit MisMatch</label>
+                    <ng-select id="exitMisMatch" class=" form-vehicle" formControlName="exitMisMatch" placeholder="Select"
+                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        <ng-option value="" selected>--Select--</ng-option>
+                        <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.exitMisMatch.errors && fval.exitMisMatch.errors.required ">
+                            {{fval.exitMisMatch.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insufficient Amount -->
+                <div class="col-md-4 mt-3">
+                    <label for="insufficientAmount" class="required">Insufficient Amount</label>
+                    <ng-select id="insufficientAmount" class=" form-vehicle" formControlName="insufficientAmount" placeholder="Select"
+                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        <ng-option value="" selected>--Select--</ng-option>
+                        <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.insufficientAmount.errors && fval.insufficientAmount.errors.required ">
+                            {{fval.insufficientAmount.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OverStay -->
+                <div class="col-md-4 mt-3">
+                    <label for="overStay" class="required">OverStay</label>
+                    <ng-select id="overStay" class=" form-vehicle" formControlName="overStay" placeholder="Select"
+                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        <ng-option value="" selected>--Select--</ng-option>
+                        <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.overStay.errors && fval.overStay.errors.required ">
+                            {{fval.overStay.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
                 
 
             </div>

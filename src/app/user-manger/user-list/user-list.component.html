@@ -2,11 +2,22 @@
     <p style="color: white">Loading...</p>
 </ngx-spinner>
 
-<nav aria-label="breadcrumb" class="bdcrm">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/user-manager/dashboard']">Dashboard</a></li>
-        <li class="breadcrumb-item" aria-current="page">User List</li>
-    </ol>
+<nav aria-label="breadcrumb" class="bdcrm col-md-12 brdBg">
+    <!-- <div class="col-md-12"> -->
+        <div class="col-md-8 fltLeft">
+            <ol class="breadcrumb ">
+                <li class="breadcrumb-item"><a [routerLink]="['/user-manager/dashboard']">Dashboard</a></li>
+                <li class="breadcrumb-item" aria-current="page">User List</li>
+            </ol>
+        </div>
+        <div class="col-md-4 fltRight">
+            <select #fileExtn class="download fltRight mt-2" (change)="onFileExtensionChange($event)" >
+                <option value="">Download</option>
+                <option *ngFor="let item of fileExtension;let i=index" [value]="item">{{ item }}</option>
+            </select>
+        </div>
+    <!-- </div> -->
+    
 </nav>
 
 

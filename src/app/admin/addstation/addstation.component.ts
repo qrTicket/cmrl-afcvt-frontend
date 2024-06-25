@@ -7,7 +7,7 @@ import { Station } from "../_models/station.model";
 import { StationService } from "../_services/station.service";
 import { Line } from "../_models/lines.model";
 import { LinesService } from "../_services/lines.service";
-import { RxwebValidators } from "@rxweb/reactive-form-validators";
+import { NumericValueType, RxwebValidators } from "@rxweb/reactive-form-validators";
 import { ZoneService } from "../_services/zone.service";
 
 @Component({
@@ -59,6 +59,10 @@ export class AddstationComponent implements OnInit {
                     }),
                 ],
             ],
+            stationId:['',[
+                RxwebValidators.required({ message: "This field is required!"}),
+                RxwebValidators.numeric({ acceptValue:NumericValueType.PositiveNumber, message: "Only numbers are allowed!"}),
+            ]],
             stationCode: ["",
                 [
                     RxwebValidators.required({ message: "This field is required!"}),
@@ -146,7 +150,7 @@ export class AddstationComponent implements OnInit {
             "zoneId" : this.stationForm.value.zoneId,
             "stationName" : this.stationForm.value.stationName,
             "stationCode" : this.stationForm.value.stationCode,
-            //"stationId" : this.stationForm.value.stationId,
+            "stationId" : +this.stationForm.value.stationId,
             "contactNum" : this.stationForm.value.contactNum,
             "latitude" : this.stationForm.value.latitude,
             "longitude" : this.stationForm.value.longitude,

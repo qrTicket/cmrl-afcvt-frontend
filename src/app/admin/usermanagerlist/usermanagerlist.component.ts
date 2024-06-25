@@ -7,6 +7,8 @@ import { Subscription } from "rxjs";
 import { unique } from "@rxweb/reactive-form-validators";
 import { AddUsermanager } from "../_models/add-usermanager.model";
 import { AddUsermanagerService } from "../_services/add-usermanager.service";
+import { AdmindashboardService } from "../_services/admindashboard.service";
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -15,6 +17,7 @@ import { AddUsermanagerService } from "../_services/add-usermanager.service";
   styleUrls: ['./usermanagerlist.component.scss']
 })
 export class UsermanagerlistComponent implements OnInit {
+  @ViewChild('fileExtn') fileExtn:ElementRef<any>;
 
   //@ViewChild("check",{static: false}) el_check: ElementRef;
   modalRef: BsModalRef;
@@ -38,6 +41,7 @@ export class UsermanagerlistComponent implements OnInit {
   check:boolean = false;
   chkBoxValue:any;
   statusValue: number;
+  fileExtension:any[];
 
   constructor(
       private router: Router,
@@ -46,11 +50,13 @@ export class UsermanagerlistComponent implements OnInit {
       private modalService: BsModalService,
       private userService: AddUsermanagerService,
       private toastr: ToastrService,
+      private adminSrv: AdmindashboardService,
   ) {}
 
   ngOnInit() {
       this.spinner.show();
       this.getAllUsers();
+      this.getFileExtensionList();
   }
 
   getAllUsers() {
@@ -115,6 +121,7 @@ export class UsermanagerlistComponent implements OnInit {
       //     e.target.checked = true;
       // }
   }
+
   confirm(username: string, status:number) {
       this.spinner.show();
       this.modalRef.hide();
@@ -173,6 +180,7 @@ export class UsermanagerlistComponent implements OnInit {
   openBlacklistModel(blacklist_user: TemplateRef<any>) {
       this.modalRef = this.modalService.show(blacklist_user, this.config);
   }
+
   blacklist(id:any) {
       this.spinner.show();
       this.modalRef.hide();
@@ -210,16 +218,43 @@ export class UsermanagerlistComponent implements OnInit {
         }
       })
   }
+
   notBlacklist(): void {
       // console.log("Not blacklist");
 
       this.modalRef.hide();
   }
 
-
-
   ngOnDestroy(){
       this.subscription.forEach( subs => subs.unsubscribe())
+  }
+
+  getFileExtensionList(){
+    this.adminSrv.getFileExtensionForUsers().subscribe({
+      next:(resp:any)=>{
+        if(resp["status"] === "1"){
+          this.fileExtension = resp.data;
+          console.log(this.fileExtension);
+        }
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error.data,'ERROR')
+      }
+    })
+  }
+
+  onFileExtensionChange(e:any){
+    let fileExt = e.target.value;
+    this.adminSrv.downloadFileForUsers(fileExt).subscribe({
+      next:(resp:any)=>{
+        const blob = new Blob([resp], {type:'*/*'});
+        saveAs(blob,`UserManager.${fileExt}`);
+        this.fileExtn.nativeElement.value = "";
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error.data,'ERROR')
+      }
+    })
   }
 
 }

@@ -9,11 +9,25 @@
 <div class="container container-mrgn">
     <div class="card mt-5">
         <div class="card-header col-md-12">
-            <div class="col-md-12 fltLeft">
+            <!-- <div class="col-md-12 fltLeft">
                 <h4 class="pt-2 headingTextLabel">
                     <i class="fa fa-list" aria-hidden="true"></i>
                     User Manager List
                 </h4>
+            </div> -->
+            <div class="col-md-12">
+                <div class="col-md-8 fltLeft">
+                    <h4 class="pt-2 headingTextLabel">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        User List
+                    </h4>
+                </div>
+                <div class="col-md-4 fltRight">
+                    <select #fileExtn class="download fltRight mt-1" (change)="onFileExtensionChange($event)" >
+                        <option value="">Download</option>
+                        <option *ngFor="let item of fileExtension;let i=index" [value]="item">{{ item }}</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>

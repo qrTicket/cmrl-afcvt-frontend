@@ -13,12 +13,16 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ProductService } from "../_services/product.service";
 import { AddUserService } from "../../user-manger/_services/add-user.service";
 import { ToastrService } from "ngx-toastr";
+import { EquipmentService } from "../_services";
+import { saveAs } from 'file-saver';
+
 @Component({
     selector: "app-assign-list",
     templateUrl: "./assign-list.component.html",
     styleUrls: ["./assign-list.component.scss"],
 })
 export class AssignListComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('fileExtn') fileExtn:ElementRef<any>;
     @ViewChild("container", { static: true }) container: ElementRef;
     el: HTMLElement;
     stationCountForm: FormGroup;
@@ -30,12 +34,16 @@ export class AssignListComponent implements OnInit, AfterViewInit, OnDestroy {
     isVisible: Boolean;
     stationCode: any;
     myObject: any;
+    fileExtension:any[];
+
+
     constructor(
-        private fb: FormBuilder,
-        private productAPI: ProductService,
-        private userService: AddUserService,
-        private spinner: NgxSpinnerService,
-         private toastr :ToastrService
+      private fb: FormBuilder,
+      private productAPI: ProductService,
+      private userService: AddUserService,
+      private spinner: NgxSpinnerService,
+      private toastr :ToastrService,
+      private equipSrv:EquipmentService 
     ) {}
 
     ngOnInit() {
@@ -91,7 +99,40 @@ export class AssignListComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             )
         );
+
+        this.getFileExtensionList();
     }
+
+    // get file extension for custom filter
+  getFileExtensionList(){
+    this.equipSrv.getFileExtensionForAssignedEquipments().subscribe({
+      next:(resp:any)=>{
+        if(resp["status"] === "1"){
+          this.fileExtension = resp.data;
+          console.log(this.fileExtension);
+        }
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error.data,'ERROR')
+      }
+    })
+  }
+
+  onFileExtensionChange(e:any){
+    let fileExt = e.target.value;
+
+    this.equipSrv.downloadFileForAssignedEquipment(fileExt).subscribe({
+      next:(resp:any)=>{
+        const blob = new Blob([resp], {type:'*/*'});
+        saveAs(blob,`AssignedEquipment.${fileExt}`);
+        this.fileExtn.nativeElement.value = "";
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error.data,'ERROR')
+      }
+    })
+  }
+
     ngAfterViewInit() {
         // this.el = this.container.nativeElement;
     }
