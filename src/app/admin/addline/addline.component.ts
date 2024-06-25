@@ -80,21 +80,19 @@ export class AddlineComponent implements OnInit {
                     RxwebValidators.required({
                         message: "This field is required!",
                     }),
-                    // RxwebValidators.alphaNumeric({
-                    //     message: "This accept only alphabet!",
-                    // }),
+                    //RxwebValidators.numeric({ acceptValue:NumericValueType.PositiveNumber,  message: "Only numbers are allowed!"}),
                     RxwebValidators.pattern({
                         expression: {
                             // alpha: /^(?:[0-9]+[a-z_-]|[a-z-_]+[0-9])[a-z0-9]*$/i,
-                            alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,
+                            alpha: /^[a-zA-Z0-9][a-zA-Z0-9\s]*$/,
                         },
                         message:
-                            "This accept combination of numbers and alphabets.",
+                            "This will accept numbers or combination of numbers and alphabets.",
                     }),
-                    RxwebValidators.minLength({
-                        value: 3,
-                        message: "Minimum length should be 3!",
-                    }),
+                    // RxwebValidators.minLength({
+                    //     value: 3,
+                    //     message: "Minimum length should be 3!",
+                    // }),
                 ],
             ],
             lineColour:['',[ 

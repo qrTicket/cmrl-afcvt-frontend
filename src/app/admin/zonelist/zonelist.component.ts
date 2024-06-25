@@ -67,5 +67,6 @@ export class ZonelistComponent implements OnInit {
     })
     
   }
+  
 
 }

@@ -5,6 +5,7 @@ import {
     TemplateRef,
     ViewContainerRef,
     OnDestroy,
+    ElementRef,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -19,6 +20,8 @@ import { Product } from "../_models/product.model";
 import { InvetoryCSVService } from "../_services/invetory-csv.service";
 import { AddUserService } from "src/app/user-manger/_services/add-user.service";
 import Swal from "sweetalert2";
+import { EquipmentService } from "../_services";
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: "app-inventory-list",
@@ -26,6 +29,7 @@ import Swal from "sweetalert2";
     styleUrls: ["./inventory-list.component.scss"],
 })
 export class InventoryListComponent implements OnInit, OnDestroy {
+    @ViewChild('fileExtn') fileExtn:ElementRef<any>;
     @ViewChild("outlet", { read: ViewContainerRef })
     outletRef: ViewContainerRef;
     @ViewChild("content", { read: TemplateRef })
@@ -51,8 +55,9 @@ export class InventoryListComponent implements OnInit, OnDestroy {
     successmsg: any;
     errormsg: any;
     assignList: any;
-
     mySubscription: any;
+    fileExtension:any[];
+
     constructor(
         private formBuilder: FormBuilder,
         public productService: ProductService,
@@ -60,7 +65,8 @@ export class InventoryListComponent implements OnInit, OnDestroy {
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
         private modalService: BsModalService,
-        private userService: AddUserService
+        private userService: AddUserService,
+        private equipSrv:EquipmentService
     ) {}
 
     openAssignModel(assignTemplate: TemplateRef<any>, list) {
@@ -199,6 +205,8 @@ export class InventoryListComponent implements OnInit, OnDestroy {
         //         this.toastr.error(err.error.data,'Error!')
         //     }
         //   })
+
+        this.getFileExtensionList();
     }
     get fval() {
         return this.assignForm.controls;
@@ -252,6 +260,35 @@ export class InventoryListComponent implements OnInit, OnDestroy {
     editHandler(list) {
         this.router.navigate(["equipment/equipment-update", list.id]);
     }
+
+    // get file extension for custom filter
+    getFileExtensionList(){
+        this.equipSrv.getFileExtensionNonForAssignedEquipments().subscribe({
+          next:(resp:any)=>{
+            if(resp["status"] === "1"){
+              this.fileExtension = resp.data;
+              console.log(this.fileExtension);
+            }
+          },
+          error:(err:any)=>{
+            this.toastr.error(err.error.data,'ERROR')
+          }
+        })
+    }
+
+  onFileExtensionChange(e:any){
+    let fileExt = e.target.value;
+    this.equipSrv.downloadFileForNonAssignedEquipment(fileExt).subscribe({
+      next:(resp:any)=>{
+        const blob = new Blob([resp], {type:'*/*'});
+        saveAs(blob,`NonAssignedEquipment.${fileExt}`);
+        this.fileExtn.nativeElement.value = "";
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error.data,'ERROR')
+      }
+    })
+  }
 
     onSubmit() {
         this.submitted = true;

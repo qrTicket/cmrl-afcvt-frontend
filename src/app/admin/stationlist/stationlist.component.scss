@@ -15,12 +15,11 @@ h2 {
 hr {
     border: 0;
     height: 5px;
-    background: linear-gradient(
-        to right,
-        #00004d,
-        #00004d,
-        // rgb(185 171 171 / 0%)
-    );
+    background: linear-gradient(to right,
+            #00004d,
+            #00004d,
+            // rgb(185 171 171 / 0%)
+        );
 }
 
 .table-set {
@@ -65,24 +64,24 @@ td {
 }
 
 //for switch
-input[type="checkbox"]{
+input[type="checkbox"] {
     position: relative;
     width: 50px;
     height: 20px;
-    -webkit-appearance: none ;
+    -webkit-appearance: none;
     background: red;
     outline: none;
     border-radius: 20px;
-    box-shadow: inset 0 0 5px rgba(0,0,0,.2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
     transition: .5s;
-  }
+}
 
-  input:checked[type="checkbox"]{
-    background:  green;
+input:checked[type="checkbox"] {
+    background: green;
     //background: #03a9f4;
-  }
+}
 
-  input[type="checkbox"]:before{
+input[type="checkbox"]:before {
     content: '';
     position: absolute;
     width: 25px;
@@ -91,34 +90,61 @@ input[type="checkbox"]{
     top: 0;
     left: 0;
     background: #fff;
-    transform: scale(1.1) ;
-    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
     transition: .5s;
-  }
+}
 
-  input:checked[type="checkbox"]:before{
+input:checked[type="checkbox"]:before {
     left: 30px;
-  }
+}
 
-  /*code by Badal*/
+/*code by Badal*/
 
 .bdcrm {
     margin: 25px 0 0 0;
 }
 
-.content-wrapper{
-    margin-bottom:75px;
+.content-wrapper {
+    margin-bottom: 75px;
 }
 
-.editButton{
-    font-size: 25px; 
+.editButton {
+    font-size: 25px;
     color: #2806a5;
 }
 
-.headingTextLabel{
-    color: #00004d!important;;
-  }
+.headingTextLabel {
+    color: #00004d !important;
+    ;
+}
 
-.mrgn-bottom{
+.mrgn-bottom {
     margin-bottom: 150px;
+}
+
+.statusDropdownList {
+    width: 150px;
+}
+
+
+.fltLeft {
+    float: left;
+}
+
+.fltRight {
+    float: right;
+}
+
+.download {
+    padding: 8px 22px;
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 12px;
+    // margin: 30px 7px 28px 0px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
 }

@@ -1,0 +1,127 @@
+<div class="contnr">
+    <div class="card mt-5">
+        <div class="card-header fltLeft">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    QR Transaction List
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <!-- <a  class="fltRight download mt-1">
+                    <i class="fa fa-download"></i>
+                    Download Uploaded Matrix
+                </a> -->
+                <!-- <select #fileExtn class="download fltRight" (change)="onFileExtensionChange($event)" >
+                    <option value="">Download</option>
+                    <option value="pdf">.pdf</option>
+                    <option value="csv">.csv</option>
+                    <option value="docx">.docx</option> -->
+                    <!-- <option *ngFor="let item of fileExtension;let i=index" [value]="item.id">{{ item.fileType }}</option> -->
+                <!-- </select> -->
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class=" table-set  mt-2">
+        <form [formGroup]="customFilterForm" >
+            <div class="row">
+                <div class="col-md-2 ">
+                    <label for="stationCode">Station Name</label>
+                    <select formControlName="stationCode" class="form-control" >
+                        <option value="">Select</option>
+                        <option *ngFor="let item of stationList;let i=index" [value]="item.stationCode">{{ item.stationName }}</option>
+                    </select>
+                </div>
+    
+                <div class="col-md-2 ">
+                    <label for="dateFrom">From Date</label>
+                    <input type="date" formControlName="dateFrom" class="form-control" />
+                </div>
+    
+                <div class="col-md-2 ">
+                    <label for="dateUpto">To Date</label>
+                    <input type="date" formControlName="dateUpto" class="form-control" />
+                </div>
+
+                <!-- <div class="col-md-2 ">
+                    <label for="ticketType">Ticket Type</label>
+                    <select formControlName="ticketType" class="form-control" id="stnCode">
+                        <option value="">Select</option>
+                        <option *ngFor="let item of ticketType;let i=index" [value]="item.ticketCode">{{ item.ticketValue }}</option>
+                    </select>
+                </div> -->
+
+                <div class="col-md-6 ">
+                    <button type="submit" class="searchBtn" (click)="reRenderDatatable()">
+                    <!-- <button type="submit" class="searchBtn" (click)="getFilteredResponse()"> -->
+                        Search
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <button type="reset" class="searchBtn mx-1">
+                        Reset
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                    <select #fileExtn class="searchBtn mx-2" (change)="onFileExtensionChange($event)" >
+                        <option value="">Download</option>
+                        <option *ngFor="let item of fileExtension;let i=index" [value]="item">{{ item }}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="table-responsive table-set mgrn mt-4 col-md-12 marginBottom" >
+        <table class="table-responsive table-res row-border hover table-head" id="dataTable" datatable=""  class="display nowrap table" [dtOptions]="dtOptions"  *ngIf="this.temp" >
+            <thead>
+                <tr >
+                    <th>#</th>
+                    <th>Requester Id</th>
+                    <th>ORD</th>
+                    <th>Terminal Id</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Amount</th>
+                    <th>Transaction Place</th>
+                    <th>Transaction Date and Time</th>
+                    <!-- <th>Source Station</th>
+                    <th>Destination Station</th> -->
+                    <th>Station</th>
+                    <th>Ticket Count</th>
+                    <th>Ticket Serial Number</th>
+                    <th>QR Type</th>
+                    <th>QR Generation Date and Time</th>
+                    <th>QR Product Type</th>
+                    <th>QR Service Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let item of txnList; let i=index'>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item && item.requesterId ? item.requesterId : 'NA' }}</td>
+                    <td>{{ item && item.ord ? item.ord : 'NA' }}</td>
+                    <td>{{ item && item.operatorTerminalId ? item.operatorTerminalId : 'NA' }}</td>
+                    <td>{{ item && item.transactionType ? item.transactionType : 'NA' }}</td>
+                    <!-- <td>{{ item && item.transactionAmount ? item.transactionAmount : 'NA' }}</td> -->
+                    <td>{{ item && item.transactionAmount && (item.transactionAmount==0) ? 0 : item.transactionAmount }}</td>
+                    <td>{{ item && item.transactionPlace ? item.transactionPlace : 'NA' }}</td>
+                    <td>{{ item && item.transactionDateTime ? item.transactionDateTime : 'NA' }}</td>
+                    <!-- <td>{{ item && item.sourceStation ? item.sourceStation : 'NA' }}</td>
+                    <td>{{ item && item.destinationStation ? item.destinationStation : 'NA' }}</td> -->
+                    <td>{{ item && item.station ? item.station : 'NA' }}</td>
+                    <td>{{ item && item.ticketCount ? item.ticketCount : 'NA' }}</td>
+                    <td>{{ item && item.ticketSerialNumber ? item.ticketSerialNumber : 'NA' }}</td>
+                    <td>{{ item && item.qrType ? item.qrType : 'NA' }}</td>
+                    <td>{{ item && item.qrGenerationDateTime ? item.qrGenerationDateTime : 'NA' }}</td>
+                    <td>{{ item && item.qrProductType ? item.qrProductType : 'NA' }}</td>
+                    <td>{{ item && item.qrServiceType ? item.qrServiceType : 'NA' }}</td>
+                </tr>
+            </tbody>
+            <!-- <tbody *ngIf="txnList?.length == 0">
+                <tr>
+                    <td colspan="10" class="no-data-available">No Records Found!</td>
+                </tr>
+            </tbody> -->
+        </table>
+    </div>
+</div>

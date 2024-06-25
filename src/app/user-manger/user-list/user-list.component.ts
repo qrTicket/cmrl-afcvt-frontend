@@ -11,6 +11,7 @@ import { updateStatus } from "../_models/updateStatus.model";
 import Swal from "sweetalert2";
 //import swal from 'sweetalert';
 import { NumberSymbol } from "@angular/common";
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: "app-user-list",
@@ -18,6 +19,7 @@ import { NumberSymbol } from "@angular/common";
     styleUrls: ["./user-list.component.scss"],
 })
 export class UserListComponent implements OnInit,OnDestroy {
+  @ViewChild('fileExtn') fileExtn:ElementRef<any>;
     modalRef: BsModalRef;
     subscription: Subscription[] = [];
     config = {
@@ -43,6 +45,7 @@ export class UserListComponent implements OnInit,OnDestroy {
     concanatedRoleCode2:String = "";
     hideEditBtn:boolean = true;
     successStatus:number = 0;
+    fileExtension:any[];
     
 
     constructor(
@@ -54,10 +57,9 @@ export class UserListComponent implements OnInit,OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.spinner.show();
-        this.getAllUsers();
-
-        
+      this.spinner.show();
+      this.getAllUsers();
+      this.getFileExtensionForUsers();   
     }
 
     //this function will fetch all user-list on load-time
@@ -107,10 +109,6 @@ export class UserListComponent implements OnInit,OnDestroy {
           })
         
     }
-
-
-
-
 
     //update user profile
     update(user:any, roles:any) {
@@ -180,7 +178,6 @@ export class UserListComponent implements OnInit,OnDestroy {
         //     }
         // }
     }
-
 
     //update user details
     confirm(username: string,status:any) {
@@ -287,7 +284,33 @@ export class UserListComponent implements OnInit,OnDestroy {
         this.modalRef.hide();
     }
 
-
+    getFileExtensionForUsers(){
+        this.userService.getFileExtensionForUsers().subscribe({
+          next:(resp:any)=>{
+            if(resp["status"] === "1"){
+              this.fileExtension = resp.data;
+              console.log(this.fileExtension);
+            }
+          },
+          error:(err:any)=>{
+            this.toaster.error(err.error.data,'ERROR')
+          }
+        })
+      }
+    
+      onFileExtensionChange(e:any){
+        let fileExt = e.target.value;
+        this.userService.downloadFileForUsers(fileExt).subscribe({
+          next:(resp:any)=>{
+            const blob = new Blob([resp], {type:'*/*'});
+            saveAs(blob,`UserList.${fileExt}`);
+            this.fileExtn.nativeElement.value = "";
+          },
+          error:(err:any)=>{
+            this.toaster.error(err.error.data,'ERROR')
+          }
+        })
+      }
 
     ngOnDestroy(){
         this.subscription.forEach( subs => subs.unsubscribe());
@@ -298,4 +321,6 @@ export class UserListComponent implements OnInit,OnDestroy {
         console.log('in ng on destroy');
         
     }
+
+
 }

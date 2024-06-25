@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { LinesService } from "../_services/lines.service";
 import { DataTableDirective } from "angular-datatables";
 import { Line } from "../_models/lines.model";
@@ -6,6 +6,9 @@ import { Subject } from "rxjs";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
+import { AdmindashboardService } from "../_services/admindashboard.service";
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: "app-linelist",
@@ -13,6 +16,7 @@ import { Router } from "@angular/router";
     styleUrls: ["./linelist.component.scss"],
 })
 export class LinelistComponent implements OnInit {
+  @ViewChild('fileExtn') fileExtn:ElementRef<any>;
     
     lineList: any[] = [];
     public lineData: Object;
@@ -27,19 +31,24 @@ export class LinelistComponent implements OnInit {
         ignoreBackdropClick: false,
     };
     errormsg: any;
-
+    baseUrl:any = environment.BASEURL;
+    fileExtension:any[];
 
     constructor(
         private lineService: LinesService,
         private modalService: BsModalService,
         private toaster: ToastrService,
         private router: Router,
+        private admSrv:AdmindashboardService
         ) {}
     //dtOptions: DataTables.Settings = {};
 
     ngOnInit() {
         this.linelist();
+        this.getFileExtensionForLine();
     }
+
+    
 
     linelist() {
         // this.lineService.getLines().subscribe((res) => {
@@ -94,6 +103,7 @@ export class LinelistComponent implements OnInit {
             e.target.checked = true;
         }
     }
+
     confirm(lineCode: string, status:number) {
 
         // this.lineService.statusUpdate(lineCode, this.statusValue).subscribe(
@@ -138,6 +148,34 @@ export class LinelistComponent implements OnInit {
         this.modalRef.hide();
     }
 
-    
+    // get file extension for line
+    getFileExtensionForLine(){
+      this.admSrv.getFileExtensionForLine().subscribe({
+        next:(resp:any)=>{
+          if(resp["status"] === "1"){
+            this.fileExtension = resp.data;
+            console.log(this.fileExtension);
+          }
+        },
+        error:(err:any)=>{
+          this.toaster.error(err.error.data,'ERROR')
+        }
+      })
+    }
+
+    onFileExtensionChange(e:any){
+    let fileExt = e.target.value;
+    this.admSrv.downloadFileForLine(fileExt).subscribe({
+      next:(resp:any)=>{
+        const blob = new Blob([resp], {type:'*/*'});
+        saveAs(blob,`Lines.${fileExt}`);
+        this.fileExtn.nativeElement.value = "";
+      },
+      error:(err:any)=>{
+        this.toaster.error(err.error.data,'ERROR')
+      }
+    })
+
+  }
 
 }
