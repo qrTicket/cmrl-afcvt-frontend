@@ -75,6 +75,11 @@ import { AdminConfigBusinessRuleComponent } from "./admin-config-business-rule/a
 import { UploadODMatrixComponent } from "./upload-o-d-matrix/upload-o-d-matrix.component";
 import { TransactionListComponent } from "./transaction-list/transaction-list.component";
 import { TestingDatatableComponent } from "./testing-datatable/testing-datatable.component";
+import { StationDiscountAddComponent } from "./station-discount-add/station-discount-add.component";
+import { StationDiscountEditComponent } from "./station-discount-edit/station-discount-edit.component";
+import { StationDiscountListComponent } from "./station-discount-list/station-discount-list.component";
+import { TransactionQrListComponent } from "./transaction-qr-list/transaction-qr-list.component";
+import { TransactionNcmcListComponent } from "./transaction-ncmc-list/transaction-ncmc-list.component";
 
 const routes: Routes = [
     {
@@ -192,12 +197,18 @@ const routes: Routes = [
             { path: "admin-zone-list", component: AdminZoneListComponent },
             { path: "admin-zone-edit/:id", component: AdminZoneEditComponent },
 
+            { path: "station-discount-add", component: StationDiscountAddComponent },
+            { path: "station-discount-list", component: StationDiscountListComponent },
+            { path: "station-discount-edit/:id", component: StationDiscountEditComponent },
+
             { path: "generate-file", component:GenerateJsonComponent },
 
             { path: "admin-config-business-rule", component:AdminConfigBusinessRuleComponent },
             { path: "OD-matrix-file-upload", component: UploadODMatrixComponent },
 
             { path: "transactions", component: TransactionListComponent },
+            { path: "transactions-qr", component: TransactionQrListComponent },
+            { path: "transactions-ncmc", component: TransactionNcmcListComponent },
 
             // { path: "testing", component: TestingDatatableComponent },
         ],

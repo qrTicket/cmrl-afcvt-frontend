@@ -1,10 +1,25 @@
-<div class="container mt-5 formBg">
-    <div class="card">
+<div class="container mt-5 ">
+    <!-- <div class="card">
         <div class="card-header">
             <h4 class="pt-2 text-primary">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Media Type
             </h4>
+        </div>
+    </div> -->
+    <div class="card">
+        <div class="card-header col-md-12">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Media Type
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin/media-type-list']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
         </div>
     </div>
     
@@ -66,32 +81,21 @@
                     </div>
                 </div> -->
             </div>
-
-
-            <div class="clearfix mt-5 btn-set">
-                <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel
-                    <span class="fa-class fa fa-close"></span>
-                </button>
-                <button type="submit" class="btn btn-primary mx-3">
-                    Submit
-                    <span class="fa-class fa fa-paper-plane"></span>
-                </button>
-                
-            </div>
-
-            <!-- <div class=" row clearfix mt-5 btn-set col-md-12">
-                <div class="col-md-6">.
-                    <button type="submit" class="btn btn-danger fltRight" (click)="cancel()">Cancel
-                        <span class="fa-class fa fa-close"></span>
-                    </button>
-                </div> 
+            
+            <div class=" row clearfix mt-5  col-md-12">
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary ">
+                    <button type="submit" class="fltRight">
                         Submit
                         <span class="fa-class fa fa-paper-plane"></span>
                     </button>
                 </div>
-            </div> -->
+                <div class="col-md-6">.
+                    <button type="reset" >Reset
+                        <span class="fa-class fa fa-undo"></span>
+                    </button>
+                </div> 
+                
+            </div>
 
         </form>
     </div>

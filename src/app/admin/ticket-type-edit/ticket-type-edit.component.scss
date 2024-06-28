@@ -8,3 +8,61 @@
 .required{
     color: red;
 }
+
+.fltLeft{
+    float: left;
+}
+
+.fltRight{
+    float: right;
+}
+
+.backBtn{
+    padding: 10px 0 0 0;
+    
+}
+
+.backBtn a{
+    text-decoration: none;
+    color: #00004d;
+}
+
+button[type="submit"] {
+    padding: 8px 22px;
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 30px 7px 28px 0px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    color: #00004d;
+    background: #fff;
+    border: 2px solid #00004d;
+    font-weight: bold;
+}
+
+button[type="reset"] {
+    padding: 8px 22px;
+    color: #00004d;
+    border: 0;
+    background: #fff;
+    border: 2px solid #00004d;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 30px 0;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="reset"]:hover {
+    color: #fff;
+    background: #00004d;
+    font-weight: bold;
+}

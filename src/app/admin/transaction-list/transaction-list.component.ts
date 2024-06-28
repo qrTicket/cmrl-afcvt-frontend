@@ -24,14 +24,14 @@ import { Subject } from 'rxjs';
 export class TransactionListComponent implements OnInit {
   @ViewChild('fileExtn') fileExtn:ElementRef<any>;
   //title = 'datatables';
-
-  @ViewChild(DataTableDirective, {static: false})
-  datatableElement: DataTableDirective;
+  public temp: Object = false;
+  @ViewChild(DataTableDirective, { static: false }) datatableElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+  isDtInit: boolean = false;
 
   txnList:any[]=[];
-  Search:FormGroup;
+  customFilterForm:FormGroup;
   stationList:any[]=[];
   item:any;
   fileExtension:any[] =[];
@@ -50,31 +50,81 @@ export class TransactionListComponent implements OnInit {
       class: 'modal-lg'
     };
 
-    public temp: Object = false;
+   
 
   constructor(
     private adminSrv:AdmindashboardService,
     private fb:FormBuilder,
-    private toastr:ToastrService,
-    private modalSrv:BsModalService
+    private toastr:ToastrService
   ) { }
 
   ngOnInit() {
-    //this.dataTableAjaxCall();
-    this.getStationList();
-    this.Search = this.fb.group({
+    this.customFilterForm = this.fb.group({
       stationCode:[''],
       dateFrom:[''],
-      dateUpto:[''],
-      ticketType:[''],
+      dateUpto:['']
     })
-    //console.log(this.dtOptions);
+    this.getStationList();
     this.getFileExtensionList();
+    //this.dataTableAjaxCall();
     this.getFilteredResponse();
   }
 
+  // calling server side API through ajax
+  dataTableAjaxCall(){
+    // console.log(`in log`);
+    // this.dtOptions = {
+    //   paging : true,
+    //   pagingType: 'full_numbers',
+    //   pageLength: 10, 
+    //   serverSide:true,
+    //   // processing: true,
+    //   language:{
+    //     searchPlaceholder:"Type in here..."
+    //   },
+    //   ajax: (dataTablesParameters:any, callback) => 
+    //   {
+        
+    //     let reqObj = {
+    //       "customFilters": [
+    //           {
+    //               "attributeName": "sourceStation",
+    //               "searchValue": this.customFilterForm.value.stationCode ? this.customFilterForm.value.stationCode : null
+    //           },
+    //           {
+    //               "attributeName": "transactionAfter",
+    //               "searchValue": this.customFilterForm.value.dateFrom ? formatDate(this.customFilterForm.value.dateFrom,'dd-MM-yyyy','en')  : null
+    //           },
+    //           {
+    //               "attributeName": "transactionBefore",
+    //               "searchValue": this.customFilterForm.value.dateUpto ? formatDate(this.customFilterForm.value.dateUpto,'dd-MM-yyyy','en')  : null
+    //           }
+    //       ],
+    //       "paginationRequest": dataTablesParameters
+    //     }
+    //     this.adminSrv.postTransactionList(reqObj)
+    //     .subscribe((resp:any) => 
+    //     {
+    //       if(resp["status"] === "1"){
+    //         this.txnList = resp.data; 
+    //         this.temp  = true; 
+    //         console.log(this.txnList,'txn list'); 
+    //         callback({
+    //           recordsTotal: resp.totalSize,  
+    //           recordsFiltered: resp.totalSize, 
+    //           data: []
+    //         })            
+    //       }
+    //     })
+    //   },
+    //   ordering:true,
+    //   lengthMenu:['5','10','20','50','100']
+    // }
+  }
+
+  // get file extension for custom filter
   getFileExtensionList(){
-    this.adminSrv.getFileExtension().subscribe({
+    this.adminSrv.getFileExtensionForTransactions().subscribe({
       next:(resp:any)=>{
         if(resp["status"] === "1"){
           this.fileExtension = resp.data;
@@ -87,13 +137,13 @@ export class TransactionListComponent implements OnInit {
     })
   }
 
+  // get station list for custom filter
   getStationList(){
     this.adminSrv.getStationList().subscribe({
       next:(resp:any)=>{
         if(resp["status"] === "1"){
           this.stationList = resp.data;
           console.log(this.stationList);
-          
         }
       },
       error:(err:any)=>{
@@ -101,37 +151,6 @@ export class TransactionListComponent implements OnInit {
       }
     })
   }
-
-  // dataTableAjaxCall(){
-  //   this.dtOptions = {
-  //     paging : true,
-  //     pagingType: 'full_numbers',
-  //     pageLength: 10, 
-  //     serverSide:true,
-  //     processing: true,
-  //     language:{
-  //       searchPlaceholder:"Type in here..."
-  //     },
-  //     ajax: (dataTablesParameters:DataTablePayload, callback) => 
-  //     {
-  //       this.adminSrv.postTransactionList(dataTablesParameters)
-  //       .subscribe((resp:any) => 
-  //       {
-  //         if(resp["status"] === "1"){
-  //           this.txnList = resp.data;  
-  //           callback({
-  //             recordsTotal: resp.totalSize,  
-  //             recordsFiltered: resp.totalSize, 
-  //             data: []
-  //           })            
-  //         }
-          
-  //       })
-  //     },
-  //     ordering:true,
-  //     lengthMenu:['5','10','20','50','100']
-  //   }
-  // }
 
   //method to get list of all transactions
   getFilteredResponse(){
@@ -148,20 +167,17 @@ export class TransactionListComponent implements OnInit {
     }
 
     let reqObj = {
-      "stationCode":this.Search.value.stationCode ? this.Search.value.stationCode : null,
-      "fromDate":this.Search.value.dateFrom ? formatDate(this.Search.value.dateFrom,'dd-MM-yyyy','en')  : null,
-      "toDate" : this.Search.value.dateUpto ? formatDate(this.Search.value.dateUpto,'dd-MM-yyyy','en')  : null,
-      "ticketType" : this.Search.value.ticketType ? this.Search.value.ticketType : 'ALL',
+      "stationCode":this.customFilterForm.value.stationCode ? this.customFilterForm.value.stationCode : null,
+      "fromDate":this.customFilterForm.value.dateFrom ? formatDate(this.customFilterForm.value.dateFrom,'dd-MM-yyyy','en')  : null,
+      "toDate" : this.customFilterForm.value.dateUpto ? formatDate(this.customFilterForm.value.dateUpto,'dd-MM-yyyy','en')  : null
     }
 
-    this.adminSrv.getTransactionList(reqObj).subscribe({
+    this.adminSrv.customFilterPostRequestForNCMCandQR(reqObj).subscribe({
       next:(resp:any)=>{
         if(resp["status"] === "1"){
-          this.temp  = true;
           this.txnList = resp.data;
-          // this.item = this.txnList;
+          this.temp  = true;
           console.log(this.txnList);
-          //this.rerender();
         }
       },
       error:(err:any)=>{
@@ -170,22 +186,23 @@ export class TransactionListComponent implements OnInit {
     })
   }
 
+
   //download file in prescribed format
   onFileExtensionChange(e:any){
     let fileExt = e.target.value;
     console.log(fileExt,'file ext')
 
     let reqObj = {
-      "stationCode":this.Search.value.stationCode ? this.Search.value.stationCode : null,
-      "fromDate":this.Search.value.dateFrom ? formatDate(this.Search.value.dateFrom,'dd-MM-yyyy','en')  : null,
-      "toDate" : this.Search.value.dateUpto ? formatDate(this.Search.value.dateUpto,'dd-MM-yyyy','en')  : null,
-      "ticketType" : this.Search.value.ticketType ? this.Search.value.ticketType : 'ALL',
+      "stationCode":this.customFilterForm.value.stationCode ? this.customFilterForm.value.stationCode : null,
+      "fromDate":this.customFilterForm.value.dateFrom ? formatDate(this.customFilterForm.value.dateFrom,'dd-MM-yyyy','en')  : null,
+      "toDate" : this.customFilterForm.value.dateUpto ? formatDate(this.customFilterForm.value.dateUpto,'dd-MM-yyyy','en')  : null,
+      "ticketType" : this.customFilterForm.value.ticketType ? this.customFilterForm.value.ticketType : 'ALL',
     }
 
-    this.adminSrv.downloadTxnFile(reqObj, fileExt).subscribe({
+    this.adminSrv.downloadNcmcAndQrTxnFile(reqObj, fileExt).subscribe({
       next:(resp:any)=>{
         const blob = new Blob([resp], {type:'*/*'});
-        saveAs(blob,`Transaction.${fileExt}`);
+        saveAs(blob,`QrAndNcmcTransaction.${fileExt}`);
         this.fileExtn.nativeElement.value = "";
       },
       error:(err:any)=>{
@@ -195,26 +212,33 @@ export class TransactionListComponent implements OnInit {
 
   }
 
-  // openModal(templateActive: TemplateRef<any>, e:any) {
-  //   console.log("object is ", e);
-  //   this.modalRef = this.modalSrv.show(templateActive, this.config);
-  //   this.item = e
-  // }
-
-  // decline() {
-  //   this.modalRef.hide();
-  // }
-
+  // This code will run after the component's view has been initialized i.e datatable has been initialized
   ngAfterViewInit(): void {
-    //load data-table first time and then re-render from every time
+    // load data-table first time and then re-render from every time
     this.dtTrigger.next(true);
   }
 
-  rerender(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-       dtInstance.destroy();
-       this.dtTrigger.next(true);     
-    });
+  // will destroy datatable trigger
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  // this will rerender/reload datatable after unsubscribing/destroring dtTrigger
+  // reRenderDatatable() {
+  //   this.datatableElement.dtInstance.then((instance:DataTables.Api)=>{
+  //     instance.ajax.reload(null, false);
+  //     //this.dataTableAjaxCall(); 
+  //     this.getFilteredResponse();
+  //   })
+    
+  // }
+  reRenderDatatable() {
+    this.temp = false;
+    this.datatableElement.dtInstance.then((instance:DataTables.Api)=>{
+      instance.clear();
+      this.getFilteredResponse();
+      instance.draw();
+    })
   }
 
 }

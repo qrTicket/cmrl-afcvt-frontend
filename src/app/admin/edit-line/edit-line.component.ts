@@ -56,7 +56,7 @@ export class EditLineComponent implements OnInit {
             lineName: [
                 "",
                 [
-                    RxwebValidators.required({ message: "Required!" }),
+                    RxwebValidators.required({ message: "This field is required!" }),
                     RxwebValidators.alpha({
                         message: "This will accept only alphabet!",
                         allowWhiteSpace: true,
@@ -70,18 +70,18 @@ export class EditLineComponent implements OnInit {
             lineCode: [
                 "",
                 [
-                    RxwebValidators.required({ message: "Required!" }),
+                    RxwebValidators.required({ message: "This field is required!" }),
                     RxwebValidators.pattern({
                         expression: {
-                            alpha: /^[a-zA-Z][a-zA-Z0-9\s]*$/,
+                            alpha: /^[a-zA-Z0-9][a-zA-Z0-9\s]*$/,
                         },
                         message:
-                            "This accept combination of numbers and alphabets.",
+                            "This will accept numbers or combination of numbers and alphabets.",
                     }),
-                    RxwebValidators.minLength({
-                        value: 3,
-                        message: "Minimum length should be 3!",
-                    }),
+                    // RxwebValidators.minLength({
+                    //     value: 3,
+                    //     message: "Minimum length should be 3!",
+                    // }),
                 ],
             ],
             lineColour:['',[ 

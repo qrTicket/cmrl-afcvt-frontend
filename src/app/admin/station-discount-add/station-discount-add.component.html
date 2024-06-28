@@ -1,0 +1,68 @@
+<div class="container mt-5 mb-5 formBg">
+    <!-- <h2>Add Line/Corridor</h2>
+    <hr /> -->
+    <div class="card">
+        <div class="card-header col-md-12">
+            <div class="col-md-8 fltLeft">
+                <h4 class="pt-2 headingTextLabel">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add Station Discount
+                </h4>
+            </div>
+            <div class="col-md-4 fltLeft">
+                <span class="fltRight backBtn">
+                    <a [routerLink]="['/admin/station-discount-list']"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                </span>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <form [formGroup]="stationDiscountForm" (ngSubmit)="onFormSubmit()">
+            <div class="row col-md-12">
+
+                <!-- Station Name -->
+                <div class="col-md-4 ">
+                    <label for="stationName" class="required">Station Name</label>
+                    <select formControlName="stationName" class="form-control" [ngClass]="{'is-invalid': submitted && fval.stationName.errors }" >
+                        <option value="">Select</option>
+                        <option *ngFor="let item of stationList;let i=index" [value]="item.stationCode">{{ item.stationName }}</option>
+                    </select>
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.stationName.errors && fval.stationName.errors.required">
+                            {{ fval.stationName.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discount(%) -->
+                <div class="col-md-4 ">
+                    <label for="stationDiscount" class="required">Discount(%)</label>
+                    <input type="text" class="form-control txt-uppr" formControlName="stationDiscount"
+                        [ngClass]="{'is-invalid': submitted && fval.stationDiscount.errors }" maxlength="30" />
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="fval.stationDiscount.errors && fval.stationDiscount.errors.required">
+                            {{ fval.stationDiscount.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.stationDiscount.errors && fval.stationDiscount.errors.numeric">
+                            {{ fval.stationDiscount.errors.numeric.message }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clearfix col-md-12 btn-set mt-5">
+                <button type="submit">
+                    Submit
+                    <span class="fa-class fa fa-paper-plane"></span>
+                </button>
+                <button type="reset">
+                    Reset
+                    <span class="fa-class fa fa-undo"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -12,7 +12,7 @@ import { Businessrule } from '../_models/businessrule.model';
 })
 export class FareService {
 
-   
+    updateFareRuleEndUrl:string = "api/afc/admin/update/trm";
 
     private token: string = localStorage.getItem('token');
 
@@ -64,7 +64,9 @@ export class FareService {
         return this.http.put<any>(`${environment.productUrl}/admin/update/trm/`,payload);
     }
 
-    
+    updateFareRule(payload: any): Observable<any> {
+        return this.http.put<any>(`${environment.BASEURL}/${this.updateFareRuleEndUrl}`,payload);
+    }
 
     
    

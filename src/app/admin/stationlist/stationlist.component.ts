@@ -1,10 +1,12 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { StationService } from '../_services/station.service';
 import { Station } from '../_models/station.model';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { AdmindashboardService } from '../_services/admindashboard.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-stationlist',
@@ -13,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class StationlistComponent implements OnInit {
+  @ViewChild('fileExtn') fileExtn:ElementRef<any>;
 
     //@ViewChild(DataTableDirective, { static: false })
     //datatableElement: DataTableDirective;
@@ -34,18 +37,21 @@ export class StationlistComponent implements OnInit {
         ignoreBackdropClick: false,
     };
     errormsg: any;
+    fileExtension:any[];
 
 
   constructor(
     private stationService: StationService,
     private modalService: BsModalService,
     private toaster: ToastrService,
+    private adminSrv: AdmindashboardService,
   ) { }
   //dtOptions: DataTables.Settings = {};
 
 
   ngOnInit() {
     this.stationlist();
+    this.getFileExtensionForStation();
   }
 
   // -------- display station list function ----------
@@ -187,7 +193,35 @@ export class StationlistComponent implements OnInit {
         this.statusValue=0;
         this.stationlist();
     }
-
+    
+    getFileExtensionForStation(){
+      this.adminSrv.getFileExtensionForStations().subscribe({
+        next:(resp:any)=>{
+          if(resp["status"] === "1"){
+            this.fileExtension = resp.data;
+            console.log(this.fileExtension);
+          }
+        },
+        error:(err:any)=>{
+          this.toaster.error(err.error.data,'ERROR')
+        }
+      })
+    }
+  
+    onFileExtensionChange(e:any){
+      let fileExt = e.target.value;
+  
+      this.adminSrv.downloadFileForStation(fileExt).subscribe({
+        next:(resp:any)=>{
+          const blob = new Blob([resp], {type:'*/*'});
+          saveAs(blob,`Stations.${fileExt}`);
+          this.fileExtn.nativeElement.value = "";
+        },
+        error:(err:any)=>{
+          this.toaster.error(err.error.data,'ERROR')
+        }
+      })
+    }
 
 
 }

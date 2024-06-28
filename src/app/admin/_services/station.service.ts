@@ -12,6 +12,11 @@ import { map, catchError, retry, tap } from 'rxjs/operators';
 export class StationService {
 
   getZoneListEndUrl:string = "";
+  addStaionDiscountEndUrl:string = "api/v1/station/discount";
+  getStationDiscountDataByIdEndUrl:string = "api/v1/station/discount";
+  updateStationDiscountByIdEndUrl:string = "api/v1/station/discount";
+  getStationDiscountListEndUrl:string = "api/v1/station/discount";
+  
 
   private token: string = localStorage.getItem('token');
   private httpOptions = {
@@ -143,12 +148,30 @@ export class StationService {
     );
   }
 
-
-  getZoneList() {
+  // get zone list
+  getZoneList():Observable<any> {
     return this.http.get<any>(`${environment.BASEURL}/${this.getZoneListEndUrl}`,this.httpOptions);
   }
 
+  // add station discount
+  addStationDiscount(payload:any):Observable<any> {
+    return this.http.put<any>(`${environment.BASEURL}/${this.addStaionDiscountEndUrl}`, payload);
+  }
 
+  // edit station discount
+  getStationDiscountDataById(id: number) {
+    return this.http.get<any>(`${environment.BASEURL}/${this.getStationDiscountDataByIdEndUrl}/${id}`);
+  }
+
+  // update station discount
+  editStationDiscount(payload:any):Observable<any> {
+    return this.http.put<any>(`${environment.BASEURL}/${this.updateStationDiscountByIdEndUrl}`, payload);
+  }
+
+  //get station discount list
+  getStationDiscountList():Observable<any> {
+    return this.http.get<any>(`${environment.BASEURL}/${this.getStationDiscountListEndUrl}`)
+  }
 
   getJunctionById(id: number) {
     return this.http.get<Station>(

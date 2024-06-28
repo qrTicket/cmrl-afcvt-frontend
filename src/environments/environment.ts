@@ -37,7 +37,8 @@ export const environment = {
 
     //BASEURL: "http://10.226.42.194:8090"
     // BASEURL: "http://192.168.194.134:8090"
-    BASEURL: "http://10.226.43.190:8090"
+    // BASEURL: "http://10.226.39.60:8090" //divyansh ip
+    BASEURL: "http://10.226.43.190:8090" //mrunal ip
 };
 
 // host: "http://localhost:8080",

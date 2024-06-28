@@ -159,7 +159,7 @@ span .fa-class {
 /*end*/
 
 .required::after{
-    content: "*";
+    content: " *";
     color: red;
 }
 

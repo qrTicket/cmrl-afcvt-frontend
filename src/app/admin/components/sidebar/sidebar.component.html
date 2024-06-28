@@ -233,7 +233,7 @@
         </div>
 
          <!-- Manage Media Master -->
-         <div class="nested-menu" style="display: none;">
+         <div class="nested-menu" >
             <a class="list-group-item" (click)="addExpandClass('list6')">
                 <i class="fa fa-asterisk"></i>&nbsp;
                 <span>{{ "Fare" }}</span>
@@ -242,57 +242,124 @@
             <li class="nested" [class.expand]="showMenu === 'list6'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['add-media-type']" [routerLinkActive]="['router-link-active']">
+                        <a class="list-group-item"  [routerLink]="['add-media-type']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-plus mx-1"></i>
                             <span class="ml-2">{{ "Add Media type" }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['media-type-list']" [routerLinkActive]="['router-link-active']">
+                        <a class="list-group-item"  [routerLink]="['media-type-list']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-list mx-1"></i>
                             <span class="ml-2">{{ "Media Type List" }}</span>
                         </a>
                     </li>
                     
                     <li>
-                        <a [routerLink]="['ticket-type-add']" [routerLinkActive]="['router-link-active']">
+                        <a class="list-group-item"  [routerLink]="['ticket-type-add']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-plus mx-1"></i>
                             <span class="ml-2">{{ "Add Ticket type" }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['ticket-type-list']" [routerLinkActive]="['router-link-active']">
+                        <a class="list-group-item"  [routerLink]="['ticket-type-list']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-list mx-1"></i>
                             <span class="ml-2">{{ "Ticket Type List" }}</span>
                         </a>
                     </li>
 
                     <li>
-                        <a [routerLink]="['ticket-sub-type-add']" [routerLinkActive]="['router-link-active']">
+                        <a class="list-group-item"  [routerLink]="['ticket-sub-type-add']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-plus mx-1"></i>
                             <span class="ml-2">{{ "Add Ticket Sub Type" }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['ticket-sub-type-list']" [routerLinkActive]="['router-link-active']">
+                        <a class="list-group-item"  [routerLink]="['ticket-sub-type-list']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-list mx-1"></i>
                             <span class="ml-2">{{ "Ticket Sub Type List" }}</span>
                         </a>
                     </li>
 
-                    <li>
-                        <a [routerLink]="['media-ticket-map']" [routerLinkActive]="['router-link-active']">
+                    <!-- <li>
+                        <a class="list-group-item"  [routerLink]="['media-ticket-map']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-random mx-1"></i>
                             <span class="ml-2">{{ "Media-Ticket Map" }}</span>
                         </a>
                     </li>
 
                     <li>
-                        <a [routerLink]="['media-ticket-subtype-list']" [routerLinkActive]="['router-link-active']">
+                        <a class="list-group-item"  [routerLink]="['media-ticket-subtype-list']" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-list mx-1"></i>
                             <span class="ml-2">{{ "Media-Ticket List" }}</span>
                         </a>
+                    </li> -->
+
+                    <li>
+                        <a class="list-group-item"  [routerLink]="['station-discount-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span class="ml-2">{{ "Add Station Discount" }}</span>
+                        </a>
                     </li>
+
+                    <li>
+                        <a class="list-group-item" [routerLink]="['station-discount-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span class="ml-2">{{ "Station Discount List" }}</span>
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        <a [routerLink]="['time-table-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Time Slot" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['time-table-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Time Slot List" }}</span>
+                        </a>
+                    </li> -->
+
+                    <li>
+                        <a class="list-group-item" [routerLink]="['special-days-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Special Day" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" [routerLink]="['special-days-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Special Days List" }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="list-group-item"  [routerLink]="['day-type-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Day Type" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item"  [routerLink]="['day-type-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Day Type List" }}</span>
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        <a class="list-group-item"  [routerLink]="['base-fare-add']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-plus mx-1"></i>
+                            <span>{{ "Add Base Fare" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item"  [routerLink]="['base-fare-list']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "Base Fare List" }}</span>
+                        </a>
+                    </li> -->
+
                 </ul>
             </li>
         </div>
@@ -350,7 +417,7 @@
 
 
         <!-- Manage Special Days Master -->
-        <div class="nested-menu" style="display: none;">
+        <!-- <div class="nested-menu" >
             <a class="list-group-item" (click)="addExpandClass('list9')">
                 <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                 <span>{{ "Special Days Master" }}</span>
@@ -373,7 +440,7 @@
                    
                 </ul>
             </li>
-        </div>
+        </div> -->
 
         <!-- Manage Time Slot Master -->
         <!-- <div class="nested-menu">
@@ -460,7 +527,7 @@
         </div>
 
         <!-- Generate File -->
-        <div class="nested-menu" style="display: none;">
+        <div class="nested-menu" >
             <a class="list-group-item" [routerLink]="['generate-file']">
                 <i class="fa fa-file"></i>&nbsp;&nbsp;
                 <span>{{ "Generate File" }}</span>
@@ -476,11 +543,43 @@
         </div>
 
         <!-- Transactions -->
-        <div class="nested-menu" >
+        <!-- <div class="nested-menu" >
             <a class="list-group-item" [routerLink]="['transactions']">
                 <i class="fa fa-exchange"></i>
                 <span>{{ "Transactions" }}</span>
             </a>
+        </div> -->
+
+        <!-- Transactions -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('list13')">
+                <i class="fa fa-exchange"></i>
+                <span>{{ "Transactions" }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'list13'">
+                <ul class="submenu">
+                    <li>
+                        <a class="list-group-item" [routerLink]="['transactions-qr']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "QR" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" [routerLink]="['transactions-ncmc']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "NCMC" }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" [routerLink]="['transactions']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-list mx-1"></i>
+                            <span>{{ "ALL" }}</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
         </div>
 
        

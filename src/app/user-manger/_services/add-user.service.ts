@@ -17,6 +17,9 @@ export class AddUserService {
     //this will store all data of selected user
     userData:any;
 
+    getFileExtensionForUsersEndUrl:string = "api/afc/fetch/availableDocFormats/users";
+    downloadFileForUsersEndUrl:string = "api/auth/usm/users/download";
+
     constructor(private http: HttpClient, 
         private router:Router, 
         ) {}
@@ -147,6 +150,17 @@ export class AddUserService {
     //activate/deactivate user accounts
     statusUpdate(username:string, status:number):Observable<updateStatus>{
         return this.http.post<updateStatus>(`${environment.rootUrl}/change/AccountStatus`, {username, status}, this.httpOptions);
+    }
+
+    // get file extension for users
+    getFileExtensionForUsers():Observable<any> {
+        return this.http.get(`${environment.BASEURL}/${this.getFileExtensionForUsersEndUrl}`);
+    }
+
+    // download file for users
+    downloadFileForUsers( fileExt:any): Observable<any> {
+        const header = { headers: new HttpHeaders({Authorization: `Bearer ${this.token}`,}),};
+        return this.http.get<any>(`${environment.BASEURL}/${this.downloadFileForUsersEndUrl}/${fileExt}`, {...header, responseType: 'blob' as 'json'});
     }
 
 
