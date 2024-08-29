@@ -154,6 +154,7 @@ export class TransactionListComponent implements OnInit {
 
   //method to get list of all transactions
   getFilteredResponse(){
+    // this.temp = false;
     this.dtOptions = {
       paging : true,
       pagingType: 'full_numbers',
@@ -179,13 +180,18 @@ export class TransactionListComponent implements OnInit {
           this.temp  = true;
           console.log(this.txnList);
         }
+        else if(resp["status"] === "0"){
+          this.toastr.error(resp.data);
+        }
       },
       error:(err:any)=>{
-        this.toastr.error(err.error.data,'ERROR')
+        this.toastr.error(err.error.data,'ERROR');
+        this.temp = true;
       }
     })
   }
 
+  
 
   //download file in prescribed format
   onFileExtensionChange(e:any){
@@ -236,8 +242,9 @@ export class TransactionListComponent implements OnInit {
     this.temp = false;
     this.datatableElement.dtInstance.then((instance:DataTables.Api)=>{
       instance.clear();
+      instance.destroy();
       this.getFilteredResponse();
-      instance.draw();
+      instance.draw();  
     })
   }
 

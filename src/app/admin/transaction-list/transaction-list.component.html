@@ -87,19 +87,20 @@
                     <!-- <th>Source Station</th> -->
                     <!-- <th>Destination Station</th> -->
                     <th>Station</th>
-                    <th>Ticket Count</th>
+                    <th>Media Type</th>
+                    <!-- <th>Ticket Count</th> -->
                     <!-- <th>Ticket Serial Number</th> -->
 
                     <!-- qr specific -->
-                    <th>QR Type</th>
+                    <!-- <th>QR Type</th> -->
                     <!-- <th>QR Generation Date and Time</th> -->
                     <!-- <th>QR Product Type</th> -->
                     <!-- <th>QR Service Type</th> -->
 
                     <!-- ncmc specific -->
-                    <th>Card Acceptor Terminal ID</th>
+                    <!-- <th>Card Acceptor Terminal ID</th>
                     <th>PAN</th>
-                    <th>Card Balance</th>
+                    <th>Card Balance</th> -->
                     <!-- <th>Card Acceptor Id Code</th> -->
                 </tr>
             </thead>
@@ -116,19 +117,20 @@
                     <!-- <td>{{ item && item.sourceStation ? item.sourceStation : 'NA' }}</td> -->
                     <!-- <td>{{ item && item.destinationStation ? item.destinationStation : 'NA' }}</td> -->
                     <td>{{ item && item.station ? item.station : 'NA' }}</td>
-                    <td>{{ item && item.ticketCount ? item.ticketCount : 'NA' }}</td>
+                    <td>{{ item && item.mediaType ? item.mediaType : 'NA' }}</td>
+                    <!-- <td>{{ item && item.ticketCount ? item.ticketCount : 'NA' }}</td> -->
                     <!-- <td>{{ item && item.ticketSerialNumber ? item.ticketSerialNumber : 'NA' }}</td> -->
 
                     <!-- qr specific -->
-                    <td>{{ item && item.qrType ? item.qrType : 'NA' }}</td>
+                    <!-- <td>{{ item && item.qrType ? item.qrType : 'NA' }}</td> -->
                     <!-- <td>{{ item && item.qrGenerationDateTime ? item.qrGenerationDateTime : 'NA' }}</td> -->
                     <!-- <td>{{ item && item.qrProductType ? item.qrProductType : 'NA' }}</td> -->
                     <!-- <td>{{ item && item.qrServiceType ? item.qrServiceType : 'NA' }}</td> -->
 
                     <!-- ncmc specific -->
-                    <td>{{ item && item.cardAcceptorTerminalId ? item.cardAcceptorTerminalId : 'NA' }}</td>
+                    <!-- <td>{{ item && item.cardAcceptorTerminalId ? item.cardAcceptorTerminalId : 'NA' }}</td>
                     <td>{{ item && item.pan ? item.pan : 'NA' }}</td>
-                    <td>{{ item && item.cardBalance && (item.cardBalance==0) ? 0 : item.cardBalance }}</td>
+                    <td>{{ item && item.cardBalance && (item.cardBalance==0) ? 0 : item.cardBalance }}</td> -->
                     <!-- <td>{{ item && item.crdAcpIdCd ? item.crdAcpIdCd : 'NA' }}</td> -->
                 </tr>
             </tbody>

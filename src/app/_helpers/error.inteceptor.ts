@@ -25,6 +25,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                     this.authenticationService.logout();
                     location.reload();
                 }
+                else if(err.status === 400){
+                    console.log('err caught in errInterceptor');
+                }
                
                 // const error = err.error.message || err.statusText;
                 //const error = err.error.data ;

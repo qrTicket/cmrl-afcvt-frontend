@@ -118,7 +118,7 @@ export class MediaTicketMapComponent implements OnInit {
         }
         else if(res.status === "1"){
           this.toastr.success(res.data,"Success");
-          this.router.navigate(['/admin/media-type-list'])
+          this.router.navigate(['/admin/media-ticket-subtype-list'])
         }
       },
       error:(err:any)=>{

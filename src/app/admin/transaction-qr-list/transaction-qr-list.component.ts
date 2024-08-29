@@ -171,13 +171,12 @@ export class TransactionQrListComponent implements OnInit {
           this.txnList = [];
           this.temp  = true;
           this.txnList = resp.data;
-          // this.item = this.txnList;
           console.log(this.txnList);
-          //this.rerender();
         }
       },
       error:(err:any)=>{
         this.toastr.error(err.error.data,'ERROR')
+        this.temp = true;
       }
     })
   }
