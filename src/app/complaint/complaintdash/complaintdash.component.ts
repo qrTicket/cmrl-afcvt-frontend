@@ -31,7 +31,7 @@ export class ComplaintdashComponent implements OnInit {
         this.pendinglist();
         this.progressedlist();
         this.resolvedlist();
-        this.rejectedlist();
+        //this.rejectedlist();
     }
 
     totalcomplaintlist() {

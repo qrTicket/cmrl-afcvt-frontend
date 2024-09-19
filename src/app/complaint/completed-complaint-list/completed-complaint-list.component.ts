@@ -48,7 +48,7 @@ export class CompletedComplaintListComponent implements OnInit {
         }
       },
       error:(err)=>{
-          this.toastr.error(err.error.data,'Error!')
+          this.toastr.error(err.error.data)
       }
     })
   }

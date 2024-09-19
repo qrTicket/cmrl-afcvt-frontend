@@ -61,14 +61,14 @@ export class RaisecomplaintComponent implements OnInit {
         }
         else if(res.status === "1"){
           this.successmsg = res.data;
-          this.toastr.success("", this.successmsg.data);
+          this.toastr.success("", this.successmsg);
           this.complaintForm.reset();
           this.submitted = false;
           this.router.navigate(["/trackcomplaintstatus",]);
         }
       },
       error:(err)=>{
-          this.toastr.error(err.error.data,'Error!')
+          this.toastr.error(err.error.data)
       }
     })
   }

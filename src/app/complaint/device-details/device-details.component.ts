@@ -30,10 +30,17 @@ export class DeviceDetailsComponent implements OnInit {
     // });
     this.complaintService.getDeviceDetails(this.deviceId).subscribe({
       next:(res)=>{
-        this.deviceDetails = res;
+        //this.deviceDetails = res;
+        if(res.status === "0"){
+          this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.deviceDetails = res.data;
+        
+        }
       },
       error:(err)=>{
-          this.toastr.error(err.error.data,'Error!')
+          this.toastr.error(err.error.data)
       }
     })
   }

@@ -29,7 +29,7 @@
                 <label><strong>Current Status</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.currentCompnaintStatus}}</label>
             </div>
             <div class="col-md-4">
-                <label><strong>Raised At</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.createdDate | date:'medium'}}</label>
+                <label><strong>Raised At</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.createdDate}}</label>
             </div>
             <div class="col-md-4">
                 <label><strong>Problem Description</strong> :&nbsp;&nbsp;&nbsp; {{complaintDetails.complaint.problemDescription}}</label>
@@ -56,7 +56,7 @@
                     <tbody>
                       <tr *ngFor="let list of complaintDetails.complaintLog">
                         <th>{{list.logBy.name}}</th>
-                        <td>{{list.createdDate | date:'medium' }}</td>
+                        <td>{{list.createdDate}}</td>
                         <td>{{list.status.complaintStatusResponse}}</td>
                         <td>{{list.description}}</td>
                       </tr>

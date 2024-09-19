@@ -13,6 +13,9 @@
         <thead>
             <tr>
                 <th>Device ID</th>
+                <th>Terminal Name</th>
+                <th>Terminal Id</th>
+                <th>Gate</th>
                 <th width="100">Equipment Code</th>
                 <th width="176px">Equipment Model Name</th>
                 <th width="130">Equipment Type</th>
@@ -30,6 +33,9 @@
         <tbody>
             <tr *ngFor="let list of configuredterminalList">
                 <td>{{ list.deviceId }}</td>
+                <td>{{ list.terminalName }}</td>
+                <td>{{ list.terminalId }}</td>
+                <td>{{ list.gateName }}</td>
                 <td>{{ list.equipmentCode }}</td>
                 <td>{{ list.equipmentModelName }}</td>
                 <td>{{ list.equipmentTypeId }}</td>

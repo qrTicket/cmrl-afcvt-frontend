@@ -39,7 +39,7 @@
                     <td>{{ item.problemDescription }}</td>
                     <td><b>{{ item.complaintStatus }}</b></td>
                     <td>{{ item.createBy }}</td>
-                    <td>{{ item.createdDate | date:'medium'}}</td>
+                    <td>{{ item.createdDate}}</td>
                     <td>
                         <button class="btn btn-info mx-3" (click)="openAssignModel(assignTemplate,item.token)" title="Assign Complaint">
                             <i class="fa fa-paper-plane" style="font-size: 18px"></i>

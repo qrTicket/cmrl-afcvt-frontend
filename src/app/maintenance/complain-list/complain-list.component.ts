@@ -77,12 +77,13 @@ export class ComplainListComponent implements OnInit {
     // )
     this.complainservice.getComplaintStatusList().subscribe({
       next:(res)=>{
-        // if(res.status === "0"){
-        //     this.toastr.error(res.data,'Error!')
-        // }
-        // else if(res.status === "1"){
-          this.complaintStatusList = res;
-        //}
+       
+        if(res.status === "0"){
+          this.toastr.error(res.data,'Error!')
+        }
+        else if(res.status === "1"){
+          this.complaintStatusList = res.data;
+        }
       },
       error:(err)=>{
           this.toastr.error(err.error.data,'Error!')
