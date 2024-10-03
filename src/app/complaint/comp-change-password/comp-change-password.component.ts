@@ -59,7 +59,7 @@ export class CompChangePasswordComponent implements OnInit {
 
           RxwebValidators.compare({
             fieldName: "newPassword",
-            message: "Password don't match!",
+            message: "Confirm password is not matched with the New password",
           }),
         ],
       ]

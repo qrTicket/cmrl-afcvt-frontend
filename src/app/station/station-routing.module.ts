@@ -39,6 +39,7 @@ import { ComplaintDetailsComponent } from "./complaint-details/complaint-details
 import { GateOperationModeComponent } from "./gate-operation-mode/gate-operation-mode.component";
 //import { DeviceDetailsComponent } from "../complaint/device-details/device-details.component";
 import { MultiGateOperationModeComponent } from "./multi-gate-operation-mode/multi-gate-operation-mode.component";
+import { DeviceDetailsComponent } from "../complaint/device-details/device-details.component";
 
 const routes: Routes = [
     {
@@ -85,7 +86,7 @@ const routes: Routes = [
             { path: "modePdf", component: ModePdfComponent},
             { path: "gate-operation-mode", component: GateOperationModeComponent},
             { path: "multi-gate-operation-mode", component: MultiGateOperationModeComponent},
-            //{ path: 'equipments/device-details/:deviceid', component: DeviceDetailsComponent },
+            { path: 'equipments/device-details/:deviceid', component: DeviceDetailsComponent },
         ],
     },
 ];

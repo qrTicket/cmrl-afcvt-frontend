@@ -161,11 +161,11 @@ export class ComplainListComponent implements OnInit {
         this.mainservice.closeComplaint(this.assignForm.value).subscribe({
           next:(res:any)=>{
             if(res.status === "0"){
-                this.toastr.error(res.data,'Error!')
+                this.toastr.error(res.data)
             }
             else if(res.status === "1"){
               this.successmsg = res.data;
-              this.toastr.success("", this.successmsg.data);
+              this.toastr.success("", this.successmsg);
               this.assignForm.reset();
               this.modalRef.hide();
               this.router.navigate(["/inprogress-complain-list",]);

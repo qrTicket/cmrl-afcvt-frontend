@@ -143,7 +143,7 @@ export class InprogressListComponent implements OnInit {
             else if(res.status === "1"){
               console.log(res);
               this.successmsg = res.data;
-              this.toastr.success("", this.successmsg.data);
+              this.toastr.success("", this.successmsg);
               this.assignForm.reset();
               this.modalRef.hide();
               this.router.navigate(["/completedComplaintList",]);

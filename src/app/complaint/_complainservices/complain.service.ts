@@ -127,11 +127,18 @@ export class ComplainService {
         );
     }
 
-     // Maintinance staff list
-     getComplaintStatusList() {
+    // Maintinance staff list
+    getComplaintStatusList() {
         return this.http.get<any>(
             `${environment.productUrl}/list/complaintstatus`,
             this.httpOptions
+        );
+    }
+
+    // fetch data to display on dasboard
+    getDashboardData() {
+        return this.http.get<any>(
+            `${environment.productUrl}/complaint/dashboard`,
         );
     }
     

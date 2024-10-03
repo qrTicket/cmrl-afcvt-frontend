@@ -160,13 +160,10 @@ public randomize(): void {
      */
 }
 
-pendingCount:any;
-inProgressCount:any;
-closedCount:any;
+dashboardData: any;
 
 constructor(
     private mainservice: MainService,
-    private complainservice: ComplainService,
     private toastr:ToastrService
 ) {}
 
@@ -181,77 +178,30 @@ ngOnInit() {
     // this.lineChartLegend = true;
     // this.lineChartType = 'line';
 
-    this.complaintlist();
-    this.inprogressComplaintList();
-    this.closedComplaintList();
+    this.getDashboardData();
+    //this.inprogressComplaintList();
+    //this.closedComplaintList();
 
 }
 
-complaintlist() {
-   
-    // this.complainservice.maintenancePendingComplaintList().subscribe(
-    // (res) => {
-    //     this.pendingCount = res['data'].length;
-    // },
-    // (error) => {
-    //     // console.log(error);
-    // }
-    // )
-    this.complainservice.maintenancePendingComplaintList().subscribe({
+// fetch data to display on dasboard
+getDashboardData() {
+    this.mainservice.getDashboardData().subscribe({
         next:(res)=>{
           if(res.status === "0"){
-            this.toastr.error(res.data,'Error!')
+              this.toastr.error(res.data)
           }
           else if(res.status === "1"){
-            this.pendingCount = res.data.length;
+            this.dashboardData = res.data;
           }
         },
         error:(err)=>{
-            this.toastr.error(err.error.data,'Error!')
+            this.toastr.error(err.error.data)
         }
-      })
-    
+    })
 }
 
-inprogressComplaintList() {
-    // this.mainservice.inprogressComplaintList().subscribe((res) => {
-    //     this.inProgressCount = res['data'].length;
-    // });
-    this.mainservice.inprogressComplaintList().subscribe({
-        next:(res)=>{
-          if(res.status === "0"){
-            this.toastr.error(res.data,'Error!')
-          }
-          else if(res.status === "1"){
-            this.inProgressCount = res.data.length;
-          }
-        },
-        error:(err)=>{
-            this.toastr.error(err.error.data,'Error!')
-        }
-      })
-}
 
-closedComplaintList() {
-    // this.mainservice.closedComplaintList().subscribe((res) => {
-    //     console.log('res')
-    //     console.log(res)
-    //     this.closedCount = res['data'].length;
-    // });
-    this.mainservice.closedComplaintList().subscribe({
-        next:(res)=>{
-          if(res.status === "0"){
-            this.toastr.error(res.data,'Error!')
-          }
-          else if(res.status === "1"){
-            this.closedCount = res.data.length;
-          }
-        },
-        error:(err)=>{
-            this.toastr.error(err.error.data,'Error!')
-        }
-      })
-}
 
 
 

@@ -41,12 +41,13 @@ export class AdminConfigBusinessRuleComponent implements OnInit {
 
     this.configBusinessRuleForm = this.formBuilder.group({
       minimumBalance: ["", RxwebValidators.required({ message: "This field is required!", }),],
+      minimumFare: ["", RxwebValidators.required({ message: "This field is required!", }),],
       timeLimitSourceStn: ["", RxwebValidators.required({ message: "This field is required!", }),],
       timeLimitDestinationStn: ["", RxwebValidators.required({ message: "This field is required!", }),],
       startTimeLimit: ["", RxwebValidators.required({ message: "This field is required!", }),],
       endTimeLimit: ["", RxwebValidators.required({ message: "This field is required!", }),],
-      penaltyDecision: ["", RxwebValidators.required({ message: "This field is required!", }),],
-      errorCodes: ["", RxwebValidators.required({ message: "This field is required!" })],
+      //penaltyDecision: ["", RxwebValidators.required({ message: "This field is required!", }),],
+      //errorCodes: ["", RxwebValidators.required({ message: "This field is required!" })],
       entryMisMatch: ["", RxwebValidators.required({ message: "This field is required!" })],
       exitMisMatch: ["", RxwebValidators.required({ message: "This field is required!" })],
       insufficientAmount: ["", RxwebValidators.required({ message: "This field is required!" })],
@@ -63,6 +64,8 @@ export class AdminConfigBusinessRuleComponent implements OnInit {
     return this.configBusinessRuleForm.controls;
   }
 
+
+  //fetch bussiness rule
   getBusinessRule(){
     this.fareService.getBusinessRule().subscribe({
       next:(res)=>{
@@ -80,26 +83,29 @@ export class AdminConfigBusinessRuleComponent implements OnInit {
     })
   }
 
+  //patch date in form
   updateDetails(details: any) {
     console.log(details,'det..');
     
     this.configBusinessRuleForm.patchValue({
       minimumBalance: details && details.minimumBalance?details.minimumBalance:'',
+      minimumFare: details && details.minimumFare?details.minimumFare:0,
       timeLimitSourceStn: details && details.timeLimitSourceStn?details.timeLimitSourceStn:'',
       timeLimitDestinationStn: details && details.timeLimitDestinationStn?details.timeLimitDestinationStn:'',
       startTimeLimit: details && details.startTimeLimit?details.startTimeLimit:'',
       endTimeLimit: details && details.endTimeLimit ? details.endTimeLimit : '',
-      penaltyDecision: details && details.penaltyDecision ? true : false,
-      errorCodes: details && details.errorCodeEnable ? true : false,
+      //penaltyDecision: details && details.penaltyDecision ? true : false,
+      //errorCodes: details && details.errorCodeEnable ? true : false,
       entryMisMatch: details && details.writeErEntrySkip03 ? true : false ,
       exitMisMatch: details && details.writeErExitSkip04 ? true : false,
       insufficientAmount: details && details.writeErAmntInsuff01 ? true : false ,
       overStay: details && details.writeErTimeExceed06 ?  true : false
     
     });
-    if(!details.errorCodeEnable){
+
+    /*if(!details.errorCodeEnable){
       this.onErrCodeChange(details.errorCodeEnable);
-    }
+    }*/
   }
 
   // on error code change fields will be disabled
@@ -119,6 +125,7 @@ export class AdminConfigBusinessRuleComponent implements OnInit {
     
   }
 
+  //update business rule
   onFormSubmit() {
     this.submitted = true;
     if (this.configBusinessRuleForm.invalid)
@@ -129,12 +136,13 @@ export class AdminConfigBusinessRuleComponent implements OnInit {
     let reqObj = {
       
         "minimumBalance" : this.configBusinessRuleForm.value.minimumBalance,
+        "minimumFare" : this.configBusinessRuleForm.value.minimumFare,
         "timeLimitSourceStn" : this.configBusinessRuleForm.value.timeLimitSourceStn,
         "timeLimitDestinationStn" : this.configBusinessRuleForm.value.timeLimitDestinationStn,
         "startTimeLimit" : this.configBusinessRuleForm.value.startTimeLimit,
         "endTimeLimit" : this.configBusinessRuleForm.value.endTimeLimit,
-        "penaltyDecision" : this.configBusinessRuleForm.value.penaltyDecision,
-        "errorCodeEnable" : this.configBusinessRuleForm.value.errorCodes,
+        //"penaltyDecision" : this.configBusinessRuleForm.value.penaltyDecision,
+        //"errorCodeEnable" : this.configBusinessRuleForm.value.errorCodes,
         "writeErEntrySkip03" : this.configBusinessRuleForm.value.entryMisMatch,
         "writeErExitSkip04" : this.configBusinessRuleForm.value.exitMisMatch,
         "writeErAmntInsuff01" : this.configBusinessRuleForm.value.insufficientAmount,
@@ -145,7 +153,8 @@ export class AdminConfigBusinessRuleComponent implements OnInit {
     this.fareService.updateFareRule(reqObj).subscribe({
       next:(res:any)=>{
         if(res.status === "0"){
-            this.toastr.error(res.data,'Error!')
+          //alert(res.data)
+            this.toastr.error(res.data)
         }
         else if(res.status === "1"){
           this.spinner.hide();
@@ -157,6 +166,7 @@ export class AdminConfigBusinessRuleComponent implements OnInit {
         }
       },
       error:(err)=>{
+        //alert(err)
           this.toastr.error(err.error.data)
       }
     })

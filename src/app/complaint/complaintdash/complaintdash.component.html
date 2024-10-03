@@ -3,7 +3,7 @@
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-info">
                 <div class="inner">
-                    <h3> {{totalCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalComplaint ? dashboardData.totalComplaint : 0}} </h3>
                     <p> Total Complaints </p>
                 </div>
                 <div class="icon">
@@ -16,7 +16,7 @@
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-secondary">
                 <div class="inner">
-                    <h3> {{pendingCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalPending ? dashboardData.totalPending : 0}} </h3>
                     <p> Total Pending Complaints </p>
                 </div>
                 <div class="icon">
@@ -29,7 +29,7 @@
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-primary">
                 <div class="inner">
-                    <h3> {{progressCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalInprogress ? dashboardData.totalInprogress : 0}} </h3>
                     <p> Total InProgress Complaints </p>
                 </div>
                 <div class="icon">
@@ -38,10 +38,10 @@
                 <a [routerLink]="['/complaint/progressList']" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <!-- <div class="col-lg-3 col-sm-6">
+        <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-danger">
                 <div class="inner">
-                    <h3> {{rejectedCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalRejected ? dashboardData.totalRejected : 0}} </h3>
                     <p> Total Rejected Complaints </p>
                 </div>
                 <div class="icon">
@@ -49,11 +49,11 @@
                 </div>
                 <a [routerLink]="['/complaint/rejectedList']" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-        </div> -->
+        </div>
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-success">
                 <div class="inner">
-                    <h3> {{resolvedCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalClosed ? dashboardData.totalClosed : 0}} </h3>
                     <p> Total Closed Complaints </p>
                 </div>
                 <div class="icon">

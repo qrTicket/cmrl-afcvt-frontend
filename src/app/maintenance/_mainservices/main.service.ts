@@ -87,4 +87,11 @@ export class MainService {
             this.httpOptions
         );
     }
+
+     // fetch data to display on dasboard
+     getDashboardData() {
+        return this.http.get<any>(
+            `${environment.productUrl}/complaint/maintenance/dashboard`,
+        );
+    }
 }

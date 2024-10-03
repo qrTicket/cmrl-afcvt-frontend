@@ -4,7 +4,7 @@
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-info">
                 <div class="inner">
-                    <h3> {{pendingCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalPendingComplaintCount ? dashboardData.totalPendingComplaintCount : 0}} </h3>
                     <p> Total Pending Complaints </p>
                 </div>
                 <div class="icon">
@@ -17,7 +17,7 @@
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-primary">
                 <div class="inner">
-                    <h3> {{inProgressCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalInprogressComplaintCount ? dashboardData.totalInprogressComplaintCount : 0}} </h3>
                     <p> Total InProgress Complaints </p>
                 </div>
                 <div class="icon">
@@ -29,7 +29,7 @@
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-success">
                 <div class="inner">
-                    <h3> {{closedCount}} </h3>
+                    <h3> {{dashboardData && dashboardData.totalClosedComplaintCount ? dashboardData.totalClosedComplaintCount : 0}} </h3>
                     <p> Total Closed Complaints </p>
                 </div>
                 <div class="icon">

@@ -28,7 +28,7 @@
         <form [formGroup]="configBusinessRuleForm" (ngSubmit)="onFormSubmit()">
             <div class="row row-p-tb4">
 
-                <!-- Minimum Name -->
+                <!-- Minimum Balance -->
                 <div class="col-md-4">
                     <label for="minimumBalance" class="required">
                         <b>Minimum Balance</b>
@@ -38,6 +38,20 @@
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf=" fval.minimumBalance.errors && fval.minimumBalance.errors.required ">
                             {{fval.minimumBalance.errors.required.message }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Minimum Fare -->
+                <div class="col-md-4">
+                    <label for="minimumBalance" class="required">
+                        <b>Minimum Fare</b>
+                    </label>
+                    <input formControlName="minimumFare" class="form-control" type="number" [ngClass]="{'is-invalid': submitted && fval.minimumFare.errors}" min="1" />
+
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf=" fval.minimumFare.errors && fval.minimumFare.errors.required ">
+                            {{fval.minimumFare.errors.required.message }}
                         </div>
                     </div>
                 </div>
@@ -99,10 +113,9 @@
                 </div>
 
                 <!-- penaltyDecision -->
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <label for="penaltyDecision" class="required"><b>Penalty Decision</b></label>
-                    <!-- <input formControlName="penaltyDecision" class="form-control" type="number" 
-                        [ngClass]="{'is-invalid': submitted && fval.penaltyDecision.errors}" min="0" /> -->
+                    
                     <ng-select id="penaltyDecision" class=" form-vehicle" formControlName="penaltyDecision" placeholder="Select"
                             [ngClass]="{ 'is-invalid': submitted && fval['penaltyDecision'].errors }">
                         <ng-option value="" selected>--Select--</ng-option>
@@ -113,10 +126,10 @@
                             {{fval.penaltyDecision.errors.required.message }}
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Error Codes -->
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <label for="errorCodes" class="required">Error Code Enable</label>
                     <ng-select id="errorCodes" class=" form-vehicle" formControlName="errorCodes" placeholder="Select"
                         [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }" (change)="onErrCodeChange($event)" >
@@ -128,13 +141,13 @@
                             {{fval.errorCodes.errors.required.message }}
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Entry Mismatch -->
                 <div class="col-md-4">
                     <label for="entryMisMatch" class="required">Entry MisMatch</label>
                     <ng-select id="entryMisMatch" class=" form-vehicle" formControlName="entryMisMatch" placeholder="Select"
-                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        [ngClass]="{ 'is-invalid': submitted && fval.entryMisMatch.errors }">
                         <ng-option value="" selected>--Select--</ng-option>
                         <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
                     </ng-select>
@@ -149,7 +162,7 @@
                 <div class="col-md-4">
                     <label for="exitMisMatch" class="required">Exit MisMatch</label>
                     <ng-select id="exitMisMatch" class=" form-vehicle" formControlName="exitMisMatch" placeholder="Select"
-                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        [ngClass]="{ 'is-invalid': submitted && fval['exitMisMatch'].errors }">
                         <ng-option value="" selected>--Select--</ng-option>
                         <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
                     </ng-select>
@@ -164,7 +177,7 @@
                 <div class="col-md-4 mt-3">
                     <label for="insufficientAmount" class="required">Insufficient Amount</label>
                     <ng-select id="insufficientAmount" class=" form-vehicle" formControlName="insufficientAmount" placeholder="Select"
-                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        [ngClass]="{ 'is-invalid': submitted && fval['insufficientAmount'].errors }">
                         <ng-option value="" selected>--Select--</ng-option>
                         <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
                     </ng-select>
@@ -179,7 +192,7 @@
                 <div class="col-md-4 mt-3">
                     <label for="overStay" class="required">OverStay</label>
                     <ng-select id="overStay" class=" form-vehicle" formControlName="overStay" placeholder="Select"
-                        [ngClass]="{ 'is-invalid': submitted && fval['errorCodes'].errors }">
+                        [ngClass]="{ 'is-invalid': submitted && fval['overStay'].errors }">
                         <ng-option value="" selected>--Select--</ng-option>
                         <ng-option *ngFor="let ddl of booleanDropDown" [value]="ddl.key">{{ddl.value}}</ng-option>
                     </ng-select>
