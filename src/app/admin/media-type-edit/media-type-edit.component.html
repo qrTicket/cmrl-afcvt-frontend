@@ -44,9 +44,12 @@
                 <div class="col-md-4 form-group">
                     <label for="mediaTypeCode">Media Type Code <span class="required">*</span></label>
                     <input type="text" formControlName="mediaTypeCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.mediaTypeCode.errors}" maxlength="255" />
-                    <div *ngIf="submitted" class="invalid-feedback">
+                    <div *ngIf="submitted && fval.mediaTypeCode.errors" class="invalid-feedback">
                         <div *ngIf="fval.mediaTypeCode.errors && fval.mediaTypeCode.errors.required">
                             {{ fval.mediaTypeCode.errors.required.message }}
+                        </div>
+                        <div *ngIf="fval.mediaTypeCode.errors && fval.mediaTypeCode.errors.alpha">
+                            {{ fval.mediaTypeCode.errors.alpha.message }}
                         </div>
                     </div>
                 </div>

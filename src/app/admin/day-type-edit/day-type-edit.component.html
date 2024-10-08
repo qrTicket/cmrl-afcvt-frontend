@@ -34,6 +34,9 @@
                         <div *ngIf="fval.dayTypeName.errors && fval.dayTypeName.errors.required">
                             {{ fval.dayTypeName.errors.required.message }}
                         </div>
+                        <div *ngIf="fval.dayTypeName.errors && fval.dayTypeName.errors.alpha">
+                            {{ fval.dayTypeName.errors.alpha.message }}
+                        </div>
                     </div>
                 </div>
 

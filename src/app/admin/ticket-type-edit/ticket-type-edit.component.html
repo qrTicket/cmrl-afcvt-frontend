@@ -48,6 +48,9 @@
                         <div *ngIf="fval.ticketTypeCode.errors && fval.ticketTypeCode.errors.required">
                             {{ fval.ticketTypeCode.errors.required.message }}
                         </div>
+                        <div *ngIf="fval.ticketTypeCode.errors && fval.ticketTypeCode.errors.alpha">
+                            {{ fval.ticketTypeCode.errors.alpha.message }}
+                        </div>
                     </div>
                 </div>
 

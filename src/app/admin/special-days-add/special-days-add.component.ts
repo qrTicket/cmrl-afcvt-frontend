@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SpecialDayService } from '../_services/special-day.service';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { formatDate } from '@angular/common';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -72,8 +72,14 @@ export class SpecialDaysAddComponent implements OnInit {
       yearStartingDayDate: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]],
       numberOfDays: ['', [
         RxwebValidators.required({message:"ERROR! This field is required!"}),
-        RxwebValidators.numeric({message:"ERROR! This digits are allowed!"}),
+        //RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber, allowDecimal:false, message:"ERROR! Only Numbers are allowed"}),
+        RxwebValidators.pattern({
+          expression: { 'positiveIntegerWithoutZero': /^[1-9]\d*$/ },
+          message: 'ERROR! Only positive integers greater than zero are allowed.'
+        })
       ]],
+
+      
     })
 
     this.getYearStartingDate();

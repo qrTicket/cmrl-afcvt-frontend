@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DayTypeService } from '../_services/day-type.service';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-day-type-edit',
@@ -30,7 +30,10 @@ export class DayTypeEditComponent implements OnInit {
     })
 
     this.dayType = this.formBuilder.group({
-      dayTypeName: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]],
+      dayTypeName: ['', [
+        RxwebValidators.required({message:"ERROR! This field is required!"}),
+        RxwebValidators.alpha({message:'ERROR! Only alphabets are allowed!', allowWhiteSpace:true})
+      ]],
       //status: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]]
       timeSlots: this.formBuilder.array([this.defaultFields()])
     }
@@ -75,7 +78,7 @@ export class DayTypeEditComponent implements OnInit {
       toTime: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]],
       discount: ['', [
         RxwebValidators.required({message:"ERROR! This field is required!"}),
-        RxwebValidators.numeric({message:"ERROR! Only digits are allowed!", allowDecimal:true})
+        RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:true, message:'ERROR! Only numeric values or decimals are allowed' })
     ]]
     })
   }
@@ -87,7 +90,7 @@ export class DayTypeEditComponent implements OnInit {
       toTime: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]],
       discount: ['', [
         RxwebValidators.required({message:"ERROR! This field is required!"}),
-        RxwebValidators.numeric({message:"ERROR! Only digits are allowed!", allowDecimal:true})
+        RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:true, message:'ERROR! Only numeric values or decimals are allowed' })
       ]],
     })
     control.push(moreFields);

@@ -127,8 +127,11 @@
                         <div *ngIf="fvalYearStartDate.numberOfDays.errors && fvalYearStartDate.numberOfDays.errors.required">
                             {{ fvalYearStartDate.numberOfDays.errors.required.message }}
                         </div>
-                        <div *ngIf="fvalYearStartDate.numberOfDays.errors && fvalYearStartDate.numberOfDays.errors.numeric">
+                        <!-- <div *ngIf="fvalYearStartDate.numberOfDays.errors && fvalYearStartDate.numberOfDays.errors.numeric">
                             {{ fvalYearStartDate.numberOfDays.errors.numeric.message }}
+                        </div> -->
+                        <div *ngIf="fvalYearStartDate.numberOfDays.errors && fvalYearStartDate.numberOfDays.errors.positiveIntegerWithoutZero">
+                            {{ fvalYearStartDate.numberOfDays.errors.positiveIntegerWithoutZero.message }}
                         </div>
                     </div>
                 </div>

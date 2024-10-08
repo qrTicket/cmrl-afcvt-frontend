@@ -32,11 +32,14 @@ export class AddMediaTypeComponent implements OnInit {
         RxwebValidators.required({message:"ERROR! This field is required!"}),
         RxwebValidators.alpha({message:'ERROR! Only alphabets are allowed!', allowWhiteSpace:true})
       ]],
-      mediaTypeCode: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]],
+      mediaTypeCode: ['', [
+        RxwebValidators.required({message:"ERROR! This field is required!"}),
+        RxwebValidators.alpha({message:'ERROR! Only alphabets are allowed!'})
+      ]],
       discount: ['', [ 
         RxwebValidators.required({message:"ERROR! This field is required!"}),
         // RxwebValidators.maxLength({value:32, message:"ERROR! Maximum length acceptable is 20 digits!"}),
-        RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:true, message:'ERROR! Only digits are allowed!' })
+        RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber ,allowDecimal:true, message:'ERROR! Only numeric values or decimals are allowed' })
 
       ]],
       //ticketTypeIds: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]],

@@ -39,10 +39,13 @@ export class MediaTypeEditComponent implements OnInit {
     this.updateMedia = this.formBuilder.group({
       mediaTypeName: ['', [RxwebValidators.required({message:"ERROR! This field is required!"}),
         RxwebValidators.alpha({message:'ERROR! Only alphabets are allowed!', allowWhiteSpace:true})]],
-      mediaTypeCode: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]],
+      mediaTypeCode: ['', [
+        RxwebValidators.required({message:"ERROR! This field is required!"}),
+        RxwebValidators.alpha({message:'ERROR! Only alphabets are allowed!'})
+      ]],
       discount: ['', [
         RxwebValidators.required({message:"ERROR! This field is required!"}),
-        RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:true, message:'ERROR! Only digits are allowed!' })
+        RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:true, message:'ERROR! Only numeric values or decimals are allowed' })
       ]],
       //ticketTypeIds: ['', [RxwebValidators.required({message:"ERROR! This field is required!"})]]
     });
