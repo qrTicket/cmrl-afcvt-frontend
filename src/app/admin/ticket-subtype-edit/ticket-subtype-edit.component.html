@@ -41,14 +41,17 @@
 
                 <!-- Ticket Sub Type Code -->
                 <div class="col-md-4 form-group">
-                    <label for="ticketSubTypeCode">Media Type Code <span class="required">*</span></label>
+                    <label for="ticketSubTypeCode">Ticket Sub Type Code <span class="required">*</span></label>
                     <input type="text" formControlName="ticketSubTypeCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.ticketSubTypeCode.errors}" maxlength="255" />
                     <div *ngIf="submitted" class="invalid-feedback">
                         <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.required">
                             {{ fval.ticketSubTypeCode.errors.required.message }}
                         </div>
-                        <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.alpha">
+                        <!-- <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.alpha">
                             {{ fval.ticketSubTypeCode.errors.alpha.message }}
+                        </div> -->
+                        <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.onlyAlpha">
+                            {{ fval.ticketSubTypeCode.errors.onlyAlpha.message }}
                         </div>
                     </div>
                 </div>

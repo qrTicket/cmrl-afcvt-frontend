@@ -48,8 +48,11 @@
                         <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.required">
                             {{ fval.ticketSubTypeCode.errors.required.message }}
                         </div>
-                        <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.alpha">
+                        <!-- <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.alpha">
                             {{ fval.ticketSubTypeCode.errors.alpha.message }}
+                        </div> -->
+                        <div *ngIf="fval.ticketSubTypeCode.errors && fval.ticketSubTypeCode.errors.onlyAlpha">
+                            {{ fval.ticketSubTypeCode.errors.onlyAlpha.message }}
                         </div>
                     </div>
                 </div>

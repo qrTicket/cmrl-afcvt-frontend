@@ -37,6 +37,7 @@ export class AdmindashboardService {
   customFilterPostRequestForQREndUrl:string = "api/afc/fetch/filtered/qr/transactions";
   customFilterPostRequestForNCMCEndUrl:string = "api/afc/fetch/filtered/ncmc/transactions";
   customFilterPostRequestForNCMCandQREndUrl:string = "api/afc/fetch/filtered/transactions";
+  getTicketGeneratorListEndUrl:string = "api/afc/fetch/tg/list";
 
   private token: string = localStorage.getItem("token");
   headers = new HttpHeaders().set("Content-Type", "application/json");
@@ -97,11 +98,15 @@ export class AdmindashboardService {
     return this.http.get(`${environment.BASEURL}/${this.getTicketCountEndUrl}`);
   }
 
+  //get station list
   getStationList(): Observable<any> {
     return this.http.get(`${environment.BASEURL}/${this.getStationListEndUrl}`);
   }
 
-  
+  // get ticket generator List
+  getTicketGeneratorList(): Observable<any> {
+    return this.http.get(`${environment.BASEURL}/${this.getTicketGeneratorListEndUrl}`);
+  }
 
   //with pagination
   postTransactionList(dataTablePayload:any): Observable<any> {

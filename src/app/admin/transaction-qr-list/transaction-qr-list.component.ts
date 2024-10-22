@@ -27,6 +27,7 @@ export class TransactionQrListComponent implements OnInit {
   stationList:any[]=[];
   item:any;
   fileExtension:any[] =[];
+  ticketGeneratorList:any[] =[];
 
   ticketType:any [] = [
     { "ticketCode" : "QR", "ticketValue" : "QR" },
@@ -35,14 +36,12 @@ export class TransactionQrListComponent implements OnInit {
   ];
 
   modalRef: BsModalRef;
-    config = {
-      animated: true,
-      backdrop: true,
-      ignoreBackdropClick: false,
-      class: 'modal-lg'
-    };
-
-   
+  config = {
+    animated: true,
+    backdrop: true,
+    ignoreBackdropClick: false,
+    class: 'modal-lg'
+  };
 
   constructor(
     private adminSrv:AdmindashboardService,
@@ -54,12 +53,14 @@ export class TransactionQrListComponent implements OnInit {
     this.customFilterForm = this.fb.group({
       stationCode:[''],
       dateFrom:[''],
-      dateUpto:['']
+      dateUpto:[''],
+      ticketGenerator:[''],
     })
     this.getStationList();
     this.getFileExtensionList();
    // this.dataTableAjaxCall();
    this.getFilteredResponse();
+   this.getTicketGeneratorList();
   }
 
   // calling server side API through ajax
@@ -90,7 +91,11 @@ export class TransactionQrListComponent implements OnInit {
               {
                   "attributeName": "transactionBefore",
                   "searchValue": this.customFilterForm.value.dateUpto ? formatDate(this.customFilterForm.value.dateUpto,'dd-MM-yyyy','en')  : null
-              }
+              },
+              {
+                "attributeName": "tgId",
+                "searchValue": this.customFilterForm.value.ticketGenerator ? +this.customFilterForm.value.ticketGenerator : null
+            }
           ],
           "paginationRequest": dataTablesParameters
         }
@@ -144,6 +149,21 @@ export class TransactionQrListComponent implements OnInit {
     })
   }
 
+  // get ticket generator list for custom filter
+  getTicketGeneratorList(){
+    this.adminSrv.getTicketGeneratorList().subscribe({
+      next:(resp:any)=>{
+        if(resp["status"] === "1"){
+          this.ticketGeneratorList = resp.data;
+          console.log(this.stationList);
+        }
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error.data,'ERROR')
+      }
+    })
+  }
+
   //method to get list of all transactions
   getFilteredResponse(){
     this.dtOptions = {
@@ -162,6 +182,7 @@ export class TransactionQrListComponent implements OnInit {
       "stationCode":this.customFilterForm.value.stationCode ? this.customFilterForm.value.stationCode : null,
       "fromDate":this.customFilterForm.value.dateFrom ? formatDate(this.customFilterForm.value.dateFrom,'dd-MM-yyyy','en')  : null,
       "toDate" : this.customFilterForm.value.dateUpto ? formatDate(this.customFilterForm.value.dateUpto,'dd-MM-yyyy','en')  : null,
+      "tgId" : this.customFilterForm.value.ticketGenerator ? +this.customFilterForm.value.ticketGenerator : null
       // "ticketType" : this.Search.value.ticketType ? this.Search.value.ticketType : 'ALL',
     }
 
@@ -191,6 +212,7 @@ export class TransactionQrListComponent implements OnInit {
       "fromDate":this.customFilterForm.value.dateFrom ? formatDate(this.customFilterForm.value.dateFrom,'dd-MM-yyyy','en')  : null,
       "toDate" : this.customFilterForm.value.dateUpto ? formatDate(this.customFilterForm.value.dateUpto,'dd-MM-yyyy','en')  : null,
       "ticketType" : this.customFilterForm.value.ticketType ? this.customFilterForm.value.ticketType : 'ALL',
+      "tgId" : this.customFilterForm.value.ticketGenerator ? +this.customFilterForm.value.ticketGenerator : null
     }
 
     this.adminSrv.downloadQrTxnFile(reqObj, fileExt).subscribe({

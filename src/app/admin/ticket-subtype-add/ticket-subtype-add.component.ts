@@ -30,7 +30,9 @@ export class TicketSubtypeAddComponent implements OnInit {
       ]],
       ticketSubTypeCode: ['', [
         RxwebValidators.required({message:"ERROR! This field is required!"}),
-        RxwebValidators.alpha({message:'ERROR! Only alphabets are allowed!'})
+        // RxwebValidators.alpha({message:'ERROR! Only alphabets are allowed!'})
+        RxwebValidators.pattern({expression:{'onlyAlpha': /^[A-Za-z]+(?:_[A-Za-z]+)*$/}, 
+          message:'ERROR! Only alphabets and underscore(_) is allowed and underscore(_) is not allowed at start and end of string!' })
       ]],
       discount: ['', [
         RxwebValidators.required({message:"ERROR! This field is required!"}),

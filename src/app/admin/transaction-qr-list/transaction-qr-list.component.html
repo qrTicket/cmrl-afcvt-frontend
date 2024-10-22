@@ -45,15 +45,15 @@
                     <input type="date" formControlName="dateUpto" class="form-control" />
                 </div>
 
-                <!-- <div class="col-md-2 ">
-                    <label for="ticketType">Ticket Type</label>
-                    <select formControlName="ticketType" class="form-control" id="stnCode">
+                <div class="col-md-2 ">
+                    <label for="ticketGenerator">Ticket Generator(TG)</label>
+                    <select formControlName="ticketGenerator" class="form-control" >
                         <option value="">Select</option>
-                        <option *ngFor="let item of ticketType;let i=index" [value]="item.ticketCode">{{ item.ticketValue }}</option>
+                        <option *ngFor="let item of ticketGeneratorList | keyvalue" [value]="item.key">{{ item.value }}</option>
                     </select>
-                </div> -->
+                </div>
 
-                <div class="col-md-6 ">
+                <div class="col-md-4 ">
                     <button type="submit" class="searchBtn" (click)="reRenderDatatable()">
                     <!-- <button type="submit" class="searchBtn" (click)="getFilteredResponse()"> -->
                         Search
