@@ -37,12 +37,12 @@ export class ProfileService {
       );
   }
 
-  url:String = "http://localhost:8080/api/auth";
+ // url:String = "http://localhost:8080/api/auth";
 
   //edit admin profile details
   editAdminProfile(profile: EditProfile): Observable<EditProfile>{
     console.log("profile : "+ profile.name,profile.email,profile.mobileNumber);
-    return this.http.post<EditProfile>(`${this.url}/change/updateProfile`, profile, this.httpOptions)
+    return this.http.post<EditProfile>(`${environment.rootUrl}/change/updateProfile`, profile)
   }
 
 }

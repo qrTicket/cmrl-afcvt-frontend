@@ -87,19 +87,14 @@ export class EditProfileComponent implements OnInit {
             //     .subscribe((userData: any) => {
             //         this.getUserData(userData);
             //     });
-                this.userProfileAPI.getUserProfile().subscribe({
-                    next:(res:any)=>{
-                      if(res.status === "0"){
-                          this.toastr.error(res.data,'Error!')
-                      }
-                      else if(res.status === "1"){
-                        this.getUserData(res.data);
-                      }
-                    },
-                    error:(err)=>{
-                        this.toastr.error(err.error.data,'Error!')
-                    }
-                  })
+            this.userProfileAPI.getUserProfile().subscribe({
+                next:(res:any)=>{
+                    this.getUserData(res)
+                },
+                error:(err)=>{
+                    this.toastr.error(err.error.data)
+                }
+            })
         );
     }
 
