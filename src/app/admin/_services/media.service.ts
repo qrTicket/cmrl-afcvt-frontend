@@ -18,6 +18,7 @@ export class MediaService {
   mapMediaTicketEndUrl:string = "api/v1/mediatype/map";
   getActiveMediaTypeListEndUrl:string = "api/v1/mediatype/active";
   getMediaTicketToTicketSubTypeListEndUrl:string = "api/v1/mediatype/map";
+  changeMediatypeMapStatusEndUrl:string = "api/v1/mediatype/map";
 
   constructor(private http: HttpClient) { }
 
@@ -55,6 +56,10 @@ mapMediaTicket(payload:any):Observable<any>{
 
 getMediaTicketToTicketSubTypeList():Observable<any> {
   return this.http.get<any>(`${environment.BASEURL}/${this.getMediaTicketToTicketSubTypeListEndUrl}`);
+}
+
+changeMediatypeMapStatus(statusPayload:any, id:number):Observable<any>{
+  return this.http.put<any>(`${environment.BASEURL}/${this.changeMediatypeMapStatusEndUrl}/${id}/status`,statusPayload);
 }
 
 

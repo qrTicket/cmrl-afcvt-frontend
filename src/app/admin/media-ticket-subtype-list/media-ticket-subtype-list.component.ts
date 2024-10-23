@@ -71,7 +71,7 @@ getMediaTicketToTicketSubTypeList() {
     let reqObj = {
       "status" : this.mediaStatusValue
     }
-    this.mediaSrv.changeStatus(reqObj, this.mediaId).subscribe({
+    this.mediaSrv.changeMediatypeMapStatus(reqObj, this.mediaId).subscribe({
       next:(res)=>{
         if(res.status === "0"){
           this.toaster.error(res.data,'Error!')
