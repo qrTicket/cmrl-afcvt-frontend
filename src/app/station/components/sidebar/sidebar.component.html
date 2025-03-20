@@ -1,40 +1,21 @@
-<nav
-    class="sidebar"
-    [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
->
+<nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
     <div class="list-group">
-        <a
-            routerLink="/stationdashboard"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
+        <a routerLink="/stationdashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>
             <span>{{ "Dashboard" }}</span>
         </a>
 
-        <a
-            routerLink="/assigned/equipments"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
+        <a routerLink="/assigned/equipments" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-houzz"></i>
             <span>{{ "Assigned Gate List" }}</span>
         </a>
 
-        <a
-            routerLink="/assigned/terminal-list"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
+        <a routerLink="/assigned/terminal-list" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-hdd-o"></i>
             <span>{{ "Assigned Terminal List" }}</span>
         </a>
 
-        <a
-            routerLink="/assigned/other-list"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
+        <a routerLink="/assigned/other-list" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-gear"></i>
             <span>{{ "Other Equipment List" }}</span>
         </a>
@@ -74,50 +55,34 @@
         </div>
 
         <div class="nested-menu">
-            <a
-                class="list-group-item"
-                (click)="addExpandClass('list2')"
-                [routerLinkActive]="['router-link-active']"
-            >
+            <a class="list-group-item" (click)="addExpandClass('list2')" [routerLinkActive]="['router-link-active']">
                 <i class="fa fa-file-text-o"></i>
                 <span>{{ "Gate" }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'list2'">
                 <ul class="submenu">
                     <li>
-                        <a
-                            routerLink="/equipment/configured"
-                            [routerLinkActive]="['router-link-active']"
-                        >
+                        <a routerLink="/equipment/configured" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-fw fa-list"></i>&nbsp;
                             <span>{{ "Configured Gate List" }}</span>
                         </a>
                     </li>
                     <li>
-                        <a
-                            routerLink="/configured-terminal-list"
-                            [routerLinkActive]="['router-link-active']"
-                        >
+                        <a routerLink="/configured-terminal-list" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-fw fa-list"></i>&nbsp;
                             <span id="elp-txt">{{
                                 "Configured Terminal List"
-                            }}</span>
+                                }}</span>
                         </a>
                     </li>
                     <li>
-                        <a
-                            routerLink="/all-gate-history"
-                            [routerLinkActive]="['router-link-active']"
-                        >
+                        <a routerLink="/all-gate-history" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-history"></i>&nbsp;
                             <span>{{ "All Gate History" }}</span>
                         </a>
                     </li>
                     <li>
-                        <a
-                            routerLink="/history-by-gate"
-                            [routerLinkActive]="['router-link-active']"
-                        >
+                        <a routerLink="/history-by-gate" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-bars"></i>&nbsp;
                             <span>{{ "History By Gate" }}</span>
                         </a>
@@ -145,8 +110,8 @@
             </li>
         </div> -->
 
-         <!-- --------------- Complaint --------------- -->
-         <!-- <div class="nested-menu">
+        <!-- --------------- Complaint --------------- -->
+        <!-- <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('list4')" [routerLinkActive]="['router-link-active']">
                 <i class="fa fa-comments"></i>
                 <span>{{ "Complaint" }}</span>
@@ -282,30 +247,19 @@
         <div class="header-fields">
             <div class="nested-menu">
                 <a class="list-group-item" (click)="addExpandClass('profile')">
-                    <span
-                        ><i class="fa fa-user"></i
-                        >{{ username | titlecase }}</span
-                    >
+                    <span><i class="fa fa-user"></i>{{ username | titlecase }}</span>
                     <b class="caret ml-10"></b>
                 </a>
                 <li class="nested" [class.expand]="showMenu === 'profile'">
                     <ul class="submenu">
                         <li>
-                            <a
-                                [routerLink]="['/edit-profile']"
-                                class="dropdown-item"
-                            >
-                                <span
-                                    ><i class="fa fa-fw fa-user"></i>
-                                    {{ "View Profile" }}</span
-                                >
+                            <a [routerLink]="['/edit-profile']" class="dropdown-item">
+                                <span><i class="fa fa-fw fa-user"></i>
+                                    {{ "View Profile" }}</span>
                             </a>
                         </li>
                         <li>
-                            <a
-                                [routerLink]="['/reset-password']"
-                                class="dropdown-item"
-                            >
+                            <a [routerLink]="['/reset-password']" class="dropdown-item">
                                 <i class="fa fa-lock"></i>
                                 {{ "Change Password" }}
                             </a>
@@ -316,31 +270,26 @@
                             </a>
                         </li> -->
                         <li>
-                            <a
-                                [routerLink]="['/login']"
-                                (click)="onLoggedout()"
-                            >
-                                <span
-                                    ><i class="fa fa-fw fa-power-off"></i>
-                                    {{ "Log Out" }}</span
-                                >
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i>
+                                    {{ "Log Out" }}</span>
                             </a>
                         </li>
                     </ul>
                 </li>
             </div>
         </div>
+
+        <!-- track complaint list- working-->
+        <a routerLink="/fetch-audit-report" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file"></i>
+            <span id="elp-txt">{{ "Audit Report" }}</span>
+        </a>
+
     </div>
 
-    <div
-        class="toggle-button"
-        [ngClass]="{ collapsed: collapsed }"
-        (click)="toggleCollapsed()"
-    >
-        <i
-            class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"
-        ></i
-        >&nbsp;
+    <div class="toggle-button" [ngClass]="{ collapsed: collapsed }" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>&nbsp;
         <span>{{ "Collapse" }}</span>
     </div>
 </nav>

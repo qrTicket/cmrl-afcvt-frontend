@@ -56,6 +56,7 @@ import { ComplaintDetailsComponent } from './complaint-details/complaint-details
 import { GateOperationModeComponent } from './gate-operation-mode/gate-operation-mode.component';
 
 import { MultiGateOperationModeComponent } from './multi-gate-operation-mode/multi-gate-operation-mode.component';
+import { FetchAuditReportComponent } from './fetch-audit-report/fetch-audit-report.component';
 //import { ComplaintModule } from "../complaint/complaint.module";
 
 @NgModule({
@@ -116,6 +117,7 @@ import { MultiGateOperationModeComponent } from './multi-gate-operation-mode/mul
         ComplaintDetailsComponent,
         GateOperationModeComponent,
         MultiGateOperationModeComponent,
+        FetchAuditReportComponent,
     ],
     providers: [BsDatepickerConfig],
     exports: [AlarmsComponent],

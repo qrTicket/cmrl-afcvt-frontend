@@ -8,6 +8,8 @@ import { GateConfig } from "../_model/gate-config.model";
     providedIn: "root",
 })
 export class StationService {
+    getAuditFileEndUrl:string = "api/afc/fetch/auditCutoffReport";
+
     private token: string = localStorage.getItem("token");
     headers = new HttpHeaders().set("Content-Type", "application/json");
     private httpOptions = {
@@ -252,5 +254,11 @@ export class StationService {
             this.httpOptions
         );
     }
+
+    // get audit file
+   getAuditFile():Observable<any> {
+    let stationName= localStorage.getItem('STATION_NAME')
+    return this.http.get(`${environment.BASEURL}/${this.getAuditFileEndUrl}/${stationName}`);
+  }
 
 }

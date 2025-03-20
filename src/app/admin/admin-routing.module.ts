@@ -80,6 +80,7 @@ import { StationDiscountEditComponent } from "./station-discount-edit/station-di
 import { StationDiscountListComponent } from "./station-discount-list/station-discount-list.component";
 import { TransactionQrListComponent } from "./transaction-qr-list/transaction-qr-list.component";
 import { TransactionNcmcListComponent } from "./transaction-ncmc-list/transaction-ncmc-list.component";
+import { FetchAuditReportComponent } from "./fetch-audit-report/fetch-audit-report.component";
 
 const routes: Routes = [
     {
@@ -209,6 +210,7 @@ const routes: Routes = [
             { path: "transactions", component: TransactionListComponent },
             { path: "transactions-qr", component: TransactionQrListComponent },
             { path: "transactions-ncmc", component: TransactionNcmcListComponent },
+            { path: "fetch-audit-report", component: FetchAuditReportComponent },
 
             // { path: "testing", component: TestingDatatableComponent },
         ],

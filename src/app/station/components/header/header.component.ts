@@ -47,7 +47,9 @@ export class HeaderComponent implements OnInit {
         this.stationNameService.getStationName().subscribe((res) => {
             // this.stationList = res["data"].stationList;
             this.stationName = res.data.stationName;
+            localStorage.setItem("STATION_NAME",this.stationName)
         });
+        
     }
 
     isToggled(): boolean {

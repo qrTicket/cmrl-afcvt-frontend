@@ -66,6 +66,7 @@ export class AuthService {
         localStorage.removeItem("data_empId");
         localStorage.removeItem("data_mobileNumber");
         localStorage.removeItem("data_stationCode");
+        localStorage.removeItem("STATION_NAME");
         return observableOf(true);
     }
     isLogin() {

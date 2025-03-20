@@ -40,6 +40,7 @@ import { GateOperationModeComponent } from "./gate-operation-mode/gate-operation
 //import { DeviceDetailsComponent } from "../complaint/device-details/device-details.component";
 import { MultiGateOperationModeComponent } from "./multi-gate-operation-mode/multi-gate-operation-mode.component";
 import { DeviceDetailsComponent } from "../complaint/device-details/device-details.component";
+import { FetchAuditReportComponent } from "./fetch-audit-report/fetch-audit-report.component";
 
 const routes: Routes = [
     {
@@ -87,6 +88,7 @@ const routes: Routes = [
             { path: "gate-operation-mode", component: GateOperationModeComponent},
             { path: "multi-gate-operation-mode", component: MultiGateOperationModeComponent},
             { path: 'equipments/device-details/:deviceid', component: DeviceDetailsComponent },
+            { path: "fetch-audit-report", component: FetchAuditReportComponent },
         ],
     },
 ];

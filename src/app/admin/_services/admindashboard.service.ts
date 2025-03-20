@@ -38,6 +38,7 @@ export class AdmindashboardService {
   customFilterPostRequestForNCMCEndUrl:string = "api/afc/fetch/filtered/ncmc/transactions";
   customFilterPostRequestForNCMCandQREndUrl:string = "api/afc/fetch/filtered/transactions";
   getTicketGeneratorListEndUrl:string = "api/afc/fetch/tg/list";
+  getAuditFileEndUrl:string = "api/afc/fetch/auditCutoffReport"
 
   private token: string = localStorage.getItem("token");
   headers = new HttpHeaders().set("Content-Type", "application/json");
@@ -209,6 +210,11 @@ export class AdmindashboardService {
   //filter request for NCMC and QR both Transaction list
   customFilterPostRequestForNCMCandQR(payload:any): Observable<any> {
     return this.http.post<any>(`${environment.BASEURL}/${this.customFilterPostRequestForNCMCandQREndUrl}`,payload);
+  }
+
+   // get audit file
+   getAuditFile():Observable<any> {
+    return this.http.get(`${environment.BASEURL}/${this.getAuditFileEndUrl}`);
   }
 
 }

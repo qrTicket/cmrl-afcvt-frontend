@@ -92,6 +92,7 @@ import { StationDiscountEditComponent } from './station-discount-edit/station-di
 import { StationDiscountListComponent } from './station-discount-list/station-discount-list.component';
 import { TransactionQrListComponent } from './transaction-qr-list/transaction-qr-list.component';
 import { TransactionNcmcListComponent } from './transaction-ncmc-list/transaction-ncmc-list.component';
+import { FetchAuditReportComponent } from './fetch-audit-report/fetch-audit-report.component';
 
 
 
@@ -194,7 +195,8 @@ import { TransactionNcmcListComponent } from './transaction-ncmc-list/transactio
         StationDiscountEditComponent,
         StationDiscountListComponent,
         TransactionQrListComponent,
-        TransactionNcmcListComponent
+        TransactionNcmcListComponent,
+        FetchAuditReportComponent
     ],
     exports: [PrivacyComponent],
 })
