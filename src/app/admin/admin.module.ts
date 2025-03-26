@@ -92,25 +92,27 @@ import { StationDiscountEditComponent } from './station-discount-edit/station-di
 import { StationDiscountListComponent } from './station-discount-list/station-discount-list.component';
 import { TransactionQrListComponent } from './transaction-qr-list/transaction-qr-list.component';
 import { TransactionNcmcListComponent } from './transaction-ncmc-list/transaction-ncmc-list.component';
+import { StationModule } from "../station/station.module";
 
 
 
 @NgModule({
     imports: [
-        CommonModule,
-        AdminRoutingModule,
-        TranslateModule,
-        NgbDropdownModule,
-        DataTablesModule,
-        //FormsModule,
-        ReactiveFormsModule,
-        //StationModule,
-        NgxSpinnerModule,
-        NgbModule,
-        NgSelectModule,
-        RouterModule,
-       BsDatepickerModule.forRoot()
-    ],
+    CommonModule,
+    AdminRoutingModule,
+    TranslateModule,
+    NgbDropdownModule,
+    DataTablesModule,
+    //FormsModule,
+    ReactiveFormsModule,
+    //StationModule,
+    NgxSpinnerModule,
+    NgbModule,
+    NgSelectModule,
+    RouterModule,
+    BsDatepickerModule.forRoot(),
+    StationModule
+],
     declarations: [
 
         AdminComponent,
