@@ -94,6 +94,7 @@ import { TransactionQrListComponent } from './transaction-qr-list/transaction-qr
 import { TransactionNcmcListComponent } from './transaction-ncmc-list/transaction-ncmc-list.component';
 import { FetchAuditReportComponent } from './fetch-audit-report/fetch-audit-report.component';
 import { StationModule } from "../station/station.module";
+import { PaisaToRupeePipe } from "./_customPipes/paisaToRupeePipe";
 
 
 
@@ -198,7 +199,8 @@ import { StationModule } from "../station/station.module";
         StationDiscountListComponent,
         TransactionQrListComponent,
         TransactionNcmcListComponent,
-        FetchAuditReportComponent
+        FetchAuditReportComponent,
+        PaisaToRupeePipe
     ],
     exports: [PrivacyComponent],
 })

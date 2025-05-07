@@ -14,10 +14,61 @@
         </div>
     </div>
 
+    <div class=" table-set  mt-2">
+        <form [formGroup]="customFilterForm">
+            <div class="row">
+                <div class="col-md-2 ">
+                    <label for="stationCode">Station Name</label>
+                    <select formControlName="stationCode" class="form-control">
+                        <option value="">Select</option>
+                        <option *ngFor="let item of stationList;let i=index" [value]="item.stationName">
+                            {{item.stationName }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 ">
+                    <label for="dateFrom">From Date</label>
+                    <input type="date" formControlName="dateFrom" class="form-control" />
+                </div>
+
+                <div class="col-md-2 ">
+                    <label for="dateUpto">To Date</label>
+                    <input type="date" formControlName="dateUpto" class="form-control" />
+                </div>
+
+
+                <div class="col-md-6 ">
+                    <button type="submit" class="searchBtn" (click)="reRenderDatatable()">
+                        <!-- <button type="submit" class="searchBtn" (click)="getFilteredResponse()"> -->
+                        Search
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <button type="reset" class="searchBtn mx-1">
+                        Reset
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                    <!-- <button class="searchBtn mx-1" (click)="downloadAuditFile()">
+                        Download
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </button> -->
+
+                    <select #fileExtn class="searchBtn mx-2" (change)="onFileExtensionChange($event)" >
+                        <option value="">Download</option>
+                        <option *ngFor="let item of fileExtension" [value]="item.extension">{{ item.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="table-responsive table-set mt-4 mrgn-bottom">
 
-        <table class="table-res row-border hover table-head" id="dataTable" datatable="" dt-options="dtOptions"
-            dt-columns="dtColumns" class="display nowrap table" cellspacing="0" width="100%" *ngIf="this.temp">
+        <!-- <table class="table-responsive table-res row-border hover table-head" id="dataTable" datatable=""  
+        class="display nowrap table" [dtOptions]="dtOptions"  *ngIf="this.temp" ></table> -->
+
+        <table class="table-responsive table-res row-border hover table-head" id="dataTable" datatable="" [dtOptions]="dtOptions"
+            class="display nowrap table" cellspacing="0" width="100%" *ngIf="this.temp">
             <thead>
                 <tr class="text-center">
                     <th>S.No.</th>
@@ -36,17 +87,17 @@
                     <th>Passenger Count Bid BA</th>
                     <th>Wrong Entry AB</th>
                     <th>Wrong Entry BA</th>
-                    <th>Normal Open Count</th>
+                    <!-- <th>Normal Open Count</th> -->
                     <th>Force Open Count</th>
                     <th>Out Of Service</th>
                     <th>Maintenance Mode</th>
-                    <th>Passenger Entry</th>
-                    <th>Passenger Exit</th>
-                    <th>Entry Mismatch</th>
-                    <th>Exit Mismatch</th>
-                    <th>Excess Time</th>
-                    <th>Overstep</th>
-                   
+                    <!-- <th>Passenger Entry</th> -->
+                    <!-- <th>Passenger Exit</th> -->
+                    <!-- <th>Entry Mismatch</th> -->
+                    <!-- <th>Exit Mismatch</th> -->
+                    <!-- <th>Excess Time</th> -->
+                    <!-- <th>Overstep</th> -->
+
 
                 </tr>
             </thead>
@@ -68,18 +119,18 @@
                     <td>{{ item && item.passengerCountBidBA ? item.passengerCountBidBA : 'NA' }}</td>
                     <td>{{ item && item.wrongEntryAB ? item.wrongEntryAB : 'NA' }}</td>
                     <td>{{ item && item.wrongEntryBA ? item.wrongEntryBA : 'NA' }}</td>
-                    <td>{{ item && item.normalOpencount ? item.normalOpencount : 'NA' }}</td>
+                    <!-- <td>{{ item && item.normalOpencount ? item.normalOpencount : 'NA' }}</td> -->
                     <td>{{ item && item.forceOpencount ? item.forceOpencount : 'NA' }}</td>
                     <td>{{ item && item.outOfService ? item.outOfService : 'NA' }}</td>
                     <td>{{ item && item.maintenanceMode ? item.maintenanceMode : 'NA' }}</td>
-                    <td>{{ item && item.passengerEntry ? item.passengerEntry : 'NA' }}</td>
-                    <td>{{ item && item.passengerExit ? item.passengerExit : 'NA' }}</td>
-                    <td>{{ item && item.entryMismatch ? item.entryMismatch : 'NA' }}</td>
-                    <td>{{ item && item.exitMismatch ? item.exitMismatch : 'NA' }}</td>
-                    <td>{{ item && item.excessTime ? item.excessTime : 'NA' }}</td>
-                    <td>{{ item && item.overstep ? item.overstep : 'NA' }}</td>
+                    <!-- <td>{{ item && item.passengerEntry ? item.passengerEntry : 'NA' }}</td> -->
+                    <!-- <td>{{ item && item.passengerExit ? item.passengerExit : 'NA' }}</td> -->
+                    <!-- <td>{{ item && item.entryMismatch ? item.entryMismatch : 'NA' }}</td> -->
+                    <!-- <td>{{ item && item.exitMismatch ? item.exitMismatch : 'NA' }}</td> -->
+                    <!-- <td>{{ item && item.excessTime ? item.excessTime : 'NA' }}</td> -->
+                    <!-- <td>{{ item && item.overstep ? item.overstep : 'NA' }}</td> -->
 
-                    
+
                 </tr>
             </tbody>
         </table>

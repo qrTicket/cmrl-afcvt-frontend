@@ -148,3 +148,15 @@ input:checked[type="checkbox"]:before {
     cursor: pointer;
     text-decoration: none;
 }
+
+.searchBtn {
+    padding: 7px 14px;
+    color: #fff;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 30px 7px 28px 0px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}

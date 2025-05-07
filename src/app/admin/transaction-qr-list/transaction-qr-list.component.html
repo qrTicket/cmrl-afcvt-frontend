@@ -103,7 +103,10 @@
                     <td>{{ item && item.operatorTerminalId ? item.operatorTerminalId : 'NA' }}</td>
                     <td>{{ item && item.transactionType ? item.transactionType : 'NA' }}</td>
                     <!-- <td>{{ item && item.transactionAmount ? item.transactionAmount : 'NA' }}</td> -->
-                    <td>{{ item && item.transactionAmount && (item.transactionAmount==0) ? 0 : item.transactionAmount }}</td>
+                    <td>
+                        <i class="fa fa-inr" aria-hidden="true"></i>
+                        {{ item && item.transactionAmount && (item.transactionAmount==0) ? 0 : item.transactionAmount / 100 }}
+                    </td>
                     <td>{{ item && item.transactionPlace ? item.transactionPlace : 'NA' }}</td>
                     <td>{{ item && item.transactionDateTime ? item.transactionDateTime : 'NA' }}</td>
                     <!-- <td>{{ item && item.sourceStation ? item.sourceStation : 'NA' }}</td>

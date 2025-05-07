@@ -38,7 +38,10 @@ export class AdmindashboardService {
   customFilterPostRequestForNCMCEndUrl:string = "api/afc/fetch/filtered/ncmc/transactions";
   customFilterPostRequestForNCMCandQREndUrl:string = "api/afc/fetch/filtered/transactions";
   getTicketGeneratorListEndUrl:string = "api/afc/fetch/tg/list";
-  getAuditFileEndUrl:string = "api/afc/fetch/auditCutoffReport"
+  getAuditFileEndUrl:string = "api/afc/fetch/auditCutoffReport";
+
+  postAuditFileListEndUrl:string = "api/afc/fetch/auditCutoffReport/page";
+  downloadAuditFileEndUrl:string = "api/afc/download/auditCutoffReport";
 
   private token: string = localStorage.getItem("token");
   headers = new HttpHeaders().set("Content-Type", "application/json");
@@ -215,6 +218,17 @@ export class AdmindashboardService {
    // get audit file
    getAuditFile():Observable<any> {
     return this.http.get(`${environment.BASEURL}/${this.getAuditFileEndUrl}`);
+  }
+
+  // filter audit file with pagination
+  postAuditFileList(dataTablePayload:any): Observable<any> {
+    return this.http.post<any>(`${environment.BASEURL}/${this.postAuditFileListEndUrl}`,dataTablePayload);
+  }
+
+  //download filtered/un-filtered Audit file
+  downloadAuditFile(payload:any, fileExtension:any ): Observable<any> {
+    const header = {headers: new HttpHeaders({Authorization: `Bearer ${this.token}`,}),};
+    return this.http.post<any>(`${environment.BASEURL}/${this.downloadAuditFileEndUrl}/${fileExtension}`, payload, {...header, responseType: 'blob' as 'json'});
   }
 
 }
