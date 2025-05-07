@@ -974,7 +974,7 @@
 <div class="alarm-set">
     <div class="col-12">
         <h5>Alarm Logs</h5>
-        <table id="dataTable" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="
+        <!-- <table id="dataTable" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="
                 table table-striped table-bordered table-responsive table-sm
                 row-border
                 hover
@@ -1013,6 +1013,50 @@
                     <td>{{ item.alarmResponseDescription }}</td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+
+        <div class="table-responsive table-set mt-4 mrgn-bottom">
+
+            <!-- <table class="table-responsive table-res row-border hover table-head" id="dataTable" datatable=""  
+            class="display nowrap table" [dtOptions]="dtOptions"  *ngIf="this.temp" ></table> -->
+    
+            <table class="table-responsive table-res row-border hover table-head" id="dataTable" datatable="" [dtOptions]="dtOptions"
+                class="display nowrap table" cellspacing="0" width="100%" *ngIf="this.temp">
+                <thead>
+                    <tr class="text-center">
+                        <th>S.No.</th>
+                        <th>Station ID</th>
+                        <th>Device ID</th>
+                        <th>Equipment Type</th>
+                        <th>Error Code</th>
+                        <th>SubError Code</th>
+                        <th>Alarm Description</th>
+                        <th>Token</th>
+                        <th>Msg Generation Date Time</th>
+                        <th>Request SubError Code</th>
+                        <th>Response Code</th>
+                        <th>Resp_Generation_Date_Time</th>
+                        <th>Alarm_Response_Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let item of alarmsList; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{ item.stationId }}</td>
+                        <td>{{ item.deviceId }}</td>
+                        <td>{{ item.eqpType }}</td>
+                        <td>{{ item.errorCode }}</td>
+                        <td>{{ item.subErrorCode }}</td>
+                        <td>{{ item.alarmDescription }}</td>
+                        <td>{{ item.token }}</td>
+                        <td>{{ item.msgGenerationDateTime }}</td>
+                        <td>{{ item.requestSubErrorCode }}</td>
+                        <td>{{ item.responseCode }}</td>
+                        <td>{{ item.respGenerationDateTime }}</td>
+                        <td>{{ item.alarmResponseDescription }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

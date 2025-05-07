@@ -1,64 +1,89 @@
-.table-bordered th,
-.table-bordered td {
-    border: 0px solid #dee2e6;
-}
+// .table-bordered th,
+// .table-bordered td {
+//     border: 0px solid #dee2e6;
+// }
 
-table tr {
-    text-align: center;
-}
+// table tr {
+//     text-align: center;
+// }
 
-.table th,
-.table td {
-    // padding:7px 5px !important;
-    padding: 7px 22px !important;
-    vertical-align: middle !important;
-    border-top: 1px solid #dee2e6;
-    font-size: 12px !important;
-}
+// .table th,
+// .table td {
+//     // padding:7px 5px !important;
+//     padding: 7px 22px !important;
+//     vertical-align: middle !important;
+//     border-top: 1px solid #dee2e6;
+//     font-size: 12px !important;
+// }
 
-thead {
-    background: #31235e;
-    color: #fff;
-}
+// thead {
+//     background: #31235e;
+//     color: #fff;
+// }
 
-tbody{
-    height: 60px!important;
-}
+// tbody{
+//     height: 60px!important;
+// }
+
+// .heading {
+//     // padding:35px 20px 20px 20px;
+//     border-bottom: 2px solid #2a1c5a;
+// }
+
+// .equip-dtable {
+
+//     padding: 35px 20px !important;
+//     font-size: 15px !important;
+//     background: #ece6ff !important;
+// }
+
+// .editBtn {
+//     font-size: 12px;
+//     padding: 5px !important;
+//     width: 64px;
+//     color: #000;
+//     background-color: #f0ad4e;
+//     border-color: #eea236;
+// }
+
+// table.dataTable thead .sorting_asc {
+//     background: none !important;
+// }
+
+// table.dataTable thead .sorting {
+//     background: none !important;
+//     color: #fff;
+// }
+
+
+
+// .bdcrm {
+//     margin: 25px 0 0 0;
+// }
+
+// hr {
+//     border: 0;
+//     height: 5px;
+//     background: linear-gradient(to right,
+//             #00004d,
+//             #00004d,
+//             // rgb(185 171 171 / 0%)
+//         );
+// }
+
 
 .heading {
-    // padding:35px 20px 20px 20px;
-    border-bottom: 2px solid #2a1c5a;
+    text-align: center;
+    margin: 50px 0 20px;
 }
 
-.equip-dtable {
-
-    padding: 35px 20px !important;
-    font-size: 15px !important;
-    background: #ece6ff !important;
-}
-
-.editBtn {
-    font-size: 12px;
-    padding: 5px !important;
-    width: 64px;
+h2 {
+    text-align: center;
     color: #000;
-    background-color: #f0ad4e;
-    border-color: #eea236;
-}
-
-table.dataTable thead .sorting_asc {
-    background: none !important;
-}
-
-table.dataTable thead .sorting {
-    background: none !important;
-    color: #fff;
-}
-
-
-
-.bdcrm {
-    margin: 25px 0 0 0;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin: 20px;
 }
 
 hr {
@@ -69,4 +94,147 @@ hr {
             #00004d,
             // rgb(185 171 171 / 0%)
         );
+}
+
+.table-set {
+    overflow-x: auto;
+    padding: 10px 20px;
+    font-size: 14px;
+    background: #d7d7ff;
+}
+
+::ng-deep table.dataTable td.dataTables_empty {
+    display: none;
+  }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #00006d !important;
+    color: #fff;
+    text-align: center;
+    padding: 6px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td {
+    padding-left: 16px !important;
+}
+
+.text-des {
+    top: 17%;
+    position: fixed;
+    right: 2%;
+    font-size: 12px;
+    font-family: serif;
+}
+
+#hide-id {
+    display: none;
+}
+
+//for switch
+input[type="checkbox"] {
+    position: relative;
+    width: 50px;
+    height: 20px;
+    -webkit-appearance: none;
+    background: red;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    transition: .5s;
+}
+
+input:checked[type="checkbox"] {
+    background: green;
+    //background: #03a9f4;
+}
+
+input[type="checkbox"]:before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 20px;
+    border-radius: 20px;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    transition: .5s;
+}
+
+input:checked[type="checkbox"]:before {
+    left: 30px;
+}
+
+/*code by Badal*/
+
+.bdcrm {
+    margin: 25px 0 0 0;
+}
+
+.content-wrapper {
+    margin-bottom: 75px;
+}
+
+.editButton {
+    font-size: 25px;
+    color: #2806a5;
+}
+
+.headingTextLabel {
+    color: #00004d !important;
+    ;
+}
+
+.mrgn-bottom {
+    margin-bottom: 150px;
+}
+
+.statusDropdownList {
+    width: 150px;
+}
+
+
+.fltLeft {
+    float: left;
+}
+
+.fltRight {
+    float: right;
+}
+
+.download {
+    padding: 8px 22px;
+    color: #fff;
+    border: 0;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 12px;
+    // margin: 30px 7px 28px 0px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.searchBtn {
+    padding: 7px 14px;
+    color: #fff;
+    background: #00004d;
+    border: 2px solid #00004d;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 30px 7px 28px 0px;
+    letter-spacing: 2px;
+    cursor: pointer;
 }

@@ -19,8 +19,7 @@ import Swal from "sweetalert2";
 export class StationDashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
-    @ViewChild(DataTableDirective)
-    datatableElement: DataTableDirective;
+    @ViewChild(DataTableDirective) datatableElement: DataTableDirective;
     dtElement: DataTableDirective;
     dtTrigger: Subject<any> = new Subject();
 
@@ -99,24 +98,69 @@ export class StationDashboardComponent implements OnInit {
     }
 
     alarmlist() {
-    // this.stationAPI.getallAlarms().subscribe((res) => {
-    //     this.alarmsList = res["data"];
-    //     this.temp = true;
-    // });
-    this.stationAPI.getallAlarms().subscribe({
-        next:(res)=>{
-            if(res.status === "1"){
-                this.temp = true;
-                this.alarmsList = res.data;
-            }
-            else if(res.status === "0"){
-                this.toastr.error(res.data)
-            }
-        },
-        error:(err)=>{
-            this.toastr.error(err.error.data)
+      
+        // this.stationAPI.getallAlarms().subscribe({
+        //     next:(res)=>{
+        //         if(res.status === "1"){
+        //             this.temp = true;
+        //             this.alarmsList = res.data;
+        //         }
+        //         else if(res.status === "0"){
+        //             this.toastr.error(res.data)
+        //         }
+        //     },
+        //     error:(err)=>{
+        //         this.toastr.error(err.error.data)
+        //     }
+        // })
+        console.log("alarms logs");
+        
+
+        this.dtOptions={
+            paging:true,
+            pagingType:'full_numbers',
+            pageLength:10,
+            serverSide:true,
+            language:{
+                searchPlaceholder:"Type in here..."
+            },
+            ajax:(dataTablesParameters:any, callback) => {
+                let reqObj={
+                    "start":dataTablesParameters.start,
+                    "length":dataTablesParameters.length
+                }
+                console.log("dataTablesParameters   -----  ",reqObj);
+                
+                this.stationAPI.postAllAlarms(reqObj).subscribe({
+                    next:(resp:any)=>{
+                    
+                        if(resp['status']==="1"){
+                            console.log("its working");
+                            
+                            this.temp=true;
+                            this.alarmsList=resp.data
+                            console.log(this.alarmsList,'this.alarm  list');
+                            callback({
+                                recordsTotal: resp.totalSize,
+                                recordsFiltered: resp.totalSize,
+                                data: []
+                            })
+                        }
+                        else if(resp['status']==="0"){
+                            this.alarmsList=[];
+                            this.toastr.error(resp.data);
+                        }
+
+                    },
+                    error:(err)=>{
+                        this.toastr.error(err.error.data);
+                    }
+                })
+            },
+            ordering:true,
+            lengthMenu: ['5', '10', '20', '50', '100']
         }
-    })
-}
+
+    }
 
 }

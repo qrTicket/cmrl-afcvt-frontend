@@ -227,6 +227,7 @@ export class StationService {
         );
     }
 
+    //Not using in Station Dashboard 
     getallAlarms() {
         return this.http.get<any>(
             `${environment.productUrl}/alarms`
@@ -256,9 +257,13 @@ export class StationService {
     }
 
     // get audit file
-   getAuditFile():Observable<any> {
-    let stationName= localStorage.getItem('STATION_NAME')
-    return this.http.get(`${environment.BASEURL}/${this.getAuditFileEndUrl}/${stationName}`);
-  }
+    getAuditFile():Observable<any> {
+        let stationName= localStorage.getItem('STATION_NAME')
+        return this.http.get(`${environment.BASEURL}/${this.getAuditFileEndUrl}/${stationName}`);
+    }
 
+    // Alarms with pagination
+    postAllAlarms(dataTablePayload: any): Observable<any> {
+        return this.http.post<any>(`${environment.productUrl}/alarms`, dataTablePayload);
+    }
 }
